@@ -32,12 +32,9 @@ public class BetterBiomeProvider extends BiomeProvider {
 
     @Override
     public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height) {
-    	int size = width * height;
-    	if (biomes == null || biomes.length < size) {
-            biomes = new Biome[size];
-        }
-    	for(int i = 0; i < width; i++) 
-    		for(int j = 0; j < height; j++) {
+    	biomes = new Biome[100];
+    	for(int i = 0; i < 10; i++) 
+    		for(int j = 0; j < 10; j++) {
     			biomes[(j * 10) + i] = Biome.getBiome(getIDForCoords(x + i, z + j), 
     					Biomes.DEFAULT);
     		}
@@ -47,17 +44,18 @@ public class BetterBiomeProvider extends BiomeProvider {
 
     @Override
     public Biome[] getBiomes(@Nullable Biome[] in, int x, int z, int width, int depth, boolean cacheFlag) {
-    	int size = width * depth;
+    	IntCache.resetIntCache();
     	Biome[] out;
-        if((in == null) || (in.length < (size))) {
-            in = new Biome[size];
+        if((in == null) || (in.length < (width * depth))) {
+            in = new Biome[width * depth];
         }
-        if((width == 16) && (depth == 16) && ((x & 15) == 0) && ((z & 15) == 0)) {
-    		out = finder.findChunkGrid(x / 16, z / 16);
-    		System.arraycopy(out, 0, in, 0, size);
+        if(in.length == 256) {
+    		out = finder.getChunkGrid(finder.makeChunk(x / 16, z / 16));
+    		System.arraycopy(out, 0, in, 0, 256);  
+    		//System.out.println("Made cached chunk at " + (x/15) +", " + (z/16));
     	} else {
-    		// FIXME: Handle non-chunk dimensions
-    		in = finder.findChunkGrid(x / 16, z / 16);  
+    		in = finder.getChunkGrid(finder.makeChunk(x / 16, z / 16));    			 
+    		//System.out.println("Re-generated chunk at " + (x/15) +", " + (z/16));
     	}
         return in;
     }
@@ -88,16 +86,7 @@ public class BetterBiomeProvider extends BiomeProvider {
     
     @Override
     public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed) {
-        return allowed.contains(Biome.getBiome(finder.findSingleChunk((x / 16), (z / 16)).getBiome()));
-    }
-
-
-    /**
-     * Calls the WorldChunkManager's biomeCache.cleanupCache()
-     */
-    public void cleanupCache()  {
-    	finder.cleanCaches();
-        super.cleanupCache();
+        return allowed.contains(Biome.getBiome(finder.makeChunk((x / 16), (z / 16))[33].getBiome()));
     }
 
 }

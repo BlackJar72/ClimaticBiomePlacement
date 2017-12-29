@@ -5,33 +5,18 @@
  */
 package jaredbgreat.climaticbiome.generation.chunk;
 
-import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
-import jaredbgreat.climaticbiome.generation.cache.MutableCoords;
-import net.minecraft.server.MinecraftServer;
-
 
 /**
  *
  * @author jared
  */
-public final class Region extends AbstractCachable {
-    // FIXME: These should not really be duplicated
-    private static final int w = BiomeFinder.RSIZE, h = BiomeFinder.RSIZE;
-    
+public final class Region {
     BasinNode[] basins;
     ClimateNode[] temp;
     ClimateNode[] wet;
-    private int cx, cz;
-    
-    private MutableCoords coords;
-    private long timestamp;
-    private boolean cached;
-    
-    
-    public Region() {
-    	cached = false;
-    	coords = new MutableCoords();
-    }
+    // FIXME: These should not really be duplicated
+    private static final int w = BiomeFinder.RSIZE, h = BiomeFinder.RSIZE;
+    final int cx, cz;
     
     
     
@@ -41,22 +26,7 @@ public final class Region extends AbstractCachable {
         makeBasins(5, 10, 15, random.getRandomAt(x, z, 0));
         makeTempBasins(10, random.getRandomAt(x, z, 1));
         makeRainBasins(12, random.getRandomAt(x, z, 2));
-    	cached = false;
-        coords = new MutableCoords().init(cx, cz);
-        timestamp = MinecraftServer.getCurrentTimeMillis();
     }
-    
-    
-    public Region init(int x, int z, SpatialNoise random) {
-        cx = (x * BiomeFinder.RSIZE) - BiomeFinder.RADIUS;
-        cz = (z * BiomeFinder.RSIZE) - BiomeFinder.RADIUS;
-        makeBasins(5, 10, 15, random.getRandomAt(x, z, 0));
-        makeTempBasins(10, random.getRandomAt(x, z, 1));
-        makeRainBasins(12, random.getRandomAt(x, z, 2));
-        timestamp = MinecraftServer.getCurrentTimeMillis();	
-        return this;
-    }
-    
     
     
     private BasinNode makeBasin(int value, double decay, SpatialNoise.RandomAt random) {

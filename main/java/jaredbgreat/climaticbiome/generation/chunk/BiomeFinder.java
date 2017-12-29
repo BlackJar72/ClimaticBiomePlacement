@@ -6,10 +6,6 @@
 package jaredbgreat.climaticbiome.generation.chunk;
 
 import static jaredbgreat.climaticbiome.generation.chunk.SpatialNoise.absModulus;
-import jaredbgreat.climaticbiome.generation.cache.Cache;
-import jaredbgreat.climaticbiome.generation.cache.CachedPool;
-import jaredbgreat.climaticbiome.generation.cache.CachedPool.ObjectFactory;
-import jaredbgreat.climaticbiome.generation.cache.MutableCoords;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,32 +22,16 @@ public class BiomeFinder {
     // Using division to make the derivation obvious; this should be done
     // at compile time with no loss of performance.
     public static final int CSIZE = 16; // chuck size
-    public static final int CSQ   = CSIZE * CSIZE; // chuck size
     public static final int RSIZE = 4096 / CSIZE; // region / "continent" size
     public static final int RADIUS = RSIZE / 2; // radius for basin effect range
     public static final int SQRADIUS = RADIUS * RADIUS;
     public static final int BSIZE = 256 / CSIZE; // base size for (sub)biomes
-    public static final int GENSIZE = 7; // area of chunks to looks at
-    public static final int GENHALF1 = GENSIZE  / 2;
-    public static final int GENHALF0 = GENHALF1 - 1;
-    public static final int GENHALF2 = GENHALF1 + 1;
+    public static final int GENSIZE = 10; // area of chunks to looks at
     public static final int GENSQ = GENSIZE * GENSIZE; // area of chunks to looks at
-    
-    private volatile ObjectFactory<Region> regionFact = new ObjectFactory() {
-		@Override
-		public Region create() {
-			return new Region();
-		}
-    };
-    private CachedPool<Region> regionPool = new CachedPool<>(regionFact, 72, 72);
-    private Cache<BiomeArray>  biomeCache = new Cache<>(256);
-    private Cache<ChunkTile>   chunkCache = new Cache<>(256);
-    
-    private MutableCoords regionCoords = new MutableCoords(); 
     
     public final SpatialNoise chunkNoise;
     public final SpatialNoise regionNoise;
-    public final SpatialNoise biomeNoise;   
+    public final SpatialNoise biomeNoise;
     
     
     public BiomeFinder(long seed) {
@@ -80,28 +60,50 @@ public class BiomeFinder {
     }
     
     
+    /**
+     * Returns the distance between the point represented by the two 
+     * set of coordinates.
+     * 
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @return 
+     */
+    private int getSqIntDistance(int x1, int y1, int x2, int y2) {
+        return ((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2));
+    }
+    
+    
+    /**
+     * Returns true if the two points are within a distance less than half 
+     * the distance across a continental region, false if they are farther
+     * apart.  This is for determining if something (usually an attraction / 
+     * influence basin) is within range of a chunk.
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @return 
+     */
+    private boolean inRange(int x1, int y1, int x2, int y2) {
+        return (getSqIntDistance(x1, y1, x2, y2) < SQRADIUS);
+    }
+    
+    
     private Region[] findRegions(int x, int z) {
         Region[] out = new Region[9];
         int[] coords = findRegion(x, z);
         int index = 0;
         for(int i = -1; i < 2; i++)
             for(int j = -1; j < 2; j++) {
-            	regionCoords.init(coords[0] + i, coords[1] + j);
-                out[index] = regionPool.getEntry(regionCoords);
-                if(out[index].isCached()) {
-                	out[index].use();
-                } else {
-                	out[index].init(coords[0] + i, coords[1] + j, regionNoise);
-                	regionPool.add(out[index], regionCoords);
-                }
-                index++;
+                out[index++] = new Region(coords[0] + i, coords[1] + j, regionNoise);
             }
         return out;
     }
     
     
-    private ChunkTile[] makeChunks(int x, int z) {
-    	ChunkTile[] map = new ChunkTile[GENSQ];
+    public ChunkTile[] makeChunk(int x, int z) {
         Region[] regions = findRegions(x, z);
         ArrayList<BasinNode> basins = new ArrayList<BasinNode>();
         ArrayList<ClimateNode> temp = new ArrayList<ClimateNode>();
@@ -114,9 +116,10 @@ public class BiomeFinder {
         BasinNode[] basinAr = basins.toArray(new BasinNode[basins.size()]);
         ClimateNode[] tempAr = temp.toArray(new ClimateNode[temp.size()]);
         ClimateNode[] wetAr = wet.toArray(new ClimateNode[wet.size()]);
+        ChunkTile[] map = new ChunkTile[GENSQ];
         for(int i = 0; i < GENSIZE; i++)
             for(int j = 0; j < GENSIZE; j++) {                
-                map[(j * GENSIZE) + i] = new ChunkTile(x + i - GENHALF0, z + j - GENHALF0);
+                map[(j * GENSIZE) + i] = new ChunkTile(x + i - 4, z + j -4);
             }
         double[] tempNoise = averageNoise(makeDoubleNoise(x, z, 0));
         double[] wetNoise = averageNoise(makeDoubleNoise(x, z, 1));
@@ -137,22 +140,11 @@ public class BiomeFinder {
     }
     
     
-    public ChunkTile findSingleChunk(int x, int z) {
-    	ChunkTile out = chunkCache.get(x, z); 
-    	if(out == null) {
-    		out = makeChunks(x, z)[25];
-    		out.getCoords().init(x, z);
-    		chunkCache.add(out);
-    	}
-    	return out;
-    }
-    
-    
     protected int[][] makeNoise(int x, int z, int t) {
         int[][] noise = new int[GENSIZE + 2][GENSIZE + 2];
         for(int i = 1; i < (GENSIZE + 1); i++)
             for(int j = 0; j < (GENSIZE + 2); j++) {
-                noise[i][j] = absModulus(chunkNoise.intFor(x + i - GENHALF0, z + j - GENHALF0, 
+                noise[i][j] = absModulus(chunkNoise.intFor(x + i - 5, z + j - 5, 
                         t), 2);
             }
         return noise;
@@ -170,6 +162,7 @@ public class BiomeFinder {
     
     protected int[] refineNoise(int[][] noise, ChunkTile[] map) {
         int[] out = new int[GENSQ];
+        // Could be better optimized, but this is a test of the gui and api
         for(int i = 1; i < (GENSIZE + 1); i++) 
             for(int j = 1; j < (GENSIZE + 1); j++) {
                 out[((j - 1) * GENSIZE) + (i - 1)] = refineCell(noise, map, i, j);
@@ -180,6 +173,7 @@ public class BiomeFinder {
     
     protected int[][] refineNoise2(int[][] noise, ChunkTile[] map) {
         int[][] out = new int[noise.length][noise[0].length];
+        // Could be better optimized, but this is a test of the gui and api
         for(int i = 1; i < (GENSIZE + 1); i++) 
             for(int j = 1; j < (GENSIZE + 1); j++) {
                 out[i][j] = refineCell(noise, map, i, j);
@@ -207,7 +201,7 @@ public class BiomeFinder {
         double[][] noise = new double[GENSIZE + 4][GENSIZE + 4];
         for(int i = 0; i < (GENSIZE + 2); i++)
             for(int j = 0; j < (GENSIZE + 2); j++) {
-                noise[i][j] = (chunkNoise.doubleFor(x + i - GENHALF0, z + j - GENHALF0, t) / 5) - 0.1;
+                noise[i][j] = (chunkNoise.doubleFor(x + i - 6, z + j - 6, t) / 5) - 0.1;
             }
         return noise;
     }
@@ -215,6 +209,7 @@ public class BiomeFinder {
     
     public double[] averageNoise(double[][] noise) {
         double[] out = new double[GENSQ];
+        // Could be better optimized
         for(int i = 2; i < (GENSIZE + 2); i++) 
             for(int j = 2; j < (GENSIZE + 2); j++) {
                 out[((j - 2) * GENSIZE) + (i - 2)] = averageNoise(noise, i, j);
@@ -234,40 +229,7 @@ public class BiomeFinder {
     }
     
     
-    public Biome[] findChunkGrid(int x, int z) {
-    	if(biomeCache.contains(x, z)) {
-    		return biomeCache.get(x, z).getArray();
-    	} else {
-    		Biome[] out = makeChunkGrid(makeChunks(x, z));
-    		biomeCache.add(new BiomeArray(out, x, z));
-    		return out;
-    	}
-    }
-    
-    
-    public Biome[] makeChunkGrid(ChunkTile in[]) {
-    	Biome[] out = new Biome[CSQ];
-    	ChunkTile[] tiles = new ChunkTile[9];
-    	BiomeBasin[][] basins = new BiomeBasin[3][3];
-    	for(int i = 0; i < tiles.length; i++) {
-    		int x1 = (i / 3) + 2;
-    		int z1 = (i % 3) + 2;
-    		tiles[i] = in[(z1 * GENSIZE) + x1];
-    		basins[i / 3][i % 3] = new BiomeBasin(
-    				(x1 * CSIZE) + (chunkNoise.intFor(tiles[i].x, tiles[i].z, 10) % CSIZE),
-    				(z1 * CSIZE) + (chunkNoise.intFor(tiles[i].x, tiles[i].z, 11) % CSIZE),
-    				tiles[i].biome, 1.0 + chunkNoise.doubleFor(tiles[i].x, tiles[i].z, 12));    				
-    	}
-    	for(int i = 0; i < CSIZE; i++)
-    		for(int j = 0; j < CSIZE; j++) {
-    			out[(j * CSIZE) + i] = Biome.getBiome(BiomeBasin.summateEffect(basins, 48 + i, 48 + j),
-    					Biomes.DEFAULT);
-    		}
-    	return out;
-    }
-    
-    
-    private void makeBiomes(int x, int z, ChunkTile[] map) {
+    public void makeBiomes(int x, int z, ChunkTile[] map) {
         BiomeBasin[][] subBiomes = new BiomeBasin[5][5];
         int bx = x / BSIZE;
         int bz = z / BSIZE;
@@ -302,10 +264,51 @@ public class BiomeFinder {
     }
     
     
-    public void cleanCaches() {
-    	regionPool.cleanup();
-    	biomeCache.cleanup();
-    	chunkCache.cleanup();
+    public Biome[] getChunkGrid(ChunkTile in[]) {
+    	Biome[] out = new Biome[256];
+    	ChunkTile[] tiles = new ChunkTile[9];
+    	BiomeBasin[][] basins = new BiomeBasin[3][3];
+    	for(int i = 0; i < tiles.length; i++) {
+    		int x1 = (i / 3) + 2;
+    		int z1 = (i % 3) + 2;
+    		tiles[i] = in[(z1 * 10) + x1];
+    		basins[i / 3][i % 3] = new BiomeBasin(
+    				(x1 * 16) + (chunkNoise.intFor(tiles[i].x, tiles[i].z, 10) % 16),
+    				(z1 * 16) + (chunkNoise.intFor(tiles[i].x, tiles[i].z, 11) % 16),
+    				tiles[i].biome, 1.0 + chunkNoise.doubleFor(tiles[i].x, tiles[i].z, 12));    				
+    	}
+    	for(int i = 0; i < 16; i++)
+    		for(int j = 0; j < 16; j++) {
+    			out[(j * 16) + i] = Biome.getBiome(BiomeBasin.summateEffect(basins, 48 + i, 48 + j),
+    					Biomes.DEFAULT);
+    		}
+    	return out;
     }
+    
+    
+    public Biome[] getGenGrid(ChunkTile in[]) {
+    	Biome[] out = new Biome[100];
+    	ChunkTile[] tiles = new ChunkTile[9];
+    	BiomeBasin[][] basins = new BiomeBasin[3][3];
+    	for(int i = 0; i < tiles.length; i++) {
+    		int x1 = (i / 3) + 2;
+    		int z1 = (i % 3) + 2;
+    		tiles[i] = in[(z1 * 10) + x1];
+    		basins[i / 3][i % 3] = new BiomeBasin(
+    				(x1 * 16) + (chunkNoise.intFor(tiles[i].x, tiles[i].z, 10) % 16),
+    				(z1 * 16) + (chunkNoise.intFor(tiles[i].x, tiles[i].z, 11) % 16),
+    				tiles[i].biome, 1.0 + chunkNoise.doubleFor(tiles[i].x, tiles[i].z, 12));    				
+    	}
+    	for(int i = 0; i < 10; i++)
+    		for(int j = 0; j < 10; j++) {
+    			out[(j * 10) + i] = Biome.getBiome(BiomeBasin.summateEffect(basins, 38 + (i * 4), 38 + (j * 4)),
+    					Biomes.DEFAULT);
+    		}
+    	return out;
+    }
+    
+    
+    
+    
     
 }

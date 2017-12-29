@@ -10,27 +10,13 @@ package jaredbgreat.climaticbiome.generation.chunk;
  * @author jared
  */
 public class ClimateNode extends BasinNode {
-    double faintness;
+    final double faintness;
     
-    
-    public ClimateNode() {
-    	super();
-    }
   
 
     public ClimateNode(int x, int z, int value, double decay, int faintness) {
         super(x, z, value, decay);
         this.faintness = faintness * decay;
-    }
-    
-    
-    public ClimateNode init(int x, int z, int value, double decay, int faintness) {  	
-        this.x = x;
-        this.z = z;
-        this.value = value;
-        this.decay = decay;
-        this.faintness = faintness * decay; 
-        return this;
     }
     
     

@@ -10,27 +10,16 @@ package jaredbgreat.climaticbiome.generation.chunk;
  * @author jared
  */
 public class BasinNode {
-    int x, z, value;
-    double decay;
+    final int x, z, value;
+    final double decay;
     private static final double[] logtable = makeLogTable();
     
-
-	public BasinNode() {}
     
     public BasinNode(int x, int y, int value, double decay) {    	
         this.x = x;
         this.z = y;
         this.value = value;
         this.decay = decay;
-
-    }
-    
-    public BasinNode init(int x, int z, int value, double decay) {    	
-        this.x = x;
-        this.z = z;
-        this.value = value;
-        this.decay = decay;
-        return this;
     }
     
     

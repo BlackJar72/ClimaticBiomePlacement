@@ -5,16 +5,15 @@
  */
 package jaredbgreat.climaticbiome.generation.chunk;
 
-import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
-import jaredbgreat.climaticbiome.generation.cache.MutableCoords;
+import net.minecraft.world.biome.Biome;
 
 /**
  *
  * @author Jared Blackburn
  */
-public class ChunkTile extends AbstractCachable {
+public class ChunkTile {
     static final int size = 16;
-    int x, z;
+    final int x, z;
     int val = 0;
     BiomeType rlBiome;
     int temp = 0, wet = 0;
@@ -22,24 +21,10 @@ public class ChunkTile extends AbstractCachable {
     int noiseVal = 0;
     boolean mountain = false, hilly = false, land = false;
     
-
-	public ChunkTile() {
-		super();
-	}
-
-
-	public ChunkTile(int x, int z) {
-		super();
+    
+    public ChunkTile(int x, int z) {
         this.x = x;
         this.z = z;
-    }
-    
-    
-    public ChunkTile init(int x, int z) {
-        this.x = x;
-        this.z = z;
-    	super.setCached(false);
-        return this;
     }
 
     public static int getSize() {
