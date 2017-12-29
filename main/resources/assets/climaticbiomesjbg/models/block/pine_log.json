@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "climaticbiomesjbg:blocks/pinewood",
+        "side": "climaticbiomesjbg:blocks/pinebark"
+    }
+}
