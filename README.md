@@ -17,6 +17,5 @@ didn't have to travel a long way through repetitive repetition of just
 a few similar biomes, something that make exploring my world much more 
 fun.  Besides that, its was an interesting project to work out.
 
-Copyright (C) Jared Blackburn, 2017
-This work is licensed under a Creative Commons Attribution 3.0 Unported License.
+Copyright (C) Jared Blackburn, 2017, This work is licensed under a Creative Commons Attribution 3.0 Unported License.
 https://creativecommons.org/licenses/by/3.0/
