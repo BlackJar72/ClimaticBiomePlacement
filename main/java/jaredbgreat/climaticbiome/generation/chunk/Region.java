@@ -5,12 +5,14 @@
  */
 package jaredbgreat.climaticbiome.generation.chunk;
 
+import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
+
 
 /**
  *
  * @author jared
  */
-public final class Region {
+public final class Region extends AbstractCachable {
     BasinNode[] basins;
     ClimateNode[] temp;
     ClimateNode[] wet;
@@ -21,6 +23,7 @@ public final class Region {
     
     
     public Region(int x, int z, SpatialNoise random) {
+    	super(x, z);
         cx = (x * BiomeFinder.RSIZE) - BiomeFinder.RADIUS;
         cz = (z * BiomeFinder.RSIZE) - BiomeFinder.RADIUS;
         makeBasins(5, 10, 15, random.getRandomAt(x, z, 0));
@@ -77,7 +80,8 @@ public final class Region {
         nodes[0] = new ClimateNode(x, y, 0, 
                 (BasinNode.getLogScaled(-14) / 40) * 1.5, 0);
         dist = (BiomeFinder.RSIZE / 6) + random.nextInt(BiomeFinder.RSIZE / 3);
-        angle = angle + (random.nextDouble() * (Math.PI / 2)) + (Math.PI / 2);
+        angle = angle + (random.nextDouble() * (Math.PI / 2)) 
+        		+ ((Math.PI * 3) / 4);
         x = cx + (BiomeFinder.RADIUS) + (int)(dist * Math.cos(angle));
         y = cz + (BiomeFinder.RADIUS) + (int)(dist * Math.sin(angle));
         nodes[1] = new ClimateNode(x, y, 25, 

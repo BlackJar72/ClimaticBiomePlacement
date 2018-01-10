@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.model.ModelLoader;
 
-public class ItemLog extends ItemBlock {
+public class ItemLog extends RegisteringItemBlock {
 
 	public ItemLog(Block block) {
 		super(block);
@@ -17,13 +17,6 @@ public class ItemLog extends ItemBlock {
 
     public int getMetadata(int damage) {    	
         return damage;
-    }
-    
-    
-    public ItemLog registerModels() {
-    	ModelLoader.setCustomModelResourceLocation(this, 0, 
-    			new ModelResourceLocation(getRegistryName(), getUnlocalizedName()));
-    	return this;
     }
 
 }

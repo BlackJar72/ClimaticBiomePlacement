@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.IPlantable;
 
-public class ItemSapling extends ItemBlock {
+public class ItemSapling extends RegisteringItemBlock {
     
     
     public ItemSapling(Block block) {
@@ -45,12 +45,5 @@ public class ItemSapling extends ItemBlock {
 			return EnumActionResult.FAIL;
 		}
 	}
-	
-
-	public ItemSapling registerModels() {
-    	ModelLoader.setCustomModelResourceLocation(this, 0, 
-    			new ModelResourceLocation(block.getRegistryName(), block.getUnlocalizedName()));
-    	return this;
-    }
 
 }

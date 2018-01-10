@@ -6,6 +6,7 @@
 package jaredbgreat.climaticbiome.generation.chunk;
 
 import static jaredbgreat.climaticbiome.generation.chunk.SpatialNoise.absModulus;
+import jaredbgreat.climaticbiome.generation.cache.Cache;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +29,8 @@ public class BiomeFinder {
     public static final int BSIZE = 256 / CSIZE; // base size for (sub)biomes
     public static final int GENSIZE = 10; // area of chunks to looks at
     public static final int GENSQ = GENSIZE * GENSIZE; // area of chunks to looks at
+    
+    private final Cache<Region> regionCache = new Cache(144);
     
     public final SpatialNoise chunkNoise;
     public final SpatialNoise regionNoise;
@@ -97,7 +100,15 @@ public class BiomeFinder {
         int index = 0;
         for(int i = -1; i < 2; i++)
             for(int j = -1; j < 2; j++) {
-                out[index++] = new Region(coords[0] + i, coords[1] + j, regionNoise);
+                out[index] = regionCache.get(coords[0] + i, coords[1] + j);
+                if(out[index] == null) {
+                	out[index] = new Region(coords[0] + i, coords[1] + j, 
+                                regionNoise);
+                        regionCache.add(out[index]);
+                } else {
+                        out[index].use();
+                }
+                index++;
             }
         return out;
     }

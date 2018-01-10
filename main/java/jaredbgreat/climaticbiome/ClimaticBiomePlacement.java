@@ -92,6 +92,7 @@ public class ClimaticBiomePlacement {
 				new Biome.BiomeProperties("Dry Scrub")
 					.setTemperature(1.25F)
 					.setRainfall(0.05F)
+					.setRainDisabled()
 					.setBaseHeight(0.125F)
 					.setHeightVariation(0.05F)));
 		Biome.registerBiome(configHandler.getBiomeID("dense scrub hills"), 
@@ -106,6 +107,7 @@ public class ClimaticBiomePlacement {
 				new Biome.BiomeProperties("Dry Scrub Hills")
 					.setTemperature(1.25F)
 					.setRainfall(0.0F)
+					.setRainDisabled()
 					.setBaseHeight(0.45F)
 					.setHeightVariation(0.3F)));
 		Recipes.register();		
