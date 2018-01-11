@@ -7,6 +7,9 @@ import jaredbgreat.climaticbiome.biomes.WarmForest;
 import jaredbgreat.climaticbiome.blocks.Recipes;
 import jaredbgreat.climaticbiome.config.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.BetterWorldType;
+import jaredbgreat.climaticbiome.generation.chunk.biomes.GetChaparral;
+import jaredbgreat.climaticbiome.generation.chunk.biomes.GetSubtropicalForest;
+import jaredbgreat.climaticbiome.generation.chunk.biomes.GetTropicalForest;
 import jaredbgreat.climaticbiome.proxy.IProxy;
 
 import java.io.File;
@@ -110,7 +113,10 @@ public class ClimaticBiomePlacement {
 					.setRainDisabled()
 					.setBaseHeight(0.45F)
 					.setHeightVariation(0.3F)));
-		Recipes.register();		
+		Recipes.register();
+		GetChaparral.init();
+		GetSubtropicalForest.init();
+		GetTropicalForest.init();
 	}
 
 }
