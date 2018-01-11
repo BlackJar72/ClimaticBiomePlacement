@@ -123,12 +123,9 @@ public class BiomeFinder {
     	Coords coords = new Coords(x, z);
     	ChunkTile out = chunkCache.get(coords);
     	if(out == null) {
-    		System.out.println("Making chunk " + x + "," + z + " for getChunk()");
     		out = makeChunk(x, z)[24];
     		chunkCache.add(new ChunkTile(coords, out));
-    	} else {
-    		//System.out.println("*FINDING* chunk " + x + "," + z + " for getChunk()");
-    	}
+    	} 
     	return out;
     }
     
@@ -166,7 +163,6 @@ public class BiomeFinder {
         }
         BiomeType.makeBiomes(map, this, chunkNoise);        
         makeBiomes(x, z, map);
-        chunkCache.add(map[24]);
         return map;
     }
     
