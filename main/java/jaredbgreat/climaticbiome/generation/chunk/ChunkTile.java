@@ -5,13 +5,14 @@
  */
 package jaredbgreat.climaticbiome.generation.chunk;
 
-import net.minecraft.world.biome.Biome;
+import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
+import jaredbgreat.climaticbiome.generation.cache.Coords;
 
 /**
  *
  * @author Jared Blackburn
  */
-public class ChunkTile {
+public class ChunkTile extends AbstractCachable {
     static final int size = 16;
     final int x, z;
     int val = 0;
@@ -23,8 +24,26 @@ public class ChunkTile {
     
     
     public ChunkTile(int x, int z) {
+    	super(x, z);
         this.x = x;
         this.z = z;
+    }
+    
+    
+    public ChunkTile(Coords coords, ChunkTile other) {
+    	super(coords);
+        this.x = other.x;
+        this.z = other.z;
+        this.val = other.val;
+        this.rlBiome = other.rlBiome;
+        this.temp = other.temp; 
+        this.wet = other.wet;
+        this.biomeSeed = other.biomeSeed;
+        this.biome = other.biome;
+        this.noiseVal = other.noiseVal;
+        this.mountain = other.mountain;
+        this.hilly = other.hilly;
+        this.land = other.land;
     }
 
     public static int getSize() {

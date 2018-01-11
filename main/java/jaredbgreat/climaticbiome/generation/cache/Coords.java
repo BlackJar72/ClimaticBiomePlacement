@@ -49,12 +49,19 @@ public final class Coords {
     }
         
         
-        public static int absMod(int n, int m) {
-            int out = n % m;
-            if(out < 0) {
-                out += m;
-            }
-            return out;
+    public static int absMod(int n, int m) {
+    	int out = n % m;
+    	if(out < 0) {
+    			out += m;
         }
+        return out;
+    }
+    
+    
+    public String toString() {
+    	return "(" + x + ", " + z + ")";
+    }
+        
+        
 }
 

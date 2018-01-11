@@ -7,6 +7,7 @@ package jaredbgreat.climaticbiome.generation.chunk;
 
 import static jaredbgreat.climaticbiome.generation.chunk.SpatialNoise.absModulus;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
+import jaredbgreat.climaticbiome.generation.cache.Coords;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,10 +28,14 @@ public class BiomeFinder {
     public static final int RADIUS = RSIZE / 2; // radius for basin effect range
     public static final int SQRADIUS = RADIUS * RADIUS;
     public static final int BSIZE = 256 / CSIZE; // base size for (sub)biomes
-    public static final int GENSIZE = 10; // area of chunks to looks at
+    public static final int GENSIZE = 7; // area of chunks to looks at
+    public static final int GENHALF1 = GENSIZE  / 2;
+    public static final int GENHALF0 = GENHALF1 - 1;
+    public static final int GENHALF2 = GENHALF1 + 1;
     public static final int GENSQ = GENSIZE * GENSIZE; // area of chunks to looks at
     
-    private final Cache<Region> regionCache = new Cache(144);
+    private final Cache<Region> regionCache = new Cache(32);
+    private final Cache<ChunkTile> chunkCache = new Cache(64);
     
     public final SpatialNoise chunkNoise;
     public final SpatialNoise regionNoise;
@@ -114,6 +119,20 @@ public class BiomeFinder {
     }
     
     
+    public ChunkTile getChunk(int x, int z) {
+    	Coords coords = new Coords(x, z);
+    	ChunkTile out = chunkCache.get(coords);
+    	if(out == null) {
+    		System.out.println("Making chunk " + x + "," + z + " for getChunk()");
+    		out = makeChunk(x, z)[24];
+    		chunkCache.add(new ChunkTile(coords, out));
+    	} else {
+    		//System.out.println("*FINDING* chunk " + x + "," + z + " for getChunk()");
+    	}
+    	return out;
+    }
+    
+    
     public ChunkTile[] makeChunk(int x, int z) {
         Region[] regions = findRegions(x, z);
         ArrayList<BasinNode> basins = new ArrayList<BasinNode>();
@@ -130,7 +149,7 @@ public class BiomeFinder {
         ChunkTile[] map = new ChunkTile[GENSQ];
         for(int i = 0; i < GENSIZE; i++)
             for(int j = 0; j < GENSIZE; j++) {                
-                map[(j * GENSIZE) + i] = new ChunkTile(x + i - 4, z + j -4);
+                map[(j * GENSIZE) + i] = new ChunkTile(x + i - 3, z + j - 3);
             }
         double[] tempNoise = averageNoise(makeDoubleNoise(x, z, 0));
         double[] wetNoise = averageNoise(makeDoubleNoise(x, z, 1));
@@ -147,6 +166,7 @@ public class BiomeFinder {
         }
         BiomeType.makeBiomes(map, this, chunkNoise);        
         makeBiomes(x, z, map);
+        chunkCache.add(map[24]);
         return map;
     }
     
@@ -282,7 +302,7 @@ public class BiomeFinder {
     	for(int i = 0; i < tiles.length; i++) {
     		int x1 = (i / 3) + 2;
     		int z1 = (i % 3) + 2;
-    		tiles[i] = in[(z1 * 10) + x1];
+    		tiles[i] = in[(z1 * GENSIZE) + x1];
     		basins[i / 3][i % 3] = new BiomeBasin(
     				(x1 * 16) + (chunkNoise.intFor(tiles[i].x, tiles[i].z, 10) % 16),
     				(z1 * 16) + (chunkNoise.intFor(tiles[i].x, tiles[i].z, 11) % 16),
@@ -297,29 +317,10 @@ public class BiomeFinder {
     }
     
     
-    public Biome[] getGenGrid(ChunkTile in[]) {
-    	Biome[] out = new Biome[100];
-    	ChunkTile[] tiles = new ChunkTile[9];
-    	BiomeBasin[][] basins = new BiomeBasin[3][3];
-    	for(int i = 0; i < tiles.length; i++) {
-    		int x1 = (i / 3) + 2;
-    		int z1 = (i % 3) + 2;
-    		tiles[i] = in[(z1 * 10) + x1];
-    		basins[i / 3][i % 3] = new BiomeBasin(
-    				(x1 * 16) + (chunkNoise.intFor(tiles[i].x, tiles[i].z, 10) % 16),
-    				(z1 * 16) + (chunkNoise.intFor(tiles[i].x, tiles[i].z, 11) % 16),
-    				tiles[i].biome, 1.0 + chunkNoise.doubleFor(tiles[i].x, tiles[i].z, 12));    				
-    	}
-    	for(int i = 0; i < 10; i++)
-    		for(int j = 0; j < 10; j++) {
-    			out[(j * 10) + i] = Biome.getBiome(BiomeBasin.summateEffect(basins, 38 + (i * 4), 38 + (j * 4)),
-    					Biomes.DEFAULT);
-    		}
-    	return out;
+    public void cleanCaches() {
+    	regionCache.cleanup();
+    	chunkCache.cleanup();
     }
-    
-    
-    
     
     
 }

@@ -86,7 +86,13 @@ public class BetterBiomeProvider extends BiomeProvider {
     
     @Override
     public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed) {
-        return allowed.contains(Biome.getBiome(finder.makeChunk((x / 16), (z / 16))[33].getBiome()));
+        return allowed.contains(Biome.getBiome(finder.getChunk((x / 16), (z / 16)).getBiome()));
+    }
+
+    
+    public void cleanupCache() {
+        super.cleanupCache();
+        finder.cleanCaches();
     }
 
 }

@@ -71,7 +71,7 @@ public enum BiomeType {
     
     public static void makeBiomes(ChunkTile[] map, BiomeFinder maker, 
             SpatialNoise random) {
-        int[] noise = refineNoise(maker.makeNoise(map[44].x, map[44].z, 4), map);
+        int[] noise = refineNoise(maker.makeNoise(map[24].x, map[24].z, 4), map);
         for(int i = 0; i < map.length; i++) {
             findBiome(map[i], noise[i]);
         }

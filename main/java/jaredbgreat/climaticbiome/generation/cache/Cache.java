@@ -46,11 +46,12 @@ public class Cache <T extends ICachable> {
     public void add(T item) {
         int bucket = (item.getCoords().hashCode() & 0x7fffffff) % data.length;
         int offset = 0;
-        while(offset <= data.length) {
+        while(offset < data.length) {
             int slot = (bucket + offset) % data.length;
             if(data[slot] == null) {
                 data[slot] = item;
                 data[slot].use();
+            	//System.out.println("**ADDING item  " + item + " to cache**");
                 if(++length > capacity) {
                     grow();
                 }
@@ -73,7 +74,7 @@ public class Cache <T extends ICachable> {
     public T get(Coords coords) {
         int bucket = (coords.hashCode() & 0x7fffffff) % data.length;
         int offset = 0;
-        while(offset <= data.length) {
+        while(offset < data.length) {
             int slot = (bucket + offset) % data.length;
             if(data[slot] == null) {
                 return null;
@@ -98,7 +99,7 @@ public class Cache <T extends ICachable> {
     public T get(int x, int z) {
         int bucket = (Coords.hashCoords(x, z) & 0x7fffffff) % data.length;
         int offset = 0;
-        while(offset <= data.length) {
+        while(offset < data.length) {
             int slot = (bucket + offset) % data.length;
             if(data[slot] == null) {
                 return null;
@@ -122,7 +123,7 @@ public class Cache <T extends ICachable> {
     public boolean contains(Coords coords) {
         int bucket = (coords.hashCode() & 0x7fffffff) % data.length;
         int offset = 0;
-        while(offset <= data.length) {
+        while(offset < data.length) {
             int slot = (bucket + offset) % data.length;
             if(data[slot] == null) {
                 return false;
@@ -146,7 +147,7 @@ public class Cache <T extends ICachable> {
     public boolean contains(int x, int z) {
         int bucket = (Coords.hashCoords(x, z) & 0x7fffffff) % data.length;
         int offset = 0;
-        while(offset <= data.length) {
+        while(offset < data.length) {
             int slot = (bucket + offset) % data.length;
             if(data[slot] == null) {
                 return false;
@@ -240,6 +241,7 @@ public class Cache <T extends ICachable> {
     public void cleanup() {
         for(int i = 0; i < data.length; i++) {
             if((data[i] != null) && (data[i].isOldData())) {
+            	//System.out.println("**Removing item from cache**");
                 data[i] = null;
                 length--;
             }

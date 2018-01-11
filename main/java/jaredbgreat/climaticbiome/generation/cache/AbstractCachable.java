@@ -1,27 +1,33 @@
 package jaredbgreat.climaticbiome.generation.cache;
 
+import net.minecraft.server.MinecraftServer;
+
 public abstract class AbstractCachable implements ICachable { 
-    private Coords coords;
+    private final Coords coords;
     private long timestamp;
-    private boolean cached;
     
     
     public AbstractCachable(int x, int z) {
-    	cached = false;
         coords = new Coords(x, z);
-        timestamp = System.currentTimeMillis();
+        timestamp = MinecraftServer.getCurrentTimeMillis();
+    }
+    
+    
+    public AbstractCachable(Coords coords) {
+        this.coords = coords;
+        timestamp = MinecraftServer.getCurrentTimeMillis();
     }
     
     
     @Override
     public void use() {
-    	timestamp = System.currentTimeMillis();		
+    	timestamp = MinecraftServer.getCurrentTimeMillis();		
     }
     
     
     @Override
     public boolean isOldData() {
-    	long t = System.currentTimeMillis() - timestamp;
+    	long t = MinecraftServer.getCurrentTimeMillis() - timestamp;
     	return ((t > 30000) || (t < 0));	
     }
     
@@ -29,6 +35,11 @@ public abstract class AbstractCachable implements ICachable {
     @Override
     public Coords getCoords() {
         return coords;
+    }
+    
+    
+    public String toString() {
+    	return super.toString() + " at " + coords.toString();
     }
     
 }
