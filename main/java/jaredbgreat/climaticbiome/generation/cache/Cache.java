@@ -1,5 +1,10 @@
 package jaredbgreat.climaticbiome.generation.cache;
 
+// Something about this clearly isn't working as expected; adding 
+// extra data seems to prevent somethings from being retrieved 
+// and/or added -- which makes no sense, so I have no idea what 
+// I've done wrong.
+
 /**
  * A cache system using a skiplist based hash map.
  * 
@@ -193,7 +198,7 @@ public class Cache <T extends ICachable> {
         ICachable[] data = new ICachable[(old.length * 3) / 2];
         for(int i = 0; i < old.length; i++) {
             if(old[i] != null) {
-                rebucket((T)old[i]);
+                rebucket(old[i]);
             }
         }
         capacity = (data.length * 3) / 4;
@@ -209,7 +214,7 @@ public class Cache <T extends ICachable> {
         ICachable[] data = new ICachable[old.length / 2];
         for(int i = 0; i < old.length; i++) {
             if(old[i] != null) {
-                rebucket((T)old[i]);
+                rebucket(old[i]);
             }
         }
         capacity = (data.length * 3) / 4;
@@ -217,7 +222,7 @@ public class Cache <T extends ICachable> {
     }
     
     
-    private void rebucket(T item) {
+    private void rebucket(ICachable item) {
         int bucket = (item.getCoords().hashCode() & 0x7fffffff) % data.length;
         int offset = 0;
         while(offset <= data.length) {
@@ -239,6 +244,7 @@ public class Cache <T extends ICachable> {
  30 seconds), though other criteria for isOldData() could be created.
      */
     public void cleanup() {
+    	int startSize = data.length;
         for(int i = 0; i < data.length; i++) {
             if((data[i] != null) && (data[i].isOldData())) {
             	//System.out.println("**Removing item from cache**");
@@ -248,6 +254,12 @@ public class Cache <T extends ICachable> {
         }
         if(length < lowLimit) {
             shrink();
+        } else if(length != startSize) {
+        	ICachable[] old = data;
+        	data = new ICachable[data.length];
+        	for(int i = 0; i < length; i++) {
+        		rebucket(old[i]);
+        	}
         }
     } 
 }
