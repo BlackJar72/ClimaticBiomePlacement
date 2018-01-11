@@ -254,11 +254,13 @@ public class Cache <T extends ICachable> {
         }
         if(length < lowLimit) {
             shrink();
-        } else if(length != startSize) {
+        } else if(data.length != startSize) {
         	ICachable[] old = data;
         	data = new ICachable[data.length];
         	for(int i = 0; i < length; i++) {
-        		rebucket(old[i]);
+        		if(old[i] != null) {
+        			rebucket(old[i]);
+        		}
         	}
         }
     } 
