@@ -11,12 +11,13 @@ import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
  * though a GetLeafBiome intance could also be created with in which all 
  * variants were the same.
  */
-public class GetLeafBiome implements IBiomeSpecifier {
-	private final int biome;
+public class GetSingleBiome implements IBiomeSpecifier {
+	private int biome;
 	
 	
-	public GetLeafBiome(int biome) {
+	public GetSingleBiome init(int biome) {
 		this.biome = biome;
+		return this;
 	}
 	
 

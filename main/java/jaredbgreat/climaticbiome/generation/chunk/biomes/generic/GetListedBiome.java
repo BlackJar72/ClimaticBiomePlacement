@@ -14,8 +14,9 @@ public class GetListedBiome implements IBiomeSpecifier {
 	 * even if something ridiculous has been created (though ideally it should 
 	 * be shallow, 2-3 layers counting leaf nodes).
 	 */
-	public GetListedBiome(/*PARAMETERS*/) {
-		// TODO: EVRTYTHING!
+	public GetListedBiome init(IBiomeSpecifier[] in) {
+		biomes = in;
+		return this;
 	}
 	
 

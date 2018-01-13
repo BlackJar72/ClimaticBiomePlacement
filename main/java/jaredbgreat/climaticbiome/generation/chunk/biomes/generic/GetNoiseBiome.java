@@ -11,22 +11,24 @@ import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
  * to separate plateaus from valleys in the mesa biomes (or similar).
  */
 public class GetNoiseBiome implements IBiomeSpecifier {
-	private final int a, bound, b;
+	private int bound;
+	private IBiomeSpecifier a, b;
 	
 	
-	public GetNoiseBiome(int lowerBiome, int cutOff, int upperBiome) {
+	public GetNoiseBiome init(IBiomeSpecifier lowerBiome, int cutOff, IBiomeSpecifier upperBiome) {
 		a = lowerBiome;
 		bound = cutOff;
 		b = upperBiome;
+		return this;
 	}
 	
 
 	@Override
 	public int getBiome(ChunkTile tile) {
 		if(tile.getNoise() < bound) {
-			return a;
+			return a.getBiome(tile);
 		} else {
-			return b;
+			return b.getBiome(tile);
 		}
 	}
 

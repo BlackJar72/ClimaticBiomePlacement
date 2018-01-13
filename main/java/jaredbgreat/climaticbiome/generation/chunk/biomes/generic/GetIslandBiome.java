@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.chunk.biomes.generic;
 
+import jaredbgreat.climaticbiome.generation.chunk.BiomeType;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
 
@@ -18,30 +19,32 @@ import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
 	private IBiomeSpecifier landFinder;
 	 
 	
-	public GetIslandBiome() {
+	public GetIslandBiome init() {
 		oceanFinder = new GetDefaultOceans();
-		landFinder  = new GetDefaultLand();	
+		landFinder  = new GetDefaultLand();
+		return this;	
 	}		
 	
 	 
-	public GetIslandBiome(IBiomeSpecifier oceans, IBiomeSpecifier land) {
+	public GetIslandBiome init(IBiomeSpecifier oceans, IBiomeSpecifier land) {
 		oceanFinder = oceans;
 		landFinder  = land;	
-		if(landFinder = null) {
+		if(landFinder == null) {
 			landFinder = new GetDefaultLand();
 		}
 		if(oceanFinder == null) {
 			oceanFinder = new GetDefaultOceans();
 		}
+		return this;
 	}		
 	
 
 	@Override
 	public int getBiome(ChunkTile tile) {
 		tile.nextBiomeSeed();		
-		if(noise > (3 + (tile.getBiomeSeed() % 3))) {	
+		if(tile.getNoise() > (3 + (tile.getBiomeSeed() % 3))) {	
 			tile.nextBiomeSeed();
-			return land.getBiome(tile);
+			return landFinder.getBiome(tile);
 		} else {			
 			tile.nextBiomeSeed();
 			return oceanFinder.getBiome(tile);

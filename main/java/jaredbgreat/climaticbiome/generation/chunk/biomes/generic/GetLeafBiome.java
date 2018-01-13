@@ -15,26 +15,27 @@ import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
  * possibly a GetSingleBiome instance.
  */
 public class GetLeafBiome implements IBiomeSpecifier {
-	private final int main, hill, mutated, mhill, mountain;
+	private int main, hill, mutated, mhill, mountain;
 	
 	
-	public GetLeafBiome(int main, int hill, int mutated, int mhill, int mountain) {
+	public GetLeafBiome init(int main, int hill, int mutated, int mhill, int mountain) {
 		this.main     = main;
 		this.hill     = hill;
 		this.mutated  = mutated;
 		this.mhill    = mhill;
-		this.mountain = moutain;
+		this.mountain = mountain;
+		return this;
 	}
 	
 
 	@Override
 	public int getBiome(ChunkTile tile) {
-		byte determiner = (tile.getBiomeSeed() & 0x7f000000) >> 24;
+		int determiner = (tile.getBiomeSeed() & 0x7f000000) >> 24;
 		if((determiner & 0x70) == 0x70) {
 			if(((determiner & 0x01)  == 1) 
-					&& ((determiner & 0x2) || (tile.getNoise() > 4))) {
+					&& (((determiner & 0x2) == 2) || (tile.getNoise() > 4))) {
 				return mhill;
-			} else if {
+			} else {
 				return mutated;
 			}
 		} else {
@@ -43,7 +44,8 @@ public class GetLeafBiome implements IBiomeSpecifier {
 					return mountain;
 				} else if(((determiner & 0x02) == 0x02) || (tile.getNoise() > 4)) {
 					return hill;
-				return main;
+				}
+			return main;
 			} 
 		}
 		return main;
