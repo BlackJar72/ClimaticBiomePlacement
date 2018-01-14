@@ -68,7 +68,7 @@ public class BiomeConfigurator {
 			}
 			tokens = new StringTokenizer(line, delim);
 			token1 = tokens.nextToken();
-			if(token1.equals("import")) {
+			if(token1.toLowerCase().equals("import")) {
 				readFile(new File(tokens.nextToken()));
 			} else {
 				specifier = addSpecifier(token1, tokens.nextToken());
@@ -100,6 +100,9 @@ public class BiomeConfigurator {
 		}
 		String line;
 		while((line = reader.readLine()) != null) {
+			if(line.startsWith("#")) {
+				continue;
+			}
 			tokens = new StringTokenizer(line, delim);
 			if(readDataLine(tokens, specifier)) {
 				return;
@@ -129,17 +132,37 @@ public class BiomeConfigurator {
 			} else if(token.endsWith("}")) {
 				// This should not be done, but someone is bound to do it
 				token = token.substring(0, token.length() - 1);
+				if(token.toLowerCase().equals("null")) {
+					specifier.addString(null);
+				} else {
+					specifier.addString(token);
+				}
 				specifier.addString(token);
 				return true;
 			} else {
-				specifier.addString(token);
+				if(token.toLowerCase().equals("null")) {
+					specifier.addString(null);
+				} else {
+					specifier.addString(token);
+				}
 			}
 		}
 		return false;
 	}
 	
 	
-	
+	/**
+	 * This will take a name and type and create an empty IBiomeSpecifier 
+	 * and matching AbstractTempBiome to hold its initialization data 
+	 * unitl all data is read.  It will also add the name of the new 
+	 * biome specifier to the list of identifiers which are iterated 
+	 * during the follow data setup phase. 
+	 * 
+	 * 
+	 * @param type
+	 * @param name
+	 * @return
+	 */
 	private AbstractTempBiome addSpecifier(String type, String name) {
 		AbstractTempBiome out = null;
 		identifiers.add(name);
