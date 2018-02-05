@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiome.generation.chunk.biomes.generic;
 
-import jaredbgreat.climaticbiome.generation.chunk.BiomeType;
+import jaredbgreat.climaticbiome.generation.chunk.EnumBiomeType;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
 
@@ -55,7 +55,7 @@ import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
 	private class GetDefaultLand implements IBiomeSpecifier {
 		@Override
 		public int getBiome(ChunkTile tile) {
-			BiomeType.findLandBiome(tile);
+			EnumBiomeType.findLandBiome(tile);
 			return tile.getRlBiome().specifier.getBiome(tile);
 		}
 	}

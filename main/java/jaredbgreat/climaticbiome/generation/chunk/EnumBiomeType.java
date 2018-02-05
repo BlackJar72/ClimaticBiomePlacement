@@ -11,7 +11,7 @@ import jaredbgreat.climaticbiome.generation.chunk.biomes.*;
  *
  * @author jared
  */
-public enum BiomeType {
+public enum EnumBiomeType {
     
     OCEAN (new GetOcean()),
     FROCEAN (new GetFrozenOcean()),
@@ -32,11 +32,11 @@ public enum BiomeType {
     
         public final IBiomeSpecifier specifier;
     
-    BiomeType(IBiomeSpecifier spec) {
+    EnumBiomeType(IBiomeSpecifier spec) {
         specifier = spec;
     }
     
-    private static final BiomeType[] table = {
+    private static final EnumBiomeType[] table = {
     	//Arctic
     	TUNDRA, TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA, TUNDRA, TUNDRA, TUNDRA, TUNDRA,
     	TUNDRA, TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA, TUNDRA, TUNDRA, TUNDRA, TUNDRA,
@@ -100,7 +100,7 @@ public enum BiomeType {
     }
     
     
-    private static int[] refineNoise(int[][] noise, ChunkTile[] map) {
+    static int[] refineNoise(int[][] noise, ChunkTile[] map) {
         int[] out = new int[BiomeFinder.GENSQ];
         // Could be better optimized, but this is a test of the gui and api
         for(int i = 1; i < (BiomeFinder.GENSIZE + 1); i++) 
@@ -114,7 +114,7 @@ public enum BiomeType {
     }
     
     
-    private static int[] refineNoise10(int[][] noise, ChunkTile[] map) {
+    static int[] refineNoise10(int[][] noise, ChunkTile[] map) {
         int[] out = new int[BiomeFinder.GENSQ];
         // Could be better optimized, but this is a test of the gui and api
         for(int i = 1; i < (BiomeFinder.GENSIZE + 1); i++) 
@@ -128,7 +128,7 @@ public enum BiomeType {
     }
     
     
-    private static int[] refineNoise(int[][] noise, ChunkTile[] map, int bound) {
+    static int[] refineNoise(int[][] noise, ChunkTile[] map, int bound) {
         int[] out = new int[BiomeFinder.GENSQ];
         // Could be better optimized, but this is a test of the gui and api
         for(int i = 1; i < (BiomeFinder.GENSIZE + 1); i++) 
@@ -142,7 +142,7 @@ public enum BiomeType {
     }
     
     
-    private static int refineCell(int[][] noise, int x, int y) {
+    static int refineCell(int[][] noise, int x, int y) {
         int sum = 0;
         // Yes, I include the cell itself -- its simpler and works for me
         for(int i = x - 1; i <= x + 1; i++) 

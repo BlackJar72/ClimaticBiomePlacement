@@ -161,7 +161,7 @@ public class BiomeFinder {
         for(int i = 0; i < map.length; i++) {
             map[i].land = (landNoise[i] == 0);
         }
-        BiomeType.makeBiomes(map, this, chunkNoise);        
+        EnumBiomeType.makeBiomes(map, this, chunkNoise);        
         makeBiomes(x, z, map);
         return map;
     }

@@ -1,7 +1,7 @@
 package jaredbgreat.climaticbiome.generation.chunk.biomes;
 
 import jaredbgreat.climaticbiome.ClimaticBiomePlacement;
-import jaredbgreat.climaticbiome.generation.chunk.BiomeType;
+import jaredbgreat.climaticbiome.generation.chunk.EnumBiomeType;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 
 public class GetTropicalForest implements IBiomeSpecifier {

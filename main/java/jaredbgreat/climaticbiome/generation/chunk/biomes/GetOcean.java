@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiome.generation.chunk.biomes;
 
-import jaredbgreat.climaticbiome.generation.chunk.BiomeType;
+import jaredbgreat.climaticbiome.generation.chunk.EnumBiomeType;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 
 public class GetOcean implements IBiomeSpecifier {
@@ -12,7 +12,7 @@ public class GetOcean implements IBiomeSpecifier {
 		if((seed % 5) == 0) {
 			if(noise > (3 + (seed % 3))) {	
 				tile.nextBiomeSeed();
-				BiomeType.findLandBiome(tile);
+				EnumBiomeType.findLandBiome(tile);
 				return tile.getRlBiome().specifier.getBiome(tile);
 			} else {
 				return 0;

@@ -1,7 +1,7 @@
 package jaredbgreat.climaticbiome.generation.chunk.biomes;
 
 import jaredbgreat.climaticbiome.ClimaticBiomePlacement;
-import jaredbgreat.climaticbiome.generation.chunk.BiomeType;
+import jaredbgreat.climaticbiome.generation.chunk.EnumBiomeType;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 
 public class GetSubtropicalForest implements IBiomeSpecifier {
@@ -14,7 +14,7 @@ public class GetSubtropicalForest implements IBiomeSpecifier {
 		// FIXME: These IDs should be configurable and retrieved from a variable.
 		int seed = tile.getBiomeSeed();
 		if((seed % 5) == 0) {
-			return BiomeType.ALPINE.specifier.getBiome(tile);
+			return EnumBiomeType.ALPINE.specifier.getBiome(tile);
 		}
 		switch(seed % 12) {
 			case 0:
