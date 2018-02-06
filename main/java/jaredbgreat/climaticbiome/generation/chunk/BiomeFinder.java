@@ -41,6 +41,8 @@ public class BiomeFinder {
     public final SpatialNoise regionNoise;
     public final SpatialNoise biomeNoise;
     
+    static IBiomeType realFinder = new BuiltinBiomeType();
+    
     
     public BiomeFinder(long seed) {
         Random random = new Random(seed);
@@ -161,7 +163,7 @@ public class BiomeFinder {
         for(int i = 0; i < map.length; i++) {
             map[i].land = (landNoise[i] == 0);
         }
-        EnumBiomeType.makeBiomes(map, this, chunkNoise);        
+        realFinder.makeBiomes(map, this, chunkNoise);        
         makeBiomes(x, z, map);
         return map;
     }

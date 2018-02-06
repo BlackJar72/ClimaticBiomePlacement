@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class BiomeConfigurator {
+	File file;
 	private static final String delim = " ,\t";
 	private boolean inBlock;
 	HashMap<String, IBiomeSpecifier>   specifiers;
@@ -25,14 +26,19 @@ public class BiomeConfigurator {
 	ArrayList<String> identifiers;
 	
 	
-	BiomeConfigurator(File file) {
+	public BiomeConfigurator(File file) {
 		if(!file.exists() || !file.canRead() || !file.isFile()) {
 			System.err.println("ERROR: The file " + file + " could not be read!");
 			return;
 		}
+		this.file = file;
 		specifiers  = new HashMap<>();
 		temps       = new HashMap<>();
 		identifiers = new ArrayList();
+	}
+	
+	
+	public void process() {		
 		try {
 			readFile(file);
 		} catch (FileNotFoundException e) {
@@ -42,7 +48,7 @@ public class BiomeConfigurator {
 		}
 		for(String name : identifiers) {
 			temps.get(name).setupSpecifier(name);
-		}
+		}		
 	}
 	
 	

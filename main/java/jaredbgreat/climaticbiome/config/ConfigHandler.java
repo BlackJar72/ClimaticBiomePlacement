@@ -12,6 +12,8 @@ public final class ConfigHandler {
 	private static File file;
 	private final HashMap<String, Integer> idMap;
 	
+	BiomeConfigurator customBiomes;
+	
 	// Defaults
 	private static final int WARM_FOREST_ID = 66;
 	private static final int HOT_FOREST_ID = 67;
@@ -96,7 +98,12 @@ public final class ConfigHandler {
 	}
 	
 	
-	
+	public void findCustomBiomes() {
+		File biomesFile = new File(dir.getPath() 
+				+ File.separatorChar + Info.DIR + ".cfg");
+		customBiomes = new BiomeConfigurator(biomesFile);
+		customBiomes.process();
+	}
 	
 	
 

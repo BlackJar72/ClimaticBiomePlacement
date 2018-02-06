@@ -59,7 +59,9 @@ public class ClimaticBiomePlacement {
     
     
     @EventHandler
-    public void postInit(FMLPostInitializationEvent event) {}
+    public void postInit(FMLPostInitializationEvent event) {    	
+    	configHandler.findCustomBiomes();
+    }
     
     
     private void registerBiomes() {
