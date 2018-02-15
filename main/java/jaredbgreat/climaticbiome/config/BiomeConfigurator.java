@@ -25,6 +25,27 @@ public class BiomeConfigurator {
 	HashMap<String, AbstractTempBiome> temps;
 	ArrayList<String> identifiers;
 	
+	// FIXME / TODO: Re-write this using GSon based JSon files...
+	
+/*
+ * Plan: Load in BiomeGroup objects with GSon, then construct a tree using those.
+ * Question, do I need to have the AbstractTempBiome and its subclasses, or just 
+ * build the final tree of IBiomeSpecifiers directly from a list of tree of
+ * BiomeGroupe objects.
+ * 
+ * System Idea 1: Build TempBiomes from the BiomeGroup objects, then build the 
+ * actual IBiomeSpecifier decision tree from the TempBiomes.
+ * 
+ * System Idea 2: Process the BiomeGroup records (objects) directly into an 
+ * ISpecifier decision tree use a two pass system.  The first pass reads the 
+ * name and type and creates the IBiomeSpecifier objects without assigning 
+ * fields, storing them into a HashMap.  The second pass then fills in the 
+ * data for each IBiomeSpecifier, effectively linking them into a tree (or 
+ * trees if multiple configurations is eventually allowed).
+ * 
+ * (At the moment, System 2 seems the better and cleaner approach.)
+ *
+ */
 	
 	public BiomeConfigurator(File file) {
 		if(!file.exists() || !file.canRead() || !file.isFile()) {
@@ -36,163 +57,4 @@ public class BiomeConfigurator {
 		temps       = new HashMap<>();
 		identifiers = new ArrayList();
 	}
-	
-	
-	public void process() {		
-		try {
-			readFile(file);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		for(String name : identifiers) {
-			temps.get(name).setupSpecifier(name);
-		}		
-	}
-	
-	
-	/**
-	 * This will read and parse a file into IBiomeSpecifiers.
-	 * 
-	 * This includes recognition of comments, blocks, and the 
-	 * ability to import additional files.
-	 * 
-	 * @param file
-	 * @throws FileNotFoundException
-	 * @throws IOException
-	 */
-	private void readFile(File file) throws FileNotFoundException, IOException {
-		BufferedReader reader = new BufferedReader(new FileReader(file));
-		StringTokenizer tokens = null;
-		AbstractTempBiome specifier;
-		inBlock = false;
-		String line, token1, token3;
-		while((line = reader.readLine()) != null) {
-			if(line.startsWith("#")) {
-				continue;
-			}
-			tokens = new StringTokenizer(line, delim);
-			token1 = tokens.nextToken();
-			if(token1.toLowerCase().equals("import")) {
-				readFile(new File(tokens.nextToken()));
-			} else {
-				specifier = addSpecifier(token1, tokens.nextToken());
-				if((token3 = tokens.nextToken()).equals("{")) {
-					readData(reader, tokens, specifier);
-				} else {
-					specifier.addString(token3);
-				}
-			}
-			
-		}			
-	}
-	
-	
-	/**
-	 * Read data for a a specific IBiomeSpecifier (or more accurately,
-	 * for its temporary stand-in, an AbstractTempBiome) from a block 
-	 * of data.  Such blocks are delimited with curly braces.
-	 * 
-	 * @param reader
-	 * @param tokens
-	 * @param specifier
-	 * @throws IOException
-	 */
-	private void readData(BufferedReader reader, StringTokenizer tokens, 
-				AbstractTempBiome specifier) throws IOException {
-		if(readDataLine(tokens, specifier)) {
-			return;
-		}
-		String line;
-		while((line = reader.readLine()) != null) {
-			if(line.startsWith("#")) {
-				continue;
-			}
-			tokens = new StringTokenizer(line, delim);
-			if(readDataLine(tokens, specifier)) {
-				return;
-			}
-		}
-	}
-	
-	
-	/**
-	 * Reads one line of data for a specific IBiomeSpecifier (or more 
-	 * accurately, for its temporary stand-in, an AbstractTempBiome).
-	 * 
-	 * Returns true if the end of the block was reached, otherwise 
-	 * returns false.
-	 * 
-	 * @param tokens
-	 * @param specifier
-	 * @return
-	 */
-	private boolean readDataLine(StringTokenizer tokens, 
-				AbstractTempBiome specifier) {
-		String token;
-		while(tokens.hasMoreTokens()) {
-			token = tokens.nextToken();
-			if(token.equals("}")) {
-				return true;
-			} else if(token.endsWith("}")) {
-				// This should not be done, but someone is bound to do it
-				token = token.substring(0, token.length() - 1);
-				if(token.toLowerCase().equals("null")) {
-					specifier.addString(null);
-				} else {
-					specifier.addString(token);
-				}
-				specifier.addString(token);
-				return true;
-			} else {
-				if(token.toLowerCase().equals("null")) {
-					specifier.addString(null);
-				} else {
-					specifier.addString(token);
-				}
-			}
-		}
-		return false;
-	}
-	
-	
-	/**
-	 * This will take a name and type and create an empty IBiomeSpecifier 
-	 * and matching AbstractTempBiome to hold its initialization data 
-	 * unitl all data is read.  It will also add the name of the new 
-	 * biome specifier to the list of identifiers which are iterated 
-	 * during the follow data setup phase. 
-	 * 
-	 * 
-	 * @param type
-	 * @param name
-	 * @return
-	 */
-	private AbstractTempBiome addSpecifier(String type, String name) {
-		AbstractTempBiome out = null;
-		identifiers.add(name);
-		if(type.toLowerCase().equals("island")) {
-			specifiers.put(name, new GetIslandBiome());
-			temps.put(name, out = new TempIslandBiome(this));
-		} else if(type.toLowerCase().equals("leaf")) {
-			specifiers.put(name, new GetLeafBiome());
-			temps.put(name, out = new TempLeafBiome(this));
-		} else if(type.toLowerCase().equals("list")) {
-			specifiers.put(name, new GetListedBiome());
-			temps.put(name, out = new TempListedBiome(this));
-		} else if(type.toLowerCase().equals("noise")) {
-			specifiers.put(name, new GetNoiseBiome());
-			temps.put(name, out = new TempNoiseBiome(this));
-		} else if(type.toLowerCase().equals("single")) {
-			specifiers.put(name, new GetSingleBiome());
-			temps.put(name, out = new TempSingleBiome(this));
-		} else if(type.toLowerCase().equals("table")) {
-			specifiers.put(name, new BiomeTable());
-			temps.put(name, out = new TempBiomeTable(this));
-		} 
-		return out;
-	}
-	
-
 }

@@ -102,7 +102,6 @@ public final class ConfigHandler {
 		File biomesFile = new File(dir.getPath() 
 				+ File.separatorChar + Info.DIR + ".cfg");
 		customBiomes = new BiomeConfigurator(biomesFile);
-		customBiomes.process();
 	}
 	
 	
