@@ -22,9 +22,9 @@ public class NoiseRecord extends AbstractRecord {
     
     public enum Subtype {
         NOISE,
+        ISLAND,
         TEMP,
         WET,
-        ISLAND,
         SPECIAL;
     }
 }

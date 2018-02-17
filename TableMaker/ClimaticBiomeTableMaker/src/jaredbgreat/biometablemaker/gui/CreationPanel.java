@@ -12,10 +12,10 @@ import javax.swing.JPanel;
  */
 public class CreationPanel extends JPanel {
     
+    JButton makeIncludes;
     JButton makeTable;
     JButton makeList;
     JButton makeNoise;
-    JButton makeTemp;
     JButton makeIsland;
     JButton makeType;
     JButton makeLeaf;
@@ -25,6 +25,13 @@ public class CreationPanel extends JPanel {
     public CreationPanel() {        
         layout = new GridLayout(8, 1, 8, 8);
         this.setSize(128, 480);
+        
+        makeIncludes = new JButton("makeIncludes");
+        makeIncludes.setText("Includes");
+        makeIncludes.addActionListener(ActionInterpreter.getInterpreter());
+        makeIncludes.setActionCommand("makeIncludes");
+        makeIncludes.setName("mskeTable");        
+        add(makeIncludes);
         
         makeTable = new JButton("makeTable");
         makeTable.setText("Table");
@@ -46,13 +53,6 @@ public class CreationPanel extends JPanel {
         makeNoise.setActionCommand("makeNoise");
         makeTable.setName("makeNoise");
         add(makeNoise);
-        
-        makeTemp = new JButton("makeTemp");
-        makeTemp.setText("Temperature");
-        makeTemp.addActionListener(ActionInterpreter.getInterpreter());
-        makeTemp.setActionCommand("makeTemp");
-        makeTable.setName("makeTemp");
-        add(makeTemp);
         
         makeIsland = new JButton("makeIsland");
         makeIsland.setText("Island");
