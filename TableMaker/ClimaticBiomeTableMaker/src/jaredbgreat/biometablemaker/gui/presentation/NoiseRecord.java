@@ -18,6 +18,11 @@ public class NoiseRecord extends AbstractRecord {
         divide  = new JTextField();
         upper   = new JTextField();
     }
+
+    @Override
+    void modify() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     public enum Subtype {

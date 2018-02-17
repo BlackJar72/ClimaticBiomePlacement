@@ -1,12 +1,13 @@
 package jaredbgreat.biometablemaker.data;
 
 public enum EnumSpecifierType {
-    TABLE  (BiomeTable.class),
-    LIST   (BiomeList.class),
-    NOISE  (BiomeNoise.class),
-    ISLAND (BiomeIsland.class),
-    TYPE   (BiomeType.class), // Originally called "leaf"
-    LEAF   (BiomeLeaf.class); // Originally called "single"
+    INCLUDE (IncludeData.class),
+    TABLE   (BiomeTable.class),
+    LIST    (BiomeList.class),
+    NOISE   (BiomeNoise.class),
+    ISLAND  (BiomeIsland.class),
+    TYPE    (BiomeType.class), // Originally called "leaf"
+    LEAF    (BiomeLeaf.class); // Originally called "single"
     
     public Class type;
     

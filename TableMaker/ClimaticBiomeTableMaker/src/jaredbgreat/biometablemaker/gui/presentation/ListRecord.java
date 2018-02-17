@@ -15,4 +15,9 @@ public class ListRecord extends AbstractRecord {
     public ListRecord() {
         fields = new ArrayList<>();
     }
+
+    @Override
+    void modify() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
