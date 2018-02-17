@@ -19,7 +19,7 @@ public class TableRecord extends AbstractRecord {
     @Override
     public void modify() {
         super.modify();
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        model.modify(this);
     }    
     
 

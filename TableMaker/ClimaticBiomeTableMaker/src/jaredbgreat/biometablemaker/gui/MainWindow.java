@@ -14,7 +14,8 @@ public class MainWindow extends JFrame {
     
     public MainWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(640, 480);
+        this.setTitle("Climatic Biome Table Maker");
+        setSize(640, 480);
         
         layout = new BorderLayout();
         

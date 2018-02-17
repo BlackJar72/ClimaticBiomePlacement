@@ -8,6 +8,7 @@ import javax.swing.JTextField;
  * @author Jared Blackburn
  */
 public abstract class AbstractRecord extends JPanel {
+    public static final int FWIDTH = 32;
     JTextField nameField;
     
     public void modify() {

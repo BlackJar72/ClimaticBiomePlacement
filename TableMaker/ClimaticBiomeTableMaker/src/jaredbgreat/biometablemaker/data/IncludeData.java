@@ -35,4 +35,9 @@ public class IncludeData implements ISpecifierData {
     }
     
     
+    public List<String> getFiles() {
+        return files;
+    }
+    
+    
 }

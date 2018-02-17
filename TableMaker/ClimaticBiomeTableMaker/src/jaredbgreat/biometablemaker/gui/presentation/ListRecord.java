@@ -1,5 +1,8 @@
 package jaredbgreat.biometablemaker.gui.presentation;
 
+import jaredbgreat.biometablemaker.data.BiomeList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextField;
@@ -8,7 +11,8 @@ import javax.swing.JTextField;
  *
  * @author Jared Blackburn
  */
-public class ListRecord extends AbstractRecord {
+public class ListRecord extends AbstractRecord implements ActionListener {
+    BiomeList model;
     private List<JTextField> fields;
     
     
@@ -17,7 +21,30 @@ public class ListRecord extends AbstractRecord {
     }
 
     @Override
-    void modify() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void modify() {
+        super.modify();
+        model.modify(this);
+        for(JTextField f : fields) {
+            remove(f);
+        }
+        fields.clear();
+        for(String s : model.getBiomes()) {
+            JTextField f = new JTextField(s);
+            f.setColumns(FWIDTH);
+            f.setText(s);
+            f.addActionListener(this);
+            fields.add(f);
+            add(f);
+        }
+    }
+    
+    
+    public List<JTextField> getFields() {
+        return fields;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        modify();
     }
 }
