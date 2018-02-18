@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
  *
  * @author Jared Blackburn
  */
-public class cmdMakeIncludes  implements ICommand {
+public class CmdMakeIsland implements ICommand {
 
     @Override
     public void execute(ActionEvent evt) {

@@ -27,13 +27,13 @@ public class ActionInterpreter extends HashMap<String, ICommand>
      * table of commands.
      */
     public static void setup() {
-        singleton.put("makeIncludes", new cmdMakeIncludes());
-        singleton.put("makeTable", new cmdMakeTable());
-        singleton.put("makeList", new cmdMakeList());
-        singleton.put("makeNoise", new cmdMakeList());
-        singleton.put("makeIsland", new cmdMakeIsland());
-        singleton.put("makeType", new cmdMakeType());
-        singleton.put("makeLeaf", new cmdMakeLeaf());
+        singleton.put("makeIncludes", new CmdMakeIncludes());
+        singleton.put("makeTable", new CmdMakeTable());
+        singleton.put("makeList", new CmdMakeList());
+        singleton.put("makeNoise", new CmdMakeList());
+        singleton.put("makeIsland", new CmdMakeIsland());
+        singleton.put("makeType", new CmdMakeType());
+        singleton.put("makeLeaf", new CmdMakeLeaf());
     }
 
     @Override

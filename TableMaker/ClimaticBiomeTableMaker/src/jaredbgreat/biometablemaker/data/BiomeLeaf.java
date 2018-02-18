@@ -9,6 +9,10 @@ import jaredbgreat.biometablemaker.gui.presentation.LeafRecord;
  */
 public class BiomeLeaf implements ISpecifierData {
     int biome;
+    
+    public BiomeLeaf() {
+        biome = 0;
+    }
 
     @Override
     public void modify(AbstractRecord presentation) {

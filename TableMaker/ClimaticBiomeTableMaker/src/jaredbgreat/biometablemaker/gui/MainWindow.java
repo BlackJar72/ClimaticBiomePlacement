@@ -1,5 +1,6 @@
 package jaredbgreat.biometablemaker.gui;
 
+import jaredbgreat.biometablemaker.gui.control.Components;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
@@ -10,6 +11,7 @@ public class MainWindow extends JFrame {
     
     BorderLayout layout;
     CreationPanel buttons;
+    EntryPanel entryPanel;
     
     
     public MainWindow() {
@@ -21,7 +23,11 @@ public class MainWindow extends JFrame {
         
         buttons = new CreationPanel();
         add(buttons, BorderLayout.PAGE_START);
+        Components.map.put("buttonPanel", buttons);
         
+        entryPanel = new EntryPanel();
+        add(entryPanel, BorderLayout.CENTER);
+        Components.map.put("mainPanel", entryPanel);
         
         setLayout(layout);
         setVisible(true);

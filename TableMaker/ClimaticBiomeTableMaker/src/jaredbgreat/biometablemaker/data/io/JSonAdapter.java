@@ -33,6 +33,7 @@ public class JSonAdapter implements JsonSerializer, JsonDeserializer {
     public static Gson getJsonAdapter() {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(ISpecifierData.class, new JSonAdapter());
+        builder.setPrettyPrinting();
         return builder.create();
     }
     

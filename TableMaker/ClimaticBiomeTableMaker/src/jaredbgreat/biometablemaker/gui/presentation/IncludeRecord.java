@@ -24,8 +24,7 @@ public class IncludeRecord extends AbstractRecord implements ActionListener {
         fields.clear();
         // TODO: (Not here) learn functional crap, though it seems pointless.
         for(String s : model.getFiles()) {
-            JTextField f = new JTextField(s);
-            f.setColumns(FWIDTH);
+            JTextField f = new JTextField(FWIDTH);
             f.setText(s);
             f.addActionListener(this);
             fields.add(f);

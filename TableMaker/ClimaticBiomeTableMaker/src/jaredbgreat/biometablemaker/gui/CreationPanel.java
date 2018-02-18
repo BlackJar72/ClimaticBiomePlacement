@@ -24,7 +24,7 @@ public class CreationPanel extends JPanel {
     
     public CreationPanel() {        
         layout = new GridLayout(8, 1, 8, 8);
-        this.setSize(128, 480);
+        setSize(128, 480);
         
         makeIncludes = new JButton("makeIncludes");
         makeIncludes.setText("Includes");

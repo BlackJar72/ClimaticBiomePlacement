@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
  *
  * @author Jared Blackburn
  */
-public class cmdMakeType implements ICommand {
+public class CmdMakeNoise implements ICommand {
 
     @Override
     public void execute(ActionEvent evt) {

@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
  *
  * @author Jared Blackburn
  */
-public class cmdMakeLeaf implements ICommand {
+public class CmdMakeTable implements ICommand {
 
     @Override
     public void execute(ActionEvent evt) {
