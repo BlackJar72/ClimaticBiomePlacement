@@ -30,7 +30,7 @@ public class ActionInterpreter extends HashMap<String, ICommand>
         singleton.put("makeIncludes", new CmdMakeIncludes());
         singleton.put("makeTable", new CmdMakeTable());
         singleton.put("makeList", new CmdMakeList());
-        singleton.put("makeNoise", new CmdMakeList());
+        singleton.put("makeNoise", new CmdMakeNoise());
         singleton.put("makeIsland", new CmdMakeIsland());
         singleton.put("makeType", new CmdMakeType());
         singleton.put("makeLeaf", new CmdMakeLeaf());

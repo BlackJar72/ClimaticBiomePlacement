@@ -1,5 +1,7 @@
 package jaredbgreat.biometablemaker.gui.control;
 
+import jaredbgreat.biometablemaker.gui.EntryPanel;
+import jaredbgreat.biometablemaker.gui.presentation.NoiseRecord;
 import java.awt.event.ActionEvent;
 
 /**
@@ -10,7 +12,8 @@ public class CmdMakeNoise implements ICommand {
 
     @Override
     public void execute(ActionEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        NoiseRecord rec = new NoiseRecord();
+        ((EntryPanel)Components.map.get("mainPanel")).addEntry(rec);         
     }
     
 }

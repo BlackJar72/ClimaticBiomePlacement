@@ -2,9 +2,9 @@ package jaredbgreat.biometablemaker.gui;
 
 import jaredbgreat.biometablemaker.gui.presentation.AbstractRecord;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -20,7 +20,9 @@ public class EntryPanel extends JPanel {
     public EntryPanel() {
         index = 0;
         entries = new ArrayList<>();
+        setMinimumSize(new Dimension(512, 480));
         setSize(512, 480);
+        this.
         setVisible(true);
     }
     

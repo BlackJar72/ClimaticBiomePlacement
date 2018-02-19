@@ -9,7 +9,7 @@ import jaredbgreat.biometablemaker.gui.presentation.NoiseRecord;
  */
 public class BiomeNoise implements ISpecifierData {
     String upper;
-    int bound;
+    int bound = 0;
     String lower;    
 
     

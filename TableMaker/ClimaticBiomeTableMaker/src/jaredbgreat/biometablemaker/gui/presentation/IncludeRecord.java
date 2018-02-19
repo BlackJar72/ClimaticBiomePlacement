@@ -10,7 +10,7 @@ import javax.swing.JTextField;
  *
  * @author Jared Blackburn
  */
-public class IncludeRecord extends AbstractRecord implements ActionListener {
+public class IncludeRecord extends AbstractRecord {
     private List<JTextField> fields;
     private IncludeData model;
 
@@ -26,7 +26,6 @@ public class IncludeRecord extends AbstractRecord implements ActionListener {
         for(String s : model.getFiles()) {
             JTextField f = new JTextField(FWIDTH);
             f.setText(s);
-            f.addActionListener(this);
             fields.add(f);
             add(f);
         }
@@ -35,10 +34,5 @@ public class IncludeRecord extends AbstractRecord implements ActionListener {
     
     public List<JTextField> getFields() {
         return fields;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        modify();
     }
 }

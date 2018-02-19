@@ -9,7 +9,7 @@ import javax.swing.JTextField;
  *
  * @author Jared Blackurn
  */
-public class IslandRecord extends AbstractRecord implements ActionListener {
+public class IslandRecord extends AbstractRecord  {
     BiomeIsland model;
     JTextField land;
     JTextField ocean;
@@ -19,12 +19,6 @@ public class IslandRecord extends AbstractRecord implements ActionListener {
     public void modify() {
         super.modify();
         model.modify(this);
-    }
-    
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        modify();
     }
     
     

@@ -11,7 +11,7 @@ import javax.swing.JTextField;
  *
  * @author Jared Blackburn
  */
-public class ListRecord extends AbstractRecord implements ActionListener {
+public class ListRecord extends AbstractRecord {
     BiomeList model;
     private List<JTextField> fields;
     private List<JTextField> values;
@@ -32,7 +32,6 @@ public class ListRecord extends AbstractRecord implements ActionListener {
         for(String s : model.getBiomes()) {
             JTextField f = new JTextField(FWIDTH);
             f.setText(s);
-            f.addActionListener(this);
             fields.add(f);
             add(f);
         }
@@ -46,10 +45,5 @@ public class ListRecord extends AbstractRecord implements ActionListener {
     
     public List<JTextField> getFields() {
         return fields;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        modify();
     }
 }

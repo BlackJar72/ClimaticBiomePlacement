@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jaredbgreat.biometablemaker.data;
 
 import jaredbgreat.biometablemaker.gui.presentation.AbstractRecord;
@@ -11,7 +6,7 @@ import jaredbgreat.biometablemaker.gui.presentation.TypeRecord;
 
 /**
  *
- * @author jared
+ * @author Jared Blackburn
  */
 public class BiomeType implements ISpecifierData {
     String base;
@@ -23,7 +18,7 @@ public class BiomeType implements ISpecifierData {
     @Override
     public void modify(AbstractRecord presentation) {        
         TypeRecord rec = null;
-        if(presentation instanceof IncludeRecord) {
+        if(presentation instanceof TypeRecord) {
             rec = (TypeRecord)presentation;
         } else {
             System.err.println("ERROR! Type data paired with wrong data "
