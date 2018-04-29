@@ -2,13 +2,12 @@ package jaredbgreat.climaticbiome.generation;
 
 import javax.annotation.Nonnull;
 
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeProvider;
-import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.ChunkProviderOverworld;
+import net.minecraft.world.gen.ChunkGeneratorOverworld;
+import net.minecraft.world.gen.IChunkGenerator;
 
 public class BetterWorldType extends WorldType {
     private static BiomeProvider biomeProvider;
@@ -19,7 +18,7 @@ public class BetterWorldType extends WorldType {
 	}
 
     public IChunkGenerator getChunkGenerator(World world, String generatorOptions) { 
-        return new ChunkProviderOverworld(world, world.getSeed(), 
+        return new ChunkGeneratorOverworld(world, world.getSeed(), 
         		world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
     }
 

@@ -1,6 +1,8 @@
 package jaredbgreat.climaticbiome.generation.chunk.biomes;
 
+import net.minecraft.world.biome.Biome;
 import jaredbgreat.climaticbiome.ClimaticBiomePlacement;
+import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 
 public class GetChaparral implements IBiomeSpecifier {
@@ -26,10 +28,10 @@ public class GetChaparral implements IBiomeSpecifier {
 	
 	
 	public static void init() {
-		dense      = ClimaticBiomePlacement.configHandler.getBiomeID("dense scrub");
-		dry        = ClimaticBiomePlacement.configHandler.getBiomeID("dry scrub");
-		densehills = ClimaticBiomePlacement.configHandler.getBiomeID("dense scrub hills");
-		dryhills   = ClimaticBiomePlacement.configHandler.getBiomeID("dry scrub hills");
+		dense      = Biome.getIdForBiome(ModBiomes.denseScrub);
+		dry        = Biome.getIdForBiome(ModBiomes.dryScrub);
+		densehills = Biome.getIdForBiome(ModBiomes.denseScrubHills);
+		dryhills   = Biome.getIdForBiome(ModBiomes.dryScrubHills);
 	}
 
 }

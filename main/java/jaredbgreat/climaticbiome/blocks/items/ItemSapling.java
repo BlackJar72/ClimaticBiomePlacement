@@ -30,7 +30,7 @@ public class ItemSapling extends RegisteringItemBlock {
     
 
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, 
+	public EnumActionResult onItemUse(EntityPlayer player, World world, 
 			BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		IBlockState ground = world.getBlockState(pos);
 		if(ground.getBlock().canSustainPlant(ground, world, pos.down(), EnumFacing.UP, 
@@ -38,7 +38,8 @@ public class ItemSapling extends RegisteringItemBlock {
 			IBlockState plant = ModBlocks.pineSapling.getDefaultState();
 			world.setBlockState(pos.up(), plant);
 			if(!player.isCreative()) {
-				stack.stackSize--;
+				ItemStack stack = player.getActiveItemStack(); 
+				stack.setCount(stack.getCount() - 1);
 			}
 			return EnumActionResult.SUCCESS;
 		} else {

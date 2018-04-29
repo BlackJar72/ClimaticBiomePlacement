@@ -46,7 +46,7 @@ public class Scrub extends Biome {
 	public Scrub(Type type, BiomeProperties properties) {
 		super(properties);
 		this.type = type;
-		theBiomeDecorator.deadBushPerChunk = 5;
+		decorator.deadBushPerChunk = 5;
 		spawnableCreatureList.add(new Biome.SpawnListEntry(EntityRabbit.class, 4, 2, 3));
 		if(type == Type.DRY) {
 			setupDry();
@@ -57,19 +57,20 @@ public class Scrub extends Biome {
 	
 	
 	private void setupDense() {
-		theBiomeDecorator.treesPerChunk = 3;
-        theBiomeDecorator.grassPerChunk = 6;
+		decorator.treesPerChunk = 3;
+        decorator.grassPerChunk = 6;
 	}
 	
 	
 	private void setupDry() {
-        theBiomeDecorator.cactiPerChunk = 15;
-		theBiomeDecorator.treesPerChunk = 1;
-        theBiomeDecorator.grassPerChunk = 2;
+        decorator.cactiPerChunk = 15;
+		decorator.treesPerChunk = 1;
+        decorator.grassPerChunk = 2;
 	}	
 
 
-    public WorldGenAbstractTree genBigTreeChance(Random random) {
+	@Override
+    public WorldGenAbstractTree getRandomTreeFeature(Random random) {
     	if((type != Type.DRY) && random.nextInt(5) == 0) {
             return TREE_FEATURE;
     	}

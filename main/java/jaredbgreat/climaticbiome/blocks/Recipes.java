@@ -14,8 +14,8 @@ public class Recipes {
 		OreDictionary.registerOre("treeSapling", ModBlocks.pineSapling);
 		
 		
-		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.pinePlanks, 4, 0), 
-				ModBlocks.pineLog);
+		//GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.pinePlanks, 4, 0), 
+		//		ModBlocks.pineLog);
 		
 	}
 	

@@ -1,8 +1,10 @@
 package jaredbgreat.climaticbiome.generation.chunk.biomes;
 
 import jaredbgreat.climaticbiome.ClimaticBiomePlacement;
-import jaredbgreat.climaticbiome.generation.chunk.EnumBiomeType;
+import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
+import jaredbgreat.climaticbiome.generation.chunk.EnumBiomeType;
+import net.minecraft.world.biome.Biome;
 
 public class GetSubtropicalForest implements IBiomeSpecifier {
 	private static int forest;
@@ -45,8 +47,8 @@ public class GetSubtropicalForest implements IBiomeSpecifier {
 	
 	
 	public static void init() {
-		forest    = ClimaticBiomePlacement.configHandler.getBiomeID("warm forest");
-		hills     = ClimaticBiomePlacement.configHandler.getBiomeID("warm forest hills");
-		pinewoods = ClimaticBiomePlacement.configHandler.getBiomeID("pinewoods");
+		forest    = Biome.getIdForBiome(ModBiomes.warmForest);
+		hills     = Biome.getIdForBiome(ModBiomes.warmForestHills);
+		pinewoods = Biome.getIdForBiome(ModBiomes.pineWoods);
 	}
 }

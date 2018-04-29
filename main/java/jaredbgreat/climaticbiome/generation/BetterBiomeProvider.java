@@ -51,11 +51,9 @@ public class BetterBiomeProvider extends BiomeProvider {
         }
         if(in.length == 256) {
     		out = finder.getChunkGrid(finder.makeChunk(x / 16, z / 16));
-    		System.arraycopy(out, 0, in, 0, 256);  
-    		//System.out.println("Made cached chunk at " + (x/15) +", " + (z/16));
+    		System.arraycopy(out, 0, in, 0, 256); 
     	} else {
-    		in = finder.getChunkGrid(finder.makeChunk(x / 16, z / 16));    			 
-    		//System.out.println("Re-generated chunk at " + (x/15) +", " + (z/16));
+    		in = finder.getChunkGrid(finder.makeChunk(x / 16, z / 16));
     	}
         return in;
     }

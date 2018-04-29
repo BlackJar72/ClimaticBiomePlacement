@@ -14,8 +14,10 @@ public abstract class RegisteringItemBlock extends ItemBlock {
 	
 
 	public RegisteringItemBlock registerModels() {
-    	ModelLoader.setCustomModelResourceLocation(this, 0, 
-    			new ModelResourceLocation(block.getRegistryName(), block.getUnlocalizedName()));
+		ModelResourceLocation recloc 
+				= new ModelResourceLocation(block.getRegistryName(), 
+						block.getUnlocalizedName()); 
+    	ModelLoader.setCustomModelResourceLocation(this, 0, recloc);
     	return this;
     }
 
