@@ -80,10 +80,10 @@ public final class Region extends AbstractCachable {
         nodes[0] = new ClimateNode(x, y, 0, 
                 (BasinNode.getLogScaled(-14) / 40) * 1.5, 0);
         dist = (BiomeFinder.RSIZE / 6) + random.nextInt(BiomeFinder.RSIZE / 3);
-//        angle = angle + (random.nextDouble() * (Math.PI / 2)) 
-//        		+ ((Math.PI * 3) / 4);
-        angle = angle + (random.nextDouble() * Math.PI) 
-        		+ (Math.PI / 2);
+        angle = angle + (random.nextDouble() * (Math.PI / 2)) 
+        		+ ((Math.PI * 3) / 4);
+//        angle = angle + (random.nextDouble() * Math.PI) 
+//        		+ (Math.PI / 2);
         x = cx + (BiomeFinder.RADIUS) + (int)(dist * Math.cos(angle));
         y = cz + (BiomeFinder.RADIUS) + (int)(dist * Math.sin(angle));
         nodes[1] = new ClimateNode(x, y, 25, 

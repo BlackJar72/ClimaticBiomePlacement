@@ -15,27 +15,30 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
  * @author Jared Blackburn
  */
 public class WarmForest extends BiomeForest {
-	private static final GenPine PINE_GENERATOR = new GenPine();
+	private final GenPine PinGenerator;
 
 	public WarmForest() {
 		super(BiomeForest.Type.NORMAL, 
 				new Biome.BiomeProperties("Subtropical Forest")
 					.setTemperature(0.8f)
 					.setRainfall(0.85f));
+		PinGenerator = new GenPine();
 	}
 
 	public WarmForest(Biome.BiomeProperties prop) {
 		super(BiomeForest.Type.NORMAL, prop);
+		PinGenerator = new GenPine();
 	}
 
 	
+	@Override
     public WorldGenAbstractTree genBigTreeChance(Random rand) {
     	int t = rand.nextInt(5);
     	switch(t) {
     		case 0:
     			return BIG_TREE_FEATURE;
     		case 1:
-    			return PINE_GENERATOR;
+    			return PinGenerator;
     		default:
     			return TREE_FEATURE;
     	}

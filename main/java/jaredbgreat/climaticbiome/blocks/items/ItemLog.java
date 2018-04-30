@@ -15,7 +15,7 @@ public class ItemLog extends RegisteringItemBlock {
 	}
 	
 
-    public int getMetadata(int damage) {    	
+    public int getMetadata(int damage) { 
         return damage;
     }
 

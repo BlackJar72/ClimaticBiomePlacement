@@ -39,6 +39,7 @@ public class TropicalForest extends BiomeForest {
 	}
 
 	
+	@Override
     public WorldGenAbstractTree genBigTreeChance(Random rand) {
     	int t = rand.nextInt(5);
     	switch(t) {

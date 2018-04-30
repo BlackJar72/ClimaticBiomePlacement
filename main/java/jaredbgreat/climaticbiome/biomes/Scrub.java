@@ -2,7 +2,6 @@ package jaredbgreat.climaticbiome.biomes;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockOldLeaf;
@@ -14,8 +13,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeForest;
-import net.minecraft.world.biome.BiomeTaiga;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenBlockBlob;
@@ -58,17 +55,18 @@ public class Scrub extends Biome {
 	
 	private void setupDense() {
 		theBiomeDecorator.treesPerChunk = 3;
-        theBiomeDecorator.grassPerChunk = 6;
+		theBiomeDecorator.grassPerChunk = 6;
 	}
 	
 	
 	private void setupDry() {
-        theBiomeDecorator.cactiPerChunk = 15;
+		theBiomeDecorator.cactiPerChunk = 15;
 		theBiomeDecorator.treesPerChunk = 1;
-        theBiomeDecorator.grassPerChunk = 2;
+		theBiomeDecorator.grassPerChunk = 2;
 	}	
 
 
+	@Override
     public WorldGenAbstractTree genBigTreeChance(Random random) {
     	if((type != Type.DRY) && random.nextInt(5) == 0) {
             return TREE_FEATURE;

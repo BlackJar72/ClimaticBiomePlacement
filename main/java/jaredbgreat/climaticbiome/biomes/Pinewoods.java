@@ -9,7 +9,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeForest;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenTaiga1;
 
 /**
  * A warm, subtropical biome based loosely on parts of northern Florida, 
@@ -31,11 +30,12 @@ public class Pinewoods extends BiomeForest {
 					.setTemperature(0.85f)
 					.setRainfall(1.0F));
 	    theBiomeDecorator.grassPerChunk = 10;
-        theBiomeDecorator.clayPerChunk = 1;
-        theBiomeDecorator.waterlilyPerChunk = 2;
+	    theBiomeDecorator.clayPerChunk = 1;
+	    theBiomeDecorator.waterlilyPerChunk = 2;
 	}
 
 	
+	@Override
     public WorldGenAbstractTree genBigTreeChance(Random rand) {
     	if((rand.nextInt(8) % 8) == 0) {
     		return SWAMP_FEATURE;
