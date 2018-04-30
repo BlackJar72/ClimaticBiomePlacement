@@ -4,6 +4,8 @@ import jaredbgreat.climaticbiome.generation.chunk.biomes.GetChaparral;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.GetSubtropicalForest;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.GetTropicalForest;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -25,26 +27,32 @@ public class ModBiomes {
     
     public static void createBiomes() {
 		warmForest = new WarmForest();
-		tropicalForest = new TropicalForest();	
+		BiomeDictionary.registerBiomeType(warmForest, Type.FOREST, Type.CONIFEROUS);
+		tropicalForest = new TropicalForest();
+		BiomeDictionary.registerBiomeType(tropicalForest, Type.FOREST, Type.JUNGLE, Type.HOT);
 		pineWoods = new Pinewoods();
+		BiomeDictionary.registerBiomeType(pineWoods, Type.FOREST, Type.WET, Type.HOT, Type.CONIFEROUS, Type.SWAMP);
 		warmForestHills 
 				= new WarmForest(new Biome.BiomeProperties("Subtropical Forest Hills")
 					.setTemperature(0.8F)
 					.setRainfall(0.85F)
 					.setBaseHeight(0.45F)
 					.setHeightVariation(0.3F));
+		BiomeDictionary.registerBiomeType(warmForestHills, Type.FOREST, Type.CONIFEROUS, Type.HILLS);
 		tropicalForestHills 
 				= new TropicalForest(new Biome.BiomeProperties("Subtropical Forest Hills")
 					.setTemperature(0.9F)
 					.setRainfall(0.7F)
 					.setBaseHeight(0.45F)
 					.setHeightVariation(0.3F));
+		BiomeDictionary.registerBiomeType(tropicalForestHills, Type.FOREST, Type.JUNGLE, Type.HOT, Type.HILLS);
 		denseScrub = new Scrub(Scrub.Type.DENSE, 
 				new Biome.BiomeProperties("Dense Scrub")
 					.setTemperature(1.0F)
 					.setRainfall(0.1F)
 					.setBaseHeight(0.125F)
 					.setHeightVariation(0.05F));
+		BiomeDictionary.registerBiomeType(denseScrub, Type.SPARSE);
 		dryScrub = new Scrub(Scrub.Type.DRY, 
 				new Biome.BiomeProperties("Dry Scrub")
 					.setTemperature(1.25F)
@@ -52,12 +60,14 @@ public class ModBiomes {
 					.setRainDisabled()
 					.setBaseHeight(0.125F)
 					.setHeightVariation(0.05F));
+		BiomeDictionary.registerBiomeType(dryScrub, Type.SPARSE, Type.DRY);
 		denseScrubHills = new Scrub(Scrub.Type.DENSE, 
 				new Biome.BiomeProperties("Dense Scrub Hills")
 					.setTemperature(1.0F)
 					.setRainfall(0.1F)
 					.setBaseHeight(0.45F)
 					.setHeightVariation(0.3F));
+		BiomeDictionary.registerBiomeType(denseScrubHills, Type.SPARSE, Type.HILLS);
 		dryScrubHills = new Scrub(Scrub.Type.DRY, 
 				new Biome.BiomeProperties("Dry Scrub Hills")
 					.setTemperature(1.25F)
@@ -65,6 +75,7 @@ public class ModBiomes {
 					.setRainDisabled()
 					.setBaseHeight(0.45F)
 					.setHeightVariation(0.3F));
+		BiomeDictionary.registerBiomeType(dryScrubHills, Type.SPARSE, Type.DRY, Type.HILLS);
     }
     
 
