@@ -47,7 +47,9 @@ public class ClimaticBiomePlacement {
     
     
     @EventHandler 
-    public void init(FMLInitializationEvent event) {}
+    public void init(FMLInitializationEvent event) {    	
+    	Recipes.register();
+    }
     
     
     @EventHandler

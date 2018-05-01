@@ -58,7 +58,7 @@ public class ModBiomes {
 					.setRainfall(0.1F)
 					.setBaseHeight(0.125F)
 					.setHeightVariation(0.05F));
-		BiomeDictionary.registerBiomeType(denseScrub, Type.SPARSE);
+		BiomeDictionary.registerBiomeType(denseScrub, Type.SPARSE, Type.HOT, Type.DRY);
 		makeMoreUsable(denseScrub, true);
 		dryScrub = new Scrub(Scrub.Type.DRY, 
 				new Biome.BiomeProperties("Dry Scrub")
@@ -67,7 +67,7 @@ public class ModBiomes {
 					.setRainDisabled()
 					.setBaseHeight(0.125F)
 					.setHeightVariation(0.05F));
-		BiomeDictionary.registerBiomeType(dryScrub, Type.SPARSE, Type.DRY);
+		BiomeDictionary.registerBiomeType(dryScrub, Type.SPARSE, Type.HOT, Type.DRY);
 		makeMoreUsable(dryScrub);
 		denseScrubHills = new Scrub(Scrub.Type.DENSE, 
 				new Biome.BiomeProperties("Dense Scrub Hills")
@@ -75,7 +75,7 @@ public class ModBiomes {
 					.setRainfall(0.1F)
 					.setBaseHeight(0.45F)
 					.setHeightVariation(0.3F));
-		BiomeDictionary.registerBiomeType(denseScrubHills, Type.SPARSE, Type.HILLS);
+		BiomeDictionary.registerBiomeType(denseScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS);
 		makeMoreUsable(denseScrubHills);
 		dryScrubHills = new Scrub(Scrub.Type.DRY, 
 				new Biome.BiomeProperties("Dry Scrub Hills")
@@ -84,7 +84,7 @@ public class ModBiomes {
 					.setRainDisabled()
 					.setBaseHeight(0.45F)
 					.setHeightVariation(0.3F));
-		BiomeDictionary.registerBiomeType(dryScrubHills, Type.SPARSE, Type.DRY, Type.HILLS);
+		BiomeDictionary.registerBiomeType(dryScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS);
 		makeMoreUsable(dryScrubHills);
     }
     

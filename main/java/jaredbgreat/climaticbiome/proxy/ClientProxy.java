@@ -14,21 +14,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod.EventBusSubscriber
 public class ClientProxy implements IProxy {
-
-	/*
-	 * I give the *FUCK* up because this is way too
-	 * super-duper-uber-ultra hard beyond all hardness 
-	 * of ultimate impossibility.  I Don't know what 
-	 * kind of magic spell other cast to make models 
-	 * work, but this is random and erratic, with 
-	 * no rhyme, reason, or control.  Plus, its 
-	 * absurdly stresdful -- doing something that 
-	 * causes extreme missery for "fun" makes no 
-	 * sense.  So I give up; something that is 
-	 * often the best thing you can do.
-	 * 
-	 * FUCK THIS!
-	 */
 	
 	@Override
 	public void registerItemRenders() {

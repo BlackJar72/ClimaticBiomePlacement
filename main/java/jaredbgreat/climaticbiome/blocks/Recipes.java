@@ -13,9 +13,9 @@ public class Recipes {
 		OreDictionary.registerOre("treeLeave", ModBlocks.pineNeedle);	
 		OreDictionary.registerOre("treeSapling", ModBlocks.pineSapling);
 		
-		
-		//GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.pinePlanks, 4, 0), 
-		//		ModBlocks.pineLog);
+		// TODO: Learn to use the new json based system; for now, this....
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.pinePlanks, 4, 0), 
+				ModBlocks.pineLog);
 		
 	}
 	

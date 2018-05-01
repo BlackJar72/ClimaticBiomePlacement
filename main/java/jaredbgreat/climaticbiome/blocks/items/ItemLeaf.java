@@ -22,7 +22,7 @@ public class ItemLeaf extends ItemLeaves {
     
     public ItemLeaf registerModels() {
     	ModelLoader.setCustomModelResourceLocation(this, 0, 
-    			new ModelResourceLocation(block.getRegistryName(), block.getUnlocalizedName()));
+    			new ModelResourceLocation(block.getRegistryName(), null));
     	return this;
     }
 
