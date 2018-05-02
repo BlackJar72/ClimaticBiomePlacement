@@ -38,7 +38,7 @@ public class ItemSapling extends ItemBlock {
 			IBlockState plant = ModBlocks.pineSapling.getDefaultState();
 			world.setBlockState(pos.up(), plant);
 			if(!player.isCreative()) {
-				ItemStack stack = player.getActiveItemStack(); 
+				ItemStack stack = player.getHeldItem(hand); 
 				stack.setCount(stack.getCount() - 1);
 			}
 			return EnumActionResult.SUCCESS;
