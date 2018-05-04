@@ -1,5 +1,7 @@
 package jaredbgreat.climaticbiome.blocks;
 
+import jaredbgreat.climaticbiome.Info;
+
 import java.util.Random;
 
 import net.minecraft.block.BlockBush;
@@ -19,7 +21,7 @@ public class Sapling extends BlockBush implements IGrowable {
 	public Sapling(String name, WorldGenAbstractTree generator) {
 		super();
 		setUnlocalizedName(name);
-		setRegistryName(name);
+		setRegistryName(Info.ID + ":" + name);
 		setSoundType(SoundType.PLANT);
 		tree = generator;
 	}

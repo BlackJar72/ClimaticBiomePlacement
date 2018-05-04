@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.blocks;
 
+import jaredbgreat.climaticbiome.Info;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -12,7 +13,7 @@ public class BlockLog extends net.minecraft.block.BlockLog {
         super();
         this.name = name;
         setUnlocalizedName(name);
-		setRegistryName(name);
+		setRegistryName(Info.ID + ":" + name);
 		setDefaultState(blockState.getBaseState().withProperty(LOG_AXIS, BlockLog.EnumAxis.Y));
     }
     

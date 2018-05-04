@@ -1,5 +1,7 @@
 package jaredbgreat.climaticbiome.blocks;
 
+import jaredbgreat.climaticbiome.Info;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -24,7 +26,7 @@ public class BlockLeaf extends BlockLeaves {
 	public BlockLeaf(String name) {
 		super();
 		setUnlocalizedName(name);
-		setRegistryName(name);
+		setRegistryName(Info.ID + ":" + name);
 		// FIXME:  This should be called in separate method when the setting are changed
 		setGraphicsLevel(Minecraft.getMinecraft().isFancyGraphicsEnabled());
 	}

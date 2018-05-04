@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.blocks;
 
+import jaredbgreat.climaticbiome.Info;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -12,7 +13,7 @@ public class BlockPlanks extends Block {
 		super(Material.WOOD);
 		setSoundType(SoundType.WOOD);
 		setUnlocalizedName(name);
-		setRegistryName(name);
+		setRegistryName(Info.ID + ":" + name);
 		setHardness(1.0f);
 		setHarvestLevel("axe", 0);
 		setResistance(1.0f);

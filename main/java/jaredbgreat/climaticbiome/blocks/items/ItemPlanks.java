@@ -12,6 +12,7 @@ public class ItemPlanks extends ItemBlock {
         setMaxDamage(0);
         setUnlocalizedName(block.getUnlocalizedName());
         setRegistryName(block.getRegistryName());
+        //System.out.println(block.getRegistryName() + " -> " + getRegistryName());
 	}
 	
 
