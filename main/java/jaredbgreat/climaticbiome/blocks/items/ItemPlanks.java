@@ -3,6 +3,7 @@ package jaredbgreat.climaticbiome.blocks.items;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 
 public class ItemPlanks extends ItemBlock {
@@ -18,6 +19,12 @@ public class ItemPlanks extends ItemBlock {
 
     public int getMetadata(int damage) { 
         return damage;
+    }
+    
+    
+    @Override
+	public int getItemBurnTime(ItemStack stack) {
+		return 300;    	
     }
 
 }

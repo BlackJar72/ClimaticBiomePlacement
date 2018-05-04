@@ -50,6 +50,7 @@ public class ClimaticBiomePlacement {
     @EventHandler 
     public void init(FMLInitializationEvent event) {
     	proxy.registerItemRenders();
+    	Recipes.register();
     }
     
     

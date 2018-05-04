@@ -46,5 +46,11 @@ public class ItemSapling extends ItemBlock {
 			return EnumActionResult.FAIL;
 		}
 	}
+    
+    
+    @Override
+	public int getItemBurnTime(ItemStack stack) {
+		return 100;    	
+    }
 
 }

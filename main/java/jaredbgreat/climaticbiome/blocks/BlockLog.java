@@ -4,6 +4,7 @@ import jaredbgreat.climaticbiome.Info;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
 
 //For reasons I don't understand I can't instantiate the vanilla class, but can do this!?
 public class BlockLog extends net.minecraft.block.BlockLog {
