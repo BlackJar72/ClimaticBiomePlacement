@@ -22,9 +22,11 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockLeaf extends BlockLeaves {
+	private final String name;
 
 	public BlockLeaf(String name) {
 		super();
+		this.name = name;
 		setUnlocalizedName(name);
 		setRegistryName(Info.ID + ":" + name);
 		// FIXME:  This should be called in separate method when the setting are changed
@@ -78,5 +80,10 @@ public class BlockLeaf extends BlockLeaves {
     @Override
     public boolean isLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
     	return true;
+    }
+    
+    
+    public String getName() {
+    	return name;
     }
 }

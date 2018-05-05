@@ -31,7 +31,7 @@ public class GenPine extends WorldGenAbstractTree {
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos) {
 		if(world.isRemote) return false;
-		int j1 = 5 + rand.nextInt(5); // trunk height
+		int j1 = 5 + rand.nextInt(3) + rand.nextInt(2); // trunk height
 		int j2 = 2 + rand.nextInt(1 + (j1 / 2)); // first leaf height
 		
 		if((pos.getY() < 1) || ((pos.getY() + j1 + 3) > 255)) { 

@@ -32,9 +32,11 @@ public class BetterBiomeProvider extends BiomeProvider {
 
     @Override
     public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height) {
-    	biomes = new Biome[100];
-    	for(int i = 0; i < 10; i++) 
-    		for(int j = 0; j < 10; j++) {
+        if(biomes == null || biomes.length < width * height) {
+            biomes = new Biome[width * height];
+        }
+    	for(int i = 0; i < width; i++) 
+    		for(int j = 0; j < height; j++) {
     			biomes[(j * 10) + i] = Biome.getBiome(getIDForCoords(x + i, z + j), 
     					Biomes.DEFAULT);
     		}
