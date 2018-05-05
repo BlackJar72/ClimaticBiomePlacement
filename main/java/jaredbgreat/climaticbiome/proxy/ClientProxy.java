@@ -8,8 +8,10 @@ import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -24,6 +26,7 @@ public class ClientProxy implements IProxy {
 		initClient(mesher, ModBlocks.pinePlanks);
 		initClient(mesher, ModBlocks.pineNeedle, ModBlocks.pineNeedle.getDefaultState());
 		initClient(mesher, ModBlocks.pineSapling);
+		initClient(mesher, ModBlocks.pineHalfSlab, ModBlocks.pineHalfSlab.getDefaultState());
 	}
 	
 
@@ -46,4 +49,5 @@ public class ClientProxy implements IProxy {
 		ModelLoader.setCustomModelResourceLocation(item, block.getMetaFromState(type), model);
 		mesher.register(item, 0, model);
 	}
+	
 }

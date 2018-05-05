@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "half=bottom": { "model": "climaticbiomesjbg:pine_planks" },
+        "half=top": { "model": "climaticbiomesjbg:pine_planks" },
+        "normal": { "model": "climaticbiomesjbg:pine_planks" }
+    }
+}

@@ -1,22 +1,25 @@
 package jaredbgreat.climaticbiome.blocks;
 
-import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.util.IStringSerializable;
 
 public enum EnumWoodType implements IStringSerializable {
-	PINE(0, "pine", MapColor.WOOD);
+	PINE(0, "pine", MapColor.WOOD, EnumType.OAK);
 
     private static final int SIZE = values().length;
     private final int meta;
     private final String name;
     private final MapColor color;
+    private final EnumType vanilla;
 
+    private static final EnumWoodType[] TYPES = values();;
         
-    private EnumWoodType(int meta, String name, MapColor color) {
+    private EnumWoodType(int meta, String name, MapColor color, EnumType vanilla) {
       	this.meta = meta;
        	this.name = name;
        	this.color = color;
+       	this.vanilla = vanilla;
     }
 
         
@@ -50,6 +53,15 @@ public enum EnumWoodType implements IStringSerializable {
         
     public String getUnlocalizedName() {
         return name;
+    }
+    
+    
+    public EnumType getVanilla() {
+    	return vanilla;
+    }
+    
+    public static EnumWoodType getFromVanilla(EnumType in) {
+    	return TYPES[in.ordinal()];
     }
     
 }

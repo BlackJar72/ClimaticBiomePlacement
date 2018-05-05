@@ -1,17 +1,18 @@
 package jaredbgreat.climaticbiome.blocks;
 
+import jaredbgreat.climaticbiome.blocks.Slabs.BlockPineSlab;
 import jaredbgreat.climaticbiome.blocks.items.ItemLeaf;
 import jaredbgreat.climaticbiome.blocks.items.ItemLog;
+import jaredbgreat.climaticbiome.blocks.items.ItemPineSlab;
 import jaredbgreat.climaticbiome.blocks.items.ItemPlanks;
 import jaredbgreat.climaticbiome.blocks.items.ItemSapling;
 import jaredbgreat.climaticbiome.generation.feature.GenPine;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemSlab;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.IFuelHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 	
 	
 @Mod.EventBusSubscriber
@@ -21,11 +22,14 @@ public class ModBlocks {
 	public static BlockPlanks pinePlanks;
 	public static BlockLeaf pineNeedle;
 	public static Sapling pineSapling;
+	public static BlockPineSlab pineHalfSlab;
+	public static BlockPineSlab pineDoubleSlab;
 	
 	public static ItemLog pineLogItem;
 	public static ItemPlanks pinePlanksItem;
 	public static ItemLeaf pineNeedleItem;
 	public static ItemSapling pineSaplingItem;
+	public static ItemPineSlab pineSlabItem;
 	
 	
 	public static void createBlocks() {		
@@ -33,11 +37,14 @@ public class ModBlocks {
 		pinePlanks = new BlockPlanks("pine_planks");
 		pineNeedle = new BlockLeaf("pine_leaves");
 		pineSapling = new Sapling("pine_sapling", new GenPine());
+		pineHalfSlab = new BlockPineSlab("pine_slab", false);
+		pineDoubleSlab = new BlockPineSlab("pine_doubleslab", true);
 		
 		pineLogItem = new ItemLog(pineLog);
 		pinePlanksItem = new ItemPlanks(pinePlanks);
 		pineNeedleItem = new ItemLeaf(pineNeedle);
 		pineSaplingItem = new ItemSapling(pineSapling);
+		pineSlabItem = new ItemPineSlab(pineHalfSlab, pineHalfSlab, pineDoubleSlab);
 	}
 	
 	
@@ -47,6 +54,8 @@ public class ModBlocks {
 		registerBlock(pinePlanks, event);
 		registerBlock(pineNeedle, event);
 		registerBlock(pineSapling, event);
+		registerBlock(pineHalfSlab, event);
+		registerBlock(pineDoubleSlab, event);
 	}
 	
 	
@@ -56,6 +65,8 @@ public class ModBlocks {
 		registerItem(pinePlanksItem, event);
 		registerItem(pineNeedleItem, event);
 		registerItem(pineSaplingItem, event);
+		registerItem(pineSlabItem, event);
+		
 	}
 
 
