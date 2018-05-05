@@ -162,8 +162,9 @@ public class BiomeFinder {
         int[] landNoise = refineNoise(makeNoise(x, z, 2), map, 4);
         for(int i = 0; i < map.length; i++) {
             map[i].land = (landNoise[i] == 0);
-        }
-        realFinder.makeBiomes(map, this, chunkNoise);        
+        }       
+        makeBiomesSeeds(x, z, map);
+        realFinder.makeBiomes(map, this, chunkNoise);    
         makeBiomes(x, z, map);
         return map;
     }
@@ -258,7 +259,7 @@ public class BiomeFinder {
     }
     
     
-    public void makeBiomes(int x, int z, ChunkTile[] map) {
+    public void makeBiomesSeeds(int x, int z, ChunkTile[] map) {
         BiomeBasin[][] subBiomes = new BiomeBasin[5][5];
         int bx = x / BSIZE;
         int bz = z / BSIZE;
@@ -288,6 +289,12 @@ public class BiomeFinder {
             }
         for (ChunkTile tile : map) {
             tile.biomeSeed = BiomeBasin.summateEffect(subBiomes, tile);
+        }
+    }
+    
+    
+    public void makeBiomes(int x, int z, ChunkTile[] map) {
+        for (ChunkTile tile : map) {
             tile.biome = tile.rlBiome.specifier.getBiome(tile);
         }
     }

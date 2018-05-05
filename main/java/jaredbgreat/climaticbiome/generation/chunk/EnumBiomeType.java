@@ -88,8 +88,12 @@ public enum EnumBiomeType {
             return;
         }
         if(chunk.temp > 7 && ((chunk.wet - chunk.val) > noise - 1)) {
-            chunk.rlBiome = SWAMP;
-            return;
+        	if((chunk.getBiomeSeed() & 0x1) == 1) {
+        		chunk.rlBiome = SWAMP;
+        		chunk.nextBiomeSeed();
+        		return;
+        	}
+    		chunk.nextBiomeSeed();
         }
         findLandBiome(chunk);
     }
