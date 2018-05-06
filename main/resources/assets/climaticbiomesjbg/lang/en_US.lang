@@ -1,7 +1,8 @@
 generator.BetterBP=Climatic
 
-tile.pine_log.name=Pine Log
+tile.pine_log.name=Pine Wood
 tile.pine_leaves.name=Pine Needles
 tile.pine_planks.name=Pine Wood Planks
 tile.pine_bark.name=Pine Bark
 tile.pine_sapling.name=Pine Sapling
+tile.climaticbiomesjbg.pine_slab.name=Pine Wood Slab

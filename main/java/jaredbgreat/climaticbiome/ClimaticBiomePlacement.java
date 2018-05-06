@@ -40,7 +40,6 @@ public class ClimaticBiomePlacement {
     	instance = this;
     	configHandler = new ConfigHandler(event.getModConfigurationDirectory().toPath() 
     			+ File.separator + Info.DIR);
-    	configHandler.load();
     	worldType = new BetterWorldType();
     	ModBlocks.createBlocks();
     	ModBiomes.createBiomes();

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "climaticbiomesjbg:wooden_slab",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "climaticbiomesjbg:pine_planks"
+    }
+  },
+  "result": {
+    "item": "climaticbiomesjbg:pine_slab",
+    "data": 0,
+    "count": 6
+  }
+}
