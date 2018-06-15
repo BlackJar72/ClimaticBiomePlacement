@@ -10,7 +10,6 @@ import net.minecraftforge.common.config.Configuration;
 public final class ConfigHandler {
 	private static File dir;
 	private static File file;
-	private final HashMap<String, Integer> idMap;
 	
 	BiomeConfigurator customBiomes;
 	
@@ -18,7 +17,6 @@ public final class ConfigHandler {
 	public ConfigHandler(String configDir) {
 		file = new File(findConfigDir(configDir).getPath() 
 				+ File.separatorChar + Info.DIR + ".cfg");
-		idMap = new HashMap<>();
 		
 	}
 	
@@ -27,11 +25,6 @@ public final class ConfigHandler {
 		Configuration config = new Configuration(file);
 		config.load();	// Saving it all
 		config.save();
-	}
-	
-	
-	public int getBiomeID(String name) {
-		return idMap.get(name);
 	}
 	
 	

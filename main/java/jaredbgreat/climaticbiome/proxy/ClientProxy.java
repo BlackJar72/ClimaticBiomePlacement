@@ -4,14 +4,12 @@ import jaredbgreat.climaticbiome.blocks.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.item.Item;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -35,7 +33,6 @@ public class ClientProxy implements IProxy {
 		Item item = Item.getItemFromBlock(block);
 		ModelResourceLocation model = 
 				new ModelResourceLocation(block.getRegistryName(),"normal");
-		ModelLoader.setCustomModelResourceLocation(item, 0, model);
 		mesher.register(item, 0, model);
 	}
 	
@@ -46,7 +43,6 @@ public class ClientProxy implements IProxy {
 		String s = new DefaultStateMapper().getPropertyString(type.getProperties());
 		ModelResourceLocation model = 
 				new ModelResourceLocation(block.getRegistryName(), s);
-		ModelLoader.setCustomModelResourceLocation(item, block.getMetaFromState(type), model);
 		mesher.register(item, 0, model);
 	}
 	
