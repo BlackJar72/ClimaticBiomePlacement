@@ -28,7 +28,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class ClimaticBiomePlacement {
 	public static ClimaticBiomePlacement instance;
 	public static BetterWorldType worldType;
-	public static ConfigHandler configHandler; 
+	//public static ConfigHandler configHandler; 
 	//public static EventMonitor handler;
     
 	@SidedProxy(clientSide = "jaredbgreat.climaticbiome.proxy.ClientProxy", 
@@ -38,8 +38,8 @@ public class ClimaticBiomePlacement {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
     	instance = this;
-    	configHandler = new ConfigHandler(event.getModConfigurationDirectory().toPath() 
-    			+ File.separator + Info.DIR);
+    	//configHandler = new ConfigHandler(event.getModConfigurationDirectory().toPath() 
+    	//		+ File.separator + Info.DIR);
     	worldType = new BetterWorldType();
     	ModBlocks.createBlocks();
     	ModBiomes.createBiomes();
@@ -55,7 +55,7 @@ public class ClimaticBiomePlacement {
     
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {    	
-    	configHandler.findCustomBiomes();
+    	//configHandler.findCustomBiomes();
     }
 
 }

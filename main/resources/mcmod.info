@@ -2,7 +2,7 @@
 {
   "modid": "climaticbiomejbg",
   "name": "Climatic Biome Placement",
-  "description": "A mod to place biomes climaticly.",
+  "description": "A mod to place biomes climaticly, creating believable contents resembling maps for fantasy worlds or RPGs.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
