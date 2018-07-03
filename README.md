@@ -1,6 +1,6 @@
 # ClimaticBiomePlacement
 
-http://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/wip-mods/2823012-climatic-biome-placement
+https://minecraft.curseforge.com/projects/climatic-biome-placement/settings/source
 
 An experiment in placing biome into minecraft using a climate model. 
 It grew out of playing around with how to generate maps for procedural 
@@ -19,3 +19,6 @@ fun.  Besides that, its was an interesting project to work out.
 
 Copyright (C) Jared Blackburn, 2017, This work is licensed under a Creative Commons Attribution 3.0 Unported License.
 https://creativecommons.org/licenses/by/3.0/
+
+The software used to work this out can be found here:
+https://github.com/BlackJar72/ProcGenLab
