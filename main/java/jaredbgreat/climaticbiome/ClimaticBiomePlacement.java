@@ -24,10 +24,12 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid=Info.ID, name=Info.NAME, version=Info.VERSION, acceptableRemoteVersions=Info.VERSION) 
+@Mod(modid=Info.ID, name=Info.NAME, version=Info.VERSION, 
+		acceptableRemoteVersions=Info.VERSION, dependencies="after:biomesoplenty") 
 public class ClimaticBiomePlacement {
 	public static ClimaticBiomePlacement instance;
 	public static BetterWorldType worldType;
+	public static final boolean gotBoP = bopLoaded();
 	//public static ConfigHandler configHandler; 
 	//public static EventMonitor handler;
     
@@ -43,6 +45,9 @@ public class ClimaticBiomePlacement {
     	worldType = new BetterWorldType();
     	ModBlocks.createBlocks();
     	ModBiomes.createBiomes();
+    	System.out.println("********************************");
+    	System.out.println(" BoP Loaded?: " + gotBoP);
+    	System.out.println("********************************");
     }
     
     
@@ -57,5 +62,11 @@ public class ClimaticBiomePlacement {
     public void postInit(FMLPostInitializationEvent event) {    	
     	//configHandler.findCustomBiomes();
     }
+    
+    
+    private static boolean bopLoaded() {
+		return net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");	
+	}
+	
 
 }
