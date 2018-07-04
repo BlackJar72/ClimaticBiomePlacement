@@ -45,9 +45,6 @@ public class ClimaticBiomePlacement {
     	worldType = new BetterWorldType();
     	ModBlocks.createBlocks();
     	ModBiomes.createBiomes();
-    	System.out.println("********************************");
-    	System.out.println(" BoP Loaded?: " + gotBoP);
-    	System.out.println("********************************");
     }
     
     

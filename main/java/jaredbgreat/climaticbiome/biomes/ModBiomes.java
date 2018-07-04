@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.biomes;
 
+import jaredbgreat.climaticbiome.ClimaticBiomePlacement;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.GetChaparral;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.GetSubtropicalForest;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.GetTropicalForest;
@@ -111,7 +112,15 @@ public class ModBiomes {
 				.setRegistryName("dry_scrub_hills"));
 		GetChaparral.init();
 		GetSubtropicalForest.init();
-		GetTropicalForest.init();		
+		GetTropicalForest.init();
+		if(ClimaticBiomePlacement.gotBoP) {
+			setupBopTypes();
+		}
+	}
+	
+	
+	private static void setupBopTypes() {
+		// TODO: Run init() on all BoP biome specifiers
 	}
 	
 	
