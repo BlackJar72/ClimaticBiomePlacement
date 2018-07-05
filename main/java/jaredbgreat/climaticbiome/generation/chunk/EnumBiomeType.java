@@ -24,17 +24,17 @@ import jaredbgreat.climaticbiome.generation.chunk.biomes.GetTundra;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPAlpine;
 import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPChaparral;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPColdPlains;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPCoolPlains;
 import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPDesert;
 import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPJungle;
 import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPOcean;
 import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPPark;
 import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPPlains;
-import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPSavanna;
 import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPSubtropicalForest;
 import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPSwamp;
 import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPTaiga;
 import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPTemporateForest;
-import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPTropicalForest;
 import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPTundra;
 
 /**
@@ -65,17 +65,16 @@ public enum EnumBiomeType {
     BOCEAN (new GetBoPOcean()),
     BSWAMP (new GetBoPSwamp()),
     BTUNDRA (new GetBoPTundra()),
-    BCGRASS (new GetBoPPlains()),
+    BCGRASS (new GetBoPColdPlains()),
+    BCGRASS2 (new GetBoPCoolPlains()),
     BGRASS (new GetBoPPlains()),
     BSGRASS (new GetBoPPlains()),
-    BSAVANNA (new GetBoPSavanna()),
     BTAIGA (new GetBoPTaiga()),
     BPARK (new GetBoPPark()),
     BFOREST (new GetBoPTemporateForest()),
     BCFOREST (new GetBoPTemporateForest()), // TODO: Replace with in specifier 
     BRFOREST (new GetBoPTemporateForest()), 
     BSFOREST (new GetBoPSubtropicalForest()),
-    BTFOREST (new GetBoPTropicalForest()),
     BJUNGLE (new GetBoPJungle()),
     BDESERT (new GetBoPDesert()),
     BSCRUB (new GetBoPChaparral()),
@@ -128,15 +127,15 @@ public enum EnumBiomeType {
     	TUNDRA, TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA, TUNDRA, TUNDRA, TUNDRA, TUNDRA,
     	TUNDRA, TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA, TUNDRA, TUNDRA, TUNDRA, TUNDRA,
     	//Sub-Arctic
-    	TUNDRA, TUNDRA,    TAIGA,   TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
-    	TUNDRA, CGRASS,    TAIGA,   TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
-    	CGRASS,  CGRASS,   TAIGA,   TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
-    	CGRASS,  CGRASS,   TAIGA,   TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
+    	TUNDRA,   TUNDRA,    TAIGA,  TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
+    	TUNDRA,   BCGRASS,   TAIGA, TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
+    	BCGRASS,  BCGRASS,   TAIGA,   TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
+    	BCGRASS,  BCGRASS,   TAIGA,   TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
     	//Cool Temperate
-    	BCGRASS,  BCGRASS,  BCGRASS,  BCGRASS, BCFOREST, BCFOREST, BCFOREST, BCFOREST, BCFOREST, BCFOREST,
-    	BCGRASS,  BCGRASS,  BCGRASS,  BCGRASS, BCFOREST, BCFOREST, BCFOREST, BCFOREST, BCFOREST, BCFOREST,
-    	BCGRASS,  BCGRASS,  BCGRASS,  BCGRASS, BCFOREST, BCFOREST, BCFOREST, BCFOREST, BCFOREST, BCFOREST,
-    	GRASS,    GRASS,    GRASS,    GRASS,  BCFOREST, BCFOREST, BCFOREST, BCFOREST, BCFOREST, BCFOREST,
+    	BCGRASS2,  BCGRASS2,  BCGRASS2,  BCGRASS2, BCFOREST, BCFOREST, BCFOREST, BCFOREST, BCFOREST, BCFOREST,
+    	BCGRASS2,  BCGRASS2,  BCGRASS2,  BCGRASS2, BCFOREST, BCFOREST, BCFOREST, BCFOREST, BCFOREST, BCFOREST,
+    	BCGRASS2,  BCGRASS2,  BCGRASS2,  BCGRASS2, BCFOREST, BCFOREST, BCFOREST, BCFOREST, BCFOREST, BCFOREST,
+    	GRASS,     GRASS,     GRASS,     GRASS,    BCFOREST, BCFOREST, BCFOREST, BCFOREST, BCFOREST, BCFOREST,
     	//Warm Temperate
     	GRASS,  GRASS,   GRASS,   GRASS,   PARK,  FOREST, FOREST, FOREST, FOREST, FOREST,
     	SCRUB,  GRASS,   GRASS,   GRASS,   PARK,  FOREST, FOREST, FOREST, FOREST, FOREST,
@@ -185,10 +184,10 @@ public enum EnumBiomeType {
     	BDESERT, BDESERT, BDESERT, BSCRUB, BSGRASS,  BSFOREST, BSFOREST, BSFOREST, BSFOREST, BJUNGLE,
     	BDESERT, BDESERT, BDESERT, BSCRUB, BSGRASS,  BSFOREST, BSFOREST, BJUNGLE,  BJUNGLE,  BJUNGLE,
     	//Tropical
-    	BDESERT, BDESERT,  BSAVANNA, BSAVANNA, BSAVANNA, BTFOREST, BTFOREST, BJUNGLE, BJUNGLE, BJUNGLE,
-    	BDESERT, BSAVANNA, BSAVANNA, BSAVANNA, BTFOREST, BJUNGLE,  BJUNGLE,  BJUNGLE, BJUNGLE, BJUNGLE,
-    	BDESERT, BSAVANNA, BSAVANNA, BTFOREST, BJUNGLE,  BJUNGLE,  BJUNGLE,  BJUNGLE, BJUNGLE, BJUNGLE,
-    	BDESERT, BSAVANNA, BTFOREST, BTFOREST,  BJUNGLE,  BJUNGLE,  BJUNGLE,  BJUNGLE, BJUNGLE, BJUNGLE,
+    	BDESERT, BDESERT, SAVANNA, SAVANNA, SAVANNA, TFOREST, TFOREST, BJUNGLE, BJUNGLE, BJUNGLE,
+    	BDESERT, SAVANNA, SAVANNA, SAVANNA, TFOREST, BJUNGLE, BJUNGLE, BJUNGLE, BJUNGLE, BJUNGLE,
+    	BDESERT, SAVANNA, SAVANNA, TFOREST, BJUNGLE, BJUNGLE, BJUNGLE, BJUNGLE, BJUNGLE, BJUNGLE,
+    	BDESERT, SAVANNA, TFOREST, TFOREST, BJUNGLE, BJUNGLE, BJUNGLE, BJUNGLE, BJUNGLE, BJUNGLE,
     };
     
     public static void makeBiomes(ChunkTile[] map, BiomeFinder maker, 

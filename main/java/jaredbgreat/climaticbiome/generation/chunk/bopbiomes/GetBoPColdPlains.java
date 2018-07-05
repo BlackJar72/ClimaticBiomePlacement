@@ -3,12 +3,17 @@ package jaredbgreat.climaticbiome.generation.chunk.bopbiomes;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
 
-public class GetBoPSavanna implements IBiomeSpecifier {
-
+public class GetBoPColdPlains implements IBiomeSpecifier {
+	private static int tundra;
+	
 	@Override
 	public int getBiome(ChunkTile tile) {
-		// TODO Auto-generated method stub
-		return 0;
+		return tundra;
 	}
 
+	
+	public static void init() {
+		
+	}
+	
 }
