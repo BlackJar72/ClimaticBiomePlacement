@@ -4,16 +4,15 @@ import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 import jaredbgreat.climaticbiome.generation.chunk.EnumBiomeType;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
 
-public class GetBoPTundra implements IBiomeSpecifier {
-	private static int glacier;
-	
+public class GetBoPWetForest implements IBiomeSpecifier {
+	private static int rain;
+
 	@Override
 	public int getBiome(ChunkTile tile) {
-		if((tile.getBiomeSeed() % 3) == 0) {
-			return glacier;
+		if((tile.getBiomeSeed() % 4) == 0) {
+			return rain;
 		} else {
-			tile.nextBiomeSeed();
-			return EnumBiomeType.TUNDRA.specifier.getBiome(tile);
+			return EnumBiomeType.BCFOREST.specifier.getBiome(tile);
 		}
 	}
 

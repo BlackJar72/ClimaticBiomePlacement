@@ -5,11 +5,11 @@ import jaredbgreat.climaticbiome.generation.chunk.EnumBiomeType;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
 
 public class GetBoPCoolForest implements IBiomeSpecifier {
-	private static int dead, coniferous, ominous, seasonal;
+	private static int dead, coniferous, ominous, seasonal, shield;
 
 	@Override
 	public int getBiome(ChunkTile tile) {
-		switch(tile.getBiomeSeed() % 8) {
+		switch(tile.getBiomeSeed() % 10) {
 			case 0:
 			case 1:
 				return coniferous;
@@ -22,6 +22,9 @@ public class GetBoPCoolForest implements IBiomeSpecifier {
 				return ominous;
 			case 6:
 			case 7:
+				return shield;
+			case 8:
+			case 9:
 			default:
 				return getOtherOption(tile);
 				
@@ -34,7 +37,7 @@ public class GetBoPCoolForest implements IBiomeSpecifier {
 		int temp = tile.getTemp() + (seed & 1) - ((seed & 2) >> 1);
 		tile.nextBiomeSeed();
 		if(temp > 9) {
-			return EnumBiomeType.BFOREST.specifier.getBiome(tile);			
+			return EnumBiomeType.FOREST.specifier.getBiome(tile);			
 		} else {
 			return EnumBiomeType.BTAIGA.specifier.getBiome(tile);
 		}

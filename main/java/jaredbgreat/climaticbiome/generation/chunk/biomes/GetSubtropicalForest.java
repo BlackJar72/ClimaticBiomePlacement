@@ -22,14 +22,13 @@ public class GetSubtropicalForest implements IBiomeSpecifier {
 			case 0:
 			case 2:
 			case 3:
+			case 4:				
 				return forest;
-			case 4:
 			case 5:
-				return hills;
 			case 6:
+				return hills;
 			case 7:
 				return pinewoods;
-			case 8:
 			case 9:
 				if((seed % 7) == 0) {
 					return 157;
