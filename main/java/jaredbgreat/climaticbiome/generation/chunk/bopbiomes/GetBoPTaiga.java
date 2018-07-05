@@ -1,10 +1,12 @@
 package jaredbgreat.climaticbiome.generation.chunk.bopbiomes;
 
+import net.minecraft.world.biome.Biome;
+import biomesoplenty.api.biome.BOPBiomes;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
 
 public class GetBoPTaiga implements IBiomeSpecifier {
-	private static int boreal, maple, snowycone;
+	private static int boreal, maple, snowy;
 
 	@Override
 	public int getBiome(ChunkTile tile) {
@@ -20,13 +22,15 @@ public class GetBoPTaiga implements IBiomeSpecifier {
 					return boreal;
 			}			
 		} else {
-			return snowycone;
+			return snowy;
 		}
 	}
 	
 	
 	public static void init() {
-		
+		boreal = Biome.getIdForBiome(BOPBiomes.boreal_forest.get());
+		maple  = Biome.getIdForBiome(BOPBiomes.maple_woods.get());
+		snowy  = Biome.getIdForBiome(BOPBiomes.snowy_coniferous_forest.get());
 	}
 
 }

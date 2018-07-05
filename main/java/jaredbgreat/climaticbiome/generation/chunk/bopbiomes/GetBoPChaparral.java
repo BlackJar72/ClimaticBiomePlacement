@@ -1,5 +1,7 @@
 package jaredbgreat.climaticbiome.generation.chunk.bopbiomes;
 
+import net.minecraft.world.biome.Biome;
+import biomesoplenty.api.biome.BOPBiomes;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
 
@@ -25,7 +27,10 @@ public class GetBoPChaparral implements IBiomeSpecifier {
 	
 	
 	public static void init() {
-		
+		chaparral = Biome.getIdForBiome(BOPBiomes.chaparral.get());
+		steppe    = Biome.getIdForBiome(BOPBiomes.steppe.get());
+		brushland = Biome.getIdForBiome(BOPBiomes.brushland.get());
+		shrubs    = Biome.getIdForBiome(BOPBiomes.shrubland.get());
 	}
 
 }

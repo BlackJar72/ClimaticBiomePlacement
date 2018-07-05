@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.chunk.bopbiomes;
 
+import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.world.biome.Biome;
 import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
@@ -82,9 +83,18 @@ public class GetBoPSwamp implements IBiomeSpecifier {
 	
 	
 	public static void init() {
-		swamp = 6;
-		swampm = 134;
+		swamp     = 6;
+		swampm    = 134;
 		pinewoods = Biome.getIdForBiome(ModBiomes.pineWoods);
+		bayou     = Biome.getIdForBiome(BOPBiomes.bayou.get());
+		bog       = Biome.getIdForBiome(BOPBiomes.bog.get());
+		deadswamp = Biome.getIdForBiome(BOPBiomes.dead_swamp.get());
+		fen       = Biome.getIdForBiome(BOPBiomes.fen.get());
+		lushswamp = Biome.getIdForBiome(BOPBiomes.lush_swamp.get());
+		mangrove  = Biome.getIdForBiome(BOPBiomes.mangrove.get());
+		marsh     = Biome.getIdForBiome(BOPBiomes.marsh.get());
+		quagmire  = Biome.getIdForBiome(BOPBiomes.quagmire.get());
+		wetlands  = Biome.getIdForBiome(BOPBiomes.wasteland.get());
 	}
 
 }

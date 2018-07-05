@@ -4,9 +4,25 @@ import jaredbgreat.climaticbiome.ClimaticBiomePlacement;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.GetChaparral;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.GetSubtropicalForest;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.GetTropicalForest;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPAlpine;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPChaparral;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPColdPlains;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPCoolForest;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPCoolPlains;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPDesert;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPIsland;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPJungle;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPOcean;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPPark;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPPlains;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPSubtropicalForest;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPSwamp;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPTaiga;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPTemporateForest;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPTundra;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPWarmPlains;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPWetForest;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -120,7 +136,24 @@ public class ModBiomes {
 	
 	
 	private static void setupBopTypes() {
-		// TODO: Run init() on all BoP biome specifiers
+		GetBoPAlpine.init();
+		GetBoPChaparral.init();
+		GetBoPColdPlains.init();
+		GetBoPCoolForest.init();
+		GetBoPCoolPlains.init();
+		GetBoPDesert.init();
+		GetBoPIsland.init();
+		GetBoPJungle.init();
+		GetBoPOcean.init();
+		GetBoPPark.init();
+		GetBoPPlains.init();
+		GetBoPSubtropicalForest.init();
+		GetBoPSwamp.init();
+		GetBoPTaiga.init();
+		GetBoPTemporateForest.init();
+		GetBoPTundra.init();
+		GetBoPWarmPlains.init();
+		GetBoPWetForest.init();		
 	}
 	
 	

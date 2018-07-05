@@ -1,5 +1,7 @@
 package jaredbgreat.climaticbiome.generation.chunk.bopbiomes;
 
+import net.minecraft.world.biome.Biome;
+import biomesoplenty.api.biome.BOPBiomes;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 import jaredbgreat.climaticbiome.generation.chunk.EnumBiomeType;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
@@ -46,7 +48,11 @@ public class GetBoPCoolForest implements IBiomeSpecifier {
 	
 	
 	public static void init() {
-		
+		dead       = Biome.getIdForBiome(BOPBiomes.dead_forest.get());
+		coniferous = Biome.getIdForBiome(BOPBiomes.coniferous_forest.get());
+		ominous    = Biome.getIdForBiome(BOPBiomes.ominous_woods.get());
+		seasonal   = Biome.getIdForBiome(BOPBiomes.seasonal_forest.get());
+		shield     = Biome.getIdForBiome(BOPBiomes.shield.get());
 	}
 
 }

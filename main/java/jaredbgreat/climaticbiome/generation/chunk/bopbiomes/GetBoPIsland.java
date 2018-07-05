@@ -1,5 +1,7 @@
 package jaredbgreat.climaticbiome.generation.chunk.bopbiomes;
 
+import net.minecraft.world.biome.Biome;
+import biomesoplenty.api.biome.BOPBiomes;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 import jaredbgreat.climaticbiome.generation.chunk.EnumBiomeType;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
@@ -75,7 +77,11 @@ public class GetBoPIsland implements IBiomeSpecifier {
 	
 	
 	public static void init() {
-		
+		flower   = Biome.getIdForBiome(BOPBiomes.flower_island.get());
+		obeach   = Biome.getIdForBiome(BOPBiomes.origin_beach.get());
+		origin   = Biome.getIdForBiome(BOPBiomes.origin_island.get());
+		tropical = Biome.getIdForBiome(BOPBiomes.tropical_island.get());
+		volcanic = Biome.getIdForBiome(BOPBiomes.volcanic_island.get());
 	}
 
 }

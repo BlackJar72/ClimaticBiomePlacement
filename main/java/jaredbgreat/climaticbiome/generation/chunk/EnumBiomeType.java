@@ -118,7 +118,7 @@ public enum EnumBiomeType {
     	DESERT, SAVANNA, SAVANNA, SAVANNA, TFOREST, JUNGLE,  JUNGLE, JUNGLE, JUNGLE, JUNGLE,
     	DESERT, SAVANNA, SAVANNA, SAVANNA, TFOREST, JUNGLE,  JUNGLE, JUNGLE, JUNGLE, JUNGLE,
     	DESERT, SAVANNA, SAVANNA, TFOREST, TFOREST, JUNGLE,  JUNGLE, JUNGLE, JUNGLE, JUNGLE,
-    	DESERT, SAVANNA, SAVANNA, SAVANNA, TFOREST, JUNGLE,  JUNGLE, JUNGLE, JUNGLE, JUNGLE
+    	DESERT, SAVANNA, TFOREST, TFOREST, JUNGLE,  JUNGLE,  JUNGLE, JUNGLE, JUNGLE, JUNGLE
     };
     
     
@@ -157,7 +157,7 @@ public enum EnumBiomeType {
     };
     
     
-    private static final EnumBiomeType[] boptable = {
+    public static final EnumBiomeType[] boptable = {
     	//Arctic
     	BTUNDRA, BTUNDRA,  BTUNDRA,  BTUNDRA,  TUNDRA,   BTUNDRA, BTUNDRA, BTUNDRA, BTUNDRA, BTUNDRA,
     	BTUNDRA, BTUNDRA,  BTUNDRA,  BTUNDRA,  BTUNDRA,  BTUNDRA, BTUNDRA, BTUNDRA, BTUNDRA, BTUNDRA,
@@ -186,9 +186,9 @@ public enum EnumBiomeType {
     	BDESERT, BDESERT, BDESERT, BSCRUB, BSGRASS,  BSFOREST, BSFOREST, BJUNGLE,  BJUNGLE,  BJUNGLE,
     	//Tropical
     	BDESERT, BDESERT, SAVANNA, SAVANNA, SAVANNA, TFOREST,   TFOREST, BJUNGLE, BJUNGLE, BJUNGLE,
-    	BDESERT, SAVANNA, SAVANNA, SAVANNA,  TFOREST, BJUNGLE,   BJUNGLE, BJUNGLE, BJUNGLE, BJUNGLE,
-    	BDESERT, SAVANNA, SAVANNA, TFOREST,  BJUNGLE, BJUNGLE,   BJUNGLE, BJUNGLE, BJUNGLE, BJUNGLE,
-    	BDESERT, SAVANNA, TFOREST, TFOREST,  BJUNGLE, BJUNGLE,   BJUNGLE, BJUNGLE, BJUNGLE, BJUNGLE,
+    	BDESERT, SAVANNA, SAVANNA, SAVANNA, TFOREST, BJUNGLE,   BJUNGLE, BJUNGLE, BJUNGLE, BJUNGLE,
+    	BDESERT, SAVANNA, SAVANNA, TFOREST, BJUNGLE, BJUNGLE,   BJUNGLE, BJUNGLE, BJUNGLE, BJUNGLE,
+    	BDESERT, SAVANNA, TFOREST, TFOREST, BJUNGLE, BJUNGLE,   BJUNGLE, BJUNGLE, BJUNGLE, BJUNGLE,
     };
     
     public static void makeBiomes(ChunkTile[] map, BiomeFinder maker, 
@@ -232,9 +232,12 @@ public enum EnumBiomeType {
     public static void findLandBiome(ChunkTile chunk) {
     	if(ClimaticBiomePlacement.gotBoP) {
     		// Rather than checking bit one and re-rolling, use a high bit
-    		if((chunk.biomeSeed & 0x00100000) == 0) {
+    		if((chunk.biomeSeed & 0x00010000) == 0) {
     			chunk.rlBiome = bopvanillatable[(chunk.temp * 10) + chunk.wet];
     		} else {
+    			if((((chunk.biomeSeed >> 16) & 0xff) % 5) == 0) {
+    				chunk.rlBiome = BALPINE;
+    			}
     			chunk.rlBiome = boptable[(chunk.temp * 10) + chunk.wet];
     		}
     	} else {

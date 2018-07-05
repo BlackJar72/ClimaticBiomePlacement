@@ -1,5 +1,7 @@
 package jaredbgreat.climaticbiome.generation.chunk.bopbiomes;
 
+import net.minecraft.world.biome.Biome;
+import biomesoplenty.api.biome.BOPBiomes;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
 
@@ -20,7 +22,8 @@ public class GetBoPCoolPlains implements IBiomeSpecifier {
 
 	
 	public static void init() {
-		
+		meadow = Biome.getIdForBiome(BOPBiomes.meadow.get());
+		moor   = Biome.getIdForBiome(BOPBiomes.moor.get());
 	}
 	
 }

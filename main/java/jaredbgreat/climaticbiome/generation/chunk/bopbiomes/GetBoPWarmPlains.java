@@ -1,5 +1,7 @@
 package jaredbgreat.climaticbiome.generation.chunk.bopbiomes;
 
+import net.minecraft.world.biome.Biome;
+import biomesoplenty.api.biome.BOPBiomes;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.IBiomeSpecifier;
 
@@ -19,6 +21,13 @@ public class GetBoPWarmPlains implements IBiomeSpecifier {
 			default:
 				return pasture;
 		}
+	}
+	
+	
+	public static void init() {
+		grassland = Biome.getIdForBiome(BOPBiomes.grassland.get());
+		prairie   = Biome.getIdForBiome(BOPBiomes.prairie.get());
+		pasture   = Biome.getIdForBiome(BOPBiomes.pasture.get());
 	}
 
 }

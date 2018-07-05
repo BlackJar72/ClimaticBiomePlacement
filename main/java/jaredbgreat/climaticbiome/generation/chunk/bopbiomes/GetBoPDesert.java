@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.chunk.bopbiomes;
 
+import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.world.biome.Biome;
 import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
@@ -40,9 +41,11 @@ public class GetBoPDesert implements IBiomeSpecifier {
 	
 	
 	public static void init() {
-		//FIXME: How do I do this?
-		//lush       = Biome.getIdForBiome(???);
-		
+		lush      = Biome.getIdForBiome(BOPBiomes.lush_desert.get());
+		oasis     = Biome.getIdForBiome(BOPBiomes.oasis.get());
+		outback   = Biome.getIdForBiome(BOPBiomes.outback.get());
+		wasteland = Biome.getIdForBiome(BOPBiomes.wasteland.get());
+		xeric     = Biome.getIdForBiome(BOPBiomes.xeric_shrubland.get());
 	}
 	
 	
