@@ -94,7 +94,7 @@ public class GetBoPSwamp implements IBiomeSpecifier {
 		mangrove  = Biome.getIdForBiome(BOPBiomes.mangrove.get());
 		marsh     = Biome.getIdForBiome(BOPBiomes.marsh.get());
 		quagmire  = Biome.getIdForBiome(BOPBiomes.quagmire.get());
-		wetlands  = Biome.getIdForBiome(BOPBiomes.wasteland.get());
+		wetlands  = Biome.getIdForBiome(BOPBiomes.wetland.get());
 	}
 
 }
