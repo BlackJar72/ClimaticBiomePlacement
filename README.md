@@ -1,6 +1,6 @@
 # ClimaticBiomePlacement
 
-https://minecraft.curseforge.com/projects/climatic-biome-placement/settings/source
+https://minecraft.curseforge.com/projects/climatic-biome-placement
 
 An experiment in placing biome into minecraft using a climate model. 
 It grew out of playing around with how to generate maps for procedural 
