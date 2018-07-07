@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiome.generation.feature;
 
-import jaredbgreat.climaticbiome.blocks.ModBlocks;
+import static net.minecraft.util.EnumFacing.UP;
 
 import java.util.Random;
 
@@ -14,14 +14,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraftforge.common.IPlantable;
-import static net.minecraft.util.EnumFacing.*;
 
 public class GenPine extends WorldGenAbstractTree {
 	
-    private static final IBlockState TRUNK = ModBlocks.pineLog.getDefaultState();
-    private static final IBlockState LEAF = ModBlocks.pineNeedle.getDefaultState()
-    		.withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
-
+    private static final IBlockState TRUNK = Blocks.LOG.getDefaultState()
+    		.withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE);
+    private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState()
+    		.withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
+    
 
 	public GenPine() {
 		super(false);
