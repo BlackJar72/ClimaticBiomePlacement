@@ -36,6 +36,7 @@ import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPSwamp;
 import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPTaiga;
 import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPTemporateForest;
 import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPTundra;
+import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPVanillaTaiga;
 import jaredbgreat.climaticbiome.generation.chunk.bopbiomes.GetBoPWetForest;
 
 /**
@@ -70,7 +71,7 @@ public enum EnumBiomeType {
     BCGRASS2 (new GetBoPCoolPlains()),
     BGRASS (new GetBoPPlains()),
     BSGRASS (new GetBoPPlains()),
-    BVTAIGA (new GetBoPTaiga()),
+    BVTAIGA (new GetBoPVanillaTaiga()),
     BTAIGA (new GetBoPTaiga()),
     BPARK (new GetBoPPark()),
     BFOREST (new GetBoPTemporateForest()),
