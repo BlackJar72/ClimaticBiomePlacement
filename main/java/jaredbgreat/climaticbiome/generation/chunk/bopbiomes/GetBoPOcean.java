@@ -20,7 +20,7 @@ public class GetBoPOcean implements IBiomeSpecifier {
 		int seed  = tile.getBiomeSeed();
 		int noise = tile.getNoise();		
 		if((seed % 5) == 0) {
-			if(noise > (4 + (seed % 1) - ((seed % 2) - 1))) {	
+			if(noise > (3 + (seed % 1) - ((seed % 2) - 1))) {	
 				tile.nextBiomeSeed();
 				return getIsland.getBiome(tile);
 			} else {

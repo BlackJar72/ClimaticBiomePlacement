@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiome.biomes;
 
-import jaredbgreat.climaticbiome.ClimaticBiomePlacement;
+import jaredbgreat.climaticbiome.ClimaticBiomes;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.GetChaparral;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.GetSubtropicalForest;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.GetTropicalForest;
@@ -129,7 +129,7 @@ public class ModBiomes {
 		GetChaparral.init();
 		GetSubtropicalForest.init();
 		GetTropicalForest.init();
-		if(ClimaticBiomePlacement.gotBoP) {
+		if(ClimaticBiomes.gotBoP) {
 			setupBopTypes();
 		}
 	}

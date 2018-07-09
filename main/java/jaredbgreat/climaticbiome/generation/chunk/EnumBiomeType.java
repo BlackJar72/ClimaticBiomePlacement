@@ -5,7 +5,7 @@
  */
 package jaredbgreat.climaticbiome.generation.chunk;
 
-import jaredbgreat.climaticbiome.ClimaticBiomePlacement;
+import jaredbgreat.climaticbiome.ClimaticBiomes;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.GetAlpine;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.GetChaparral;
 import jaredbgreat.climaticbiome.generation.chunk.biomes.GetDesert;
@@ -206,7 +206,7 @@ public enum EnumBiomeType {
             if((noise - (chunk.temp / 2)) > 0) {
                 chunk.rlBiome = FROCEAN;
             } else {
-            	if(ClimaticBiomePlacement.gotBoP) {
+            	if(ClimaticBiomes.gotBoP) {
             		chunk.rlBiome = BOCEAN;
             	} else {
             		chunk.rlBiome = OCEAN;
@@ -216,7 +216,7 @@ public enum EnumBiomeType {
         }
         if(chunk.temp > 7 && ((chunk.wet - chunk.val) > noise - 1)) {
         	if((chunk.getBiomeSeed() & 0x1) == 1) {
-        		if(ClimaticBiomePlacement.gotBoP) {
+        		if(ClimaticBiomes.gotBoP) {
         			chunk.rlBiome = BSWAMP;        			
         		} else {
         			chunk.rlBiome = SWAMP;
@@ -231,7 +231,7 @@ public enum EnumBiomeType {
     
     
     public static void findLandBiome(ChunkTile chunk) {
-    	if(ClimaticBiomePlacement.gotBoP) {
+    	if(ClimaticBiomes.gotBoP) {
     		// Rather than checking bit one and re-rolling, use a high bit
     		if((chunk.biomeSeed & 0x00010000) == 0) {
     			chunk.rlBiome = bopvanillatable[(chunk.temp * 10) + chunk.wet];

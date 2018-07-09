@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiome.generation.chunk.biomes;
 
-import jaredbgreat.climaticbiome.ClimaticBiomePlacement;
+import jaredbgreat.climaticbiome.ClimaticBiomes;
 import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 import jaredbgreat.climaticbiome.generation.chunk.EnumBiomeType;

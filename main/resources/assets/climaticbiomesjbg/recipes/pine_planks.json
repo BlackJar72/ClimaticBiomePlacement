@@ -6,12 +6,11 @@
   ],
   "key": {
     "#": {
-      "item": "climaticbiomesjbg:pine_log"
+      "item": "climaticbiomesjbg:log_pine"
     }
   },
   "result": {
-    "item": "minecraft:planks",
-    "data": 2,
+    "item": "climaticbiomesjbg:planks_pine",
     "count": 4
   }
 }

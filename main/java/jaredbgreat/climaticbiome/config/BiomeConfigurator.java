@@ -33,6 +33,6 @@ public class BiomeConfigurator {
 		this.file = file;
 		specifiers  = new HashMap<>();
 		temps       = new HashMap<>();
-		identifiers = new ArrayList();
+		identifiers = new ArrayList<String>();
 	}
 }

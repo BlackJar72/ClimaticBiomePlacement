@@ -11,7 +11,9 @@ public class GetBoPIsland implements IBiomeSpecifier {
 
 	@Override
 	public int getBiome(ChunkTile tile) {
-		if(((tile.getBiomeSeed() % 17) == 0) && (tile.getVal() < 4) && (tile.getNoise() > 4)) {
+		if(((tile.getBiomeSeed() % 31) == 0) 
+				&& (tile.getVal() < 4) 
+				&& (tile.getNoise() > 4)) {
 			return volcanic;
 		}
 		int temp = tile.getTemp();
@@ -45,8 +47,8 @@ public class GetBoPIsland implements IBiomeSpecifier {
 	public int getMidIsland(ChunkTile tile) {
 		int seed  = tile.getBiomeSeed();
 		int noise = tile.getNoise();	
-		if((tile.getBiomeSeed() % 5) == 0) {
-			if(noise < (5 + (seed % 1) - ((seed % 2) - 1))) {
+		if(((tile.getWet() > 3) && (tile.getBiomeSeed() % 5) == 0)) {
+			if(noise < (3 + (seed % 1) - ((seed % 2) - 1))) {
 				return obeach;
 			}
 			return origin;
@@ -57,7 +59,7 @@ public class GetBoPIsland implements IBiomeSpecifier {
 	
 	
 	public int getWarmIsland(ChunkTile tile) {
-		if((tile.getBiomeSeed() % 5) == 0) {
+		if(((tile.getWet() > 4) && (tile.getBiomeSeed() % 5) == 0)) {
 			return flower;
 		}
 		EnumBiomeType.findLandBiome(tile);
@@ -66,7 +68,7 @@ public class GetBoPIsland implements IBiomeSpecifier {
 	
 	
 	public int getHotIsland(ChunkTile tile) {
-		if((tile.getBiomeSeed() % 3) == 0) {
+		if(((tile.getWet() > 3) && (tile.getBiomeSeed() % 3) == 0)) {
 			return tropical;
 		}
 		EnumBiomeType.findLandBiome(tile);

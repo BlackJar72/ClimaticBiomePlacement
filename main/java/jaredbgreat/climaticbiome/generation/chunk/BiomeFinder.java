@@ -34,8 +34,8 @@ public class BiomeFinder {
     public static final int GENHALF2 = GENHALF1 + 1;
     public static final int GENSQ = GENSIZE * GENSIZE; // area of chunks to looks at
     
-    private final Cache<Region> regionCache = new Cache(32);
-    private final Cache<ChunkTile> chunkCache = new Cache(64);
+    private final Cache<Region> regionCache = new Cache<Region>(32);
+    private final Cache<ChunkTile> chunkCache = new Cache<ChunkTile>(64);
     
     public final SpatialNoise chunkNoise;
     public final SpatialNoise regionNoise;
