@@ -1,12 +1,12 @@
 package jaredbgreat.climaticbiome.blocks;
 
 import jaredbgreat.climaticbiome.Info;
-import jaredbgreat.climaticbiome.blocks.itemblocks.ItemPineLog;
 import jaredbgreat.climaticbiome.util.BlockRegistrar;
-import jaredbgreat.climaticbiome.util.ItemRegistrar;
 
 import java.util.Random;
 
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -16,8 +16,15 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -25,22 +32,18 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockPineSlab extends BlockSlabBase {
-    public static final PropertyEnum<EnumWoodType> TYPE 
-    	= PropertyEnum.<EnumWoodType>create("variant", EnumWoodType.class);
-    private final boolean beDouble;
 
 	public BlockPineSlab(String name, boolean beDouble) {
-		super(Material.WOOD);
-		this.beDouble = beDouble;
+		super(Material.WOOD, beDouble);
 		setUnlocalizedName(Info.ID + "." + name);
-		setRegistryName(Info.ID + ":" + name);
+		setRegistryName(Info.ID, name);
 		setSoundType(SoundType.WOOD);
 		setHardness(1.0f);
 		setHarvestLevel("axe", 0);
 		setResistance(1.0f);
         setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
         IBlockState iblockstate = this.blockState.getBaseState();
-        if(beDouble) {
+        if(!beDouble) {
             iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
         }
         setDefaultState(iblockstate);
@@ -102,7 +105,7 @@ public class BlockPineSlab extends BlockSlabBase {
 
     
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-        return new ItemStack(this, 1, state.getValue(TYPE).getMetadata());
+        return new ItemStack(this, 1);
     }
 
 
@@ -136,7 +139,7 @@ public class BlockPineSlab extends BlockSlabBase {
 
     @SideOnly(Side.CLIENT)
     protected static boolean isHalfSlab(IBlockState state) {
-        return state.getBlock() == BlockRegistrar.pineHalfSlab;
+        return state.isFullBlock();
     }
 
 }

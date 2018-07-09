@@ -1,5 +1,7 @@
 package jaredbgreat.climaticbiome.util;
 
+import jaredbgreat.climaticbiome.ClimaticBiomes;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,7 @@ public class ItemRegistrar {
 				((IHaveModel)block).registerModel();
 			}
 		}
+		ClimaticBiomes.proxy.fixRenders(BlockRegistrar.blockPineNeedles);
 	}
 	
 	

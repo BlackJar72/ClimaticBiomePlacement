@@ -23,11 +23,5 @@ public class ItemPineNeedles extends ItemLeaves {
 	public int getItemBurnTime(ItemStack stack) {
 		return 100;    	
     }
-    
-    
-    @Override
-    public String getUnlocalizedName(ItemStack stack) {
-    	return uname;
-    }
 
 }

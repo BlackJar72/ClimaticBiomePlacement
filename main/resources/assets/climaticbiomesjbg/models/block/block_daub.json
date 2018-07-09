@@ -1,6 +1,6 @@
 {
     "parent": "minecraft:block/cube_all",
     "textures": {
-        "all": "climaticbiomesjbg:blocks/block_daub"
+        "all": "climaticbiomesjbg:blocks/daub"
     }
 }

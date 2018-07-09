@@ -26,14 +26,10 @@ import net.minecraft.world.IBlockAccess;
 public class BlockPineNeedles extends BlockLeafBase {
 
 	public BlockPineNeedles() {
-		setUnlocalizedName(Info.ID + ".leaves_pine");
-		setRegistryName(Info.ID + ":leaves_pine");
-		setGraphicsLevel(Minecraft.getMinecraft().isFancyGraphicsEnabled());
+		setUnlocalizedName(Info.ID + ".pine_leaves");
+		setRegistryName(Info.ID, "pine_leaves");
 		BlockRegistrar.addBlock(this);
-		ItemRegistrar.addItem(new ItemBlock(this)
-			.setRegistryName(getRegistryName()));
-		ItemRegistrar.addItem(new ItemPineNeedles(this)
-			.setRegistryName(getRegistryName()));
+		ItemRegistrar.addItem(new ItemPineNeedles(this));
 	}
 	
 
@@ -52,7 +48,7 @@ public class BlockPineNeedles extends BlockLeafBase {
 	
     @Nullable
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(BlockRegistrar.pineSapling);
+        return Item.getItemFromBlock(BlockRegistrar.blockPineSappling);
     }
 
 	

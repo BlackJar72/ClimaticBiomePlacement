@@ -4,7 +4,7 @@ import jaredbgreat.climaticbiome.blocks.BlockDaub;
 import jaredbgreat.climaticbiome.blocks.BlockPineLog;
 import jaredbgreat.climaticbiome.blocks.BlockPineNeedles;
 import jaredbgreat.climaticbiome.blocks.BlockPinePlanks;
-import jaredbgreat.climaticbiome.blocks.BlockPineSappling;
+import jaredbgreat.climaticbiome.blocks.BlockPineSapling;
 import jaredbgreat.climaticbiome.blocks.BlockPineSlab;
 import jaredbgreat.climaticbiome.blocks.itemblocks.ItemPineSlab;
 import jaredbgreat.climaticbiome.generation.feature.GenPine;
@@ -23,9 +23,9 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class BlockRegistrar {	
 	private static final List<Block> BLOCKS = new ArrayList<>();
 	
-	public static Block blockDaub;
+	//public static Block blockDaub;
 	public static Block blockPineLog;
-	public static Block blockPineNeedles;
+	public static BlockPineNeedles blockPineNeedles;
 	public static Block blockPineSappling;
 	public static BlockPineSlab pineHalfSlab;
 	public static BlockPineSlab pineDoubleSlab;
@@ -33,30 +33,19 @@ public class BlockRegistrar {
 	
 	
 	public static void initBlocks() {
-		System.out.println();
-		System.out.println("*****************************");
-		System.out.println("**   Creating Mod Blocks  ***");
-		System.out.println("*****************************");
-		System.out.println();
-		blockDaub = new BlockDaub();
+		//blockDaub = new BlockDaub();
 		blockPineLog = new BlockPineLog();
 		blockPineNeedles = new BlockPineNeedles();
-		blockPineSappling = new BlockPineSappling("pine_sapling", new GenPine());
+		blockPineSappling = new BlockPineSapling("pine_sapling", new GenPine());
 		pineHalfSlab = new BlockPineSlab("pine_slab", false);
 		pineDoubleSlab = new BlockPineSlab("pine_doubleslab", true);
-		ItemRegistrar.addItem(new ItemPineSlab(pineHalfSlab, pineDoubleSlab, pineDoubleSlab)
-			.setRegistryName(pineHalfSlab.getRegistryName()));
-		blockPinePlanks = new BlockPinePlanks("planks_pine");
+		ItemRegistrar.addItem(new ItemPineSlab(pineHalfSlab, pineDoubleSlab, pineDoubleSlab));
+		blockPinePlanks = new BlockPinePlanks("pine_planks");
 	}
 	
 	
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
-		System.out.println();
-		System.out.println("*****************************");
-		System.out.println("** Registering Mod Blocks ***");
-		System.out.println("*****************************");
-		System.out.println();
 		IForgeRegistry<Block> regs = event.getRegistry();
 		for(Block block : BLOCKS) {
 			regs.register(block);

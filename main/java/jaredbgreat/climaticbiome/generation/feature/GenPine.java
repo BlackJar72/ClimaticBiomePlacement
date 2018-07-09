@@ -1,6 +1,7 @@
 package jaredbgreat.climaticbiome.generation.feature;
 
 import static net.minecraft.util.EnumFacing.UP;
+import jaredbgreat.climaticbiome.util.BlockRegistrar;
 
 import java.util.Random;
 
@@ -17,10 +18,9 @@ import net.minecraftforge.common.IPlantable;
 
 public class GenPine extends WorldGenAbstractTree {
 	
-    private static final IBlockState TRUNK = Blocks.LOG.getDefaultState()
-    		.withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE);
-    private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState()
-    		.withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
+    private static final IBlockState TRUNK = BlockRegistrar.blockPineLog.getDefaultState();
+    private static final IBlockState LEAF = BlockRegistrar.blockPineNeedles.getDefaultState()
+    		.withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
     
 
 	public GenPine() {
@@ -31,8 +31,8 @@ public class GenPine extends WorldGenAbstractTree {
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos) {
 		if(world.isRemote) return false;
-		int j1 = 5 + rand.nextInt(3) + rand.nextInt(2); // trunk height
-		int j2 = 2 + rand.nextInt(1 + (j1 / 2)); // first leaf height
+		int j1 = 4 + rand.nextInt(3) + rand.nextInt(2); // trunk height
+		int j2 = Math.min(j1 -1 , 2 + rand.nextInt(1 + (j1 / 2))); // first leaf height
 		
 		if((pos.getY() < 1) || ((pos.getY() + j1 + 3) > 255)) { 
 			return false;

@@ -17,18 +17,17 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 
-public class BlockPineSappling extends BlockBush implements IGrowable {
+public class BlockPineSapling extends BlockBushBase implements IGrowable {
 	private final WorldGenAbstractTree tree;
 	
 	
-	public BlockPineSappling(String name, WorldGenAbstractTree generator) {
+	public BlockPineSapling(String name, WorldGenAbstractTree generator) {
 		setUnlocalizedName(Info.ID + "." + name);
-		setRegistryName(Info.ID + ":" + name);
+		setRegistryName(Info.ID, name);
 		setSoundType(SoundType.PLANT);
 		tree = generator;
 		BlockRegistrar.addBlock(this);
-		ItemRegistrar.addItem(new ItemPineSappling(this)
-			.setRegistryName(getRegistryName()));
+		ItemRegistrar.addItem(new ItemPineSappling(this));
 	}
 	
 

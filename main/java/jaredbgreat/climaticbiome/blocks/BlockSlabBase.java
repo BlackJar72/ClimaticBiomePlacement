@@ -8,21 +8,26 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 
 public abstract class BlockSlabBase extends BlockSlab implements IHaveModel {
+    protected final boolean beDouble;
 
-	public BlockSlabBase(Material materialIn) {
+	public BlockSlabBase(Material materialIn, boolean beDouble) {
 		super(materialIn);
+		this.beDouble = beDouble;
 	}
 
 	
-	public BlockSlabBase(Material material, MapColor color) {
+	public BlockSlabBase(Material material, MapColor color, boolean beDouble) {
 		super(material, color);
+		this.beDouble = beDouble;
 	}
 
 	
 	@Override
 	public void registerModel() {
-		ClimaticBiomes.proxy.registerItemRender(Item
-				.getItemFromBlock(this), 0, "inventory");
+		if(!beDouble) {
+			ClimaticBiomes.proxy.registerItemRender(Item
+					.getItemFromBlock(this), 0, "inventory");
+		}
 	}
 
 }

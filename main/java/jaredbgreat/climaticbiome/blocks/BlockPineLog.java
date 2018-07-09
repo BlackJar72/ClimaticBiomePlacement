@@ -12,12 +12,11 @@ import net.minecraft.block.state.IBlockState;
 public class BlockPineLog extends BlockLogBase {
 	
     public BlockPineLog() {
-        setUnlocalizedName(Info.ID + ".log_pine");
-		setRegistryName(Info.ID + ":log_pine");		
+        setUnlocalizedName(Info.ID + ".pine_log");
+		setRegistryName(Info.ID, "pine_log");		
 		setDefaultState(blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y));
 		BlockRegistrar.addBlock(this);
-		ItemRegistrar.addItem(new ItemPineLog(this)
-			.setRegistryName(getRegistryName()));
+		ItemRegistrar.addItem(new ItemPineLog(this));
     }
     
     

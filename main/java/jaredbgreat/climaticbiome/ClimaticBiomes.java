@@ -19,8 +19,8 @@ public class ClimaticBiomes {
 	public static BetterWorldType worldType;
 	public static final boolean gotBoP = bopLoaded();
 
-	@SidedProxy(clientSide = "jaredbgreat.modding.learning.proxy.ClientProxy",
-			    serverSide = "jaredbgreat.modding.learning.proxy.ServerProxy")
+	@SidedProxy(clientSide = "jaredbgreat.climaticbiome.proxy.ClientProxy",
+			    serverSide = "jaredbgreat.climaticbiome.proxy.ServerProxy")
 	public static IProxy proxy;
 	
     

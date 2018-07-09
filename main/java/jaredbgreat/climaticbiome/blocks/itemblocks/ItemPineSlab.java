@@ -11,7 +11,6 @@ public class ItemPineSlab extends ItemSlab {
 		super(block, singleSlab, doubleSlab);
         setUnlocalizedName(block.getUnlocalizedName());
         setRegistryName(block.getRegistryName());
-        System.err.println(block.getRegistryName() + " -> " + this.getRegistryName());
 	}
     
     
