@@ -8,6 +8,7 @@ import jaredbgreat.climaticbiome.generation.chunk.Region;
 import jaredbgreat.climaticbiome.generation.chunk.SpatialNoise;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Nullable;
 
@@ -16,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
+import net.minecraft.world.gen.ChunkGeneratorSettings;
 import net.minecraft.world.gen.layer.IntCache;
 
 public class BetterBiomeProvider extends BiomeProvider {
@@ -24,10 +26,39 @@ public class BetterBiomeProvider extends BiomeProvider {
 	
 	
 	public BetterBiomeProvider(World world) {		
-		super(world.getWorldInfo());		
+		super(/*world.getWorldInfo()*/);		
 		this.world = world;
 		finder = new BiomeFinder(world.getSeed());
 	}
+	
+
+    @Nullable
+    @Override
+    public BlockPos findBiomePosition(int x, int z, int range, 
+    			List<Biome> biomes, Random random) {
+        int i = x - range >> 2;
+        int j = z - range >> 2;
+        int k = x + range >> 2;
+        int l = z + range >> 2;
+        int i1 = k - i + 1;
+        int j1 = l - j + 1;
+        Biome[] barr = new Biome[i1 * j1];
+        barr = this.getBiomes(barr, i, j, i1, j1);
+        BlockPos blockpos = null;
+        int k1 = 0;
+
+        for (int l1 = 0; l1 < i1 * j1; ++l1) {
+            int i2 = i + l1 % i1 << 2;
+            int j2 = j + l1 / i1 << 2;
+            Biome biome = barr[l1];
+
+            if (biomes.contains(biome) && (blockpos == null || random.nextInt(k1 + 1) == 0)) {
+                blockpos = new BlockPos(i2, 0, j2);
+                ++k1;
+            }
+        }
+        return blockpos;
+    }
 
 
     @Override
@@ -55,7 +86,8 @@ public class BetterBiomeProvider extends BiomeProvider {
     		out = finder.getChunkGrid(finder.makeChunk(x / 16, z / 16));
     		System.arraycopy(out, 0, in, 0, 256); 
     	} else {
-    		in = finder.getChunkGrid(finder.makeChunk(x / 16, z / 16));
+    		out = finder.getChunkGrid(width, depth);
+    		System.arraycopy(out, 0, in, 0, width * depth); 
     	}
         return in;
     }

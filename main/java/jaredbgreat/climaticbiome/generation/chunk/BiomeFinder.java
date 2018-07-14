@@ -322,6 +322,31 @@ public class BiomeFinder {
     }
     
     
+    public Biome[] getChunkGrid(int h, int w) {
+    	int ch = (h / 16) + 3;
+    	int cw = (w / 16) + 3;
+    	int numc = ch * cw;
+    	Biome[] out = new Biome[h * w];
+    	ChunkTile[] tiles = new ChunkTile[numc];
+    	BiomeBasin[][] basins = new BiomeBasin[ch][cw];
+    	for(int i = 0; i < tiles.length; i++) {
+    		int x1 = (i / ch) + 2;
+    		int z1 = (i % cw) + 2;    		
+    		tiles[i] = makeChunk(x1, z1)[24];//in[(z1 * GENSIZE) + x1];
+    		basins[i / ch][i % cw] = new BiomeBasin(
+    				(x1 * 16) + (chunkNoise.intFor(tiles[i].x, tiles[i].z, 10) % 16),
+    				(z1 * 16) + (chunkNoise.intFor(tiles[i].x, tiles[i].z, 11) % 16),
+    				tiles[i].biome, 1.0 + chunkNoise.doubleFor(tiles[i].x, tiles[i].z, 12));    				
+    	}
+    	for(int i = 0; i < h; i++)
+    		for(int j = 0; j < w; j++) {
+    			out[(j * w) + i] = Biome.getBiome(BiomeBasin.summateEffect(basins, 48 + i, 48 + j),
+    					Biomes.DEFAULT);
+    		}
+    	return out;
+    }
+    
+    
     public void cleanCaches() {
     	regionCache.cleanup();
     	chunkCache.cleanup();

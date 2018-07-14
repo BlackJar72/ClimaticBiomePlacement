@@ -11,31 +11,34 @@ public class GetBoPDesert implements IBiomeSpecifier {
 
 	@Override
 	public int getBiome(ChunkTile tile) {
-		return reallyGetBiome(tile, tile.getBiomeSeed() % 8);
+		return reallyGetBiome(tile, tile.getBiomeSeed() % 7);
 	}
 	
 	
 	private int reallyGetBiome(ChunkTile tile, int in) {
-		switch(in % 8) {
-		case 0:
-		case 1:
-			return lush;
-		case 2:
-		case 3:
-			return outback;
-		case 4:
-		case 5:
-			return xeric;
-		case 6:
-			return oasis;
-		case 7:
-			if((tile.getBiomeSeed() % 3) == 0) {
-				return wasteland;
-			} else {
-				return reallyGetBiome(tile, tile.getBiomeSeed() % 7);
-			}
-		default:
-			return xeric;
+		switch(in) {
+			case 0:
+			case 1:
+				return outback;
+			case 2:
+			case 3:
+			case 4:
+				return xeric;
+			case 5:
+				// A "lush desert" is basically an alternate oasis.
+				if((in & 1) == 0) {
+					return oasis;
+				} else {
+					return lush;
+				}
+			case 6:
+				if((in % 3) == 0) {
+					return wasteland;
+				} else {
+					return reallyGetBiome(tile, in % 5);
+				}
+			default:
+				return xeric;
 		}
 	}
 	
