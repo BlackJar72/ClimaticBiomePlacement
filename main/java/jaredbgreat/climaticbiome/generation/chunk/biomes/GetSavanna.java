@@ -6,13 +6,18 @@ public class GetSavanna implements IBiomeSpecifier {
 
 	@Override
 	public int getBiome(ChunkTile tile) {
-		int out;
-		if((tile.getBiomeSeed() % 4) == 0) {
-			out = 36;			
+		int seed = tile.getBiomeSeed() % 6;
+		if(seed == 0) {
+			return 36;			
+		} else if(seed < 3) {
+			if(tile.getNoise() > 5){
+				return 36;
+			} else {
+				return 35;
+		 	}
 		} else {
-			out = 35;
+			return 35;
 		}
-		return out;
 	}
 
 }
