@@ -11,7 +11,7 @@ public class GetBoPDesert implements IBiomeSpecifier {
 
 	@Override
 	public int getBiome(ChunkTile tile) {
-		return reallyGetBiome(tile, tile.getBiomeSeed() % 8);
+		return reallyGetBiome(tile, tile.getBiomeSeed() % 7);
 	}
 	
 	
@@ -25,14 +25,16 @@ public class GetBoPDesert implements IBiomeSpecifier {
 			case 4:
 				return xeric;
 			case 5:
-				return oasis;
+				if((tile.getBiomeSeed() & 1) == 0) {
+					return oasis;
+				} else {
+					return lush; // Basically also an oasis
+				}
 			case 6:
-				return lush;
-			case 7:
 				if((in % 5) == 0) {
 					return wasteland;
 				} else {
-					return reallyGetBiome(tile, in % 7);
+					return lush;
 				}
 			default:
 				return xeric;

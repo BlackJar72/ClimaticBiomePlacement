@@ -322,7 +322,7 @@ public class BiomeFinder {
     }
     
     
-    public Biome[] getChunkGrid(int h, int w) {
+    public Biome[] getChunkGrid(int x, int z, int h, int w) {
     	int ch = (h / 16) + 3;
     	int cw = (w / 16) + 3;
     	int numc = ch * cw;
@@ -330,9 +330,9 @@ public class BiomeFinder {
     	ChunkTile[] tiles = new ChunkTile[numc];
     	BiomeBasin[][] basins = new BiomeBasin[ch][cw];
     	for(int i = 0; i < tiles.length; i++) {
-    		int x1 = (i / ch) + 2;
-    		int z1 = (i % cw) + 2;    		
-    		tiles[i] = makeChunk(x1, z1)[24];//in[(z1 * GENSIZE) + x1];
+    		int x1 = (i / ch);
+    		int z1 = (i % cw);    		
+    		tiles[i] = makeChunk(x + x1, z + z1)[24];
     		basins[i / ch][i % cw] = new BiomeBasin(
     				(x1 * 16) + (chunkNoise.intFor(tiles[i].x, tiles[i].z, 10) % 16),
     				(z1 * 16) + (chunkNoise.intFor(tiles[i].x, tiles[i].z, 11) % 16),

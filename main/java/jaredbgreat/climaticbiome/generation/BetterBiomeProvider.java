@@ -86,7 +86,7 @@ public class BetterBiomeProvider extends BiomeProvider {
     		out = finder.getChunkGrid(finder.makeChunk(x / 16, z / 16));
     		System.arraycopy(out, 0, in, 0, 256); 
     	} else {
-    		out = finder.getChunkGrid(width, depth);
+    		out = finder.getChunkGrid((x / 16), (z / 16), width, depth);
     		System.arraycopy(out, 0, in, 0, width * depth); 
     	}
         return in;
