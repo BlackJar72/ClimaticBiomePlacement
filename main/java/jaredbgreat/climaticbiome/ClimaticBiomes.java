@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class ClimaticBiomes {
 	public static ClimaticBiomes instance;
 	public static BetterWorldType worldType;
-	public static final boolean gotBoP = bopLoaded();
+	public static final boolean gotBoP    = bopLoaded();
 
 	@SidedProxy(clientSide = "jaredbgreat.climaticbiome.proxy.ClientProxy",
 			    serverSide = "jaredbgreat.climaticbiome.proxy.ServerProxy")

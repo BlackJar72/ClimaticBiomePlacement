@@ -1,5 +1,7 @@
 package jaredbgreat.climaticbiome.generation.chunk.biomes;
 
+import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 import jaredbgreat.climaticbiome.generation.chunk.EnumBiomeType;
 
@@ -15,5 +17,5 @@ public class GetPark implements IBiomeSpecifier {
 			return EnumBiomeType.GRASS.specifier.getBiome(tile);			
 		}
 	}
-
+	
 }
