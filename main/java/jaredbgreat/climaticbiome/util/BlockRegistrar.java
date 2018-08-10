@@ -1,18 +1,19 @@
 package jaredbgreat.climaticbiome.util;
 
-import jaredbgreat.climaticbiome.blocks.BlockDaub;
 import jaredbgreat.climaticbiome.blocks.BlockPineLog;
 import jaredbgreat.climaticbiome.blocks.BlockPineNeedles;
 import jaredbgreat.climaticbiome.blocks.BlockPinePlanks;
 import jaredbgreat.climaticbiome.blocks.BlockPineSapling;
-import jaredbgreat.climaticbiome.blocks.BlockPineSlab;
 import jaredbgreat.climaticbiome.blocks.itemblocks.ItemPineSlab;
+import jaredbgreat.climaticbiome.blocks.slabs.BlockPineSlab;
+import jaredbgreat.climaticbiome.blocks.slabs.PineDoubleSlab;
 import jaredbgreat.climaticbiome.generation.feature.GenPine;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLog;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -24,11 +25,11 @@ public class BlockRegistrar {
 	private static final List<Block> BLOCKS = new ArrayList<>();
 	
 	//public static Block blockDaub;
-	public static Block blockPineLog;
+	public static BlockLog blockPineLog;
 	public static BlockPineNeedles blockPineNeedles;
 	public static Block blockPineSappling;
 	public static BlockPineSlab pineHalfSlab;
-	public static BlockPineSlab pineDoubleSlab;
+	public static PineDoubleSlab pineDoubleSlab;
 	public static Block blockPinePlanks;
 	
 	
@@ -37,8 +38,8 @@ public class BlockRegistrar {
 		blockPineLog = new BlockPineLog();
 		blockPineNeedles = new BlockPineNeedles();
 		blockPineSappling = new BlockPineSapling("pine_sapling", new GenPine());
-		pineHalfSlab = new BlockPineSlab("pine_slab", false);
-		pineDoubleSlab = new BlockPineSlab("pine_doubleslab", true);
+		pineHalfSlab = new BlockPineSlab("pine_slab");
+		pineDoubleSlab = new PineDoubleSlab("pine_doubleslab", pineHalfSlab);
 		ItemRegistrar.addItem(new ItemPineSlab(pineHalfSlab, pineDoubleSlab, pineDoubleSlab));
 		blockPinePlanks = new BlockPinePlanks("pine_planks");
 	}

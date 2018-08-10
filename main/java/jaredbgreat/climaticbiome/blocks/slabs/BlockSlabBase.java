@@ -1,4 +1,4 @@
-package jaredbgreat.climaticbiome.blocks;
+package jaredbgreat.climaticbiome.blocks.slabs;
 
 import jaredbgreat.climaticbiome.ClimaticBiomes;
 import jaredbgreat.climaticbiome.util.IHaveModel;

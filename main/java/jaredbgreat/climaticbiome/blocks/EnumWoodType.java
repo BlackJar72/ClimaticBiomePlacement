@@ -5,60 +5,75 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.util.IStringSerializable;
 
 public enum EnumWoodType implements IStringSerializable {
-	PINE(0, "pine", MapColor.WOOD, EnumType.OAK);
+	PINE(0, "pine", MapColor.WOOD);
 
     private static final int SIZE = values().length;
     private final int meta;
     private final String name;
-    private final MapColor color;
-    private final EnumType vanilla;
+    private final MapColor mapColor;
 
-    private static final EnumWoodType[] TYPES = values();;
-        
-    private EnumWoodType(int meta, String name, MapColor color, EnumType vanilla) {
-      	this.meta = meta;
-       	this.name = name;
-       	this.color = color;
-       	this.vanilla = vanilla;
-    }
+	private static final EnumWoodType[] META_LOOKUP 
+		= new EnumWoodType[values().length];
+	private final String unlocalizedName;
 
-        
-    public int getMetadata() {
-        return meta;
-    }
+	
+	private EnumWoodType(int metaIn, String nameIn, MapColor color) {
+		this(metaIn, nameIn, nameIn, color);
+	}
+	
+	
+	private EnumWoodType(int metaIn, String nameIn, 
+				String unlocalizedNameIn, MapColor color) {
+		meta = metaIn;
+		name = nameIn;
+		unlocalizedName = unlocalizedNameIn;
+		mapColor = color;
+	}
+
+	
+	public int getMetadata() {
+		return this.meta;
+	}
+
+	
+	public String toString() {
+		return this.name;
+	}
+
+	
+	public static EnumWoodType byMetadata(int meta) {
+		if (meta < 0 || meta >= META_LOOKUP.length) {
+			meta = 0;
+		}
+
+		return META_LOOKUP[meta];
+	}
+
+	
+	public String getName() {
+		return this.name;
+	}
+
+	
+	public String getUnlocalizedName() {
+		return this.unlocalizedName;
+	}
+
+	
+	static {
+		for (EnumWoodType blockplanks$enumtype : values()) {
+			META_LOOKUP[blockplanks$enumtype.getMetadata()] = blockplanks$enumtype;
+		}
+	}
+
+
+    private static final EnumWoodType[] TYPES = values();
 
         
     public MapColor getMapColor() {
-        return color;
-    }
-
-        
-    public String toString() {
-        return name;
-    }
-
-        
-    public static EnumWoodType byMetadata(int meta) {
-        if (meta < 0 || meta >= SIZE) {
-            meta = 0;
-        }
-        return values()[meta];
-    }
-
-        
-    public String getName() {
-        return name;
-    }
-
-        
-    public String getUnlocalizedName() {
-        return name;
+        return mapColor;
     }
     
-    
-    public EnumType getVanilla() {
-    	return vanilla;
-    }
     
     public static EnumWoodType getFromVanilla(EnumType in) {
     	return TYPES[in.ordinal()];

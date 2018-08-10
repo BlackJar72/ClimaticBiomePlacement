@@ -9,7 +9,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 
 //For reasons I don't understand I can't instantiate the vanilla class, but can do this!?
-public class BlockPineLog extends BlockLogBase {
+public class BlockPineLog extends BlockLogClimatic {
 	
     public BlockPineLog() {
         setUnlocalizedName(Info.ID + ".pine_log");

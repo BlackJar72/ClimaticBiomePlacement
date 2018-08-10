@@ -47,13 +47,10 @@ public class ModBiomes {
     
     public static void createBiomes() {
 		warmForest = new WarmForest();
-		BiomeDictionary.addTypes(warmForest, Type.FOREST, Type.CONIFEROUS);
 		makeMoreUsable(warmForest);
 		tropicalForest = new TropicalForest();
-		BiomeDictionary.addTypes(tropicalForest, Type.FOREST, Type.JUNGLE, Type.HOT);
 		makeMoreUsable(tropicalForest);
 		pineWoods = new Pinewoods();
-		BiomeDictionary.addTypes(pineWoods, Type.FOREST, Type.WET, Type.HOT, Type.CONIFEROUS, Type.SWAMP);
 		makeMoreUsable(pineWoods);
 		warmForestHills 
 				= new WarmForest(new Biome.BiomeProperties("Subtropical Forest Hills")
@@ -61,7 +58,6 @@ public class ModBiomes {
 					.setRainfall(0.85F)
 					.setBaseHeight(0.45F)
 					.setHeightVariation(0.3F));
-		BiomeDictionary.addTypes(warmForestHills, Type.FOREST, Type.CONIFEROUS, Type.HILLS);
 		makeMoreUsable(warmForestHills);
 		tropicalForestHills 
 				= new TropicalForest(new Biome.BiomeProperties("Subtropical Forest Hills")
@@ -69,7 +65,6 @@ public class ModBiomes {
 					.setRainfall(0.7F)
 					.setBaseHeight(0.45F)
 					.setHeightVariation(0.3F));
-		BiomeDictionary.addTypes(tropicalForestHills, Type.FOREST, Type.JUNGLE, Type.HOT, Type.HILLS);
 		makeMoreUsable(tropicalForestHills);
 		denseScrub = new Scrub(Scrub.Type.DENSE, 
 				new Biome.BiomeProperties("Dense Scrub")
@@ -77,7 +72,6 @@ public class ModBiomes {
 					.setRainfall(0.1F)
 					.setBaseHeight(0.125F)
 					.setHeightVariation(0.05F));
-		BiomeDictionary.addTypes(denseScrub, Type.SPARSE, Type.HOT, Type.DRY);
 		makeMoreUsable(denseScrub, true);
 		dryScrub = new Scrub(Scrub.Type.DRY, 
 				new Biome.BiomeProperties("Dry Scrub")
@@ -86,7 +80,6 @@ public class ModBiomes {
 					.setRainDisabled()
 					.setBaseHeight(0.125F)
 					.setHeightVariation(0.05F));
-		BiomeDictionary.addTypes(dryScrub, Type.SPARSE, Type.HOT, Type.DRY, Type.SANDY);
 		makeMoreUsable(dryScrub);
 		denseScrubHills = new Scrub(Scrub.Type.DENSE, 
 				new Biome.BiomeProperties("Dense Scrub Hills")
@@ -94,7 +87,6 @@ public class ModBiomes {
 					.setRainfall(0.1F)
 					.setBaseHeight(0.45F)
 					.setHeightVariation(0.3F));
-		BiomeDictionary.addTypes(denseScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS);
 		makeMoreUsable(denseScrubHills);
 		dryScrubHills = new Scrub(Scrub.Type.DRY, 
 				new Biome.BiomeProperties("Dry Scrub Hills")
@@ -103,13 +95,12 @@ public class ModBiomes {
 					.setRainDisabled()
 					.setBaseHeight(0.45F)
 					.setHeightVariation(0.3F));
-		BiomeDictionary.addTypes(dryScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS, Type.SANDY);
 		makeMoreUsable(dryScrubHills);
     }
     
 
 	@SubscribeEvent
-	public static void registerBlocks(RegistryEvent.Register<Biome> event) {
+	public static void registerBiomes(RegistryEvent.Register<Biome> event) {
 		event.getRegistry().register(warmForest
 				.setRegistryName("subtropical_forest"));
 		event.getRegistry().register(tropicalForest
@@ -134,6 +125,15 @@ public class ModBiomes {
 		if(ClimaticBiomes.gotBoP) {
 			setupBopTypes();
 		}
+		BiomeDictionary.addTypes(warmForest, Type.FOREST, Type.CONIFEROUS);
+		BiomeDictionary.addTypes(tropicalForest, Type.FOREST, Type.JUNGLE, Type.HOT);
+		BiomeDictionary.addTypes(pineWoods, Type.FOREST, Type.WET, Type.HOT, Type.CONIFEROUS, Type.SWAMP);
+		BiomeDictionary.addTypes(warmForestHills, Type.FOREST, Type.CONIFEROUS, Type.HILLS);
+		BiomeDictionary.addTypes(tropicalForestHills, Type.FOREST, Type.JUNGLE, Type.HOT, Type.HILLS);
+		BiomeDictionary.addTypes(denseScrub, Type.SPARSE, Type.HOT, Type.DRY);
+		BiomeDictionary.addTypes(dryScrub, Type.SPARSE, Type.HOT, Type.DRY, Type.SANDY);
+		BiomeDictionary.addTypes(denseScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS);
+		BiomeDictionary.addTypes(dryScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS, Type.SANDY);
 	}
 	
 	
