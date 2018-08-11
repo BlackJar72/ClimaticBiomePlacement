@@ -5,8 +5,9 @@ import jaredbgreat.climaticbiome.blocks.BlockPineNeedles;
 import jaredbgreat.climaticbiome.blocks.BlockPinePlanks;
 import jaredbgreat.climaticbiome.blocks.BlockPineSapling;
 import jaredbgreat.climaticbiome.blocks.itemblocks.ItemPineSlab;
+import jaredbgreat.climaticbiome.blocks.slabs.BlockPineDoubleSlab;
 import jaredbgreat.climaticbiome.blocks.slabs.BlockPineSlab;
-import jaredbgreat.climaticbiome.blocks.slabs.PineDoubleSlab;
+import jaredbgreat.climaticbiome.blocks.special.BlockPineDoor;
 import jaredbgreat.climaticbiome.generation.feature.GenPine;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class BlockRegistrar {
 	public static BlockPineNeedles blockPineNeedles;
 	public static Block blockPineSappling;
 	public static BlockPineSlab pineHalfSlab;
-	public static PineDoubleSlab pineDoubleSlab;
+	public static BlockPineDoubleSlab pineDoubleSlab;
 	public static Block blockPinePlanks;
 	
 	
@@ -39,7 +40,7 @@ public class BlockRegistrar {
 		blockPineNeedles = new BlockPineNeedles();
 		blockPineSappling = new BlockPineSapling("pine_sapling", new GenPine());
 		pineHalfSlab = new BlockPineSlab("pine_slab");
-		pineDoubleSlab = new PineDoubleSlab("pine_doubleslab", pineHalfSlab);
+		pineDoubleSlab = new BlockPineDoubleSlab("pine_doubleslab", pineHalfSlab);
 		ItemRegistrar.addItem(new ItemPineSlab(pineHalfSlab, pineDoubleSlab, pineDoubleSlab));
 		blockPinePlanks = new BlockPinePlanks("pine_planks");
 	}

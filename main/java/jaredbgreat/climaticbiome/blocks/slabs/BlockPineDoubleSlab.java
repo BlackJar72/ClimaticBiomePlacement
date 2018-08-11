@@ -25,10 +25,10 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class PineDoubleSlab extends BlockSlabBase {
+public class BlockPineDoubleSlab extends BlockSlabBase {
 	private Block slab;
 
-	public PineDoubleSlab(String name, BlockPineSlab single) {
+	public BlockPineDoubleSlab(String name, BlockPineSlab single) {
 		super(Material.WOOD, true);
 		setUnlocalizedName(Info.ID + "." + name);
 		setRegistryName(Info.ID, name);
