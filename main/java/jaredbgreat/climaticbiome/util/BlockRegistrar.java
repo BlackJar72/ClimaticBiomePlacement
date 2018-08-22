@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.util;
 
+import jaredbgreat.climaticbiome.biomes.feature.GenPine;
 import jaredbgreat.climaticbiome.blocks.BlockPineLog;
 import jaredbgreat.climaticbiome.blocks.BlockPineNeedles;
 import jaredbgreat.climaticbiome.blocks.BlockPinePlanks;
@@ -7,8 +8,6 @@ import jaredbgreat.climaticbiome.blocks.BlockPineSapling;
 import jaredbgreat.climaticbiome.blocks.itemblocks.ItemPineSlab;
 import jaredbgreat.climaticbiome.blocks.slabs.BlockPineDoubleSlab;
 import jaredbgreat.climaticbiome.blocks.slabs.BlockPineSlab;
-import jaredbgreat.climaticbiome.blocks.special.BlockPineDoor;
-import jaredbgreat.climaticbiome.generation.feature.GenPine;
 
 import java.util.ArrayList;
 import java.util.List;

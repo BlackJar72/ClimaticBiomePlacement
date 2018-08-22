@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiome.generation.cache;
 
-import jaredbgreat.climaticbiome.generation.chunk.SpatialNoise;
+import jaredbgreat.climaticbiome.util.SpatialNoise;
 
 public final class Coords {
 	private static final SpatialNoise nh = new SpatialNoise(0xADD5C0DE);
