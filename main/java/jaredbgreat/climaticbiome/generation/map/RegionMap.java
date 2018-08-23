@@ -1,11 +1,13 @@
 package jaredbgreat.climaticbiome.generation.map;
 
-public class RegionMap {
+import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
+
+public class RegionMap extends AbstractCachable {
     //final MutableCoords region;
     final int[] data = new int[65536];
     
     public RegionMap(int x, int z) {
-        //region = new MutableCoords().init(x, z);
+        super(x, z);
     }
     
     /**

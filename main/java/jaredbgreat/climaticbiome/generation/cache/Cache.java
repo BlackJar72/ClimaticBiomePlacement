@@ -6,7 +6,7 @@ package jaredbgreat.climaticbiome.generation.cache;
 // I've done wrong.
 
 /**
- * A cache system using a skiplist based hash map.
+ * A cache system using a based hash map.
  * 
  * @author Jared Blackburn
  * @param <T>
