@@ -16,7 +16,7 @@ public class ChunkTile extends AbstractCachable {
     static final int size = 16;
     final int x, z;
     int val = 0;
-    //EnumBiomeType rlBiome;
+    BiomeType rlBiome;
     int temp = 0, wet = 0;
     int biomeSeed = 0, biome = 0;
     int noiseVal = 0;
@@ -62,9 +62,9 @@ public class ChunkTile extends AbstractCachable {
         return val;
     }
 
-    //public EnumBiomeType getRlBiome() {
-    //    return rlBiome;
-    //}
+    public BiomeType getRlBiome() {
+        return rlBiome;
+    }
 
     public int getTemp() {
         return temp;
@@ -95,11 +95,12 @@ public class ChunkTile extends AbstractCachable {
     }
     
     
-    public void nextBiomeSeed() {
+    public ChunkTile nextBiomeSeed() {
     	biomeSeed ^= biomeSeed << 13;
     	biomeSeed ^= biomeSeed >> 19;
     	biomeSeed ^= biomeSeed << 7;
     	biomeSeed &= 0x7fffffff;
+    	return this;
     }
     
 }
