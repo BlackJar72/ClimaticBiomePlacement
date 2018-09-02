@@ -10,6 +10,8 @@ import net.minecraft.init.Biomes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 
+import static jaredbgreat.climaticbiome.util.ModMath.*;
+
 
 /**
  * This is a class for storing and handling biome maps.  It 
@@ -121,10 +123,14 @@ public class MapRegistry {
 		//               real generator.
 		for(int i = 0; i < 256; i++)
 			for(int j = 0; j < 256; j++) {
-				if((((i / 4) + (j / 4)) % 2) == 0) {
+				if(  ((((i + j) / 2) % 10) == 0)
+				  || (((i / 2) % 10) == 0)) {
+					  map.setBiomeExpress(7, i, j);
+				  }
+				  else if((((i / 4) + (j / 4)) % 2) == 0) {
 					map.setBiomeExpress(1, i, j); // One is a stand in (I think plains).
 				} else {
-					map.setBiomeExpress(34, i, j); // One is a stand in.					
+					map.setBiomeExpress(4, i, j); // One is a stand in.
 				}
 			}
 	}
@@ -159,6 +165,21 @@ public class MapRegistry {
 				.getBiome(modRight(x + 128, 256), 
 						  modRight(z + 128, 256));
 	}
+	
+	
+	/**
+	 * Return the biome ID as an int for the the given x,z chunk coordinates.
+	 * 
+	 * @param x
+	 * @param z
+	 * @return
+	 */
+	public int getGenIDChunk(int x, int z) {
+		return getMapFromChunkCoord(x, z)
+				.getPseudoBiome(modRight(x + 128, 256), 
+						        modRight(z + 128, 256));
+	}
+
 	
 	
 	/**
@@ -238,6 +259,11 @@ public class MapRegistry {
 		return Biome.getBiome(id & 0xff); // Yes, this is totally wrong! 
 	}
     
+	
+/*--------------------------------------------------------------------------------------*
+ *                   PRACTICAL METHODS FOR GETTING THE BIOME ARRAYS                     *
+ *--------------------------------------------------------------------------------------*/
+	
     
 	/**
 	 * Returns a biome array for the chunk at chunk 
@@ -266,7 +292,7 @@ public class MapRegistry {
     	}
     	for(int i = 0; i < 16; i++)
     		for(int j = 0; j < 16; j++) {
-    			out[(j * 16) + i] = Biome.getBiome(BiomeBasin.summateEffect(basins, 48 + i, 48 + j),
+    			out[(j * 16) + i] = Biome.getBiome(BiomeBasin.summateEffect(basins, 16 + i, 16 + j),
     					Biomes.DEFAULT);
     		}
     	return out;
@@ -299,7 +325,7 @@ public class MapRegistry {
     	}
     	for(int i = 0; i < 16; i++)
     		for(int j = 0; j < 16; j++) {
-    			in[(j * 16) + i] = Biome.getBiome(BiomeBasin.summateEffect(basins, 48 + i, 48 + j),
+    			in[(j * 16) + i] = Biome.getBiome(BiomeBasin.summateEffect(basins, 16 + i, 16 + j),
     					Biomes.DEFAULT);
     		}
     	return in;
@@ -343,7 +369,7 @@ public class MapRegistry {
     	for(int i = 0; i < w; i++)
     		for(int j = 0; j < h; j++) {
     			out[(j * w) + i] = Biome.getBiome(BiomeBasin
-    						.summateEffect(basins, 48 + i, 48 + j),
+    						.summateEffect(basins, 16 + i, 16 + j),
     					Biomes.DEFAULT);
     		}
     	return out;
@@ -414,17 +440,193 @@ public class MapRegistry {
     		}    	
     	return in;
     }
-    
-    
-    private int modRight(int a, int b) {
-    	int out = a % b;
-    	if(a < 0) {
-    		out += b;
-    	}
-    	return out;
-    }
 	
 	// TODO: Methods that can be used to gain pseudo-biome arrays 
     //       and/or accurate block pseudo-biome.
+    
+	
+/*--------------------------------------------------------------------------------------*
+ *                 METHODS FOR GETTING THE BIOME ARRAYS FOR GENERATION                  *
+ *--------------------------------------------------------------------------------------*/
+	
+
+	
+    
+	/**
+	 * Returns a biome array for the chunk at chunk 
+	 * coordinates x,z.
+	 * 
+	 * @param x
+	 * @param z
+	 * @param h
+	 * @param w
+	 * @return
+	 */
+    public Biome[] getChunkBiomeGen(int x, int z) {
+    	Biome[] out = new Biome[256];
+    	int[] tiles = new int[9];
+    	BiomeBasin[][] basins = new BiomeBasin[3][3];
+    	for(int i = 0; i < tiles.length; i++) {
+    		int x1 = (i / 3);
+    		int z1 = (i % 3);   
+    		int x2 = x + x1;
+    		int z2 = z + z1;    		 		
+    		tiles[i] = getGenIDChunk(x2, z2);
+    		basins[i / 3][i % 3] = new BiomeBasin(
+    				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
+    				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
+    				tiles[i], 1.0 + chunkNoise.doubleFor(x2, z2, 12));    				
+    	}
+    	for(int i = 0; i < 16; i++)
+    		for(int j = 0; j < 16; j++) {
+    			out[(j * 16) + i] = Biome.getBiome(BiomeBasin.summateEffect(basins, 16 + i, 16 + j),
+    					Biomes.DEFAULT);
+    		}
+    	return out;
+    }
+    
+    
+	/**
+	 * Returns a biome array for the chunk at chunk 
+	 * coordinates x,z.
+	 * 
+	 * @param x
+	 * @param z
+	 * @param h
+	 * @param w
+	 * @return
+	 */
+    public Biome[] getChunkBiomeGen(int x, int z, Biome[] in) {
+    	int[] tiles = new int[9];
+    	BiomeBasin[][] basins = new BiomeBasin[3][3];
+    	for(int i = 0; i < tiles.length; i++) {
+    		int x1 = (i / 3);
+    		int z1 = (i % 3);   
+    		int x2 = x + x1;
+    		int z2 = z + z1;    		 		
+    		tiles[i] = getGenIDChunk(x2, z2);
+    		basins[i / 3][i % 3] = new BiomeBasin(
+    				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
+    				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
+    				tiles[i], 1.0 + chunkNoise.doubleFor(x2, z2, 12));    				
+    	}
+    	for(int i = 0; i < 16; i++)
+    		for(int j = 0; j < 16; j++) {
+    			in[(j * 16) + i] = Biome.getBiome(BiomeBasin.summateEffect(basins, 16 + i, 16 + j),
+    					Biomes.DEFAULT);
+    		}
+    	return in;
+    }
+    
+    
+	/**
+	 * Returns a biome array starting at chunk coordinates x,z, 
+	 * or more precisely block coordinates (x*16),(z*16), and 
+	 * extending for h by w blocks.  For good results h and w 
+	 * should be multiples of 16, allowing for nice, resulting 
+	 * in arrays the fit and fill a set of chunks exactions.  
+	 * What is essential is that the area represented by the 
+	 * biome array will always begin on chunk boundaries.
+	 * 
+	 * @param x
+	 * @param z
+	 * @param h
+	 * @param w
+	 * @return
+	 */
+    public Biome[] getBiomeGenGrid(int x, int z, int h, int w) {
+    	int ch = ((h - 1) / 16) + 3;
+    	int cw = ((w - 1) / 16) + 3;
+    	int numc = ch * cw;
+    	Biome[] out = new Biome[h * w];
+    	
+    	int[] tiles = new int[numc];
+    	BiomeBasin[][] basins = new BiomeBasin[ch][cw];
+    	for(int i = 0; i < tiles.length; i++) {
+    		int x1 = (i / cw);
+    		int z1 = (i % cw); 
+    		int x2 = x + x1; 
+    		int z2 = z + z1; 
+    		tiles[i] = getGenIDChunk(x2, z2);
+    		basins[x1][z1] = new BiomeBasin(
+    				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
+    				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
+    				tiles[i], 1.0 + chunkNoise.doubleFor(x2, z2, 12));    				
+    	}
+    	for(int i = 0; i < w; i++)
+    		for(int j = 0; j < h; j++) {
+    			out[(j * w) + i] = Biome.getBiome(BiomeBasin
+    						.summateEffect(basins, 16 + i, 16 + j),
+    					Biomes.DEFAULT);
+    		}
+    	return out;
+    }
+    
+    
+    /**
+     * This will return a biome array for an area starting at 
+     * an arbitrary block coordinates of x,z (y not being 
+     * important).  This is the preferred method when not generating 
+     * the initial array for a new chunk, as it does not assume 
+     * anything that could skew the results in either dimension. 
+     * 
+     * For generating the array for a new chunk getChunkBiomeArray() 
+     * should be used as it is more optimized.
+     * 
+     * @param x
+     * @param z
+     * @param h
+     * @param w
+     * @return
+     */
+    public Biome[] getUnalignedBiomeGen(int x, int z, int h, int w) {
+    	int hOff = modRight(x, 16);;
+    	int wOff = modRight(z, 16);;
+    	int h1 = h + hOff;
+    	int w1 = w + wOff;
+    	int h2 = h1 + (16 - h1 % 16);
+    	int w2 = w1 + (16 - w1 % 16);
+    	Biome[] tmp = getBiomeGenGrid(x / 16, z /  16, h2, w2);
+    	Biome[] out = new Biome[h * w];
+    	for(int i = 0; i < h; i++) 
+    		for(int j = 0; j < w; j++) {
+    			out[(j * w) + i] = tmp[((j + hOff) * w2) + wOff + i];
+    		}    	
+    	return out;
+    }
+    
+    
+    /**
+     * This will return a biome array for an area starting at 
+     * an arbitrary block coordinates of x,z (y not being 
+     * important).  This is the preferred method when not generating 
+     * the initial array for a new chunk, as it does not assume 
+     * anything that could skew the results in either dimension. 
+     * 
+     * For generating the array for a new chunk getChunkBiomeArray() 
+     * should be used as it is more optimized.
+     * 
+     * @param x
+     * @param z
+     * @param h
+     * @param w
+     * @return
+     */
+    public Biome[] getUnalignedBiomeGen(int x, int z, int h, int w, Biome[] in) {
+    	int hOff = modRight(x, 16);
+    	int wOff = modRight(z, 16);
+    	int h1 = h + hOff;
+    	int w1 = w + wOff;
+    	int h2 = h1 + (16 - h1 % 16);
+    	int w2 = w1 + (16 - w1 % 16);
+    	Biome[] tmp = getBiomeGenGrid(x / 16, z /  16, h2, w2);
+    	for(int i = 0; i < h; i++) 
+    		for(int j = 0; j < w; j++) {
+    			in[(j * w) + i] 
+    					= tmp[((j + hOff) * w2) + wOff + i];
+    		}    	
+    	return in;
+    }
+	
 
 }

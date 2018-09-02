@@ -12,6 +12,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
 
+import static jaredbgreat.climaticbiome.util.ModMath.*;
+
+
 public class ClimaticBiomeProvider extends BiomeProvider {
 	private World world;
 	private MapRegistry finder;
@@ -60,13 +63,19 @@ public class ClimaticBiomeProvider extends BiomeProvider {
         }
     	for(int i = 0; i < width; i++) 
     		for(int j = 0; j < height; j++) {
-    			biomes[(j * width) + i] = finder.getBiomeBlock(x + i, z + j);
+    			biomes[(j * width) + i] = findBiomeAt(x + i, z + j);
     		}
         return biomes;
     }
     
-
-
+    
+    private Biome findBiomeAt(int x, int z) {
+    	Biome[] chunk = new Biome[256];
+    	// FIXME: Should these be cached?
+    	finder.getChunkBiomeGen(x / 16, z / 16, chunk);
+    	return chunk[(chunkModulus(z) * 16) + chunkModulus(x)];
+    }
+    
 
     @Override
     public Biome[] getBiomes(@Nullable Biome[] in, int x, int z, int width, int depth, boolean cacheFlag) {
@@ -89,7 +98,7 @@ public class ClimaticBiomeProvider extends BiomeProvider {
     }
     
     
-    private int modRight(int in) {
+    private int modRight4(int in) {
     	in %= 4;
     	if(in < 0) {
     		in += 4;
