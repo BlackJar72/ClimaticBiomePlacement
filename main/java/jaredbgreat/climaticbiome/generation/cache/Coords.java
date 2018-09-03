@@ -61,6 +61,11 @@ public final class Coords {
     public String toString() {
     	return "(" + x + ", " + z + ")";
     }
+    
+    
+    public MutableCoords toMutableCoors() {
+    	return new MutableCoords().init(x, z);
+    }
         
         
 }

@@ -95,6 +95,29 @@ public class Cache <T extends ICachable> {
     
     
     /**
+     * Return the element at the given Coords.
+     * @param coords
+     * @return the object stored for those coordinates, or null.
+     */
+    public T get(MutableCoords coords) {
+        int bucket = (coords.hashCode() & 0x7fffffff) % data.length;
+        int offset = 0;
+        while(offset < data.length) {
+            int slot = (bucket + offset) % data.length;
+            if(data[slot] == null) {
+                return null;
+            } else if(data[slot].getCoords().equals(coords)) {
+                data[slot].use();
+                return (T)data[slot];
+            } else {
+                offset++;
+            }
+        }        
+        return null;
+    }
+    
+    
+    /**
      * Return the element at the given coordinate values x and z.
      * 
      * @param x

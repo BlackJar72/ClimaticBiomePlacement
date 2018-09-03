@@ -102,10 +102,11 @@ public class River {
             incrementAngle(r);
             cx += (f * dx) + (p * dy);
             cy += (f * dy) + (p * dx);
-            ChunkTile toChange = Q.push(map.getTile((int)cx, (int)cy));
-            if(toChange != null) {
-                makeRiver(toChange);
-            }
+            // FIXME:
+            //ChunkTile toChange = Q.push(map.getTile((int)cx, (int)cy));
+            //if(toChange != null) {
+            //    makeRiver(toChange);
+            //}
         } while(!shouldEnd((int)cx, (int)cy));
         ChunkTile toChange;
         while((toChange = Q.pop()) != null) {
