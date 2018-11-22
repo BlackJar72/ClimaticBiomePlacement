@@ -45,7 +45,8 @@ public class GetTemporateForest implements IBiomeSpecifier {
 		if((role3) == 0) {
 			return plains.getBiome(tile);
 		}
-		return forests.getBiome(tile);}
+		return forests.getBiome(tile);
+	}
 	
 	
 	public static GetTemporateForest getForest() {

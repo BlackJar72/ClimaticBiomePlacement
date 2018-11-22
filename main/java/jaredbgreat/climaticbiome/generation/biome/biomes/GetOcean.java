@@ -1,11 +1,14 @@
-package jaredbgreat.climaticbiome.generation.chunk.biomes;
+package jaredbgreat.climaticbiome.generation.biome.biomes;
 
-import jaredbgreat.climaticbiome.generation.chunk.EnumBiomeType;
-import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
+import jaredbgreat.climaticbiome.generation.biome.BiomeList;
+import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
+import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
+import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
+
 
 public class GetOcean implements IBiomeSpecifier {
 
-	@Override
+	/*@Override
 	public int getBiome(ChunkTile tile) {
 		int seed  = tile.getBiomeSeed();
 		int noise = tile.getNoise();		
@@ -26,6 +29,6 @@ public class GetOcean implements IBiomeSpecifier {
 			return 24;
 		}
 		return 0;
-	}
+	}*/
 
 }

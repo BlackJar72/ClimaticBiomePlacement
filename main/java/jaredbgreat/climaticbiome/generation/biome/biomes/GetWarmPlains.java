@@ -1,16 +1,41 @@
-package jaredbgreat.climaticbiome.generation.chunk.biomes;
+package jaredbgreat.climaticbiome.generation.biome.biomes;
 
-import jaredbgreat.climaticbiome.generation.chunk.EnumBiomeType;
-import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
+import jaredbgreat.climaticbiome.generation.biome.BiomeList;
+import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
+import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
+import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetWarmPlains implements IBiomeSpecifier {
+	private static GetWarmPlains plains;
+	private GetWarmPlains() {
+		super();
+	}
+	private GetPlains cool;	
+	private GetSavanna hot;
+	private static final int tbound = 14;
+	
+	
+	public void init() {
+		cool = GetPlains.getPlains();
+		hot  = GetSavanna.getSavanna();
+	}
+	
 
 	@Override
 	public int getBiome(ChunkTile tile) {
-		if((tile.getBiomeSeed() % 3) == 0) {
-			return EnumBiomeType.SAVANNA.specifier.getBiome(tile);
+		int t = tile.getTemp() - tbound;
+		if((tile.getBiomeSeed() % 5) > t) {
+			return hot.getBiome(tile);
 		}
-		return EnumBiomeType.GRASS.specifier.getBiome(tile);
+		return cool.getBiome(tile);
+	}
+	
+	
+	public static GetWarmPlains getPlains() {
+		if(plains == null) {
+			plains = new GetWarmPlains();
+		}
+		return plains;
 	}
 
 }

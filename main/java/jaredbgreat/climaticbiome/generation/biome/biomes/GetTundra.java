@@ -1,31 +1,29 @@
-package jaredbgreat.climaticbiome.generation.chunk.biomes;
+package jaredbgreat.climaticbiome.generation.biome.biomes;
 
-import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
+import jaredbgreat.climaticbiome.generation.biome.BiomeList;
+import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
+import jaredbgreat.climaticbiome.generation.biome.TempDoubleBiome;
+import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
-public class GetTundra implements IBiomeSpecifier {
-
-	@Override
-	public int getBiome(ChunkTile tile) {
-		int seed = tile.getBiomeSeed();
-		switch(seed % 7) {
-			case 0:
-			case 1:
-			case 2:
-			case 3:
-				if((seed % 5) == 0) {
-					return 140;
-				}
-				else return 12;
-			case 4:
-			case 5:
-				return 5;
-			case 6:
-				if((seed % 5) == 0) {
-					return 158;
-				} else return 30;
-			default:
-				return 5;
+public class GetTundra extends BiomeList {
+	private static GetTundra tundra;
+	private GetTundra() {
+		super();
+	}
+	
+	
+	public void init() {
+		addItem(new LeafBiome(12), 5);
+		addItem(new TempDoubleBiome(140, 2, 12));
+		addItem(new TempDoubleBiome(12,  2, 30));
+	}
+	
+	
+	public GetTundra getTundra() {
+		if(tundra == null) {
+			tundra = new GetTundra();
 		}
+		return tundra;
 	}
 
 }

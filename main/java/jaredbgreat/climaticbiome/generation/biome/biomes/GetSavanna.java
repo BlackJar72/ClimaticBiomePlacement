@@ -1,23 +1,29 @@
-package jaredbgreat.climaticbiome.generation.chunk.biomes;
+package jaredbgreat.climaticbiome.generation.biome.biomes;
 
-import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
+import jaredbgreat.climaticbiome.generation.biome.BiomeList;
+import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
+import jaredbgreat.climaticbiome.generation.biome.NoiseDoubleBiome;
+import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
-public class GetSavanna implements IBiomeSpecifier {
-
-	@Override
-	public int getBiome(ChunkTile tile) {
-		int seed = tile.getBiomeSeed() % 6;
-		if(seed == 0) {
-			return 36;			
-		} else if(seed < 3) {
-			if(tile.getNoise() > 5){
-				return 36;
-			} else {
-				return 35;
-		 	}
-		} else {
-			return 35;
+public class GetSavanna extends BiomeList {
+	private static GetSavanna savanna;
+	private GetSavanna() {
+		super();
+	}
+	
+	
+	public void init() {
+		addItem(new LeafBiome(36));
+		addItem(new NoiseDoubleBiome(35, 6, 36), 2);
+		addItem(new LeafBiome(35), 3);
+	}
+	
+	
+	public static GetSavanna getSavanna() {
+		if(savanna == null) {
+			savanna = new GetSavanna();
 		}
+		return savanna;
 	}
 
 }
