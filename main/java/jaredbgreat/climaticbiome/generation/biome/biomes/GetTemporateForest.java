@@ -1,44 +1,58 @@
-package jaredbgreat.climaticbiome.generation.chunk.biomes;
+package jaredbgreat.climaticbiome.generation.biome.biomes;
 
-import jaredbgreat.climaticbiome.generation.chunk.EnumBiomeType;
-import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
+import jaredbgreat.climaticbiome.generation.biome.BiomeList;
+import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
+import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
+import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
+import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetTemporateForest implements IBiomeSpecifier {
+	private static GetTemporateForest tforest;
+	private GetTemporateForest() {
+		super();
+	}
+	private BiomeList forests;
+	private GetAlpine alpine;
+	private GetPlains plains;
+	private GetSwamp swamp;
+	
+	
+	public void init() {
+		forests = new BiomeList();
+		alpine  = GetAlpine.getAlpine();
+		plains  = GetPlains.getPlains();
+		swamp   = GetSwamp.getSwamp();
+		forests.addItem(new SeedDoubleBiome(18, 3, 4), 3);
+		forests.addItem(new LeafBiome(132), 1);
+		forests.addItem(new LeafBiome(28), 1);
+		forests.addItem(new SeedDoubleBiome(155, 5, 27), 1);
+		forests.addItem(new SeedDoubleBiome(157, 7, 29), 2);
+	}
+	
 
 	@Override
 	public int getBiome(ChunkTile tile) {
-		int seed = tile.getBiomeSeed();
-		if((seed % 5) == 0) {
-			return EnumBiomeType.ALPINE.specifier.getBiome(tile);
+		int role1 = tile.getBiomeSeed() % 5;
+		int role2 = tile.getBiomeSeed() % 7;
+		int role3 = tile.getBiomeSeed() % 12;
+		tile.nextBiomeSeed();
+		if((role1) == 0) {
+			return alpine.getBiome(tile);
 		}
-		switch(seed % 12) {
-			case 0:
-			case 2:
-			case 3:
-				if((seed % 3) == 0) {
-					return 18;
-				} else return 4;
-			case 4:
-				return 132;
-			case 5:
-			case 6:
-				if((seed % 3) == 0) {
-					return 28;
-				} else if ((seed % 5) == 0) {
-					return 155;
-				} else return 27;
-			case 7:
-			case 8:
-				if((seed % 7) == 0) {
-					return 157;
-				} else return 29;
-			case 9: 
-				return 6;
-			case 10:
-				return 1;
-			default:
-				return 4;
+		if((role2) == 0) {
+			return swamp.getBiome(tile);
 		}
+		if((role3) == 0) {
+			return plains.getBiome(tile);
+		}
+		return forests.getBiome(tile);}
+	
+	
+	public static GetTemporateForest getForest() {
+		if(tforest == null) {
+			tforest = new GetTemporateForest();
+		}
+		return tforest;
 	}
 
 }

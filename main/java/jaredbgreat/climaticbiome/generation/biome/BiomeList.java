@@ -43,5 +43,10 @@ public class BiomeList implements IBiomeSpecifier {
 	public void addItems(List<IBiomeSpecifier> biomes) {
 		list.addAll(biomes);
 	}
+	
+	
+	public boolean isEmpty() {
+		return list.isEmpty();
+	}
 
 }

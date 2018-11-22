@@ -1,22 +1,29 @@
-package jaredbgreat.climaticbiome.generation.chunk.biomes;
+package jaredbgreat.climaticbiome.generation.biome.biomes;
 
-import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
+import jaredbgreat.climaticbiome.generation.biome.BiomeList;
+import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
+import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
+import jaredbgreat.climaticbiome.generation.biome.NoiseDoubleBiome;
+import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
-public class GetJungle implements IBiomeSpecifier {
+public class GetJungle extends BiomeList {
+	private static GetJungle jungle;
+	private GetJungle() {
+		super();
+	}
 
-	@Override
-	public int getBiome(ChunkTile tile) {
-		switch(tile.getBiomeSeed() % 5) {
-			case 0:
-			case 1:
-			case 2:
-				return 21;
-			case 3:
-			case 4:
-				return 22;
-			default:
-				return 21;
+	
+	public void init() {
+		this.addItem(new LeafBiome(21), 3);
+		this.addItem(new LeafBiome(23), 2);
+	}
+	
+	
+	public static GetJungle getJungle() {
+		if(jungle == null) {
+			jungle = new GetJungle();
 		}
+		return jungle;
 	}
 
 }

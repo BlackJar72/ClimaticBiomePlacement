@@ -7,6 +7,13 @@ import jaredbgreat.climaticbiome.generation.biome.NoiseDoubleBiome;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetAlpine implements IBiomeSpecifier {
+	private static GetAlpine alpine;
+	private GetAlpine() {
+		super();
+	}
+	
+	// TODO: More variants; make generic for all climate zones
+	
 	BiomeList wet;
 	BiomeList dry;
 
@@ -30,5 +37,13 @@ public class GetAlpine implements IBiomeSpecifier {
 		} else {
 			return dry.getBiome(tile);
 		}
+	}
+	
+	
+	public static GetAlpine getAlpine() {
+		if(alpine == null) {
+			alpine = new GetAlpine();
+		}
+		return alpine;
 	}
 }
