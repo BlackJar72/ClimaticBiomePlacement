@@ -10,7 +10,7 @@ public class GetAlpine implements IBiomeSpecifier {
 	BiomeList wet;
 	BiomeList dry;
 
-	public void setup() {
+	public void init() {
 		wet = new BiomeList();
 		dry = new BiomeList();
 		wet.addItem(new LeafBiome(34));

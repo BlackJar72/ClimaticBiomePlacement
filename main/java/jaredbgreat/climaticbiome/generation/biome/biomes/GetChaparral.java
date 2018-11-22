@@ -1,37 +1,19 @@
-package jaredbgreat.climaticbiome.generation.chunk.biomes;
+package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
+import jaredbgreat.climaticbiome.generation.biome.BiomeList;
+import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
+import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 import net.minecraft.world.biome.Biome;
-import jaredbgreat.climaticbiome.ClimaticBiomes;
-import jaredbgreat.climaticbiome.biomes.ModBiomes;
-import jaredbgreat.climaticbiome.generation.chunk.ChunkTile;
 
-public class GetChaparral implements IBiomeSpecifier {
-	private static int dense, dry, densehills, dryhills;
-
-	@Override
-	public int getBiome(ChunkTile tile) {
-		int pick = tile.getBiomeSeed() % 2;
-		if(pick == 0) {
-			if((tile.getBiomeSeed() % 3 == 0)) {
-				return densehills;
-			} else {
-				return dense;
-			}
-		} else {
-			if((tile.getBiomeSeed() % 3 == 0)) {
-				return dryhills;
-			} else {
-				return dry;
-			}
-		}
-	}
+public class GetChaparral extends BiomeList {
 	
-	
-	public static void init() {
-		dense      = Biome.getIdForBiome(ModBiomes.denseScrub);
-		dry        = Biome.getIdForBiome(ModBiomes.dryScrub);
-		densehills = Biome.getIdForBiome(ModBiomes.denseScrubHills);
-		dryhills   = Biome.getIdForBiome(ModBiomes.dryScrubHills);
+	public void init() {
+		addItem(new SeedDoubleBiome(
+				Biome.getIdForBiome(ModBiomes.denseScrubHills), 3, 
+				Biome.getIdForBiome(ModBiomes.denseScrub)));
+		addItem(new SeedDoubleBiome(
+				Biome.getIdForBiome(ModBiomes.dryScrubHills), 3, 
+				Biome.getIdForBiome(ModBiomes.dryScrub)));
 	}
-
 }
