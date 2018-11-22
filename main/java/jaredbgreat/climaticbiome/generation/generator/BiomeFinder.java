@@ -107,4 +107,6 @@ public class BiomeFinder {
         return sum;
     }
     
+    // TODO (BIG ONE): Initialize the biome specifiers...!
+    
 }

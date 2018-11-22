@@ -21,6 +21,13 @@ public class BiomeList implements IBiomeSpecifier {
 	}
 	
 	
+	public void addItem(IBiomeSpecifier biome, int n) {
+		for(int i = 0; i < n; i++) {
+			list.add(biome);
+		}
+	}
+	
+	
 	public void addItem(IBiomeSpecifier biome) {
 		list.add(biome);
 	}

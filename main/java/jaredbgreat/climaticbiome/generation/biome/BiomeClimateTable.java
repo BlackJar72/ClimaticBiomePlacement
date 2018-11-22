@@ -26,7 +26,7 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 	 * 
 	 * @param table *MUST* be 250 elements!
 	 */
-	public BiomeClimateTable(IBiomeSpecifier... table) {
+	BiomeClimateTable(IBiomeSpecifier... table) {
 		this.table = table;
 	}
 	
