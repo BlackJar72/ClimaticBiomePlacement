@@ -1,5 +1,13 @@
 package jaredbgreat.climaticbiome.generation.biome;
 
+import net.minecraft.world.biome.Biome;
+
+/**
+ * This class is to create and populate the tables used by the generator to assign 
+ * actual biomes.
+ * 
+ * @author JaredBGreat (Jared Blackburn)
+ */
 public class BiomeSpecifierFactory {
 	
 	/*
@@ -13,43 +21,43 @@ public class BiomeSpecifierFactory {
 	
 	// Oceanic
     static IBiomeSpecifier ICE;   
-    static IBiomeSpecifier OCEAN1;
-    static IBiomeSpecifier OCEAN2;   
-    static IBiomeSpecifier OCEAN3a;   
-    static IBiomeSpecifier OCEAN3b;   
-    static IBiomeSpecifier OCEAN4;   
-    static IBiomeSpecifier OCEAN5;       
+    static BiomeList OCEAN1;
+    static BiomeList OCEAN2;   
+    static BiomeList OCEAN3a;   
+    static BiomeList OCEAN3b;   
+    static BiomeList OCEAN4;   
+    static BiomeList OCEAN5;       
     // Wetland
-    static IBiomeSpecifier SWAMP2;
-    static IBiomeSpecifier SWAMP3a;
-    static IBiomeSpecifier SWAMP3b;
-    static IBiomeSpecifier SWAMP4;
-    static IBiomeSpecifier SWAMP5;    
+    static BiomeList SWAMP2;
+    static BiomeList SWAMP3a;
+    static BiomeList SWAMP3b;
+    static BiomeList SWAMP4;
+    static BiomeList SWAMP5;    
     // Tundra
-    static IBiomeSpecifier TUNDRA;    
+    static BiomeList TUNDRA;    
     // Grassland / "Plains"
-    static IBiomeSpecifier GRASS2;
-    static IBiomeSpecifier GRASS3a;
-    static IBiomeSpecifier GRASS3b;
-    static IBiomeSpecifier GRASS4;
+    static BiomeList GRASS2;
+    static BiomeList GRASS3a;
+    static BiomeList GRASS3b;
+    static BiomeList GRASS4;
     // Savanna
-    static IBiomeSpecifier SAVANNA;
+    static BiomeList SAVANNA;
     // Forest
-    static IBiomeSpecifier TAIGA;
-    static IBiomeSpecifier FOREST3a;
-    static IBiomeSpecifier FOREST3b;
-    static IBiomeSpecifier FOREST4;
-    static IBiomeSpecifier FOREST5;    
+    static BiomeList TAIGA;
+    static BiomeList FOREST3a;
+    static BiomeList FOREST3b;
+    static BiomeList FOREST4;
+    static BiomeList FOREST5;    
     // Parkland
-    static IBiomeSpecifier PARK;
+    static BiomeList PARK;
     // Jungle
-    static IBiomeSpecifier JUNGLE;
+    static BiomeList JUNGLE;
     // Desert
-    static IBiomeSpecifier DESERT;
+    static BiomeList DESERT;
     // Scrub
-    static IBiomeSpecifier SCRUB;    
+    static BiomeList SCRUB;    
     // Alpine
-    static IBiomeSpecifier ALPINE;
+    static BiomeList ALPINE;
     
     
     public static void setup() {    	
@@ -97,5 +105,8 @@ public class BiomeSpecifierFactory {
     
 	public static BiomeClimateTable getVanillaTable() {		
 		return null; // NOT!!!
-	}
+	}	
+	
+	
+	
 }
