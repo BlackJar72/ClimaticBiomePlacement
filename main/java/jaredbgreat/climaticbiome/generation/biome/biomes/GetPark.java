@@ -44,5 +44,11 @@ public class GetPark implements IBiomeSpecifier {
 		}
 		return pland;
 	}
+
+
+	@Override
+	public boolean isEmpty() {
+		return false;
+	}
 	
 }

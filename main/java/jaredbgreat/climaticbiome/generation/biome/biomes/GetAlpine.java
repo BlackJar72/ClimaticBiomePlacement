@@ -46,4 +46,9 @@ public class GetAlpine implements IBiomeSpecifier {
 		}
 		return alpine;
 	}
+
+	@Override
+	public boolean isEmpty() {
+		return false;
+	}
 }

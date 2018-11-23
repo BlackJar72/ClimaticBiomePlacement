@@ -4,5 +4,6 @@ import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public interface IBiomeSpecifier {	
 	public int getBiome(ChunkTile tile);
+	public boolean isEmpty();
 
 }

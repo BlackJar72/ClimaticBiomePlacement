@@ -36,4 +36,14 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 		return table[(tile.getTemp() * 10) + tile.getWet()].getBiome(tile);
 	}
 
+
+	@Override
+	/**
+	 * For this class "empty" means not initialized,
+	 * or not initialized correctly.
+	 */
+	public boolean isEmpty() {
+		return ((table == null) || (table.length < 250));
+	}
+
 }

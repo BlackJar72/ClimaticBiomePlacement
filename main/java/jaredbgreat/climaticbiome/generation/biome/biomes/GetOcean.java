@@ -161,4 +161,10 @@ public class GetOcean implements IBiomeSpecifier {
 	}
 
 
+	@Override
+	public boolean isEmpty() {
+		return false;
+	}
+
+
 }

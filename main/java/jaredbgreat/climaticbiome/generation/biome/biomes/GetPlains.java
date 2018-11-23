@@ -41,4 +41,11 @@ public class GetPlains implements IBiomeSpecifier {
 		return grassland;
 	}
 
+
+
+	@Override
+	public boolean isEmpty() {
+		return false;
+	}
+
 }

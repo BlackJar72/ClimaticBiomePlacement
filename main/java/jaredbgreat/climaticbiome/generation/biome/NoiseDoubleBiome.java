@@ -30,4 +30,10 @@ public class NoiseDoubleBiome implements IBiomeSpecifier {
 		}
 	}
 
+
+	@Override
+	public boolean isEmpty() {
+		return false;
+	}
+
 }

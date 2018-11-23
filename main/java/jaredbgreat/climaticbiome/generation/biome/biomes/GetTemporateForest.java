@@ -56,4 +56,10 @@ public class GetTemporateForest implements IBiomeSpecifier {
 		return tforest;
 	}
 
+
+	@Override
+	public boolean isEmpty() {
+		return false;
+	}
+
 }

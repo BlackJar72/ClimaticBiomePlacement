@@ -32,5 +32,11 @@ public class SeedDoubleBiome implements IBiomeSpecifier {
 	}
 
 
+	@Override
+	public boolean isEmpty() {
+		return false;
+	}
+
+
 
 }

@@ -23,4 +23,9 @@ public class GetCoolPlains implements IBiomeSpecifier {
 		return coolPlains.getBiome(tile);
 	}
 
+	@Override
+	public boolean isEmpty() {
+		return false;
+	}
+
 }

@@ -54,6 +54,12 @@ public class GetSubtropicalForest implements IBiomeSpecifier {
 		}
 		return sforest;
 	}
+
+
+	@Override
+	public boolean isEmpty() {
+		return false;
+	}
 	
 	
 }

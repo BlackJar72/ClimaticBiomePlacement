@@ -22,4 +22,10 @@ public class LeafBiome implements IBiomeSpecifier {
 		return biome;
 	}
 
+
+	@Override
+	public boolean isEmpty() {
+		return false;
+	}
+
 }

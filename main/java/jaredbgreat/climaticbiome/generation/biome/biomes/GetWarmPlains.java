@@ -38,4 +38,10 @@ public class GetWarmPlains implements IBiomeSpecifier {
 		return plains;
 	}
 
+
+	@Override
+	public boolean isEmpty() {
+		return false;
+	}
+
 }

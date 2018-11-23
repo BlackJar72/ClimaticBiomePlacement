@@ -31,4 +31,10 @@ public class TempDoubleBiome implements IBiomeSpecifier {
 		}
 	}
 
+
+	@Override
+	public boolean isEmpty() {
+		return false;
+	}
+
 }

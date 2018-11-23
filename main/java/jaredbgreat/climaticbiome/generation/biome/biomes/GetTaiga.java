@@ -41,4 +41,10 @@ public class GetTaiga implements IBiomeSpecifier {
 		return taiga;
 	}
 
+
+	@Override
+	public boolean isEmpty() {
+		return false;
+	}
+
 }
