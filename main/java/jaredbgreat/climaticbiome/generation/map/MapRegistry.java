@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.map;
 
+import static jaredbgreat.climaticbiome.util.ModMath.modRight;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
@@ -9,8 +10,6 @@ import java.util.Random;
 import net.minecraft.init.Biomes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
-
-import static jaredbgreat.climaticbiome.util.ModMath.*;
 
 
 /**
@@ -121,16 +120,17 @@ public class MapRegistry {
 	private void initializeMap(RegionMap map) {
 		// FIXME / TODO: A temporary stand in; attach to 
 		//               real generator.
+		SpatialNoise random = new SpatialNoise(123456789);
 		for(int i = 0; i < 256; i++)
 			for(int j = 0; j < 256; j++) {
-				if(  ((((i + j) / 2) % 10) == 0)
+				if(  ((((i + j) / 3) % 10) == 0)
 				  || (((i / 2) % 10) == 0)) {
-					  map.setBiomeExpress(7, i, j);
+					  map.setBiomeExpress(/*2*/7, i, j);
 				  }
 				  else if((((i / 4) + (j / 4)) % 2) == 0) {
-					map.setBiomeExpress(1, i, j); // One is a stand in (I think plains).
+					map.setBiomeExpress(36, i, j); // One is a stand in (I think plains).
 				} else {
-					map.setBiomeExpress(4, i, j); // One is a stand in.
+					map.setBiomeExpress(random.intFor( i / 4, j / 4, 0) % 20, i, j); // One is a stand in.
 				}
 			}
 	}

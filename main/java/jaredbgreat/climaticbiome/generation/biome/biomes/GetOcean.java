@@ -83,8 +83,7 @@ public class GetOcean implements IBiomeSpecifier {
 				}				
 			}
 		}
-		// TODO: Islands
-        if((iceNoise - (temp / 2)) > 1) {
+        if((iceNoise - (temp / 2)) > -1) {
         	if(tile.getVal() < 2) {
         		return dfrozen.getBiome(tile);        		
         	}
