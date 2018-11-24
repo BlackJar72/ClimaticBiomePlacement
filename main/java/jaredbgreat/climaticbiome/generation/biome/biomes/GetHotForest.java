@@ -7,9 +7,9 @@ import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 import net.minecraft.world.biome.Biome;
 
-public class GetTropicalForest extends BiomeList {
-	private static GetTropicalForest  tforest;
-	private GetTropicalForest() {
+public class GetHotForest extends BiomeList {
+	private static GetHotForest  tforest;
+	private GetHotForest() {
 		super();
 	}
 	
@@ -21,9 +21,9 @@ public class GetTropicalForest extends BiomeList {
 	}
 	
 	
-	public static GetTropicalForest getForest() {
+	public static GetHotForest getForest() {
 		if(tforest == null) {
-			tforest = new GetTropicalForest();
+			tforest = new GetHotForest();
 		}
 		return tforest;
 	}

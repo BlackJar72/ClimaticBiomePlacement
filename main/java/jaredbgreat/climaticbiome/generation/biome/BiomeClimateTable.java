@@ -2,6 +2,9 @@ package jaredbgreat.climaticbiome.generation.biome;
 
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetAlpine;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetChaparral;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetColdPlains;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetCoolForest;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetCoolPark;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetCoolPlains;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetDesert;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetJungle;
@@ -9,11 +12,11 @@ import jaredbgreat.climaticbiome.generation.biome.biomes.GetOcean;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetPark;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetPlains;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetSavanna;
-import jaredbgreat.climaticbiome.generation.biome.biomes.GetSubtropicalForest;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetWarmForest;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetSwamp;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetTaiga;
-import jaredbgreat.climaticbiome.generation.biome.biomes.GetTemporateForest;
-import jaredbgreat.climaticbiome.generation.biome.biomes.GetTropicalForest;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetForest;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetHotForest;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetTundra;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetWarmPlains;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
@@ -37,6 +40,9 @@ public class BiomeClimateTable implements IBiomeSpecifier {
     IBiomeSpecifier DESERT;
     IBiomeSpecifier SCRUB;
     IBiomeSpecifier ALPINE;
+    IBiomeSpecifier FORESTb;
+    IBiomeSpecifier GRASSb;
+    IBiomeSpecifier PARKb;
 	
 	/**
 	 * Create a table for looking up biomes based on temperature 
@@ -84,19 +90,22 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 		OCEAN = GetOcean.getOcean();
 	    SWAMP = GetSwamp.getSwamp();
 	    TUNDRA = GetTundra.getTundra();
-	    CGRASS = GetCoolPlains.getPlains();
+	    CGRASS = GetColdPlains.getPlains();
 	    GRASS = GetPlains.getPlains();
 	    SGRASS = GetWarmPlains.getPlains();
 	    SAVANNA = GetSavanna.getSavanna();
 	    TAIGA = GetTaiga.getTaiga();
 	    PARK = GetPark.getPark();
-	    FOREST = GetTemporateForest.getForest();
-	    SFOREST = GetSubtropicalForest.getForest();
-	    TFOREST = GetTropicalForest.getForest();
+	    FOREST = GetForest.getForest();
+	    SFOREST = GetWarmForest.getForest();
+	    TFOREST = GetHotForest.getForest();
 	    JUNGLE = GetJungle.getJungle();
 	    DESERT = GetDesert.getDesert();
 	    SCRUB = GetChaparral.getChaparral();
 	    ALPINE = GetAlpine.getAlpine();
+	    FORESTb = GetCoolForest.getForest();
+	    GRASSb = GetCoolPlains.getPlains();
+	    PARKb = GetCoolPark.getPark();
 	    // TODO: Logic to determine which table to create,
 	    makeVanillaTable();
 	}
@@ -139,7 +148,39 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 	
 	
 	public void makeModdedTable() {
-		// TODO: Set this up after creating cool temperate specifiers.
+		table = new IBiomeSpecifier[]{
+		    	//Arctic
+		    	TUNDRA, TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA, TUNDRA, TUNDRA, TUNDRA, TUNDRA,
+		    	TUNDRA, TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA, TUNDRA, TUNDRA, TUNDRA, TUNDRA,
+		    	TUNDRA, TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA, TUNDRA, TUNDRA, TUNDRA, TUNDRA,
+		    	TUNDRA, TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA, TUNDRA, TUNDRA, TUNDRA, TUNDRA,
+		    	//Sub-Arctic
+		    	TUNDRA,   TUNDRA,   TAIGA, TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
+		    	TUNDRA,   CGRASS,   TAIGA, TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
+		    	CGRASS,   CGRASS,   TAIGA, TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
+		    	CGRASS,   CGRASS,   TAIGA, TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
+		    	//Cool Temperate
+		    	GRASSb,  GRASSb,  GRASSb,  GRASSb, PARKb, FORESTb, FORESTb, FORESTb, FORESTb, FORESTb,
+		    	GRASSb,  GRASSb,  GRASSb,  GRASSb, PARKb, FORESTb, FORESTb, FORESTb, FORESTb, FORESTb,
+		    	GRASS,   GRASSb,  GRASSb,  GRASSb, PARKb, FORESTb, FORESTb, FORESTb, FORESTb, FORESTb,
+		    	GRASS,   GRASS,   GRASSb,  GRASSb, PARKb, FORESTb, FORESTb, FORESTb, FORESTb, FORESTb,
+		    	//Warm Temperate
+		    	GRASS,  GRASS,   GRASS,   GRASS,   PARK,  FOREST, FOREST, FOREST, FOREST, FOREST,
+		    	SCRUB,  GRASS,   GRASS,   GRASS,   PARK,  FOREST, FOREST, FOREST, FOREST, FOREST,
+		    	DESERT, SCRUB,   GRASS,   GRASS,   PARK,  FOREST, FOREST, FOREST, FOREST, FOREST,
+		    	DESERT, DESERT,  SCRUB,   GRASS,   PARK,  FOREST, FOREST, FOREST, FOREST, FOREST,
+		    	//Sub-Tropical
+		    	DESERT, DESERT,  DESERT,  SCRUB,   SGRASS,   SFOREST, SFOREST, SFOREST, SFOREST, SFOREST,
+		    	DESERT, DESERT,  DESERT,  SCRUB,   SGRASS,   SFOREST, SFOREST, SFOREST, SFOREST, JUNGLE,
+		    	DESERT, DESERT,  DESERT,  SCRUB,   SGRASS,   SFOREST, SFOREST, SFOREST, SFOREST, JUNGLE,
+		    	DESERT, DESERT,  DESERT,  SCRUB,   SGRASS,   SFOREST, SFOREST, SFOREST, JUNGLE,  JUNGLE,
+		    	DESERT, DESERT,  DESERT,  SCRUB,   SGRASS,   SFOREST, SFOREST, JUNGLE,  JUNGLE,  JUNGLE,
+		    	//Tropical
+		    	DESERT, DESERT,  SAVANNA, SAVANNA, TFOREST, TFOREST, JUNGLE, JUNGLE, JUNGLE, JUNGLE,
+		    	DESERT, SAVANNA, SAVANNA, SAVANNA, TFOREST, JUNGLE,  JUNGLE, JUNGLE, JUNGLE, JUNGLE,
+		    	DESERT, SAVANNA, SAVANNA, TFOREST, JUNGLE,  JUNGLE,  JUNGLE, JUNGLE, JUNGLE, JUNGLE,
+		    	DESERT, SAVANNA, TFOREST, JUNGLE,  JUNGLE,  JUNGLE,  JUNGLE, JUNGLE, JUNGLE, JUNGLE
+		    };
 	}
 
 }

@@ -4,20 +4,20 @@ import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
-public class GetPark implements IBiomeSpecifier {
-	private static GetPark pland;
-	private GetPark() {
+public class GetCoolPark implements IBiomeSpecifier {
+	private static GetCoolPark pland;
+	private GetCoolPark() {
 		super();
 	}	
 	private BiomeList parks;
-	private GetPlains plains;
-	private GetForest woods;
+	private GetCoolPlains plains;
+	private GetCoolForest woods;
 	
 	
 	public void init() {
 		parks = new BiomeList();
-		plains = GetPlains.getPlains();
-		woods = GetForest.getForest();
+		plains = GetCoolPlains.getPlains();
+		woods = GetCoolForest.getForest();
 	}
 	
 
@@ -38,9 +38,9 @@ public class GetPark implements IBiomeSpecifier {
 	}
 	
 	
-	public static GetPark getPark() {
+	public static GetCoolPark getPark() {
 		if(pland == null) {
-			pland = new GetPark();
+			pland = new GetCoolPark();
 		}
 		return pland;
 	}

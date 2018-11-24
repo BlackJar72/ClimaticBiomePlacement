@@ -1,20 +1,21 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
-import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
+import net.minecraft.world.biome.Biome;
 
-public class GetTemporateForest implements IBiomeSpecifier {
-	private static GetTemporateForest tforest;
-	private GetTemporateForest() {
+public class GetWarmForest implements IBiomeSpecifier {
+	private static GetWarmForest sforest;
+	private GetWarmForest() {
 		super();
 	}
 	private BiomeList forests;
 	private GetAlpine alpine;
 	private GetPlains plains;
-	private GetSwamp swamp;
+	private GetSwamp  swamp;
 	
 	
 	public void init() {
@@ -22,11 +23,9 @@ public class GetTemporateForest implements IBiomeSpecifier {
 		alpine  = GetAlpine.getAlpine();
 		plains  = GetPlains.getPlains();
 		swamp   = GetSwamp.getSwamp();
-		forests.addItem(new SeedDoubleBiome(18, 3, 4), 3);
-		forests.addItem(new LeafBiome(132), 1);
-		forests.addItem(new LeafBiome(28), 1);
-		forests.addItem(new SeedDoubleBiome(155, 5, 27), 1);
-		forests.addItem(new SeedDoubleBiome(157, 7, 29), 2);
+		forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.warmForest)), 5);
+		forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.warmForestHills)), 3);
+		forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.pineWoods)));
 	}
 	
 
@@ -49,11 +48,11 @@ public class GetTemporateForest implements IBiomeSpecifier {
 	}
 	
 	
-	public static GetTemporateForest getForest() {
-		if(tforest == null) {
-			tforest = new GetTemporateForest();
+	public static GetWarmForest getForest() {
+		if(sforest == null) {
+			sforest = new GetWarmForest();
 		}
-		return tforest;
+		return sforest;
 	}
 
 
@@ -61,5 +60,6 @@ public class GetTemporateForest implements IBiomeSpecifier {
 	public boolean isEmpty() {
 		return false;
 	}
-
+	
+	
 }
