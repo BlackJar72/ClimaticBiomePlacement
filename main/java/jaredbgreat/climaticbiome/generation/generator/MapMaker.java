@@ -142,6 +142,10 @@ public class MapMaker {
             premap[i].wet = Math.min(ClimateNode.summateEffect(wetAr, premap[i], 
                     doubleNoise[i]), 9);
         }
+        int[] noise = refineNoise10(makeNoise(random, 4), premap);
+        for(int i = 0; i < premap.length; i++) {
+            premap[i].noiseVal = noise[i];
+        }
         makeBiomes(premap, 256, random.getRandomAt(0, 0, 3));
         for(int i = 0; i < premap.length; i++) {
         	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
@@ -181,7 +185,6 @@ public class MapMaker {
     
     protected int[] refineNoise(ChunkTile[] premap, int[][] noise) {
         int[] out = new int[premap.length];
-        // Could be better optimized, but this is a test of the gui and api
         for(int i = 1; i < (RSIZE + 1); i++) 
             for(int j = 1; j < (RSIZE + 1); j++) {
                 out[((j - 1) * RSIZE) + (i - 1)] = refineCell(premap, noise, i, j);
@@ -279,6 +282,50 @@ public class MapMaker {
         } else if(t.z >= (RSIZE - 10)) {
             t.val -= ((t.z - RSIZE + 10) / 2);
         }
+    }
+    
+    
+    private static int[] refineBasicNoise(int[][] noise, ChunkTile[] premap) {
+        int[] out = new int[premap.length];
+        // Could be better optimized, but this is a test of the gui and api
+        for(int i = 1; i < (RSIZE + 1); i++) 
+            for(int j = 1; j < (RSIZE + 1); j++) {
+                out[((j - 1) * RSIZE) + (i - 1)] = refineBasicCell(noise, i, j);
+            }
+        return out;
+    }
+    
+    
+    private static int refineBasicCell(int[][] noise, int x, int y) {
+        int sum = 0;
+        // Yes, I include the cell itself -- its simpler and works for me
+        for(int i = x - 1; i <= x + 1; i++) 
+            for(int j = y - 1; j <= y + 1; j++) {
+                sum += noise[i][j];
+            }
+        return sum / 5;
+    }
+    
+    
+    private static int[] refineNoise10(int[][] noise, ChunkTile[] premap) {
+        int[] out = new int[premap.length];
+        // Could be better optimized, but this is a test of the gui and api
+        for(int i = 1; i < (RSIZE + 1); i++) 
+            for(int j = 1; j < (RSIZE + 1); j++) {
+                out[((j - 1) * RSIZE) + (i - 1)] = refineCell10(noise, i, j);
+            }
+        return out;
+    }
+    
+    
+    private static int refineCell10(int[][] noise, int x, int y) {
+        int sum = 0;
+        // Yes, I include the cell itself -- its simpler and works for me
+        for(int i = x - 1; i <= x + 1; i++) 
+            for(int j = y - 1; j <= y + 1; j++) {
+                sum += noise[i][j];
+            }
+        return sum;
     }
     
     

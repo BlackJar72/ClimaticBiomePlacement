@@ -125,7 +125,7 @@ public final class Region extends AbstractCachable {
                         9, 
                         (BasinNode.getLogScaled(random.nextInt(5) - 15) / 30) 
                                 * 1.5, 
-                        0); //fuck = random.nextInt(5);
+                        0); fuck = random.nextInt(5);
                     break;
                 case 1:
                     wet[i] = new ClimateNode(
@@ -134,7 +134,7 @@ public final class Region extends AbstractCachable {
                         0, 
                         (BasinNode.getLogScaled(random.nextInt(5) - 15) / 30) 
                                 * 1.5, 
-                        0); //fuck = random.nextInt(5);
+                        0); fuck = random.nextInt(5);
                     break;
                 case 2:
                     wet[i] = new ClimateNode(

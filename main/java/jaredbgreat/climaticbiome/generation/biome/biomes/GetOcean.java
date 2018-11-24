@@ -60,7 +60,7 @@ public class GetOcean implements IBiomeSpecifier {
 	public int getBiome(ChunkTile tile) {
 		int temp = tile.getTemp();
 		int seed = tile.getBiomeSeed();
-		// FIXME: WRONG NOIDE!    Create other noise,
+		// FIXME: WRONG NOISE!    Create other noise,
 		//        this is not the noise I want!
 		//        This means adding ice noise to the main map.
 		int iceNoise = tile.getNoise();
@@ -78,16 +78,16 @@ public class GetOcean implements IBiomeSpecifier {
 				return 0;				
 			}
 			if((seed & 1) == 0) {
-				if(noise > (3 + (seed % 3))) {
+				if(noise > (4 + (seed % 3))) {
 					return islands1.getBiome(tile);
 				}
 			} else {
-				if(noise > (1 + (seed % 3))) {
+				if(noise > (2 + (seed % 3))) {
 					return islands2.getBiome(tile);
 				}				
 			}
 		}
-        if((iceNoise - (temp / 2)) > -1) {
+        if(((iceNoise / 2) - temp) > -1) {
         	if(tile.getVal() < 2) {
         		return dfrozen.getBiome(tile);        		
         	}

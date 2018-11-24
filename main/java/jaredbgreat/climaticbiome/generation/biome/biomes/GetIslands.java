@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
@@ -26,6 +27,7 @@ public class GetIslands implements IBiomeSpecifier {
 		warm   = new BiomeList();
 		hot    = new BiomeList();
 		desert = new BiomeList();
+		basic  = BiomeClimateTable.getLandTable();
 		// TODO: Set basic to main land BiomeClimateTable
 		/*
 		 * Add Modded islands biomes here!
