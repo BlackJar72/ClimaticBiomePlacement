@@ -9,6 +9,7 @@ public class GetTundra extends BiomeList {
 	private static GetTundra tundra;
 	private GetTundra() {
 		super();
+		init();
 	}
 	
 	

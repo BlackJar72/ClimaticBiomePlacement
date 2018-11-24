@@ -9,6 +9,7 @@ public class GetPlains implements IBiomeSpecifier {
 	private static GetPlains grassland;
 	private GetPlains() {
 		super();
+		init();
 	}
 	private BiomeList plains;
 	private GetAlpine alpine;

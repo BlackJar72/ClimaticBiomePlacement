@@ -9,6 +9,7 @@ public class GetTaiga implements IBiomeSpecifier {
 	private static GetTaiga taiga;
 	private GetTaiga() {
 		super();
+		init();
 	}
 	private BiomeList forest;
 	int tbound;

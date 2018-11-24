@@ -22,7 +22,25 @@ import jaredbgreat.climaticbiome.generation.biome.biomes.GetWarmPlains;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class BiomeClimateTable implements IBiomeSpecifier {	
+	private static BiomeClimateTable main;
+	private static LandBiomeTable land;
 	private IBiomeSpecifier[] table;
+	
+	public static class LandBiomeTable implements IBiomeSpecifier {
+		private IBiomeSpecifier[] table;
+		LandBiomeTable() {}
+		void init(IBiomeSpecifier[] t) {
+			table = t;
+		}
+		@Override
+		public int getBiome(ChunkTile tile) {
+			return table[(tile.getTemp() * 10) + tile.getWet()].getBiome(tile);
+		}
+		@Override
+		public boolean isEmpty() {
+			return table == null;
+		}
+	}
 	
     IBiomeSpecifier OCEAN;
     IBiomeSpecifier SWAMP;
@@ -65,13 +83,44 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 	 * 
 	 * @param table *MUST* be 250 elements!
 	 */
-	BiomeClimateTable(IBiomeSpecifier... table) {
+	private BiomeClimateTable(IBiomeSpecifier... table) {
 		this.table = table;
+	}	
+	
+	
+	private BiomeClimateTable() {
+		init();
+	}
+	
+	
+	public static BiomeClimateTable getClimateTable() {
+		if(main == null) {
+			main = new BiomeClimateTable();			
+		}
+		return main;
+	}
+	
+	
+	public static LandBiomeTable getLandTable() {
+		if(land == null) {
+			land = new LandBiomeTable();
+		}
+		return land;
 	}
 	
 
 	@Override
 	public int getBiome(ChunkTile tile) {
+		if(tile.getRlBiome() == 0) {
+			return OCEAN.getBiome(tile);
+		}
+        if(tile.getTemp() > 4 && ((tile.getWet() - tile.getVal()) > (tile.getNoise() - 1))) {
+            if((tile.getBiomeSeed() & 0x1) == 1) {
+                tile.nextBiomeSeed();
+                return SWAMP.getBiome(tile);
+            }
+            tile.nextBiomeSeed();
+        }
 		return table[(tile.getTemp() * 10) + tile.getWet()].getBiome(tile);
 	}
 
@@ -87,6 +136,7 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 	
 	
 	public void init() {
+		land = getLandTable();
 		OCEAN = GetOcean.getOcean();
 	    SWAMP = GetSwamp.getSwamp();
 	    TUNDRA = GetTundra.getTundra();
@@ -108,6 +158,8 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 	    PARKb = GetCoolPark.getPark();
 	    // TODO: Logic to determine which table to create,
 	    makeVanillaTable();
+	    // Initialize land table to use same table
+	    land.init(table);
 	}
 	
 	

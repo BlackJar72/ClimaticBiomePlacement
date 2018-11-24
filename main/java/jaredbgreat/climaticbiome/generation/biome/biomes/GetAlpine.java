@@ -10,6 +10,7 @@ public class GetAlpine implements IBiomeSpecifier {
 	private static GetAlpine alpine;
 	private GetAlpine() {
 		super();
+		init();
 	}
 	
 	// TODO: More variants; make generic for all climate zones
@@ -23,9 +24,9 @@ public class GetAlpine implements IBiomeSpecifier {
 		wet.addItem(new LeafBiome(34));
 		wet.addItem(new LeafBiome(162));
 		wet.addItem(new NoiseDoubleBiome(34, 5, 162));
-		wet.addItem(new LeafBiome(3));
-		wet.addItem(new LeafBiome(131));
-		wet.addItem(new NoiseDoubleBiome(3, 5, 131));
+		dry.addItem(new LeafBiome(3));
+		dry.addItem(new LeafBiome(131));
+		dry.addItem(new NoiseDoubleBiome(3, 5, 131));
 	}
 
 	@Override

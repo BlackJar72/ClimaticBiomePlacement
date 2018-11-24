@@ -9,6 +9,7 @@ public class GetWarmPlains implements IBiomeSpecifier {
 	private static GetWarmPlains plains;
 	private GetWarmPlains() {
 		super();
+		init();
 	}
 	private GetPlains cool;	
 	private GetSavanna hot;

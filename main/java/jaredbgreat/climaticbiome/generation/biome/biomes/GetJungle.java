@@ -10,6 +10,7 @@ public class GetJungle extends BiomeList {
 	private static GetJungle jungle;
 	private GetJungle() {
 		super();
+		init();
 	}
 
 	

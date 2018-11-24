@@ -11,6 +11,7 @@ public class GetWarmForest implements IBiomeSpecifier {
 	private static GetWarmForest sforest;
 	private GetWarmForest() {
 		super();
+		init();
 	}
 	private BiomeList forests;
 	private GetAlpine alpine;

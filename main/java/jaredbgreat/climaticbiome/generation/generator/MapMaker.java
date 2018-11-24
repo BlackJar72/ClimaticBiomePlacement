@@ -5,12 +5,14 @@
  */
 package jaredbgreat.climaticbiome.generation.generator;
 
+import static jaredbgreat.climaticbiome.util.SpatialNoise.absModulus;
+import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
+import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.MutableCoords;
 import jaredbgreat.climaticbiome.generation.map.RegionMap;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
 import jaredbgreat.climaticbiome.util.SpatialNoise.RandomAt;
-import static jaredbgreat.climaticbiome.util.SpatialNoise.absModulus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +23,8 @@ import java.util.Arrays;
  *
  * @author jared
  */
-public class MapMaker { 
+public class MapMaker {
+	IBiomeSpecifier specifier;
 	// STATIC VARIABLES USED IN MANY PLACES
     public static final int CSIZE = 16; // chuck size
     public static final int RSIZE = 4096 / CSIZE; // region / "continent" size
@@ -55,6 +58,7 @@ public class MapMaker {
         this.chunkNoise  = chunkNoise;
         this.regionNoise = regionNoise;
         this.biomeNoise  = biomeNoise;
+        specifier = BiomeClimateTable.getClimateTable();
     }
     
     /**
@@ -139,7 +143,9 @@ public class MapMaker {
                     doubleNoise[i]), 9);
         }
         makeBiomes(premap, 256, random.getRandomAt(0, 0, 3));
-        //BiomeType.makeBiomes(this, random, regions[4]);
+        for(int i = 0; i < premap.length; i++) {
+        	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
+        }
     }
     
     

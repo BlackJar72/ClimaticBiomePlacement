@@ -10,6 +10,7 @@ public class GetDesert extends BiomeList {
 	private static GetDesert desert;
 	private GetDesert() {
 		super();
+		init();
 	}
 	
 	public void init() {

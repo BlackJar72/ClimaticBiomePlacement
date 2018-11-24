@@ -9,6 +9,7 @@ public class GetSwamp extends BiomeList {
 	private static GetSwamp swamp;
 	private GetSwamp() {
 		super();
+		init();
 	}
 	
 	

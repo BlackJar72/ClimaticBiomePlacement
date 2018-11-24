@@ -16,6 +16,7 @@ public class GetCoolPlains implements IBiomeSpecifier  {
 	private static GetCoolPlains grassland;
 	private GetCoolPlains() {
 		super();
+		init();
 	}
 	private BiomeList plains;
 	private GetAlpine alpine;

@@ -10,6 +10,7 @@ public class GetForest implements IBiomeSpecifier {
 	private static GetForest tforest;
 	private GetForest() {
 		super();
+		init();
 	}
 	private BiomeList forests;
 	private GetAlpine alpine;

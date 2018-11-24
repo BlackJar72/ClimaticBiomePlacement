@@ -9,6 +9,7 @@ public class GetSavanna extends BiomeList {
 	private static GetSavanna savanna;
 	private GetSavanna() {
 		super();
+		init();
 	}
 	
 	

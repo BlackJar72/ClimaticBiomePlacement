@@ -11,6 +11,7 @@ public class GetHotForest extends BiomeList {
 	private static GetHotForest  tforest;
 	private GetHotForest() {
 		super();
+		init();
 	}
 	
 	

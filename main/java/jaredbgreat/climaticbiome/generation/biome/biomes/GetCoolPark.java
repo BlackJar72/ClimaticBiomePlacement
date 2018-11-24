@@ -8,6 +8,7 @@ public class GetCoolPark implements IBiomeSpecifier {
 	private static GetCoolPark pland;
 	private GetCoolPark() {
 		super();
+		init();
 	}	
 	private BiomeList parks;
 	private GetCoolPlains plains;

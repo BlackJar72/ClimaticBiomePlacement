@@ -8,6 +8,7 @@ public class GetIslands implements IBiomeSpecifier {
 	private static GetIslands islands;
 	private GetIslands() {
 		super();
+		init();
 	}
 	IBiomeSpecifier frozen;
 	IBiomeSpecifier cold;

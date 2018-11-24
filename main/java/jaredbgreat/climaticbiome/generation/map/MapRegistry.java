@@ -3,6 +3,7 @@ package jaredbgreat.climaticbiome.generation.map;
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
+import jaredbgreat.climaticbiome.generation.generator.MapMaker;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
 
 import java.util.Random;
@@ -28,6 +29,8 @@ public class MapRegistry {
     private final SpatialNoise chunkNoise;
     private final SpatialNoise regionNoise;
     private final SpatialNoise biomeNoise;
+    
+    private final MapMaker maker;
 	
 	
 	public MapRegistry(long seed) {
@@ -36,6 +39,7 @@ public class MapRegistry {
         chunkNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         regionNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         biomeNoise = new SpatialNoise(random.nextLong(), random.nextLong());
+        maker = new MapMaker(chunkNoise, regionNoise, biomeNoise);
 	}
 	
 	
@@ -120,19 +124,20 @@ public class MapRegistry {
 	private void initializeMap(RegionMap map) {
 		// FIXME / TODO: A temporary stand in; attach to 
 		//               real generator.
-		SpatialNoise random = new SpatialNoise(123456789);
+		maker.generate(map);
+		/*SpatialNoise random = new SpatialNoise(123456789);
 		for(int i = 0; i < 256; i++)
 			for(int j = 0; j < 256; j++) {
 				if(  ((((i + j) / 3) % 10) == 0)
 				  || (((i / 2) % 10) == 0)) {
-					  map.setBiomeExpress(/*2*/7, i, j);
+					  map.setBiomeExpress(7, i, j);
 				  }
 				  else if((((i / 4) + (j / 4)) % 2) == 0) {
-					map.setBiomeExpress(2, i, j); 				} 
-				  else {
-					map.setBiomeExpress(4/*random.intFor( i / 4, j / 4, 0) % 20*/, i, j);
+					map.setBiomeExpress(2, i, j); 				 
+				  } else {
+					map.setBiomeExpress(4, i, j);
 				}
-			}
+			}*/
 	}
 	
 	

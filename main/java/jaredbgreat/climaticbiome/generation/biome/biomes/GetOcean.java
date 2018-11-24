@@ -1,9 +1,9 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
-import jaredbgreat.climaticbiome.generation.generator.BiomeFinder;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 
@@ -11,6 +11,7 @@ public class GetOcean implements IBiomeSpecifier {
 	private static GetOcean oceans;
 	private GetOcean() {
 		super();
+		init();
 	}
 	BiomeList frozen;
 	BiomeList cold;
@@ -23,7 +24,7 @@ public class GetOcean implements IBiomeSpecifier {
 	BiomeList dwarm;
 	BiomeList dhot;
 	IBiomeSpecifier islands1; // Main land biomes
-	IBiomeSpecifier islands2;      // Special island-only biomes
+	IBiomeSpecifier islands2; // Special island-only biomes
 	
 	
 	public void init() {
@@ -39,7 +40,10 @@ public class GetOcean implements IBiomeSpecifier {
 		dcool   = new BiomeList();
 		dwarm   = new BiomeList();
 		dhot    = new BiomeList();
-		// TODO: Get islands
+		// Islands
+		islands1 = BiomeClimateTable.getLandTable();
+		islands2 = GetIslands.getIslands();
+		// Add biomes
 		cool.addItem(new LeafBiome(0));
 		dcool.addItem(new LeafBiome(24));
 		frozen.addItem(new LeafBiome(10));
@@ -144,18 +148,22 @@ public class GetOcean implements IBiomeSpecifier {
 			// Should never be true, but just in case.
 			frozen = cold; 
 		}
-		if(dwarm.isEmpty()) {
-			dwarm = cool;
-		}
-		if(hot.isEmpty()) {
-			dhot = warm;
-		}
-		if(cold.isEmpty()) {
-			dcold = cool;
-		}
-		if(frozen.isEmpty()) {
+		if(dcool.isEmpty()) {
 			// Should never be true, but just in case.
-			dfrozen = cold; 
+			dcool = cool;
+		}
+		if(dwarm.isEmpty()) {
+			dwarm = dcool;
+		}
+		if(dhot.isEmpty()) {
+			dhot = dwarm;
+		}
+		if(dcold.isEmpty()) {
+			dcold = dcool;
+		}
+		if(dfrozen.isEmpty()) {
+			// Should never be true, but just in case.
+			dfrozen = dcold; 
 		}
 	}
 

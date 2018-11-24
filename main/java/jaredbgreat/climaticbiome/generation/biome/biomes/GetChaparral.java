@@ -10,6 +10,7 @@ public class GetChaparral extends BiomeList {
 	private static GetChaparral scrub;
 	private GetChaparral() {
 		super();
+		init();
 	} 
 	
 	

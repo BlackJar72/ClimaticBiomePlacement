@@ -10,6 +10,7 @@ public class GetColdPlains implements IBiomeSpecifier {
 	private static GetColdPlains plains;
 	private GetColdPlains() {
 		super();
+		init();
 	}
 	private BiomeList coolPlains;
 	
