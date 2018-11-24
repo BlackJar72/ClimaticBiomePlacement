@@ -19,7 +19,7 @@ public class GetTundra extends BiomeList {
 	}
 	
 	
-	public GetTundra getTundra() {
+	public static GetTundra getTundra() {
 		if(tundra == null) {
 			tundra = new GetTundra();
 		}

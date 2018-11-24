@@ -7,6 +7,10 @@ import jaredbgreat.climaticbiome.generation.biome.NoiseDoubleBiome;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetCoolPlains implements IBiomeSpecifier {
+	private static GetCoolPlains plains;
+	private GetCoolPlains() {
+		super();
+	}
 	private BiomeList coolPlains;
 	
 	public void init() {
@@ -26,6 +30,14 @@ public class GetCoolPlains implements IBiomeSpecifier {
 	@Override
 	public boolean isEmpty() {
 		return false;
+	}
+	
+	
+	public static GetCoolPlains getPlains() {
+		if(plains == null) {
+			plains = new GetCoolPlains();
+		}
+		return plains;
 	}
 
 }

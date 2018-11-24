@@ -128,9 +128,9 @@ public class MapRegistry {
 					  map.setBiomeExpress(/*2*/7, i, j);
 				  }
 				  else if((((i / 4) + (j / 4)) % 2) == 0) {
-					map.setBiomeExpress(36, i, j); // One is a stand in (I think plains).
-				} else {
-					map.setBiomeExpress(random.intFor( i / 4, j / 4, 0) % 20, i, j); // One is a stand in.
+					map.setBiomeExpress(2, i, j); 				} 
+				  else {
+					map.setBiomeExpress(4/*random.intFor( i / 4, j / 4, 0) % 20*/, i, j);
 				}
 			}
 	}
