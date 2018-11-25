@@ -10,9 +10,9 @@ package jaredbgreat.climaticbiome.generation.generator;
  * @author jared
  */
 public class ClimateNode extends BasinNode {
+
+
     final double faintness;
-    
-  
 
     public ClimateNode(int x, int z, int value, double decay, int faintness) {
         super(x, z, value, decay);
@@ -34,7 +34,7 @@ public class ClimateNode extends BasinNode {
     }
     
     
-    public static int summateTemp(ClimateNode[] n, ChunkTile t, double noise) {
+    public static int summateEffect(ClimateNode[] n, ChunkTile t, double noise) {
         double effect = 0.0;
         double sum    = 0.0;
         double power, weakness;
@@ -44,23 +44,6 @@ public class ClimateNode extends BasinNode {
             }
             weakness = n[i].getWeaknessAt(t.x, t.z);
             power = 1.0 / weakness;
-            sum += power;
-            effect += ((double)n[i].value) * power;
-        }
-        return (int)Math.max((effect / sum) + noise, 0);
-    }
-    
-    
-    public static int summateWet(ClimateNode[] n, ChunkTile t, double noise) {
-        double effect = 0.0;
-        double sum    = 0.0;
-        double power, weakness;
-        for(int i = 0; i < n.length; i++) {
-            if((n[i].x == t.x) && (n[i].z == t.z) && (n[i].faintness == 0)) {
-                return (int)n[i].value;
-            }
-            weakness = n[i].getWeaknessAt(t.x, t.z);
-            power = 1.0 / (weakness * weakness);
             sum += power;
             effect += ((double)n[i].value) * power;
         }

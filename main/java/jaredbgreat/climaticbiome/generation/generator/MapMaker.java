@@ -53,6 +53,9 @@ public class MapMaker {
     public final SpatialNoise regionNoise;
     public final SpatialNoise biomeNoise;
     
+    private int xoff;
+    private int zoff;
+    
     
     public MapMaker(SpatialNoise chunkNoise, SpatialNoise regionNoise, SpatialNoise biomeNoise) {
         this.chunkNoise  = chunkNoise;
@@ -105,6 +108,8 @@ public class MapMaker {
     
     public void generate(RegionMap datamap) {    	
         MutableCoords coords = datamap.getCoords().toMutableCoors();
+        xoff = (coords.getX() * 256) - 128;
+        zoff = (coords.getZ() * 256) - 128;
 		Region[] regions = findRegions(coords.getX(), coords.getZ());
         ArrayList<BasinNode> basins = new ArrayList<>();
         ArrayList<ClimateNode> temp = new ArrayList<>();
@@ -146,7 +151,7 @@ public class MapMaker {
         for(int i = 0; i < premap.length; i++) {
             premap[i].noiseVal = noise[i];
         }
-        makeBiomes(premap, 256, random.getRandomAt(0, 0, 3));
+        makeBiomes(premap, 256, random.getRandomAt(coords.getX(), coords.getZ(), 3));
         for(int i = 0; i < premap.length; i++) {
         	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
         }
@@ -168,7 +173,7 @@ public class MapMaker {
         for(int i = 0; i < (RSIZE + 2); i++)
             for(int j = 0; j < (RSIZE + 2); j++) {
             	// TODO: Adjust for map position
-                noise[i][j] = absModulus(random.intFor(i, j, t), 2);
+                noise[i][j] = absModulus(random.intFor(i + xoff, j + zoff, t), 2);
             }
         return noise;
     }
@@ -223,7 +228,7 @@ public class MapMaker {
         double[][] noise = new double[RSIZE + 4][RSIZE + 4];
         for(int i = 0; i < (RSIZE + 2); i++)
             for(int j = 0; j < (RSIZE + 2); j++) {
-                noise[i][j] = (random.doubleFor(i, j, t) / 5) - 0.1;
+                noise[i][j] = (random.doubleFor(i + xoff, j + zoff, t) / 5) - 0.1;
             }
         return noise;
     }

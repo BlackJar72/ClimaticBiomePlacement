@@ -12,10 +12,11 @@ package jaredbgreat.climaticbiome.generation.generator;
 public class BasinNode {
     final int x, z, value;
     final double decay;
+    private static final double[] LOGTABLE = makeLogTable();
     private static final double[] logtable = makeLogTable();
     
     
-    public BasinNode(int x, int y, int value, double decay) {    	
+    public BasinNode(int x, int y, int value, double decay) {
         this.x = x;
         this.z = y;
         this.value = value;
@@ -84,8 +85,5 @@ public class BasinNode {
     public static double getLogScaled(int in) {
         return logtable[in + 15];
     }
-    
-    
-    
     
 }

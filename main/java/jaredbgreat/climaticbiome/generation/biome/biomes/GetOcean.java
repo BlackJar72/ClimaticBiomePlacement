@@ -86,6 +86,20 @@ public class GetOcean implements IBiomeSpecifier {
 					return islands2.getBiome(tile);
 				}				
 			}
+	        if(((iceNoise / 2) - temp) > -1) {
+	        	return frozen.getBiome(tile);
+	        }
+        	if(temp < 6) {
+        		return cold.getBiome(tile);
+        	} 
+        	if(temp < 12) {
+        		return cool.getBiome(tile);        		
+        	} 
+        	if(temp < 18) {
+        		return warm.getBiome(tile);
+        	}
+        	return hot.getBiome(tile);
+        
 		}
         if(((iceNoise / 2) - temp) > -1) {
         	if(tile.getVal() < 2) {

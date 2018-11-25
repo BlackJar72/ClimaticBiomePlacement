@@ -13,7 +13,7 @@ public class GetWarmPlains implements IBiomeSpecifier {
 	}
 	private GetPlains cool;	
 	private GetSavanna hot;
-	private static final int tbound = 14;
+	private static final int tbound = 15;
 	
 	
 	public void init() {
@@ -25,9 +25,11 @@ public class GetWarmPlains implements IBiomeSpecifier {
 	@Override
 	public int getBiome(ChunkTile tile) {
 		int t = tile.getTemp() - tbound;
-		if((tile.getBiomeSeed() % 5) > t) {
+		if((tile.getBiomeSeed() % 5) < t) {
+			tile.nextBiomeSeed();
 			return hot.getBiome(tile);
 		}
+		tile.nextBiomeSeed();
 		return cool.getBiome(tile);
 	}
 	
