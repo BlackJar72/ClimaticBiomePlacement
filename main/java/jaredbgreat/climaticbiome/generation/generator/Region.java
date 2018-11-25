@@ -107,13 +107,12 @@ public final class Region extends AbstractCachable {
                 cz + random.nextInt(RSIZE), 
                 random.nextInt(25), 
                 (BasinNode.getLogScaled(random.nextInt(5) - 12) / 30) * 1.5, 
-                random.nextInt(5) + 5);
+                random.nextInt(3) + 1);
         }
     }
     
     
     public void makeRainBasins(int n, SpatialNoise.RandomAt random) {
-        int fuck;
         wet = new ClimateNode[n];
         for(int i = 0; i < wet.length; i++) {
             int cycle = i % 3;
@@ -125,7 +124,7 @@ public final class Region extends AbstractCachable {
                         9, 
                         (BasinNode.getLogScaled(random.nextInt(5) - 15) / 30) 
                                 * 1.5, 
-                        0); fuck = random.nextInt(5);
+                        0);
                     break;
                 case 1:
                     wet[i] = new ClimateNode(
@@ -134,7 +133,7 @@ public final class Region extends AbstractCachable {
                         0, 
                         (BasinNode.getLogScaled(random.nextInt(5) - 15) / 30) 
                                 * 1.5, 
-                        0); fuck = random.nextInt(5);
+                        0);
                     break;
                 case 2:
                     wet[i] = new ClimateNode(

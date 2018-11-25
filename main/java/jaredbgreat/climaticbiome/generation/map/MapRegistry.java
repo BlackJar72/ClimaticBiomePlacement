@@ -75,7 +75,7 @@ public class MapRegistry {
 	 * @return
 	 */
 	public RegionMap getMap(BlockPos pos) {
-		return getMap((pos.getX() - 2048) / 4096, (pos.getZ() - 2048) / 4096);
+		return getMap((pos.getX() + 2048) / 4096, (pos.getZ() + 2048) / 4096);
 	}
 	
 	
@@ -89,7 +89,7 @@ public class MapRegistry {
 	 * @return
 	 */
 	public RegionMap getMapFromBlockCoord(int x, int z) {
-		return getMap((x - 2048) / 4096, (z - 2048) / 4096);
+		return getMap((x + 2048) / 4096, (z + 2048) / 4096);
 	}
 	
 	
@@ -101,17 +101,17 @@ public class MapRegistry {
 	 * @return
 	 */
 	public RegionMap getMapFromChunkCoord(int x, int z) {
-		return getMap((x - 128) / 256, (z - 128) / 256);
+		return getMap((x + 128) / 256, (z + 128) / 256);
 	}
 	
 	
 	public int chunkToMap(int c) {
-		return (c - 128) / 256;
+		return (c + 128) / 256;
 	}
 	
 	
 	public int blockToMap(int c) {
-		return (c - 2048) / 4096;
+		return (c + 2048) / 4096;
 	}
 	
 	/**
@@ -122,22 +122,7 @@ public class MapRegistry {
 	 * @param map
 	 */
 	private void initializeMap(RegionMap map) {
-		// FIXME / TODO: A temporary stand in; attach to 
-		//               real generator.
 		maker.generate(map);
-		/*SpatialNoise random = new SpatialNoise(123456789);
-		for(int i = 0; i < 256; i++)
-			for(int j = 0; j < 256; j++) {
-				if(  ((((i + j) / 3) % 10) == 0)
-				  || (((i / 2) % 10) == 0)) {
-					  map.setBiomeExpress(7, i, j);
-				  }
-				  else if((((i / 4) + (j / 4)) % 2) == 0) {
-					map.setBiomeExpress(2, i, j); 				 
-				  } else {
-					map.setBiomeExpress(4, i, j);
-				}
-			}*/
 	}
 	
 	
@@ -321,7 +306,7 @@ public class MapRegistry {
     		int x1 = (i / 3);
     		int z1 = (i % 3);   
     		int x2 = x + x1;
-    		int z2 = z + z1;    		 		
+    		int z2 = z + z1;  
     		tiles[i] = getBiomeIDChunk(x2, z2);
     		basins[i / 3][i % 3] = new BiomeBasin(
     				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),

@@ -9,6 +9,7 @@ import static jaredbgreat.climaticbiome.util.SpatialNoise.absModulus;
 import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
+import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.cache.MutableCoords;
 import jaredbgreat.climaticbiome.generation.map.RegionMap;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
@@ -109,7 +110,7 @@ public class MapMaker {
     
     
     public void generate(RegionMap datamap) {    	
-        MutableCoords coords = datamap.getCoords().toMutableCoors();
+        Coords coords = datamap.getCoords();
         xoff = (coords.getX() * 256) - 128;
         zoff = (coords.getZ() * 256) - 128;
 		Region[] regions = findRegions(coords.getX(), coords.getZ());
