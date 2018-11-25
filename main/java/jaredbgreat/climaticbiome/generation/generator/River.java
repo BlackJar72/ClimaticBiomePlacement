@@ -67,16 +67,18 @@ public class River {
     }  
     
     
-    public River(BasinNode high, BasinNode low, MapMaker mapIn) {
+    public River(BasinNode high, BasinNode low, MapMaker mapIn, int x, int z) {
         MAX = MapMaker.RSIZE -2;
         Q = new ChangeQueue();
         map = mapIn;
         begin = high;
         end   = low;
         oc = 0;
-        da = angle = 0; 
-        cx = begin.x;
-        cy = begin.z;
+        da = angle = 0;
+        cx = begin.x - x * MapMaker.RSIZE/*- map.getXoff() + 128*/;
+        cy = begin.z - z * MapMaker.RSIZE/*- map.getZoff() + 128*/;
+        //System.err.println(cx + ", " + cy + " -> " + (cx - map.getXoff()) + ", " + (cy - map.getZoff()) 
+        //		+ "  (XOff = " + map.getXoff() + ", ZOff = " + map.getZoff() + ") ");
         double length = findLength(cx, cy, end.x, end.z);
         dx = (end.x - begin.x) / length;
         dy = (end.z - begin.z) / length;
@@ -102,11 +104,10 @@ public class River {
             incrementAngle(r);
             cx += (f * dx) + (p * dy);
             cy += (f * dy) + (p * dx);
-            // FIXME:
-            //ChunkTile toChange = Q.push(map.getTile((int)cx, (int)cy));
-            //if(toChange != null) {
-            //    makeRiver(toChange);
-            //}
+            ChunkTile toChange = Q.push(map.getTile((int)cx, (int)cy));
+            if(toChange != null) {
+                makeRiver(toChange);
+            }
         } while(!shouldEnd((int)cx, (int)cy));
         ChunkTile toChange;
         while((toChange = Q.pop()) != null) {
@@ -114,22 +115,14 @@ public class River {
         }
     }
     
-    // TODO: Implement checking for water, etc., for new system
-    private boolean shouldEnd(int x, int y) {/*
+    private boolean shouldEnd(int x, int y) {
         ChunkTile t = map.getTile(x, y);
-        if(t == null) {
-            return true;
-        } else {
-            // This will be true if the biome is water
-            if(t.getRlBiome().rlBiome < 3) {
-                oc++;
-            }
-            return t.rlBiome == 3 
-                    || ((t.rlBiome < 3) && (oc > 4) 
-                        && ((t.val < 4) || oc > 8)) 
-                    || outOfBounds(x, y);
-        }*/
-        return true;
+        // This will be true if the biome is water
+        if(t.rlBiome == 0) {
+            oc++;
+        }
+        return ((t.rlBiome == 0) && ((t.val < 3) || (oc > 8))) 
+                || outOfBounds(x, y) || t.isRiver();
     }
     
     
@@ -158,16 +151,12 @@ public class River {
         }        
     }
     
-    
-    // TODO: Implement adding river to the map
-    private void makeRiver(ChunkTile t) {/*
-        // TODO: Expand to effect chunks in a radius of r = 1
-        int rb = BiomeType.RIVER.ordinal();
-        t.rlBiome = rb;
-        map.getTile(t.x + 1, t.z).rlBiome = rb;
-        map.getTile(t.x + 1, t.z + 1).rlBiome = rb;
-        map.getTile(t.x, t.z + 1).rlBiome = rb;
+    private void makeRiver(ChunkTile t) {
+        t.beRiver();
+        map.getTile(t.x + 1, t.z).beRiver();
+        map.getTile(t.x + 1, t.z + 1).beRiver();
+        map.getTile(t.x, t.z + 1).beRiver();
         
-    */}
+    }
     
 }

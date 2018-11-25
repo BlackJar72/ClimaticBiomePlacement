@@ -76,8 +76,7 @@ public class GetOcean implements IBiomeSpecifier {
 					return 15;
 				}
 				return 0;				
-			}
-			if((seed & 1) == 0) {
+			} else if((seed & 1) == 0) {
 				if(noise > (4 + (seed % 3))) {
 					return islands1.getBiome(tile);
 				}

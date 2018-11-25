@@ -11,6 +11,7 @@ import jaredbgreat.climaticbiome.generation.biome.biomes.GetJungle;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetOcean;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetPark;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetPlains;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetRiver;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetSavanna;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetWarmForest;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetSwamp;
@@ -61,6 +62,7 @@ public class BiomeClimateTable implements IBiomeSpecifier {
     IBiomeSpecifier FORESTb;
     IBiomeSpecifier GRASSb;
     IBiomeSpecifier PARKb;
+    IBiomeSpecifier RIVER;
 	
 	/**
 	 * Create a table for looking up biomes based on temperature 
@@ -114,6 +116,10 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 		if(tile.getRlBiome() == 0) {
 			return OCEAN.getBiome(tile);
 		}
+		if(tile.isRiver()) {
+			//System.out.println("Generating a RIVER!!!");
+			return RIVER.getBiome(tile);
+		}
         if(tile.getTemp() > 4 && ((tile.getWet() - tile.getVal()) > (tile.getNoise() - 1))) {
             if((tile.getBiomeSeed() & 0x1) == 1) {
                 tile.nextBiomeSeed();
@@ -156,6 +162,7 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 	    FORESTb = GetCoolForest.getForest();
 	    GRASSb = GetCoolPlains.getPlains();
 	    PARKb = GetCoolPark.getPark();
+	    RIVER = GetRiver.getRiver();
 	    // TODO: Logic to determine which table to create,
 	    makeVanillaTable();
 	    // Initialize land table to use same table

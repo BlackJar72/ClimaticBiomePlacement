@@ -54,7 +54,9 @@ public class MapMaker {
     public final SpatialNoise biomeNoise;
     
     private int xoff;
-    private int zoff;
+    private int zoff;    
+
+    private ChunkTile[] premap;
     
     
     public MapMaker(SpatialNoise chunkNoise, SpatialNoise regionNoise, SpatialNoise biomeNoise) {
@@ -123,7 +125,7 @@ public class MapMaker {
         ClimateNode[] tempAr = temp.toArray(new ClimateNode[temp.size()]);
         ClimateNode[] wetAr = wet.toArray(new ClimateNode[wet.size()]);
         SpatialNoise random = regionNoise;
-        ChunkTile[] premap = new ChunkTile[RSIZE * RSIZE];
+        premap = new ChunkTile[RSIZE * RSIZE];
         for(int i = 0; i < RSIZE; i++) 
             for(int j = 0; j < RSIZE; j++) {
                 premap[(i * RSIZE) + j] = new ChunkTile(i, j);
@@ -151,6 +153,9 @@ public class MapMaker {
         for(int i = 0; i < premap.length; i++) {
             premap[i].noiseVal = noise[i];
         }
+        RiverMaker rm = new RiverMaker(this, random.longFor(coords.getX(), coords.getZ(), 16), 
+                regions[4], coords.getX(), coords.getZ());
+        rm.build();
         makeBiomes(premap, 256, random.getRandomAt(coords.getX(), coords.getZ(), 3));
         for(int i = 0; i < premap.length; i++) {
         	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
@@ -331,6 +336,24 @@ public class MapMaker {
                 sum += noise[i][j];
             }
         return sum;
+    }
+    
+    
+    public ChunkTile getTile(int x, int y) {
+    	//System.err.println("Geting Tile: " + x + ", " + y + " = " + ((x * RSIZE) + y));
+        int index = (x * RSIZE) + y;
+        //System.err.println(x + ", " + y + " = " + index);
+        return premap[index];
+    }
+    
+    
+    public int getXoff() {
+    	return xoff;
+    }
+    
+    
+    public int getZoff() {
+    	return zoff;
     }
     
     
