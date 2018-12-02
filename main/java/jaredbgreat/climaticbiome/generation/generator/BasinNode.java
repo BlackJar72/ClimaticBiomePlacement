@@ -42,10 +42,10 @@ public class BasinNode {
         double sum    = 0.0;
         double power, weakness;
         for(int i = 0; i < n.length; i++) {
-            if((n[i].x == t.x) && (n[i].z == t.z)) {
+            if((n[i].x == t.tx) && (n[i].z == t.tz)) {
                 return (int)n[i].value;
             }
-            weakness = n[i].getWeaknessAt(t.x, t.z);
+            weakness = n[i].getWeaknessAt(t.tx, t.tz);
             power = 1.0 / (weakness * weakness);
             sum += power;
             effect += Math.max(((double)n[i].value) * power, 0);
@@ -60,10 +60,10 @@ public class BasinNode {
         double sum    = 0.0;
         double power, weakness;
         for(int i = 0; i < n.length; i++) {
-            if((n[i].x == t.x) && (n[i].z == t.z)) {
+            if((n[i].x == t.tx) && (n[i].z == t.tz)) {
                 return (int)n[i].value;
             }
-            weakness = n[i].getWeaknessAt(t.x, t.z);
+            weakness = n[i].getWeaknessAt(t.tx, t.tz);
             power = 1.0 / (weakness * weakness);
             sum += power;
             effect += Math.max(((double)n[i].value) * power, 0);
@@ -84,6 +84,16 @@ public class BasinNode {
     
     public static double getLogScaled(int in) {
         return logtable[in + 15];
+    }
+    
+    
+    public String toString() {
+        return "    [x=" + x + ", z=" + z + ", val=" + value + ", decay=" + decay + "] ";
+    }
+    
+    
+    public String briefString() {
+        return "    [x=" + x + ", z=" + z + "] ";
     }
     
 }

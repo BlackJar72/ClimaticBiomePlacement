@@ -18,6 +18,8 @@ public class GetIslands implements IBiomeSpecifier {
 	IBiomeSpecifier hot;
 	IBiomeSpecifier desert;
 	IBiomeSpecifier basic; // Main land biomes (fallback)
+	private boolean hasfr   = true, hascold = true, hascool   = true, 
+			        haswarm = true, hashot  = true, hasdesert = true;
 	
 	
 	public void init() {
@@ -28,7 +30,6 @@ public class GetIslands implements IBiomeSpecifier {
 		hot    = new BiomeList();
 		desert = new BiomeList();
 		basic  = BiomeClimateTable.getLandTable();
-		// TODO: Set basic to main land BiomeClimateTable
 		/*
 		 * Add Modded islands biomes here!
 		 */
@@ -73,21 +74,27 @@ public class GetIslands implements IBiomeSpecifier {
 	private void fixIslands() {
 		if(frozen.isEmpty()) {
 			frozen = basic;
+			hasfr  = false;
 		}
 		if(cold.isEmpty()) {
 			cold = basic;
+			hascold = false;
 		}
 		if(cool.isEmpty()) {
 			cool = basic;
+			hascool = false;
 		}
 		if(warm.isEmpty()) {
 			warm = basic;
+			haswarm = false;
 		}
 		if(hot.isEmpty()) {
 			hot = basic;
+			hashot = false;
 		}
 		if(desert.isEmpty()) {
 			desert = basic;
+			hasdesert = false;
 		}
 		
 	}

@@ -7,8 +7,18 @@ public class RegionMap extends AbstractCachable {
     MapMaker maker;
     final int[] data = new int[65536];
     
+    static int n = 0;
+    
     public RegionMap(int x, int z) {
         super(x, z);
+        n++;
+        //System.out.println("Creating map " + x + ", " + z + "; there are " + n + " maps.");
+    }
+    
+    
+    public void finalize() throws Throwable {
+    	n--;
+    	super.finalize();
     }
     
     /**

@@ -7,6 +7,9 @@ public class ModMath {
     	if(a < 0) {
     		out += b;
     	}
+    	if(out > b) {
+    		System.out.print(a + " % " + b + " = " +out);
+    	}
     	return out;
     }
 

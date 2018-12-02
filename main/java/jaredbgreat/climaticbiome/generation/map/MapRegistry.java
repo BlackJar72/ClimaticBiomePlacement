@@ -58,6 +58,7 @@ public class MapRegistry {
 	 * @return
 	 */
 	public RegionMap getMap(int x, int z) {
+		//System.out.println("{" + x + ", " + z + "}");
 		RegionMap out = data.get(x, z);
 		if(out == null) {
 			out = new RegionMap(x, z);
@@ -301,6 +302,7 @@ public class MapRegistry {
 	 */
     public Biome[] getChunkBiomeGrid(int x, int z, Biome[] in) {
     	int[] tiles = new int[9];
+    	//System.out.println("[" + x + ", " + z + "]");
     	BiomeBasin[][] basins = new BiomeBasin[3][3];
     	for(int i = 0; i < tiles.length; i++) {
     		int x1 = (i / 3);

@@ -114,10 +114,15 @@ public class MapMaker {
         xoff = (coords.getX() * 256) - 128;
         zoff = (coords.getZ() * 256) - 128;
 		Region[] regions = findRegions(coords.getX(), coords.getZ());
+		/*for(int i = 0; i < 3; i++) {
+				System.out.println(regions[(i * 3) + 0].toCoords() + " "
+				                 + regions[(i * 3) + 1].toCoords() + " "
+				                 + regions[(i * 3) + 2].toCoords());
+		}*/
         ArrayList<BasinNode> basins = new ArrayList<>();
         ArrayList<ClimateNode> temp = new ArrayList<>();
         ArrayList<ClimateNode> wet = new ArrayList<>();
-        for (Region region : regions) {
+        for(Region region : regions) {
             basins.addAll(Arrays.asList(region.basins));
             temp.addAll(Arrays.asList(region.temp));
             wet.addAll(Arrays.asList(region.wet));
@@ -125,11 +130,11 @@ public class MapMaker {
         BasinNode[] basinAr = basins.toArray(new BasinNode[basins.size()]);
         ClimateNode[] tempAr = temp.toArray(new ClimateNode[temp.size()]);
         ClimateNode[] wetAr = wet.toArray(new ClimateNode[wet.size()]);
-        SpatialNoise random = regionNoise;
+        SpatialNoise random = chunkNoise;
         premap = new ChunkTile[RSIZE * RSIZE];
         for(int i = 0; i < RSIZE; i++) 
             for(int j = 0; j < RSIZE; j++) {
-                premap[(i * RSIZE) + j] = new ChunkTile(i, j);
+                premap[(i * RSIZE) + j] = new ChunkTile(i, j, xoff, zoff);
             }
 		for(int i = 0; i < premap.length; i++) {
             premap[i].val = BasinNode.summateEffect(basinAr, premap[i]);

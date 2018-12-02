@@ -68,15 +68,15 @@ public class River {
     
     
     public River(BasinNode high, BasinNode low, MapMaker mapIn, int x, int z) {
-        MAX = MapMaker.RSIZE -2;
+        MAX = MapMaker.RSIZE - 2;
         Q = new ChangeQueue();
         map = mapIn;
         begin = high;
         end   = low;
         oc = 0;
         da = angle = 0;
-        cx = begin.x - x * MapMaker.RSIZE/*- map.getXoff() + 128*/;
-        cy = begin.z - z * MapMaker.RSIZE/*- map.getZoff() + 128*/;
+        cx = begin.x - x * MapMaker.RSIZE + MapMaker.RADIUS;
+        cy = begin.z - z * MapMaker.RSIZE + MapMaker.RADIUS;
         //System.err.println(cx + ", " + cy + " -> " + (cx - map.getXoff()) + ", " + (cy - map.getZoff()) 
         //		+ "  (XOff = " + map.getXoff() + ", ZOff = " + map.getZoff() + ") ");
         double length = findLength(cx, cy, end.x, end.z);

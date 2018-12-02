@@ -65,7 +65,7 @@ public class GetOcean implements IBiomeSpecifier {
 		//        This means adding ice noise to the main map.
 		int iceNoise = tile.getNoise();
 		tile.nextBiomeSeed();
-		if((seed % 5) == 0) {
+		if(((seed % 5) == 0) && notNearEdge(tile)) {
 			int noise = tile.getNoise();
 			if(((seed % 13) == 0) && (tile.getTemp() > 9) && (tile.getTemp() < 19) 
 					              && (tile.getWet() > 3)  && (tile.getVal() < 4)) {
@@ -178,6 +178,13 @@ public class GetOcean implements IBiomeSpecifier {
 			// Should never be true, but just in case.
 			dfrozen = dcold; 
 		}
+	}
+	
+	
+	private boolean notNearEdge(ChunkTile tile) {
+		int x = tile.getX();
+		int z = tile.getZ();
+		return ((x > 5) && (x < 250)) && ((z > 5) && (z < 250));
 	}
 
 

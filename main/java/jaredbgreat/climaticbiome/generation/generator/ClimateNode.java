@@ -39,16 +39,21 @@ public class ClimateNode extends BasinNode {
         double sum    = 0.0;
         double power, weakness;
         for(int i = 0; i < n.length; i++) {
-            if((n[i].x == t.x) && (n[i].z == t.z) && (n[i].faintness == 0)) {
+            if((n[i].x == t.tx) && (n[i].z == t.tz) && (n[i].faintness == 0)) {
                 return (int)n[i].value;
             }
-            weakness = n[i].getWeaknessAt(t.x, t.z);
+            weakness = n[i].getWeaknessAt(t.tx, t.tz);
             power = 1.0 / weakness;
             sum += power;
             effect += ((double)n[i].value) * power;
         }
         //System.out.println((int)(effect / sum));
         return (int)Math.max((effect / sum) + noise, 0);
+    }
+    
+    
+    public String toString() {
+        return "    [x=" + x + ", z=" + z + ", val=" + value + ", decay=" + decay + ", faint=" + "] ";
     }
     
 }

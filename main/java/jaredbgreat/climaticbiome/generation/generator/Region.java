@@ -5,9 +5,11 @@
  */
 package jaredbgreat.climaticbiome.generation.generator;
 
+import static jaredbgreat.climaticbiome.generation.generator.MapMaker.RADIUS;
+import static jaredbgreat.climaticbiome.generation.generator.MapMaker.RSIZE;
 import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
+import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
-import static jaredbgreat.climaticbiome.generation.generator.MapMaker.*;
 
 /**
  *
@@ -19,21 +21,35 @@ public final class Region extends AbstractCachable {
     ClimateNode[] wet;
     int cx, cz;
     
+    static int n = 0;
+    
      
     public Region(int x, int z, SpatialNoise random) {
         super(x, z);
         
-        cx = (x * RSIZE);// - RADIUS;
-        cz = (z * RSIZE);// - RADIUS;
+        cx = (x * RSIZE) - RADIUS;
+        cz = (z * RSIZE) - RADIUS;
         makeBasins(5, 10, 15, random.getRandomAt(x, z, 0));
         makeTempBasins(10, random.getRandomAt(x, z, 1));
         makeRainBasins(12, random.getRandomAt(x, z, 2));
+        //System.out.println(toDataString());
+        //System.out.println("Basins in Region: " + basins.length);
+        n++;
+        //System.out.println("Creating region " + x + ", " + z + "; there are " + n + " regions.");
     }
     
     
+    public void finalize() throws Throwable {
+    	n--;
+    	super.finalize();
+    }
+    
+    
+    
+    
     public Region init(int x, int z, SpatialNoise random) {
-        cx = (x * RSIZE); //- RADIUS;
-        cz = (z * RSIZE); //- RADIUS;
+        cx = (x * RSIZE) - RADIUS;
+        cz = (z * RSIZE) - RADIUS;
         makeBasins(5, 10, 15, random.getRandomAt(x, z, 0));
         makeTempBasins(10, random.getRandomAt(x, z, 1));
         makeRainBasins(12, random.getRandomAt(x, z, 2));
@@ -161,4 +177,37 @@ public final class Region extends AbstractCachable {
         }
         return out;
     }
+    
+    
+    public String toCoords() {
+    	return "[" + (cx / RSIZE) + ", " + (cz / RSIZE) + "]";
+    }
+    
+    
+    public String toDataString() {
+        StringBuilder builder = new StringBuilder();
+        Coords coords = this.getCoords();
+        builder.append("\n*************\n");
+        builder.append("Region:" + coords.getX() + ", " + coords.getZ() + "\n");
+        builder.append("cx = " + cx + "; cz = " + cz + "\n");
+        builder.append("Land Sequences: \n");
+        for(BasinNode basin : basins) {
+            builder.append(basin.briefString());
+            builder.append('\n');
+        }
+        builder.append("Temp Sequences: \n");
+        for(ClimateNode basin : temp) {
+            builder.append(basin.briefString());
+            builder.append('\n');
+        }
+        builder.append("Wetness Sequences: \n");
+        for(ClimateNode basin : wet) {
+            builder.append(basin.briefString());
+            builder.append('\n');
+        }
+        builder.append("\n*************\n");
+        return builder.toString();
+    }
+    
+    
 }

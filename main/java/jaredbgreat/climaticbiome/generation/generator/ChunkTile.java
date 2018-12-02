@@ -14,7 +14,7 @@ import jaredbgreat.climaticbiome.generation.cache.Coords;
  */
 public class ChunkTile extends AbstractCachable {
     static final int size = 16;
-    final int x, z;
+    final int x, z, tx, tz;
     int val = 0;
     int rlBiome;
     int temp = 0, wet = 0;
@@ -23,27 +23,12 @@ public class ChunkTile extends AbstractCachable {
     boolean mountain = false, hilly = false, river = false;
     
     
-    public ChunkTile(int x, int z) {
+    public ChunkTile(int x, int z, int xoff, int zoff) {
     	super(x, z);
         this.x = x;
         this.z = z;
-    }
-    
-    
-    public ChunkTile(Coords coords, ChunkTile other) {
-    	super(coords);
-        this.x = other.x;
-        this.z = other.z;
-        this.val = other.val;
-        //this.rlBiome = other.rlBiome;
-        this.temp = other.temp; 
-        this.wet = other.wet;
-        this.biomeSeed = other.biomeSeed;
-        this.biome = other.biome;
-        this.noiseVal = other.noiseVal;
-        this.mountain = other.mountain;
-        this.hilly = other.hilly;
-        this.river = other.river;
+        tx = x + xoff;
+        tz = z + zoff;
     }
 
     public static int getSize() {
@@ -58,6 +43,14 @@ public class ChunkTile extends AbstractCachable {
         return z;
     }
 
+
+    public int getTX() {
+        return tx;
+    }
+
+    public int getTZ() {
+        return tz;
+    }
     public int getVal() {
         return val;
     }
