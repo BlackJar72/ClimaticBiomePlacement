@@ -30,7 +30,7 @@ public class GetCoolPlains implements IBiomeSpecifier  {
 		alpine = GetAlpine.getAlpine();
 		if(ConfigHandler.useBoP) BoP.addCoolPlains(plains);
 		// TODO: Logic to see if some *good* modded alternative exists
-		plains.addItem(new LeafBiome(1));
+		// plains.addItem(new LeafBiome(1));
 	}
 	
 	

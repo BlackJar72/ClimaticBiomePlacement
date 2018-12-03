@@ -1,8 +1,10 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
+import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetIslands implements IBiomeSpecifier {
@@ -33,6 +35,10 @@ public class GetIslands implements IBiomeSpecifier {
 		/*
 		 * Add Modded islands biomes here!
 		 */
+		if(ConfigHandler.useBoP) BoP.addIslands((BiomeList)frozen, (BiomeList)cold, 
+											    (BiomeList)cool, (BiomeList)warm, 
+											    (BiomeList)hot, (BiomeList)desert);
+		
 		// THIS MUST ALWAYS BE LAST!!!
 		fixIslands();
 	}

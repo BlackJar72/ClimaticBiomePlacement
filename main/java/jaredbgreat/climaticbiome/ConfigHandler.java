@@ -2,6 +2,6 @@ package jaredbgreat.climaticbiome;
 
 public class ConfigHandler {
 	
-	public static boolean useBoP = false;
+	public static boolean useBoP = true;
 
 }

@@ -1,8 +1,10 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
+import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetPlains implements IBiomeSpecifier {
@@ -18,7 +20,8 @@ public class GetPlains implements IBiomeSpecifier {
 	public void init() {
 		plains = new BiomeList();
 		alpine = GetAlpine.getAlpine();
-		plains.addItem(new SeedDoubleBiome(129, 7, 1), 1);
+		plains.addItem(new SeedDoubleBiome(129, 7, 1), 6);
+		if(ConfigHandler.useBoP) BoP.addPlains(plains);
 	}
 	
 	

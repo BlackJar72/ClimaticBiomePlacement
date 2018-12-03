@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.biome;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetAlpine;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetChaparral;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetColdPlains;
@@ -164,7 +165,11 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 	    PARKb = GetCoolPark.getPark();
 	    RIVER = GetRiver.getRiver();
 	    // TODO: Logic to determine which table to create,
-	    makeVanillaTable();
+	    if(ConfigHandler.useBoP) {
+	    	makeModdedTable();
+	    } else {
+	    	makeVanillaTable();
+	    }
 	    // Initialize land table to use same table
 	    land.init(table);
 	}

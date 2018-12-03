@@ -1,7 +1,9 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
+import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetPark implements IBiomeSpecifier {
@@ -19,6 +21,7 @@ public class GetPark implements IBiomeSpecifier {
 		parks = new BiomeList();
 		plains = GetPlains.getPlains();
 		woods = GetForest.getForest();
+		if(ConfigHandler.useBoP) BoP.addParks(parks);
 	}
 	
 

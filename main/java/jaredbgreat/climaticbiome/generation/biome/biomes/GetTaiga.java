@@ -4,6 +4,7 @@ import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.TempDoubleBiome;
+import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetTaiga implements IBiomeSpecifier {
@@ -28,7 +29,7 @@ public class GetTaiga implements IBiomeSpecifier {
 		forest.addItem(new TempDoubleBiome(30,  tbound, 160));
 		forest.addItem(new TempDoubleBiome(158, tbound, 19),  3);
 		forest.addItem(new TempDoubleBiome(158, tbound, 133), 2);
-		
+		if(ConfigHandler.useBoP) BoP.addTaiga(tbound, forest);
 	}
 	
 
