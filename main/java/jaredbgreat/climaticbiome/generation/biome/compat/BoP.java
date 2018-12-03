@@ -86,6 +86,16 @@ public class BoP {
 	
 	public static void addIslands(BiomeList frozen, BiomeList cold, BiomeList cool, 
 								  BiomeList warm, BiomeList hot, BiomeList desert) {
+		System.err.println();
+		System.err.println("***************************************************************");
+		System.err.println(" FUCK OF THE FUCK OF THE FUCKERS WHO FUCK -- FUCK FUCK FUCK!!!*");
+		System.err.println(" FUCK OF THE FUCK OF THE FUCKERS WHO FUCK -- FUCK FUCK FUCK!!!*");
+		System.err.println(" FUCK OF THE FUCK OF THE FUCKERS WHO FUCK -- FUCK FUCK FUCK!!!*");
+		System.err.println(" FUCK OF THE FUCK OF THE FUCKERS WHO FUCK -- FUCK FUCK FUCK!!!*");
+		System.err.println(" FUCK OF THE FUCK OF THE FUCKERS WHO FUCK -- FUCK FUCK FUCK!!!*");
+		System.err.println(" FUCK OF THE FUCK OF THE FUCKERS WHO FUCK -- FUCK FUCK FUCK!!!*");
+		System.err.println("***************************************************************");
+		System.err.println();
 		cool.addItem(new NoiseDoubleBiome(BOPBiomes.origin_beach.get(), 
 									      3, BOPBiomes.origin_island.get()));
 		warm.addItem(new LeafBiome(BOPBiomes.flower_island.get()));

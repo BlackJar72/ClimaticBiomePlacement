@@ -5,6 +5,9 @@ import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
 import jaredbgreat.climaticbiome.proxy.IProxy;
 import jaredbgreat.climaticbiome.util.BlockRegistrar;
 import jaredbgreat.climaticbiome.util.ItemRegistrar;
+
+import java.io.File;
+
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -18,6 +21,7 @@ acceptableRemoteVersions=Info.VERSION, dependencies="after:biomesoplenty")
 public class ClimaticBiomes {
 	public static ClimaticBiomes instance;
 	public static ClimaticWorldType worldType;
+	public ConfigHandler configHandler;
 	public static final boolean gotBoP    = bopLoaded();
 
 	@SidedProxy(clientSide = "jaredbgreat.climaticbiome.proxy.ClientProxy",
@@ -30,8 +34,9 @@ public class ClimaticBiomes {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
     	instance = this;
-    	//configHandler = new ConfigHandler(event.getModConfigurationDirectory().toPath()
-    	//		+ File.separator + Info.DIR);
+    	configHandler = new ConfigHandler(event.getModConfigurationDirectory().toPath()
+    			+ File.separator + Info.DIR);
+    	configHandler.load();
     	BlockRegistrar.initBlocks();
     	ItemRegistrar.initItems();
     	worldType = new ClimaticWorldType();
