@@ -1,9 +1,11 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.NoiseDoubleBiome;
+import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetColdPlains implements IBiomeSpecifier {
@@ -12,11 +14,15 @@ public class GetColdPlains implements IBiomeSpecifier {
 		super();
 		init();
 	}
-	private BiomeList coolPlains;
+	private BiomeList coldPlains;
 	
 	public void init() {
-		coolPlains = new BiomeList();
-		coolPlains.addItem(new LeafBiome(1), 2);		
+		coldPlains = new BiomeList();
+		if(!ConfigHandler.useBoP) {
+			coldPlains.addItem(new LeafBiome(1), 2);
+		} else {
+			BoP.addColdPlains(coldPlains);
+		}
 	}
 
 	@Override
@@ -25,7 +31,7 @@ public class GetColdPlains implements IBiomeSpecifier {
 			return 13;  // TODO: Once GetAlpine is more generic use that
 		}
 		tile.nextBiomeSeed();
-		return coolPlains.getBiome(tile);
+		return coldPlains.getBiome(tile);
 	}
 
 	@Override

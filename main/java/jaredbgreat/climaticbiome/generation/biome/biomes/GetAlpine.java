@@ -1,9 +1,11 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.NoiseDoubleBiome;
+import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetAlpine implements IBiomeSpecifier {
@@ -27,6 +29,7 @@ public class GetAlpine implements IBiomeSpecifier {
 		dry.addItem(new LeafBiome(3));
 		dry.addItem(new LeafBiome(131));
 		dry.addItem(new NoiseDoubleBiome(3, 5, 131));
+		if(ConfigHandler.useBoP) BoP.addAlpine(wet, dry);
 	}
 
 	@Override

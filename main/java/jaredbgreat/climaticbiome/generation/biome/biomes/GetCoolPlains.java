@@ -1,8 +1,11 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
+import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
+import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 /**
@@ -25,7 +28,9 @@ public class GetCoolPlains implements IBiomeSpecifier  {
 	public void init() {
 		plains = new BiomeList();
 		alpine = GetAlpine.getAlpine();
-		// TODO: Add the biomes when needed.
+		if(ConfigHandler.useBoP) BoP.addCoolPlains(plains);
+		// TODO: Logic to see if some *good* modded alternative exists
+		plains.addItem(new LeafBiome(1));
 	}
 	
 	

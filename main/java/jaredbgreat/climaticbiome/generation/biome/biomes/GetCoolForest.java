@@ -1,9 +1,11 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
+import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 
@@ -31,7 +33,7 @@ public class GetCoolForest implements IBiomeSpecifier {
 		alpine  = GetAlpine.getAlpine();
 		plains  = GetCoolPlains.getPlains();
 		swamp   = GetSwamp.getSwamp();
-		// TODO: Add biomes when modded biomes exist
+		if(ConfigHandler.useBoP) BoP.addCoolForest(forests);
 	}
 	
 	

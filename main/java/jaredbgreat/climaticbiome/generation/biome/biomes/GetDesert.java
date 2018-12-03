@@ -1,9 +1,11 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.NoiseDoubleBiome;
+import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetDesert extends BiomeList {
@@ -20,6 +22,7 @@ public class GetDesert extends BiomeList {
 		this.addItem(new NoiseDoubleBiome(39, 4,  37), 2);
 		this.addItem(new NoiseDoubleBiome(38, 4,  37), 2);
 		this.addItem(new NoiseDoubleBiome(167, 4,165), 1);
+		if(ConfigHandler.useBoP) BoP.addDesert(this);
 	}
 	
 	
