@@ -1,6 +1,7 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
 import jaredbgreat.climaticbiome.ClimaticBiomes;
+import jaredbgreat.climaticbiome.biomes.pseudo.PseudoBiomes;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -75,6 +76,8 @@ public class ModBiomes {
 					.setBaseHeight(0.45F)
 					.setHeightVariation(0.3F));
 		makeMoreUsable(dryScrubHills);
+		// Lastly
+		PseudoBiomes.createBiomes();
     }
     
 
@@ -108,6 +111,8 @@ public class ModBiomes {
 		BiomeDictionary.addTypes(dryScrub, Type.SPARSE, Type.HOT, Type.DRY, Type.SANDY);
 		BiomeDictionary.addTypes(denseScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS);
 		BiomeDictionary.addTypes(dryScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS, Type.SANDY);
+		// Lastly
+		PseudoBiomes.registerBiomes();
 	}
 	
 	

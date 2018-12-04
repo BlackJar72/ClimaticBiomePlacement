@@ -46,11 +46,7 @@ public class RegionMap extends AbstractCachable {
     
     
     /**
-     * Returns the and id for the biome to be for world gen.  For 
-     * registered biomes this should be there real id, and less than 
-     * 256.  For pseudo-biomes used for generated specialized terrain 
-     * this should be between 356 and 32767 and indexed to a specialized 
-     * registry map (probably actually an ArrayList).
+     * Returns the and id for the sub-biome exentions as a byte.
      * 
      * The id will be returned as a short.
      * 
@@ -58,19 +54,49 @@ public class RegionMap extends AbstractCachable {
      * @param z relative chunk x within region
      * @return The biome id for world-gen as a short
      */
-    public short getPseudoBiomeAsShort(int x, int z) {
-        return (short)((data[(x * 256) + z] & 0xffff00) >> 8);
+    public byte getSubBiomeAsByte(int x, int z) {
+        return (byte)((data[(x * 256) + z] & 0xff00) >> 8);
     }
     
     
+    /**
+     * Returns the and id for the sub-biome exentions as a byte.
+     * 
+     * The id will be returned as a short.
+     * 
+     * @param x relative chunk x within region
+     * @param z relative chunk x within region
+     * @return The biome id for world-gen as a short
+     */
+    public int getSubBiomeId(int x, int z) {
+        return (data[(x * 256) + z] & 0xff00) >> 8;
+    }
     
     
     /**
-     * Returns the and id for the biome to be for world gen.  For 
+     * Returns the id for the biome to be for world gen.  For 
      * registered biomes this should be there real id, and less than 
      * 256.  For pseudo-biomes used for generated specialized terrain 
-     * this should be between 356 and 32767 and indexed to a specialized 
-     * registry map (probably actually an ArrayList).
+     * this should contain the real biome in the lower byte and the 
+     * id of the variant in the higher byte.
+     * 
+     * The id will be returned as a short.
+     * 
+     * @param x relative chunk x within region
+     * @param z relative chunk x within region
+     * @return The biome id for world-gen as a short
+     */
+    public short getFullBiomeAsShort(int x, int z) {
+        return (short)((data[(x * 256) + z] & 0xffff));
+    }
+    
+    
+    /**
+     * Returns the id for the biome to be for world gen.  For 
+     * registered biomes this should be there real id, and less than 
+     * 256.  For pseudo-biomes used for generated specialized terrain 
+     * this should contain the real biome in the lower byte and the 
+     * id of the variant in the second byte.
      * 
      * The id will be returned as an int.
      * 
@@ -78,8 +104,8 @@ public class RegionMap extends AbstractCachable {
      * @param z relative chunk x within region
      * @return The biome id for world-gen as an int
      */
-    public int getPseudoBiome(int x, int z) {
-        return (data[(x * 256) + z] & 0xffff00) >> 8;
+    public int getFullBiome(int x, int z) {
+        return (data[(x * 256) + z] & 0xffff);
     }
     
     
@@ -119,7 +145,7 @@ public class RegionMap extends AbstractCachable {
      * @param z relative chunk x within region
      */
     public void setPseudoBiome(int biome, int x, int z) {
-        data[(x * 256) + z] &= 0xff0000ff;
+        data[(x * 256) + z] &= 0xffff00ff;
         data[(x * 256) + z] |= ((biome & 0xffff) << 8);
     }
     
@@ -134,8 +160,24 @@ public class RegionMap extends AbstractCachable {
      * @param z relative chunk x within region
      */
     public void setBiomeExpress(int biome, int x, int z) {
-        data[(x * 256) + z] |= biome;
-        data[(x * 256) + z] |= (biome << 8);        
+        data[(x * 256) + z] &= 0xffff0000;
+        data[(x * 256) + z] |= biome;        
+    }
+    
+    
+    /**
+     * This will set the real and pseudo-biomes to the same value 
+     * while assuming no data has been stored (i.e., that the array 
+     * is freshly initialized so that the value is zero).
+     * 
+     * @param biome
+     * @param x relative chunk x within region
+     * @param z relative chunk x within region
+     */
+    public void setBiomeExpress(int biome, int sub, int x, int z) {
+        data[(x * 256) + z] &= 0xffff0000;
+        data[(x * 256) + z] |= (biome & 0xffffff00);
+        data[(x * 256) + z] |= (sub & 0xffff00) << 8;        
     }
     
     
@@ -147,7 +189,7 @@ public class RegionMap extends AbstractCachable {
      * @param z relative chunk x within region
      */
     public void setBiome(byte biome, int i) {
-        data[i] &= 0xffffff00;
+        data[i] &= 0xffff0000;
         data[i] |= biome;
     }
     
@@ -175,8 +217,8 @@ public class RegionMap extends AbstractCachable {
      * @param z relative chunk x within region
      */
     public void setPseudoBiome(int biome, int i) {
-        data[i] &= 0xff0000ff;
-        data[i] |= ((biome & 0xffff) << 8);
+        data[i] &= 0xffff00ff;
+        data[i] |= ((biome & 0xff) << 8);
     }
     
     
@@ -190,8 +232,8 @@ public class RegionMap extends AbstractCachable {
      * @param z relative chunk x within region
      */
     public void setBiomeExpress(int biome, int i) {
-        data[i] |= biome;
-        data[i] |= (biome << 8);        
+        data[i] &= 0xffff0000;
+        data[i] |= biome;    
     }
     
     

@@ -1,6 +1,8 @@
 package jaredbgreat.climaticbiome.generation.map;
 
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
+import jaredbgreat.climaticbiome.biomes.SubBiome;
+import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
 import jaredbgreat.climaticbiome.generation.generator.MapMaker;
@@ -25,6 +27,7 @@ import net.minecraft.world.biome.Biome;
  */
 public class MapRegistry {
 	private final Cache<RegionMap> data;
+	private final SubBiomeRegistry subbiomes;
     
     private final SpatialNoise chunkNoise;
     private final SpatialNoise regionNoise;
@@ -35,6 +38,7 @@ public class MapRegistry {
 	
 	public MapRegistry(long seed) {
 		data = new Cache<>();
+		subbiomes = SubBiomeRegistry.getSubBiomeRegistry();
         Random random = new Random(seed);
         chunkNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         regionNoise = new SpatialNoise(random.nextLong(), random.nextLong());
@@ -167,7 +171,7 @@ public class MapRegistry {
 	 */
 	public int getGenIDChunk(int x, int z) {
 		return getMapFromChunkCoord(x, z)
-				.getPseudoBiome(modRight(x + 128, 256), 
+				.getFullBiome(modRight(x + 128, 256), 
 						        modRight(z + 128, 256));
 	}
 
@@ -220,7 +224,7 @@ public class MapRegistry {
 	 */
 	public Biome getGenBiomeBlock(int x, int z) {
 		int id = getMapFromBlockCoord(x, z)
-				.getPseudoBiome((x - 2048) % 4096, (z - 2048) % 4096);
+				.getSubBiomeId((x - 2048) % 4096, (z - 2048) % 4096);
 		if(id < 256) {
 			return Biome.getBiome(id);
 		}
@@ -242,7 +246,7 @@ public class MapRegistry {
 	 */
 	public Biome getGenBiomeChunk(int x, int z) {
 		int id = getMapFromBlockCoord(x, z)
-				.getPseudoBiome((x - 128) % 256, (z - 128) % 256);
+				.getSubBiomeId((x - 128) % 256, (z - 128) % 256);
 		if(id < 256) {
 			return Biome.getBiome(id);
 		}
@@ -441,6 +445,16 @@ public class MapRegistry {
  *                 METHODS FOR GETTING THE BIOME ARRAYS FOR GENERATION                  *
  *--------------------------------------------------------------------------------------*/
 	
+	
+	public Biome getFullBiome(int id) {
+		Biome out;
+		if(id < 256) {
+			return Biome.getBiome(id, Biomes.DEFAULT);
+		} else {
+			return subbiomes.get(id);
+		}
+	}
+	
 
 	
     
@@ -471,8 +485,7 @@ public class MapRegistry {
     	}
     	for(int i = 0; i < 16; i++)
     		for(int j = 0; j < 16; j++) {
-    			out[(j * 16) + i] = Biome.getBiome(BiomeBasin.summateEffect(basins, 16 + i, 16 + j),
-    					Biomes.DEFAULT);
+    			out[(j * 16) + i] = getFullBiome(BiomeBasin.summateEffect(basins, 16 + i, 16 + j));
     		}
     	return out;
     }
@@ -504,8 +517,7 @@ public class MapRegistry {
     	}
     	for(int i = 0; i < 16; i++)
     		for(int j = 0; j < 16; j++) {
-    			in[(j * 16) + i] = Biome.getBiome(BiomeBasin.summateEffect(basins, 16 + i, 16 + j),
-    					Biomes.DEFAULT);
+    			in[(j * 16) + i] = getFullBiome(BiomeBasin.summateEffect(basins, 16 + i, 16 + j));
     		}
     	return in;
     }
@@ -547,9 +559,8 @@ public class MapRegistry {
     	}
     	for(int i = 0; i < w; i++)
     		for(int j = 0; j < h; j++) {
-    			out[(j * w) + i] = Biome.getBiome(BiomeBasin
-    						.summateEffect(basins, 16 + i, 16 + j),
-    					Biomes.DEFAULT);
+    			out[(j * w) + i] = getFullBiome(BiomeBasin
+    						.summateEffect(basins, 16 + i, 16 + j));
     		}
     	return out;
     }

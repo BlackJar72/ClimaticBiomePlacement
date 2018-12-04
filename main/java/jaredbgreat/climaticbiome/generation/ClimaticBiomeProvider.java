@@ -71,7 +71,6 @@ public class ClimaticBiomeProvider extends BiomeProvider {
     
     private Biome findBiomeAt(int x, int z) {
     	Biome[] chunk = new Biome[256];
-    	// FIXME: Should these be cached?
     	finder.getChunkBiomeGen(x / 16, z / 16, chunk);
     	return chunk[(chunkModulus(z) * 16) + chunkModulus(x)];
     }

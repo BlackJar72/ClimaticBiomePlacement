@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.biomes.pseudo.PseudoBiomes;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
@@ -15,7 +16,7 @@ public class GetRiver implements IBiomeSpecifier {
 		if((tile.getTemp() + (tile.getBiomeSeed() & 0x1)) < 5) {
 			return 11;
 		}
-		return 7;
+		return PseudoBiomes.deepRiver.getSubId();// 7;
 	}
 	
 	
