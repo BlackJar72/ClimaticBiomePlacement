@@ -1,13 +1,16 @@
 package jaredbgreat.climaticbiome.generation.map;
 
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
-import jaredbgreat.climaticbiome.biomes.SubBiome;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
 import jaredbgreat.climaticbiome.generation.generator.MapMaker;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 import net.minecraft.init.Biomes;
@@ -28,15 +31,16 @@ import net.minecraft.world.biome.Biome;
 public class MapRegistry {
 	private final Cache<RegionMap> data;
 	private final SubBiomeRegistry subbiomes;
-    
+	
     private final SpatialNoise chunkNoise;
     private final SpatialNoise regionNoise;
     private final SpatialNoise biomeNoise;
     
     private final MapMaker maker;
+    private final File savedir;
 	
 	
-	public MapRegistry(long seed) {
+	public MapRegistry(long seed, File dir) {
 		data = new Cache<>();
 		subbiomes = SubBiomeRegistry.getSubBiomeRegistry();
         Random random = new Random(seed);
@@ -44,6 +48,7 @@ public class MapRegistry {
         regionNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         biomeNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         maker = new MapMaker(chunkNoise, regionNoise, biomeNoise);
+        savedir = dir;
 	}
 	
 	
@@ -128,6 +133,19 @@ public class MapRegistry {
 	 */
 	private void initializeMap(RegionMap map) {
 		maker.generate(map);
+		if(savedir != null) {
+			if(!savedir.exists()) {
+				savedir.mkdirs();
+			}
+			File test = new File(savedir, "test.txt");
+			try {
+				BufferedWriter os = new BufferedWriter(new FileWriter(test));
+				os.write("This is a test!!!");
+				os.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	

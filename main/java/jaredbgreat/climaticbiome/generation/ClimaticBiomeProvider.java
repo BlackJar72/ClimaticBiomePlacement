@@ -2,6 +2,7 @@ package jaredbgreat.climaticbiome.generation;
 
 import jaredbgreat.climaticbiome.generation.map.MapRegistry;
 
+import java.io.File;
 import java.util.List;
 import java.util.Random;
 
@@ -11,8 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
-
-import static jaredbgreat.climaticbiome.util.ModMath.*;
+import net.minecraftforge.common.DimensionManager;
 
 
 public class ClimaticBiomeProvider extends BiomeProvider {
@@ -23,7 +23,17 @@ public class ClimaticBiomeProvider extends BiomeProvider {
 	public ClimaticBiomeProvider(World world) {		
 		super(/*world.getWorldInfo()*/);		
 		this.world = world;
-		finder = new MapRegistry(world.getSeed());
+		// So, it only knows the save directory if isRemote is true -- strange....
+		File savedir = null;
+		if(world.isRemote) {
+			savedir = new File(DimensionManager.getCurrentSaveRootDirectory().toString() 
+							   + File.separator + "ClimaticMaps " 
+							   + File.separator + "Dim" + world.provider.getDimension());
+			System.out.println("********************************************");
+			System.out.println(DimensionManager.getCurrentSaveRootDirectory());
+			System.out.println("********************************************");
+		}
+		finder = new MapRegistry(world.getSeed(), savedir);
 	}
 	
 

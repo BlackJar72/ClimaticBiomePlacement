@@ -13,12 +13,12 @@ public class GetIslands implements IBiomeSpecifier {
 		super();
 		init();
 	}
-	IBiomeSpecifier frozen;
-	IBiomeSpecifier cold;
-	IBiomeSpecifier cool;
-	IBiomeSpecifier warm;
-	IBiomeSpecifier hot;
-	IBiomeSpecifier desert;
+	BiomeList frozen;
+	BiomeList cold;
+	BiomeList cool;
+	BiomeList warm;
+	BiomeList hot;
+	BiomeList desert;
 	IBiomeSpecifier basic; // Main land biomes (fallback)
 	private boolean hasfr   = true, hascold = true, hascool   = true, 
 			        haswarm = true, hashot  = true, hasdesert = true;
@@ -38,34 +38,49 @@ public class GetIslands implements IBiomeSpecifier {
 		if(ConfigHandler.useBoP) BoP.addIslands((BiomeList)frozen, (BiomeList)cold, 
 											    (BiomeList)cool, (BiomeList)warm, 
 											    (BiomeList)hot, (BiomeList)desert);
-		
-		// THIS MUST ALWAYS BE LAST!!!
-		fixIslands();
 	}
 	
 
 	@Override
 	public int getBiome(ChunkTile tile) {
+		int seed = tile.getBiomeSeed();
 		int temp = tile.getTemp();
+		tile.nextBiomeSeed();
 		if(temp < 4) {
-			return frozen.getBiome(tile);
+			if(seed % 5 < frozen.size()) {
+				return frozen.getBiome(tile);
+			} else return basic.getBiome(tile);
 		}
 		if(temp < 7) {
-			return cold.getBiome(tile);
+			if(seed % 5 < cold.size()) {
+				return cold.getBiome(tile);
+			} else return basic.getBiome(tile);
 		}
 		if(temp < 13) {
-			return cool.getBiome(tile);			
+			if(seed % 5 < cool.size()) {
+				return cool.getBiome(tile);
+			} else return basic.getBiome(tile);
 		}
 		if(temp <19) {
 			if(tile.getWet() < 4) {
-				return desert.getBiome(tile);
+				if(seed % 5 < desert.size()) {
+					return desert.getBiome(tile);
+				} else return basic.getBiome(tile);
 			}
-			return warm.getBiome(tile);
+			if(seed % 5 < warm.size()) {
+				return warm.getBiome(tile);
+			} else return basic.getBiome(tile);
+		
 		}
 		if(tile.getWet() < 2) {
-			return desert.getBiome(tile);
+			if(seed % 5 < desert.size()) {
+				return desert.getBiome(tile);
+			} else return basic.getBiome(tile);
 		}
-		return hot.getBiome(tile);
+		if(seed % 5 < hot.size()) {
+			return hot.getBiome(tile);
+		} else return basic.getBiome(tile);
+	
 	}
 	
 	
@@ -74,35 +89,6 @@ public class GetIslands implements IBiomeSpecifier {
 			islands = new GetIslands();
 		}
 		return islands;
-	}
-	
-	
-	private void fixIslands() {
-		if(frozen.isEmpty()) {
-			frozen = basic;
-			hasfr  = false;
-		}
-		if(cold.isEmpty()) {
-			cold = basic;
-			hascold = false;
-		}
-		if(cool.isEmpty()) {
-			cool = basic;
-			hascool = false;
-		}
-		if(warm.isEmpty()) {
-			warm = basic;
-			haswarm = false;
-		}
-		if(hot.isEmpty()) {
-			hot = basic;
-			hashot = false;
-		}
-		if(desert.isEmpty()) {
-			desert = basic;
-			hasdesert = false;
-		}
-		
 	}
 
 
