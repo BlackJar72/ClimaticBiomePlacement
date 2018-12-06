@@ -5,7 +5,7 @@ import jaredbgreat.climaticbiome.generation.generator.MapMaker;
 
 public class RegionMap extends AbstractCachable {
     MapMaker maker;
-    final int[] data = new int[65536];
+    final short[] data = new short[65536];
     
     static int n = 0;
     

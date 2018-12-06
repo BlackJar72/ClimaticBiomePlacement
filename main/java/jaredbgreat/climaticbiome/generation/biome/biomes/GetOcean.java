@@ -71,18 +71,21 @@ public class GetOcean implements IBiomeSpecifier {
 		tile.nextBiomeSeed();
 		if(((seed % 5) == 0) && notNearEdge(tile)) {
 			int noise = tile.getNoise();
-			if(((seed % 13) == 0) && (tile.getTemp() > 9) && (tile.getTemp() < 19) 
-					              && (tile.getWet() > 3)  && (tile.getVal() < 4)) {
-				if(noise < 5) {
-					return 14;
-				}
-				if(noise < 7) {
-					return 15;
+			if((seed % 13) == 0) {
+				if((tile.getTemp() > 9) && (tile.getTemp() < 19)
+						                && (tile.getWet() > 3)  
+						                && (tile.getVal() < 4)) {
+					if(noise < 5) {
+						return 14;
+					}
+					if(noise < 7) {
+						return 15;
+					}
 				}
 				return 0;				
 			} else if((seed & 1) == 0) {
 				if(noise > (4 + (seed % 3))) {
-					return islands1.getBiome(tile);
+					return islands1.getBiome(tile.nextBiomeSeed());
 				}
 			} else {
 				if(noise > (2 + (seed % 3))) {

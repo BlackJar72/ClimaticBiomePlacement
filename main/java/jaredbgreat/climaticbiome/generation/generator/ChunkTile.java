@@ -18,7 +18,7 @@ public class ChunkTile extends AbstractCachable {
     int val = 0;
     int rlBiome;
     int temp = 0, wet = 0;
-    int biomeSeed = 0, biome = 0;
+    int biomeSeed = 0;
     int noiseVal = 0;
     boolean mountain = false, hilly = false, river = false;
     
@@ -69,10 +69,6 @@ public class ChunkTile extends AbstractCachable {
 
     public int getBiomeSeed() {
         return biomeSeed;
-    }
-
-    public int getBiome() {
-        return biome;
     }
 
     public int getNoise() {

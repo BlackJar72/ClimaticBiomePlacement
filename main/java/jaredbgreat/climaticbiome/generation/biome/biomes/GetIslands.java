@@ -43,41 +43,42 @@ public class GetIslands implements IBiomeSpecifier {
 
 	@Override
 	public int getBiome(ChunkTile tile) {
+		tile.nextBiomeSeed();
 		int seed = tile.getBiomeSeed();
 		int temp = tile.getTemp();
 		tile.nextBiomeSeed();
 		if(temp < 4) {
-			if(seed % 5 < frozen.size()) {
+			if(seed % 4 < frozen.size()) {
 				return frozen.getBiome(tile);
 			} else return basic.getBiome(tile);
 		}
 		if(temp < 7) {
-			if(seed % 5 < cold.size()) {
+			if(seed % 4 < cold.size()) {
 				return cold.getBiome(tile);
 			} else return basic.getBiome(tile);
 		}
 		if(temp < 13) {
-			if(seed % 5 < cool.size()) {
+			if(seed % 4 < cool.size()) {
 				return cool.getBiome(tile);
 			} else return basic.getBiome(tile);
 		}
 		if(temp <19) {
 			if(tile.getWet() < 4) {
-				if(seed % 5 < desert.size()) {
+				if(seed % 4 < desert.size()) {
 					return desert.getBiome(tile);
 				} else return basic.getBiome(tile);
 			}
-			if(seed % 5 < warm.size()) {
+			if(seed % 4 < warm.size()) {
 				return warm.getBiome(tile);
 			} else return basic.getBiome(tile);
 		
 		}
 		if(tile.getWet() < 2) {
-			if(seed % 5 < desert.size()) {
+			if(seed % 4 < desert.size()) {
 				return desert.getBiome(tile);
 			} else return basic.getBiome(tile);
 		}
-		if(seed % 5 < hot.size()) {
+		if(seed % 4 < hot.size()) {
 			return hot.getBiome(tile);
 		} else return basic.getBiome(tile);
 	

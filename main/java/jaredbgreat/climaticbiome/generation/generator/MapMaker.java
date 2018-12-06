@@ -281,8 +281,7 @@ public class MapMaker {
                                     1.0 + random.nextDouble());
             }
         for (ChunkTile tile : premap) {
-            tile.biome = BiomeBasin.summateEffect(subbiomes, tile);
-            tile.biomeSeed = tile.biome & 0x7fffffff;
+            tile.biomeSeed = BiomeBasin.summateEffect(subbiomes, tile) & 0x7fffffff;
         }
     }
     

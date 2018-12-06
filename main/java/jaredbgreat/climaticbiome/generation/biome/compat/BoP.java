@@ -75,10 +75,8 @@ public class BoP {
 		forests.addItem(new LeafBiome(BOPBiomes.woodland.get()));
 		forests.addItem(new WetDoubleBiome(BOPBiomes.orchard.get(), 
 										   7, BOPBiomes.land_of_lakes.get()));
-		forests.addItem(new WetDoubleBiome(BOPBiomes.cherry_blossom_grove.get(), 
-				   					       7, BOPBiomes.land_of_lakes.get()));
-		forests.addItem(new WetDoubleBiome(BOPBiomes.redwood_forest.get(), 
-				   					       7, BOPBiomes.temperate_rainforest.get()));
+		forests.addItem(new LeafBiome(BOPBiomes.land_of_lakes.get()));
+		forests.addItem(new LeafBiome(BOPBiomes.temperate_rainforest.get()));
 		forests.addItem(new WetDoubleBiome(BOPBiomes.woodland.get(), 
 										   7, BOPBiomes.temperate_rainforest.get()));
 	}
@@ -114,16 +112,17 @@ public class BoP {
 	
 	
 	public static void addParks(BiomeList parks) {
+		parks.addItem(new LeafBiome(BOPBiomes.grove.get()), 3);
 		parks.addItem(new LeafBiome(BOPBiomes.orchard.get()), 2);
 		parks.addItem(new LeafBiome(BOPBiomes.cherry_blossom_grove.get()));
 	}
 	
 	
 	public static void addPlains(BiomeList plains) {
-		plains.addItem(new LeafBiome(BOPBiomes.flower_field.get()), 2);
+		plains.addItem(new LeafBiome(BOPBiomes.prairie.get()), 3);
+		plains.addItem(new LeafBiome(BOPBiomes.flower_field.get()));
 		plains.addItem(new LeafBiome(BOPBiomes.lavender_fields.get()));
-		plains.addItem(new SeedDoubleBiome(BOPBiomes.pasture.get(), 
-				                           2, BOPBiomes.flower_field.get()));
+		plains.addItem(new LeafBiome(BOPBiomes.pasture.get()));
 	}
 	
 	

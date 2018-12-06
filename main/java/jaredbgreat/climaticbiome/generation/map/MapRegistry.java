@@ -3,6 +3,7 @@ package jaredbgreat.climaticbiome.generation.map;
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
+import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
 import jaredbgreat.climaticbiome.generation.generator.MapMaker;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
@@ -16,6 +17,8 @@ import java.util.Random;
 import net.minecraft.init.Biomes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.server.FMLServerHandler;
 
 
 /**
@@ -37,10 +40,10 @@ public class MapRegistry {
     private final SpatialNoise biomeNoise;
     
     private final MapMaker maker;
-    private final File savedir;
+    private File savedir =  null;
 	
 	
-	public MapRegistry(long seed, File dir) {
+	public MapRegistry(long seed) {
 		data = new Cache<>();
 		subbiomes = SubBiomeRegistry.getSubBiomeRegistry();
         Random random = new Random(seed);
@@ -48,7 +51,6 @@ public class MapRegistry {
         regionNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         biomeNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         maker = new MapMaker(chunkNoise, regionNoise, biomeNoise);
-        savedir = dir;
 	}
 	
 	
@@ -131,21 +133,35 @@ public class MapRegistry {
 	 * 
 	 * @param map
 	 */
-	private void initializeMap(RegionMap map) {
+	private void initializeMap(RegionMap map) {		
 		maker.generate(map);
-		if(savedir != null) {
-			if(!savedir.exists()) {
-				savedir.mkdirs();
-			}
-			File test = new File(savedir, "test.txt");
-			try {
-				BufferedWriter os = new BufferedWriter(new FileWriter(test));
-				os.write("This is a test!!!");
-				os.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+//		if(savedir == null) {
+//			if(DimensionManager.getWorld(0).getMinecraftServer().isDedicatedServer()) {
+//				File savedier = new File(FMLServerHandler.instance().getSavesDirectory().toString() 
+//						   + File.separator + "ClimaticMaps" 
+//						   + File.separator + "Dim" 
+//						   + DimensionManager.getWorld(0).provider.getDimension());	
+//			} else {
+//				savedir = new File(DimensionManager.getCurrentSaveRootDirectory().toString() 
+//						   + File.separator + "ClimaticMaps" 
+//						   + File.separator + "Dim" 
+//						   + DimensionManager.getWorld(0).provider.getDimension());			
+//			}
+//		}
+//		if(savedir != null) {
+//			if(!savedir.exists()) {
+//				savedir.mkdirs();
+//			}
+//			Coords c = map.getCoords();
+//			File test = new File(savedir, "testX" + c.getX() + "Z" + c.getZ() + ".txt");
+//			try {
+//				BufferedWriter os = new BufferedWriter(new FileWriter(test));
+//				os.write("This is a test!!!");
+//				os.close();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
 	}
 	
 	
