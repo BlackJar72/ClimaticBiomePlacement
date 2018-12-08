@@ -175,14 +175,7 @@ public class MapRegistry {
 		File file = getSaveFile(x, z);
 		short[] data = map.getData();
 		if(file.exists()) {
-			try {
-				
-				System.out.println();
-				System.out.println("****************************");
-				System.out.println("Reading map " + x + ", " + z);
-				System.out.println("****************************");
-				System.out.println();
-				
+			try {				
 				FileInputStream fs = new FileInputStream(file);
 				for(int i = 0; i < 65536; i++) {
 						data[i] = (short)fs.read();
@@ -206,13 +199,6 @@ public class MapRegistry {
 		int z = coords.getZ();
 		File file = getSaveFile(x, z);
 		short[] data = map.getData();
-		
-		System.out.println();
-		System.out.println("****************************");
-		System.out.println("Writing map " + x + ", " + z);
-		System.out.println("****************************");
-		System.out.println();
-		
 		try {
 			FileOutputStream fs = new FileOutputStream(file);
 			for(int i = 0; i < 65536; i++) {

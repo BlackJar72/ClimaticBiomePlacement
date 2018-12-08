@@ -15,6 +15,7 @@ public class River {
     AS s;
     final ChangeQueue Q;
     private int oc;
+    private ChunkTile last;
     
     private enum AS {
         P2 (2,   0),
@@ -68,6 +69,7 @@ public class River {
     
     
     public River(BasinNode high, BasinNode low, MapMaker mapIn, int x, int z) {
+        last = null;
         MAX = MapMaker.RSIZE - 2;
         Q = new ChangeQueue();
         map = mapIn;
@@ -121,6 +123,10 @@ public class River {
         if(t.rlBiome == 0) {
             oc++;
         }
+        if(t == last) {
+            return false;
+        }
+        last = t;
         return ((t.rlBiome == 0) && ((t.val < 3) || (oc > 8))) 
                 || outOfBounds(x, y) || t.isRiver();
     }
