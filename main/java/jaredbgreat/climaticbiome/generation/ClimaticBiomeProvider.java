@@ -23,7 +23,7 @@ public class ClimaticBiomeProvider extends BiomeProvider {
 	public ClimaticBiomeProvider(World world) {		
 		super(/*world.getWorldInfo()*/);		
 		this.world = world;
-		finder = new MapRegistry(world.getSeed());
+		finder = new MapRegistry(world.getSeed(), world);
 	}
 	
 
