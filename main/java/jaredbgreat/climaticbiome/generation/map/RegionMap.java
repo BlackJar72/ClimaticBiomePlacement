@@ -237,6 +237,9 @@ public class RegionMap extends AbstractCachable {
     }
     
     
+    short[] getData() {
+    	return data;
+    }
     
     
     
