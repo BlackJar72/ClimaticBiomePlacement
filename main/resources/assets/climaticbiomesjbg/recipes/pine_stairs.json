@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "climaticbiomesjbg:wooden_stairs",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "climaticbiomesjbg:pine_planks"
+    }
+  },
+  "result": {
+    "item": "minecraft:birch_stairs",
+    "count": 4
+  }
+}

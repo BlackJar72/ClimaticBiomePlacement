@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "climaticbiomesjbg:boat",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "climaticbiomesjbg:pine_planks"
+    }
+  },
+  "result": {
+    "item": "minecraft:birch_boat"
+  }
+}

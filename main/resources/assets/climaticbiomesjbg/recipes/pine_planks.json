@@ -10,8 +10,7 @@
     }
   },
   "result": {
-    "item": "minecraft:planks",
-    "data": 2,
+    "item": "climaticbiomesjbg:pine_planks",
     "count": 4
   }
 }
