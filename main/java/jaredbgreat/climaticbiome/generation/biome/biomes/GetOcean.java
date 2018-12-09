@@ -6,6 +6,7 @@ import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
+import jaredbgreat.climaticbiome.generation.biome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 
@@ -50,11 +51,20 @@ public class GetOcean implements IBiomeSpecifier {
 		dcool.addItem(new LeafBiome(24));
 		frozen.addItem(new LeafBiome(10));
 		dfrozen.addItem(new LeafBiome(10));
-		/*
-		 * In this area populate the ocean lists
-		 */
 		if(ConfigHandler.useBoP) BoP.addOceans(frozen, cold, cool, warm, hot, 
 				dfrozen, dcold, dcool, dwarm, dhot);
+		if(ConfigHandler.useCfg) {
+			DefReader.readBiomeData(frozen, "OceanFrozen.cfg");
+			DefReader.readBiomeData(cold, "OceanCold.cfg");
+			DefReader.readBiomeData(cool, "OceanCool.cfg");
+			DefReader.readBiomeData(warm, "OceanWarm.cfg");
+			DefReader.readBiomeData(hot, "OceanHot.cfg");
+			DefReader.readBiomeData(dfrozen, "DeepOceanFrozen.cfg");
+			DefReader.readBiomeData(dcold, "DeepOceanCold.cfg");
+			DefReader.readBiomeData(dcool, "DeepOceanCool.cfg");
+			DefReader.readBiomeData(dwarm, "DeepOceanWarm.cfg");
+			DefReader.readBiomeData(dhot, "DeepOceanHot.cfg");
+		}
 		// MUST BE LAST, ALWAYS!!!
 		fixOceans();
 	}	

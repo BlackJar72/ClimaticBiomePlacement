@@ -6,6 +6,7 @@ import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.NoiseDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
+import jaredbgreat.climaticbiome.generation.biome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetJungle extends BiomeList {
@@ -20,6 +21,9 @@ public class GetJungle extends BiomeList {
 		this.addItem(new LeafBiome(21), 3);
 		this.addItem(new LeafBiome(23), 2);
 		if(ConfigHandler.useBoP) BoP.addJungle(this);
+		if(ConfigHandler.useCfg) {
+			DefReader.readBiomeData(this, "Jungle.cfg");
+		}
 	}
 	
 	

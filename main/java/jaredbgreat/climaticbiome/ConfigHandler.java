@@ -6,7 +6,9 @@ import net.minecraftforge.common.config.Configuration;
 
 public class ConfigHandler {
 	
-	public static boolean useBoP = false;
+	public static boolean useBoP = true;
+	public static boolean useCfg = true;
+	public static boolean writeList = true;
 
 	private static File dir;
 	private static File file;
@@ -23,8 +25,16 @@ public class ConfigHandler {
 		Configuration config = new Configuration(file);
 		config.load();	
 		
-		useBoP = config.getBoolean("UseBoPBiomes", "Compat", true, "If true it will use Biomes O'Plenty biomes in its world type")
+		useBoP = config.getBoolean("UseBoPBiomes", "Compat", true, 
+						"If true it will use Biomes O'Plenty biomes in its world type")
 				 && net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");
+				
+		writeList = config.getBoolean("WriteBiomelist", "Compat", true, 
+						"If true a list of all biome resource locations will be printed");
+		
+		
+		useCfg = config.getBoolean("UseCustomConfigs", "Compat", true, 
+						"If true it read files from the biomes folder to extends its worldgen");
 		
 		config.save();	// Saving it all
 	}

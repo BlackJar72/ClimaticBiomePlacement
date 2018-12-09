@@ -6,6 +6,7 @@ import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
+import jaredbgreat.climaticbiome.generation.biome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 import net.minecraft.world.biome.Biome;
 
@@ -30,6 +31,9 @@ public class GetWarmForest implements IBiomeSpecifier {
 		forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.warmForestHills)), 3);
 		forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.pineWoods)));		
 		if(ConfigHandler.useBoP) BoP.addWarmForest(forests);
+		if(ConfigHandler.useCfg) {
+			DefReader.readBiomeData(forests, "ForestWarm.cfg");
+		}
 	}
 	
 

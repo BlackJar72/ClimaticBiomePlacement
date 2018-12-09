@@ -4,6 +4,7 @@ import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
+import jaredbgreat.climaticbiome.generation.biome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetCoolPark implements IBiomeSpecifier {
@@ -21,7 +22,10 @@ public class GetCoolPark implements IBiomeSpecifier {
 		parks = new BiomeList();
 		plains = GetCoolPlains.getPlains();
 		woods = GetCoolForest.getForest();
-		//if(ConfigHandler.useBoP) BoP.addCoolPark(parks);
+		if(ConfigHandler.useCfg) {
+			if(ConfigHandler.useBoP) BoP.addCoolPark(parks);
+			DefReader.readBiomeData(parks, "ParklandCool.cfg");			
+		}
 	}
 	
 

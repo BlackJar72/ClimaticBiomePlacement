@@ -6,6 +6,7 @@ import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.NoiseDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
+import jaredbgreat.climaticbiome.generation.biome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetColdPlains implements IBiomeSpecifier {
@@ -18,10 +19,14 @@ public class GetColdPlains implements IBiomeSpecifier {
 	
 	public void init() {
 		coldPlains = new BiomeList();
-		if(!ConfigHandler.useBoP) {
-			coldPlains.addItem(new LeafBiome(1), 2);
-		} else {
+		if(ConfigHandler.useBoP) {
 			BoP.addColdPlains(coldPlains);
+		}
+		if(ConfigHandler.useCfg) {
+			DefReader.readBiomeData(coldPlains, "PlainsCold.cfg");
+		}
+		if(coldPlains.isEmpty()) {
+			coldPlains.addItem(new LeafBiome(1), 2);			
 		}
 	}
 

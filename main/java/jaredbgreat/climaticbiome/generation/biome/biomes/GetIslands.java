@@ -5,6 +5,7 @@ import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
+import jaredbgreat.climaticbiome.generation.biome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetIslands implements IBiomeSpecifier {
@@ -32,12 +33,18 @@ public class GetIslands implements IBiomeSpecifier {
 		hot    = new BiomeList();
 		desert = new BiomeList();
 		basic  = BiomeClimateTable.getLandTable();
-		/*
-		 * Add Modded islands biomes here!
-		 */
 		if(ConfigHandler.useBoP) BoP.addIslands((BiomeList)frozen, (BiomeList)cold, 
 											    (BiomeList)cool, (BiomeList)warm, 
 											    (BiomeList)hot, (BiomeList)desert);
+		if(ConfigHandler.useCfg) {
+			DefReader.readBiomeData(frozen, "SpecialIslandFrozen.cfg");
+			DefReader.readBiomeData(frozen, "SpecialIslandCold.cfg");
+			DefReader.readBiomeData(frozen, "SpecialIslandCool.cfg");
+			DefReader.readBiomeData(frozen, "SpecialIslandTemperate.cfg");
+			DefReader.readBiomeData(frozen, "SpecialIslandWarm.cfg");
+			DefReader.readBiomeData(frozen, "SpecialIslandTropical.cfg");
+			DefReader.readBiomeData(frozen, "SpecialIslandDesert.cfg");
+		}
 	}
 	
 

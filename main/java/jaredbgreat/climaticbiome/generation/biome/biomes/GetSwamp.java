@@ -6,6 +6,7 @@ import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
+import jaredbgreat.climaticbiome.generation.biome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 // TODO / FIXME: Fix for use with mods!
@@ -30,6 +31,12 @@ public class GetSwamp implements IBiomeSpecifier {
 		warm.addItem(new LeafBiome(134), 1);
 		cool.addItem(new SeedDoubleBiome(134, 3, 6));
 		if(ConfigHandler.useBoP) BoP.addSwamps(cold, cool, warm, hot);
+		if(ConfigHandler.useCfg) {
+			DefReader.readBiomeData(cold, "SwampCold.cfg");
+			DefReader.readBiomeData(cold, "SwampCool.cfg");
+			DefReader.readBiomeData(cold, "SwampWarm.cfg");
+			DefReader.readBiomeData(cold, "SwampTropical.cfg");
+		}
 		// THIS MUST RUN LAST!!!
 		fixSwamps();
 	}

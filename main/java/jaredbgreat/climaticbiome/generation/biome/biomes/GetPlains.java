@@ -5,6 +5,7 @@ import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
+import jaredbgreat.climaticbiome.generation.biome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetPlains implements IBiomeSpecifier {
@@ -22,6 +23,9 @@ public class GetPlains implements IBiomeSpecifier {
 		alpine = GetAlpine.getAlpine();
 		plains.addItem(new SeedDoubleBiome(129, 7, 1), 6);
 		if(ConfigHandler.useBoP) BoP.addPlains(plains);
+		if(ConfigHandler.useCfg) {
+			DefReader.readBiomeData(plains, "Plains.cfg");
+		}
 	}
 	
 	

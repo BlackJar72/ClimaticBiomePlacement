@@ -6,6 +6,7 @@ import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
+import jaredbgreat.climaticbiome.generation.biome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetForest implements IBiomeSpecifier {
@@ -31,6 +32,9 @@ public class GetForest implements IBiomeSpecifier {
 		forests.addItem(new SeedDoubleBiome(155, 5, 27), 1);
 		forests.addItem(new SeedDoubleBiome(157, 7, 29), 2);
 		if(ConfigHandler.useBoP) BoP.addForest(forests);
+		if(ConfigHandler.useCfg) {
+			DefReader.readBiomeData(forests, "Forest.cfg");
+		}
 	}
 	
 

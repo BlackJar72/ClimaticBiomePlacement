@@ -14,9 +14,9 @@ public class GetRiver implements IBiomeSpecifier {
 	@Override
 	public int getBiome(ChunkTile tile) {
 		if((tile.getTemp() + (tile.getBiomeSeed() & 0x1)) < 5) {
-			return 11;
+			PseudoBiomes.deepFrozenRiver.getSubId();
 		}
-		return PseudoBiomes.deepRiver.getSubId();// 7;
+		return PseudoBiomes.deepRiver.getSubId();
 	}
 	
 	

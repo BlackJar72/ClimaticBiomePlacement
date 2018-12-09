@@ -5,6 +5,7 @@ import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.TempDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.compat.BoP;
+import jaredbgreat.climaticbiome.generation.biome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetTundra extends BiomeList {
@@ -20,6 +21,9 @@ public class GetTundra extends BiomeList {
 		addItem(new TempDoubleBiome(140, 2, 12));
 		addItem(new TempDoubleBiome(12,  2, 30));
 		if(ConfigHandler.useBoP) BoP.addTundra(this);
+		if(ConfigHandler.useCfg) {
+			DefReader.readBiomeData(this, "Tundra.cfg");
+		}
 	}
 	
 	

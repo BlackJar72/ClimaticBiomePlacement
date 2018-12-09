@@ -2,6 +2,7 @@ package jaredbgreat.climaticbiome;
 
 import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
 import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
+import jaredbgreat.climaticbiome.generation.biome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.proxy.IProxy;
 import jaredbgreat.climaticbiome.util.BlockRegistrar;
 import jaredbgreat.climaticbiome.util.ItemRegistrar;
@@ -15,6 +16,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 
 @Mod(modid=Info.ID, name=Info.NAME, version=Info.VERSION,
@@ -24,6 +26,7 @@ public class ClimaticBiomes {
 	public static ClimaticBiomes instance;
 	public static ClimaticWorldType worldType;
 	public ConfigHandler configHandler;
+	File confdir;
 
 	@SidedProxy(clientSide = "jaredbgreat.climaticbiome.proxy.ClientProxy",
 			    serverSide = "jaredbgreat.climaticbiome.proxy.ServerProxy")
@@ -34,9 +37,9 @@ public class ClimaticBiomes {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-    	//instance = this;
-    	configHandler = new ConfigHandler(event.getModConfigurationDirectory().toPath()
+    	confdir = new File(event.getModConfigurationDirectory().toPath()
     			+ File.separator + Info.DIR);
+    	configHandler = new ConfigHandler(confdir.toString());
     	configHandler.load();
     	BlockRegistrar.initBlocks();
     	ItemRegistrar.initItems();
@@ -51,7 +54,10 @@ public class ClimaticBiomes {
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-    	//configHandler.findCustomBiomes();
+    	if(ConfigHandler.writeList) {
+    		DefReader.writeList(confdir);
+    	}
+    	DefReader.init(ForgeRegistries.BIOMES, confdir);
     }
 
 }
