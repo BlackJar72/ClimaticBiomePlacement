@@ -11,6 +11,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 
 @EventBusSubscriber
@@ -47,6 +48,16 @@ public class ItemRegistrar {
 	
 	public static void addItem(Item in) {
 		ITEMS.add(in);
+	}
+	
+	
+	public static void oreDict() {
+		OreDictionary.registerOre("logWood", BlockRegistrar.blockPineLog);
+		OreDictionary.registerOre("plankWood", BlockRegistrar.blockPinePlanks);
+		OreDictionary.registerOre("slabWood", BlockRegistrar.pineHalfSlab);
+		OreDictionary.registerOre("treeLeaves", BlockRegistrar.blockPineNeedles);
+		OreDictionary.registerOre("treeSapling", BlockRegistrar.blockPineSappling);
+		
 	}
 
 }

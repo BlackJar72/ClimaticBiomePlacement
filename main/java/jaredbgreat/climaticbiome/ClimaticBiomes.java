@@ -5,6 +5,7 @@ import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
 import jaredbgreat.climaticbiome.generation.biome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.proxy.IProxy;
 import jaredbgreat.climaticbiome.util.BlockRegistrar;
+import jaredbgreat.climaticbiome.util.Externalizer;
 import jaredbgreat.climaticbiome.util.ItemRegistrar;
 
 import java.io.File;
@@ -58,6 +59,9 @@ public class ClimaticBiomes {
     		DefReader.writeList(confdir);
     	}
     	DefReader.init(ForgeRegistries.BIOMES, confdir);
+    	Externalizer extern = new Externalizer();
+    	extern.copyOut(confdir);
+    	ItemRegistrar.oreDict();
     }
 
 }
