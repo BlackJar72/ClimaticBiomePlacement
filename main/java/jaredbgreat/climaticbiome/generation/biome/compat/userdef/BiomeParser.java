@@ -64,8 +64,9 @@ public class BiomeParser {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			while(reader.ready()) {
 				tokens = new StringTokenizer(reader.readLine(), "()");
-				list.addItem(commands.get(tokens.nextToken().toLowerCase().trim())
-						.parse(tokens.nextToken()));
+				String tag =tokens.nextToken().toLowerCase().trim();
+				if(tag.equals("") || tag.startsWith("#")) continue;
+				list.addItem(commands.get(tag).parse(tokens.nextToken()));
 			}
 			reader.close();
 		} catch (FileNotFoundException e) {

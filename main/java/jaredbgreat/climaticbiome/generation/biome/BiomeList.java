@@ -16,6 +16,7 @@ public class BiomeList implements IBiomeSpecifier {
 
 	@Override
 	public int getBiome(ChunkTile tile) {
+		tile.nextBiomeSeed();
 		return list.get(tile.getBiomeSeed() % list.size())
 				.getBiome(tile.nextBiomeSeed());
 	}

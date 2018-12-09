@@ -14,11 +14,13 @@ public class BoP {
 	
 	public static void addAlpine(BiomeList wet, BiomeList dry) {
 		wet.addItem(new LeafBiome(BOPBiomes.highland.get()));
-		wet.addItem(new LeafBiome(BOPBiomes.mountain.get()));
-		wet.addItem(new SeedDoubleBiome(BOPBiomes.highland.get(), 3, BOPBiomes.highland.get()));
+		wet.addItem(new NoiseDoubleBiome(BOPBiomes.mountain_foothills.get(), 
+										 6, BOPBiomes.mountain.get()));
+		wet.addItem(new SeedDoubleBiome(BOPBiomes.mountain.get(), 2, BOPBiomes.highland.get()));
 		dry.addItem(new LeafBiome(BOPBiomes.highland.get()));
-		dry.addItem(new LeafBiome(BOPBiomes.mountain.get()));
-		dry.addItem(new SeedDoubleBiome(BOPBiomes.highland.get(), 3, BOPBiomes.highland.get()));		
+		dry.addItem(new NoiseDoubleBiome(BOPBiomes.mountain_foothills.get(), 
+				 						 6, BOPBiomes.mountain.get()));
+		dry.addItem(new SeedDoubleBiome(BOPBiomes.mountain.get(), 2, BOPBiomes.highland.get()));		
 	}
 	
 	
