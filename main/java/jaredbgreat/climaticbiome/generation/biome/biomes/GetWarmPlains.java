@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
@@ -13,12 +14,17 @@ public class GetWarmPlains implements IBiomeSpecifier {
 	}
 	private GetPlains cool;	
 	private GetSavanna hot;
-	private static final int tbound = 15;
+	private int tbound = 15;
 	
 	
 	public void init() {
 		cool = GetPlains.getPlains();
 		hot  = GetSavanna.getSavanna();
+		if(ConfigHandler.useBoP || ConfigHandler.useBoPTable) {
+			tbound = 17;
+		} else {
+			tbound = 15;
+		}
 	}
 	
 
