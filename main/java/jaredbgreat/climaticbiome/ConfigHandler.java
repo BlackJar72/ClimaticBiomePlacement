@@ -31,12 +31,13 @@ public class ConfigHandler {
 		useBoP = config.getBoolean("UseBoPBiomes", "Compat", true, 
 						"If true it will use Biomes O'Plenty biomes in its world type.  If this \n"
 						+ "is true you must have all BoP biomes enabled or Minecraft will crash.  \n"
-						+ "to use only some BoP biomes you must make a custom config.")
+						+ "to use only some BoP biomes you must make a custom config.  (If you do \n"
+						+ "not have BoP installed this does nothing.)")
 				 && net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");	
 		
 		useBoPTable = config.getBoolean("UseBoPClimateTable", "Compat", false, 
-						"If true the climate table for Biomes O'Plenty will be used even if /n"
-						+ "BoP is not install or used; you will need to provide biomes for /n"
+						"If true the climate table for Biomes O'Plenty will be used even if \n"
+						+ "BoP is not install or used; you will need to provide biomes for \n"
 						+ "cool forest and cool plain in the config list or Minecraft will crash!");
 				
 		writeList = config.getBoolean("WriteBiomelist", "Compat", true, 
