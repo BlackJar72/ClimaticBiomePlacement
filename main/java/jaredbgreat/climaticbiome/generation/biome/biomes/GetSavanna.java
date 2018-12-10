@@ -16,6 +16,10 @@ public class GetSavanna extends BiomeList {
 	
 	
 	public void init() {
+		if(ConfigHandler.cleanSlate) {
+			DefReader.readBiomeData(this, "Savanna.cfg");
+			return;
+		}
 		addItem(new LeafBiome(36));
 		addItem(new NoiseDoubleBiome(35, 6, 36), 2);
 		addItem(new LeafBiome(35), 3);

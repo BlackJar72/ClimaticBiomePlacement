@@ -18,6 +18,10 @@ public class GetChaparral extends BiomeList {
 	
 	
 	public void init() {
+		if(ConfigHandler.cleanSlate) {
+			DefReader.readBiomeData(this, "ChaparralScrub.cfg");
+			return;
+		}
 		addItem(new SeedDoubleBiome(
 				Biome.getIdForBiome(ModBiomes.denseScrubHills), 3, 
 				Biome.getIdForBiome(ModBiomes.denseScrub)), 2);

@@ -29,7 +29,13 @@ public class GetCoolPlains implements IBiomeSpecifier  {
 	public void init() {
 		plains = new BiomeList();
 		alpine = GetAlpine.getAlpine();
-		if(ConfigHandler.useBoP) BoP.addCoolPlains(plains);
+		if(ConfigHandler.cleanSlate) {
+			DefReader.readBiomeData(plains, "PlainsCool.cfg");
+			return;
+		}
+		if(ConfigHandler.useBoP) {
+			BoP.addCoolPlains(plains);
+		}
 		if(ConfigHandler.useCfg) {
 			DefReader.readBiomeData(plains, "PlainsCool.cfg");
 		}

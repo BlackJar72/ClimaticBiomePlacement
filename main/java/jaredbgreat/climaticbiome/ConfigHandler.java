@@ -11,6 +11,7 @@ public class ConfigHandler {
 	public static boolean useCfg = true;
 	public static boolean writeList = true;
 	public static boolean rivers = true;
+	public static boolean cleanSlate = false;
 
 	private static File dir;
 	private static File file;
@@ -28,7 +29,9 @@ public class ConfigHandler {
 		config.load();	
 		
 		useBoP = config.getBoolean("UseBoPBiomes", "Compat", true, 
-						"If true it will use Biomes O'Plenty biomes in its world type")
+						"If true it will use Biomes O'Plenty biomes in its world type.  If this \n"
+						+ "is true you must have all BoP biomes enabled or Minecraft will crash.  \n"
+						+ "to use only some BoP biomes you must make a custom config.")
 				 && net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");	
 		
 		useBoPTable = config.getBoolean("UseBoPClimateTable", "Compat", false, 
@@ -41,6 +44,10 @@ public class ConfigHandler {
 		
 		useCfg = config.getBoolean("UseCustomConfigs", "Compat", true, 
 						"If true it read will files from the biomes folder to extends its worldgen");		
+		
+		cleanSlate = config.getBoolean("NoDefaultBiomes", "Compat", false, 
+						"DANGER: If true there will be *NO* default biomes; if this is set to true \n"
+						+ "you *MUST* supply biomes to all list or Minecraft will crash!!!");		
 		
 		rivers = config.getBoolean("AdvancedRivers", "General", true, 
 						"If true there will be temperature specific rivers, which are good with \n"

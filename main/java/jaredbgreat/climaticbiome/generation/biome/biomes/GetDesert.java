@@ -17,6 +17,10 @@ public class GetDesert extends BiomeList {
 	}
 	
 	public void init() {
+		if(ConfigHandler.cleanSlate) {
+			DefReader.readBiomeData(this, "Desert.cfg");
+			return;
+		}
 		this.addItem(new LeafBiome(2),   6);
 		this.addItem(new LeafBiome(17),  3);
 		this.addItem(new LeafBiome(130), 1);

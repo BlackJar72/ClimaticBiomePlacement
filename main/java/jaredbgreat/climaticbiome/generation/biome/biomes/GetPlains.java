@@ -21,6 +21,10 @@ public class GetPlains implements IBiomeSpecifier {
 	public void init() {
 		plains = new BiomeList();
 		alpine = GetAlpine.getAlpine();
+		if(ConfigHandler.cleanSlate) {
+			DefReader.readBiomeData(plains, "Plains.cfg");
+			return;
+		}
 		plains.addItem(new SeedDoubleBiome(129, 7, 1), 6);
 		if(ConfigHandler.useBoP) BoP.addPlains(plains);
 		if(ConfigHandler.useCfg) {

@@ -34,6 +34,10 @@ public class GetCoolForest implements IBiomeSpecifier {
 		alpine  = GetAlpine.getAlpine();
 		plains  = GetCoolPlains.getPlains();
 		swamp   = GetSwamp.getSwamp();
+		if(ConfigHandler.cleanSlate) {
+			DefReader.readBiomeData(forests, "ForestCool.cfg");
+			return;
+		}
 		if(ConfigHandler.useBoP) BoP.addCoolForest(forests);
 		if(ConfigHandler.useCfg) {
 			DefReader.readBiomeData(forests, "ForestCool.cfg");

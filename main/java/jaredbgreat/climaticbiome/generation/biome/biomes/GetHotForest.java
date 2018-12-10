@@ -18,6 +18,10 @@ public class GetHotForest extends BiomeList {
 	
 	
 	public void init() {
+		if(ConfigHandler.cleanSlate) {
+			DefReader.readBiomeData(this, "ForestTropical.cfg");
+			return;
+		}
 		addItem(new SeedDoubleBiome(151, 5, 23));
 		addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.tropicalForestHills)));
 		addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.tropicalForest)), 3);

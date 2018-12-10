@@ -25,6 +25,10 @@ public class GetTaiga implements IBiomeSpecifier {
 			tbound = 7;
 		}
 		forest = new BiomeList();
+		if(ConfigHandler.cleanSlate) {
+			DefReader.readBiomeData(forest, "Taiga.cfg");
+			return;
+		}
 		forest.addItem(new TempDoubleBiome(30,  tbound, 5),  4);
 		forest.addItem(new TempDoubleBiome(32,  tbound, 5),  2);
 		forest.addItem(new TempDoubleBiome(30,  tbound, 160));

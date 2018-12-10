@@ -27,6 +27,14 @@ public class GetSwamp implements IBiomeSpecifier {
 		cool = new BiomeList();
 		warm = new BiomeList();
 		hot  = new BiomeList();
+		if(ConfigHandler.cleanSlate) {
+			DefReader.readBiomeData(cold, "SwampCold.cfg");
+			DefReader.readBiomeData(cold, "SwampCool.cfg");
+			DefReader.readBiomeData(cold, "SwampWarm.cfg");
+			DefReader.readBiomeData(cold, "SwampTropical.cfg");
+			fixSwamps();
+			return;
+		}
 		warm.addItem(new LeafBiome(6), 3);
 		warm.addItem(new LeafBiome(134), 1);
 		cool.addItem(new SeedDoubleBiome(134, 3, 6));
