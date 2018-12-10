@@ -1,13 +1,16 @@
 package jaredbgreat.climaticbiome.generation.biome.compat;
 
 import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
+import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.NoiseDoubleBiome;
+import jaredbgreat.climaticbiome.generation.biome.NoiseSpecialBiome;
 import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.TempDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.WetDoubleBiome;
 import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
 import biomesoplenty.api.biome.BOPBiomes;
 
 public class BoP {
@@ -15,12 +18,10 @@ public class BoP {
 	public static void addAlpine(BiomeList wet, BiomeList dry) {
 		wet.addItem(new LeafBiome(BOPBiomes.highland.get()));
 		wet.addItem(new NoiseDoubleBiome(BOPBiomes.mountain_foothills.get(), 
-										 6, BOPBiomes.mountain.get()));
-		wet.addItem(new SeedDoubleBiome(BOPBiomes.mountain.get(), 2, BOPBiomes.highland.get()));
+										 6, BOPBiomes.mountain.get()), 2);
 		dry.addItem(new LeafBiome(BOPBiomes.highland.get()));
 		dry.addItem(new NoiseDoubleBiome(BOPBiomes.mountain_foothills.get(), 
-				 						 6, BOPBiomes.mountain.get()));
-		dry.addItem(new SeedDoubleBiome(BOPBiomes.mountain.get(), 2, BOPBiomes.highland.get()));		
+				 						 6, BOPBiomes.mountain.get()));	
 	}
 	
 	
@@ -63,12 +64,11 @@ public class BoP {
 	
 	
 	public static void addDesert(BiomeList deserts) {
-		deserts.addItem(new LeafBiome(BOPBiomes.lush_desert.get()));
-		deserts.addItem(new NoiseDoubleBiome(Biomes.MESA, 5, BOPBiomes.lush_desert.get()));	
+		deserts.addItem(new LeafBiome(BOPBiomes.lush_desert.get()), 2);
 		deserts.addItem(new LeafBiome(BOPBiomes.outback.get()), 4);
-		deserts.addItem(new LeafBiome(BOPBiomes.xeric_shrubland.get()), 6);
+		deserts.addItem(new LeafBiome(BOPBiomes.xeric_shrubland.get()), 5);
 		deserts.addItem(new SeedDoubleBiome(BOPBiomes.wasteland.get(), 
-											5, BOPBiomes.lush_desert.get()));
+											5, BOPBiomes.xeric_shrubland.get()));
 		deserts.addItem(new NoiseDoubleBiome(BOPBiomes.oasis.get(), 3, Biomes.DESERT));
 	}
 	
@@ -89,7 +89,19 @@ public class BoP {
 		cool.addItem(new NoiseDoubleBiome(BOPBiomes.origin_beach.get(), 
 									      3, BOPBiomes.origin_island.get()));
 		warm.addItem(new LeafBiome(BOPBiomes.flower_island.get()));
-		hot.addItem(new LeafBiome(BOPBiomes.tropical_island.get()));		
+		hot.addItem(new LeafBiome(BOPBiomes.tropical_island.get()));
+		frozen.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				new LeafBiome(Biome.getIdForBiome(BOPBiomes.volcanic_island.get()))));
+		cold.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				new LeafBiome(Biome.getIdForBiome(BOPBiomes.volcanic_island.get()))));
+		cool.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				new LeafBiome(Biome.getIdForBiome(BOPBiomes.volcanic_island.get()))));
+		hot.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				new LeafBiome(Biome.getIdForBiome(BOPBiomes.volcanic_island.get()))));
+		desert.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				new LeafBiome(Biome.getIdForBiome(BOPBiomes.volcanic_island.get()))));
+		warm.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				new LeafBiome(Biome.getIdForBiome(BOPBiomes.volcanic_island.get()))));
 	}
 	
 	
@@ -115,7 +127,7 @@ public class BoP {
 	
 	public static void addParks(BiomeList parks) {
 		parks.addItem(new LeafBiome(BOPBiomes.grove.get()), 3);
-		parks.addItem(new LeafBiome(BOPBiomes.orchard.get()), 2);
+		parks.addItem(new LeafBiome(BOPBiomes.orchard.get()), 1);
 		parks.addItem(new LeafBiome(BOPBiomes.cherry_blossom_grove.get()));
 	}
 	
@@ -133,7 +145,7 @@ public class BoP {
 	
 	public static void addSwamps(BiomeList cold, BiomeList cool, BiomeList warm, BiomeList hot) {
 		cold.addItem(new LeafBiome(BOPBiomes.bog.get()), 3);
-		cold.addItem(new LeafBiome(BOPBiomes.fen.get()), 3);
+		cold.addItem(new LeafBiome(BOPBiomes.fen.get()), 2);
 		cold.addItem(new LeafBiome(BOPBiomes.dead_swamp.get()));
 		cold.addItem(new LeafBiome(BOPBiomes.quagmire.get()));
 		cool.addItem(new LeafBiome(BOPBiomes.wetland.get()));
@@ -157,8 +169,8 @@ public class BoP {
 	
 	
 	public static void addTundra(BiomeList tundra) {
-		tundra.addItem(new TempDoubleBiome(Biomes.ICE_PLAINS, 2, BOPBiomes.tundra.get()), 4);
-		tundra.addItem(new TempDoubleBiome(BOPBiomes.glacier.get(), 2, BOPBiomes.tundra.get()), 2);
+		tundra.addItem(new LeafBiome(BOPBiomes.cold_desert.get()), 4);
+		tundra.addItem(new TempDoubleBiome(BOPBiomes.glacier.get(), 2, Biomes.ICE_PLAINS), 2);
 	}
 	
 	

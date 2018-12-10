@@ -1,8 +1,10 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
-import jaredbgreat.climaticbiome.ClimaticBiomes;
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.pseudo.PseudoBiomes;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetRiver;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeRiver;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;
@@ -23,6 +25,12 @@ public class ModBiomes {
 	public static Scrub          dryScrub;
 	public static Scrub          denseScrubHills;
 	public static Scrub          dryScrubHills;
+	
+	// Advanced Rivers
+	public static BiomeRiver coolRiver;
+	public static BiomeRiver river;
+	public static BiomeRiver warmRiver;
+	public static BiomeRiver hotRiver;
     
     
     public static void createBiomes() {
@@ -78,6 +86,9 @@ public class ModBiomes {
 		makeMoreUsable(dryScrubHills);
 		// Lastly
 		PseudoBiomes.createBiomes();
+		if(ConfigHandler.rivers) {
+			makeAdvancedRivers();
+		}
     }
     
 
@@ -113,6 +124,9 @@ public class ModBiomes {
 		BiomeDictionary.addTypes(dryScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS, Type.SANDY);
 		// Lastly
 		PseudoBiomes.registerBiomes();
+		if(ConfigHandler.rivers) {
+			registerAdvancedRivers(event);
+		}
 	}
 	
 	
@@ -132,5 +146,38 @@ public class ModBiomes {
 		BiomeManager.addSpawnBiome(biome);
 		BiomeManager.addStrongholdBiome(biome);
 		BiomeManager.addVillageBiome(biome, villages);
+	}
+	
+	
+	private static void makeAdvancedRivers() {
+		river = new BiomeRiver(new Biome.BiomeProperties("River").setBaseHeight(-0.8f)
+											            .setHeightVariation(0.0f)
+												        .setTemperature(0.7F)
+												        .setRainfall(0.5F)
+												        .setSnowEnabled());
+		warmRiver = new BiomeRiver(new Biome.BiomeProperties("River").setBaseHeight(-0.8f)
+											            .setHeightVariation(0.0f)
+												        .setTemperature(0.8F)
+												        .setRainfall(0.5F)
+												        .setSnowEnabled());
+		hotRiver = new BiomeRiver(new Biome.BiomeProperties("River").setBaseHeight(-0.8f)
+											            .setHeightVariation(0.0f)
+												        .setTemperature(1.0F)
+												        .setRainfall(0.5F)
+												        .setSnowEnabled());
+	}
+	
+	
+	private static void registerAdvancedRivers(RegistryEvent.Register<Biome> event) {
+		event.getRegistry().register(river
+				.setRegistryName("temperate_river"));
+		event.getRegistry().register(warmRiver
+				.setRegistryName("subtropical_river"));
+		event.getRegistry().register(hotRiver
+				.setRegistryName("tropical_river"));
+		BiomeDictionary.addTypes(river, Type.RIVER, Type.WATER);
+		BiomeDictionary.addTypes(warmRiver, Type.RIVER, Type.WATER);
+		BiomeDictionary.addTypes(hotRiver, Type.RIVER, Type.WATER, Type.HOT);		
+		GetRiver.initAdvanced();
 	}
 }

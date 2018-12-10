@@ -165,7 +165,7 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 	    PARKb = GetCoolPark.getPark();
 	    RIVER = GetRiver.getRiver();
 	    // TODO: Logic to determine which table to create,
-	    if(ConfigHandler.useBoP) {
+	    if(ConfigHandler.useBoP || ConfigHandler.useBoPTable) {
 	    	makeModdedTable();
 	    } else {
 	    	makeVanillaTable();

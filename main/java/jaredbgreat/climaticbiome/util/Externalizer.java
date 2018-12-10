@@ -33,6 +33,8 @@ public class Externalizer {
 	private static final   String baseLocation = "/README.txt";
 	
 	private static final String[] blists = {
+		"AplineDry.cfg",
+		"AplineWet.cfg",
 		"ChaparralScrub.cfg",
 		"DeepOceanCold.cfg",
 		"DeepOceanCool.cfg",
