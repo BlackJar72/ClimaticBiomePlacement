@@ -1,6 +1,7 @@
 package jaredbgreat.climaticbiome.generation.map;
 
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
+import jaredbgreat.climaticbiome.ClimaticBiomes;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
@@ -44,6 +45,7 @@ public class MapRegistry {
     private final MapMaker maker;
     private World world;
     private File savedir =  null;
+    private boolean cansave = true;
 	
 	
 	public MapRegistry(long seed, World w) {
@@ -59,9 +61,12 @@ public class MapRegistry {
 	
 	
 	public void findSaveDir() {
-		MinecraftServer server = DimensionManager.getWorld(0).getMinecraftServer();
-		if(server.isDedicatedServer()) {
-			savedir = server.getFile("world" + File.separator + "ClimaticMaps" 
+		if(world == null || world.getMinecraftServer() == null) {
+			cansave = false;
+			return;
+		}
+		if(world.getMinecraftServer().isDedicatedServer()) {
+			savedir = world.getMinecraftServer().getFile("world" + File.separator + "ClimaticMaps" 
 								   + File.separator + "Dim" + world.provider.getDimension());
 		} else {
 			savedir = new File(DimensionManager.getCurrentSaveRootDirectory().toString() 
@@ -69,15 +74,21 @@ public class MapRegistry {
 						+ File.separator + "Dim" 
 						+ world.provider.getDimension());
 		}
-		if(!savedir.exists()) {
+		cansave = savedir != null;
+		if(cansave && (!savedir.exists())) {
 			savedir.mkdirs();
+			cansave = savedir.exists() && savedir.isDirectory();
 		}
 	}
 	
 	
 	private File getSaveFile(int x, int z) {
 		if(savedir == null) {
-			findSaveDir();			
+			findSaveDir();
+		}
+		if(savedir == null) {
+			cansave = false;
+			return null;
 		}
 		return new File(savedir.toString() + File.separator + "X" + x + "Z" + z + ".cbmap");
 	}
@@ -164,7 +175,7 @@ public class MapRegistry {
 	 */
 	private void initializeMap(RegionMap map) {		
 		maker.generate(map);
-		writeMap(map);
+		if(cansave) writeMap(map);
 	}
 	
 	
@@ -172,9 +183,12 @@ public class MapRegistry {
 		Coords coords = map.getCoords();
 		int x = coords.getX();
 		int z = coords.getZ();
+		if(!cansave) {
+			return;
+		}
 		File file = getSaveFile(x, z);
 		short[] data = map.getData();
-		if(file.exists()) {
+		if(file != null && file.exists()) {
 			try {				
 				FileInputStream fs = new FileInputStream(file);
 				for(int i = 0; i < 65536; i++) {
@@ -198,18 +212,20 @@ public class MapRegistry {
 		int x = coords.getX();
 		int z = coords.getZ();
 		File file = getSaveFile(x, z);
-		short[] data = map.getData();
-		try {
-			FileOutputStream fs = new FileOutputStream(file);
-			for(int i = 0; i < 65536; i++) {
-					fs.write(data[i] & 0xff);
-					fs.write((data[i] & 0xff00) >> 8);
-				}
-			fs.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(file != null) { 
+			short[] data = map.getData();
+			try {
+				FileOutputStream fs = new FileOutputStream(file);
+				for(int i = 0; i < 65536; i++) {
+						fs.write(data[i] & 0xff);
+						fs.write((data[i] & 0xff00) >> 8);
+					}
+				fs.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
