@@ -1,5 +1,7 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
+
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -71,7 +73,7 @@ public class Scrub extends Biome {
 
 	@Override
     public WorldGenAbstractTree getRandomTreeFeature(Random random) {
-    	if((type != Type.DRY) && random.nextInt(5) == 0) {
+    	if((type != Type.DRY) && !ConfigHandler.useDT && (random.nextInt(5) == 0)) {
             return TREE_FEATURE;
     	}
     	else {
@@ -102,18 +104,20 @@ public class Scrub extends Biome {
         generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noise);
     }
 
+    
     public void decorate(World worldIn, Random random, BlockPos pos) {
-        int n;
-    	if(type == Type.DRY) {
-    		n = random.nextInt(4);
-    	} else {
-    		n = random.nextInt(2);
+    	if(ConfigHandler.rockyScrub) {
+	        int n;
+	    	if(type == Type.DRY) {
+	    		n = random.nextInt(4);
+	    	} else {
+	    		n = random.nextInt(2);
+	    	}
+	    	for (int i = 0; i < n; i++) {
+	    		BlockPos blockpos = worldIn.getHeight(pos.add(random.nextInt(16) + 8, 0, random.nextInt(16) + 8));
+	            ROCK_PILES.generate(worldIn, random, blockpos);
+	        }
     	}
-    	for (int i = 0; i < n; i++) {
-    		BlockPos blockpos = worldIn.getHeight(pos.add(random.nextInt(16) + 8, 0, random.nextInt(16) + 8));
-            ROCK_PILES.generate(worldIn, random, blockpos);
-        }
-
         super.decorate(worldIn, random, pos);
     }
 

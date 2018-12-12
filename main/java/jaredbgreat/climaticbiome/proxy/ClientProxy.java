@@ -1,14 +1,13 @@
 package jaredbgreat.climaticbiome.proxy;
 
-import java.io.File;
-
+import jaredbgreat.climaticbiome.ClimaticBiomes;
+import jaredbgreat.climaticbiome.ConfigHandler;
+import jaredbgreat.climaticbiome.compat.dt.DynamicTreeHelper;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.DimensionManager;
 
 public class ClientProxy implements IProxy {
 
@@ -34,6 +33,20 @@ public class ClientProxy implements IProxy {
 		if(e != null) {
 			e.printStackTrace();
 		}		
+	}
+
+	@Override
+	public void preInit() {
+    	if(ConfigHandler.useDT) {
+    		DynamicTreeHelper.clientPreInit();
+    	}
+	}
+
+	@Override
+	public void init() {
+    	if(ConfigHandler.useDT) {
+    		DynamicTreeHelper.clientInit();
+    	}
 	}
 
 }

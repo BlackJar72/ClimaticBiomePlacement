@@ -6,12 +6,15 @@ import net.minecraftforge.common.config.Configuration;
 
 public class ConfigHandler {
 	
-	public static boolean useBoP = true;
+	public static boolean useBoP = false;
 	public static boolean useBoPTable = false;
 	public static boolean useCfg = true;
 	public static boolean writeList = true;
 	public static boolean rivers = true;
 	public static boolean cleanSlate = false;
+	public static boolean rockyScrub = true;
+	public static boolean gotDT = false;
+	public static boolean useDT = false;
 
 	private static File dir;
 	private static File file;
@@ -41,10 +44,14 @@ public class ConfigHandler {
 						+ "cool forest and cool plain in the config list or Minecraft will crash!");
 				
 		writeList = config.getBoolean("WriteBiomelist", "Compat", true, 
-						"If true a list of all biome resource locations will be saved to a file");		
+						"If true a list of all biome resource locations will be saved to a file.");
+		
+		gotDT = net.minecraftforge.fml.common.Loader.isModLoaded("dynamictrees");
+		useDT = config.getBoolean("UseDynamicTrees", "Compat", true, 
+						"If true biomes created by this mod will have dynamic trees.)");		
 		
 		useCfg = config.getBoolean("UseCustomConfigs", "Compat", true, 
-						"If true it read will files from the biomes folder to extends its worldgen");		
+						"If true it read will files from the biomes folder to extends its worldgen.");		
 		
 		cleanSlate = config.getBoolean("NoDefaultBiomes", "Compat", false, 
 						"DANGER: If true there will be *NO* default biomes; if this is set to true \n"
@@ -53,7 +60,10 @@ public class ConfigHandler {
 		rivers = config.getBoolean("AdvancedRivers", "General", true, 
 						"If true there will be temperature specific rivers, which are good with \n"
 						+ "seasons and weather related mods, but will use a few more ids.  \n"
-						+ "set this to false if you are running out of biome ids");
+						+ "set this to false if you are running out of biome ids.");
+		
+		rockyScrub = config.getBoolean("RockyScrub", "General", true, 
+						"If true scrub biomes will have cobble bolders.");
 		
 		config.save();	// Saving it all
 	}

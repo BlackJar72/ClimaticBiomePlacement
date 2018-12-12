@@ -14,6 +14,12 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public void fixRenders(BlockLeaves in) {/*Do Nothing*/}
+
+	@Override
+	public void preInit() {/*Do Nothing*/}
+
+	@Override
+	public void init() {/*Do Nothing*/}
 	
 	
 	@Override

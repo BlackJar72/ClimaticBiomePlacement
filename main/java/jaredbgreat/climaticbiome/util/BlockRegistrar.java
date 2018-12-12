@@ -15,9 +15,9 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
 @EventBusSubscriber
@@ -42,12 +42,13 @@ public class BlockRegistrar {
 		pineDoubleSlab = new BlockPineDoubleSlab("pine_doubleslab", pineHalfSlab);
 		ItemRegistrar.addItem(new ItemPineSlab(pineHalfSlab, pineDoubleSlab, pineDoubleSlab));
 		blockPinePlanks = new BlockPinePlanks("pine_planks");
+		// LASTLY
+		registerBlocks();
 	}
 	
 	
-	@SubscribeEvent
-	public static void registerBlocks(RegistryEvent.Register<Block> event) {
-		IForgeRegistry<Block> regs = event.getRegistry();
+	public static void registerBlocks() {
+		IForgeRegistry<Block> regs = GameRegistry.findRegistry(Block.class);
 		for(Block block : BLOCKS) {
 			regs.register(block);
 		}

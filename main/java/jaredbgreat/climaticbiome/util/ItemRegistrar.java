@@ -8,9 +8,9 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 
@@ -18,12 +18,14 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class ItemRegistrar {	
 	private static final List<Item> ITEMS = new ArrayList<>();
 	
-	public static void initItems() {}
+	public static void initItems() {
+		// LASTLY, after any items get registered
+		registerItems();
+	}
 	
-	
-	@SubscribeEvent
-	public static void regesterItems(RegistryEvent.Register<Item> event) {
-		IForgeRegistry<Item> regs = event.getRegistry();
+
+	public static void registerItems() {
+		IForgeRegistry<Item> regs = GameRegistry.findRegistry(Item.class);
 		for(Item item : ITEMS) {
 			regs.register(item);
 		}
