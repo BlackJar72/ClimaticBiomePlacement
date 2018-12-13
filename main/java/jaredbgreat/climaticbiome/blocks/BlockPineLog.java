@@ -7,6 +7,8 @@ import jaredbgreat.climaticbiome.util.ItemRegistrar;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 
 //For reasons I don't understand I can't instantiate the vanilla class, but can do this!?
 public class BlockPineLog extends BlockLogClimatic {
@@ -15,8 +17,9 @@ public class BlockPineLog extends BlockLogClimatic {
         setUnlocalizedName(Info.ID + ".pine_log");
 		setRegistryName(Info.ID, "pine_log");		
 		setDefaultState(blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y));
+		Blocks.FIRE.setFireInfo(this, 5, 5);
 		BlockRegistrar.addBlock(this);
-		ItemRegistrar.addItem(new ItemPineLog(this));
+		ItemRegistrar.addItem(new ItemPineLog(this));		
     }
     
     

@@ -1,11 +1,13 @@
 package jaredbgreat.climaticbiome.blocks;
 
 import jaredbgreat.climaticbiome.Info;
+import jaredbgreat.climaticbiome.blocks.itemblocks.ItemPineLog;
 import jaredbgreat.climaticbiome.util.BlockRegistrar;
 import jaredbgreat.climaticbiome.util.ItemRegistrar;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 
 // This may become a multi-block *IF* I add more wood types
@@ -21,8 +23,8 @@ public class BlockPinePlanks extends ModBlockBase {
 		setResistance(1.0f);
         setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 		BlockRegistrar.addBlock(this);
-		ItemRegistrar.addItem(new ItemBlock(this)
-			.setRegistryName(getRegistryName()));
+		Blocks.FIRE.setFireInfo(this, 5, 20);
+		ItemRegistrar.addItem(new ItemPineLog(this));	
 	}
 
 }
