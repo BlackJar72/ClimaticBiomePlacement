@@ -1,7 +1,7 @@
 package jaredbgreat.climaticbiome;
 
 import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
-import jaredbgreat.climaticbiome.compat.dt.DynamicTreeHelper;
+import jaredbgreat.climaticbiome.compat.DataBasePop;
 import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
 import jaredbgreat.climaticbiome.generation.biome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.proxy.IProxy;
@@ -19,6 +19,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+
+import com.ferreusveritas.dynamictrees.api.WorldGenRegistry;
 
 
 @Mod(modid=Info.ID, name=Info.NAME, version=Info.VERSION,
@@ -47,17 +49,14 @@ public class ClimaticBiomes {
     	ItemRegistrar.initItems();
     	worldType = new ClimaticWorldType();
     	ModBiomes.createBiomes();
-    	if(ConfigHandler.useDT) {
-    		DynamicTreeHelper.preInit();
-    	}
     	proxy.preInit();
     }
 
 
     @EventHandler
-    public void init(FMLInitializationEvent event) {   	
+    public void init(FMLInitializationEvent event) { 
     	if(ConfigHandler.useDT) {
-    		DynamicTreeHelper.init();
+    		WorldGenRegistry.registerBiomeDataBasePopulator(new DataBasePop());
     	}
     	proxy.init();
     }

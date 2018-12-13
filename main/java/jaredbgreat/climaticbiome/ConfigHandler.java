@@ -27,7 +27,7 @@ public class ConfigHandler {
 	
 	
 	public void load() {
-		useDT = false; //net.minecraftforge.fml.common.Loader.isModLoaded("dynamictrees");	
+		useDT = net.minecraftforge.fml.common.Loader.isModLoaded("dynamictrees");	
 		Configuration config = new Configuration(file);
 		config.load();	
 		

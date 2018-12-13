@@ -1,10 +1,7 @@
 package jaredbgreat.climaticbiome.proxy;
 
-import java.io.File;
-
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.item.Item;
-import net.minecraft.world.World;
 
 public interface IProxy {
 
