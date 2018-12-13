@@ -5,4 +5,5 @@ tile.climaticbiomesjbg.pine_leaves.oak.name=Pine Needles
 tile.climaticbiomesjbg.pine_planks.name=Pine Wood Planks
 tile.climaticbiomesjbg.pine_bark.name=Pine Bark
 tile.climaticbiomesjbg.pine_sapling.name=Pine Sapling
-tile.climaticbiomesjbg:pine_slab.name=Pine Wood Slab
+tile.climaticbiomesjbg.pine_slab.name=Pine Wood Slab
+tile.climaticbiomesjbg.pine_stairs.name=Pine Stairs

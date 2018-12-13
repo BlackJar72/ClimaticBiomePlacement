@@ -22,8 +22,8 @@ public class BlockPinePlanks extends ModBlockBase {
 		setHarvestLevel("axe", 0);
 		setResistance(1.0f);
         setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-		BlockRegistrar.addBlock(this);
 		Blocks.FIRE.setFireInfo(this, 5, 20);
+		BlockRegistrar.addBlock(this);
 		ItemRegistrar.addItem(new ItemPineLog(this));	
 	}
 
