@@ -13,7 +13,6 @@ public class ConfigHandler {
 	public static boolean rivers = true;
 	public static boolean cleanSlate = false;
 	public static boolean rockyScrub = true;
-	public static boolean gotDT = false;
 	public static boolean useDT = false;
 
 	private static File dir;
@@ -28,6 +27,7 @@ public class ConfigHandler {
 	
 	
 	public void load() {
+		useDT = false; //net.minecraftforge.fml.common.Loader.isModLoaded("dynamictrees");	
 		Configuration config = new Configuration(file);
 		config.load();	
 		
@@ -45,10 +45,6 @@ public class ConfigHandler {
 				
 		writeList = config.getBoolean("WriteBiomelist", "Compat", true, 
 						"If true a list of all biome resource locations will be saved to a file.");
-		
-		gotDT = net.minecraftforge.fml.common.Loader.isModLoaded("dynamictrees");
-		useDT = config.getBoolean("UseDynamicTrees", "Compat", true, 
-						"If true biomes created by this mod will have dynamic trees.)");		
 		
 		useCfg = config.getBoolean("UseCustomConfigs", "Compat", true, 
 						"If true it read will files from the biomes folder to extends its worldgen.");		

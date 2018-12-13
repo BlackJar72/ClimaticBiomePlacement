@@ -47,7 +47,7 @@ public class ClimaticBiomes {
     	ItemRegistrar.initItems();
     	worldType = new ClimaticWorldType();
     	ModBiomes.createBiomes();
-    	if(ConfigHandler.gotDT) {
+    	if(ConfigHandler.useDT) {
     		DynamicTreeHelper.preInit();
     	}
     	proxy.preInit();
@@ -56,7 +56,7 @@ public class ClimaticBiomes {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {   	
-    	if(ConfigHandler.gotDT) {
+    	if(ConfigHandler.useDT) {
     		DynamicTreeHelper.init();
     	}
     	proxy.init();

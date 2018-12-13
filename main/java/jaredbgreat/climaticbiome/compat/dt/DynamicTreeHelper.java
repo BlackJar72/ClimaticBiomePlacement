@@ -75,9 +75,7 @@ public class DynamicTreeHelper {
 	
 	
 	public static void init() {
-		if(ConfigHandler.useDT) {
-			floridaPine = TreeRegistry.findSpecies(new ResourceLocation(Info.ID, "pine"));
-		}		
+		floridaPine = TreeRegistry.findSpecies(new ResourceLocation(Info.ID, "pine"));
 		// Lastly ... I guess ....
 		WorldGenRegistry.registerBiomeDataBasePopulator(new DataBasePop());
 	}
@@ -91,9 +89,6 @@ public class DynamicTreeHelper {
 		ModelHelper.regModel(pineTree.getDynamicBranch());
 		ModelHelper.regModel(pineTree.getCommonSpecies().getSeed());
 		ModelHelper.regModel(pineTree);
-		ModelHelper.regModel(smallJungle.getDynamicBranch());
-		ModelHelper.regModel(smallJungle.getCommonSpecies().getSeed());
-		ModelHelper.regModel(smallJungle);
 		LeavesPaging.getLeavesMapForModId(Info.ID).forEach((key,leaves) 
 				-> ModelLoader.setCustomStateMapper(leaves, new StateMap.Builder()
 					.ignore(BlockLeaves.DECAYABLE).build()));
