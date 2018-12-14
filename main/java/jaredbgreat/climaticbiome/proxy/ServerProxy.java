@@ -15,6 +15,9 @@ public class ServerProxy implements IProxy {
 	public void registerItemRender(Item item, int meta, String id) {/*Do Nothing*/}
 
 	@Override
+	public void registerItemRender(Item item, int meta) {/*Do Nothing*/}
+
+	@Override
 	public void fixRenders(BlockLeaves in) {/*Do Nothing*/}
 
 	@Override

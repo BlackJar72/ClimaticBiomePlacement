@@ -43,7 +43,7 @@ public class ItemRegistrar {
 			if(item instanceof IHaveModel) {
 				((IHaveModel)item).registerModel();
 			} else {
-				ClimaticBiomes.proxy.registerItemRender(item, 0, "inventory");
+				ClimaticBiomes.proxy.registerItemRender(item, 0);
 			}
 		}
 		for(Block block : BlockRegistrar.getBlocks()) {

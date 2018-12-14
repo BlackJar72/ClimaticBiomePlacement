@@ -13,9 +13,15 @@ import net.minecraftforge.client.model.ModelLoader;
 public class ClientProxy implements IProxy {
 
 	@Override
-	public void registerItemRender(Item item, int meta, String id) {
+	public void registerItemRender(Item item, int meta) {
 		ModelLoader.setCustomModelResourceLocation(item, meta, 
 				new ModelResourceLocation(item.getRegistryName(), ""));
+	}
+
+	@Override
+	public void registerItemRender(Item item, int meta, String id) {
+		ModelLoader.setCustomModelResourceLocation(item, meta, 
+				new ModelResourceLocation(item.getRegistryName(), id));
 	}
 
 	@Override
