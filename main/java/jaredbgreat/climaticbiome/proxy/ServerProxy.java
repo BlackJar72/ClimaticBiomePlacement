@@ -2,6 +2,7 @@ package jaredbgreat.climaticbiome.proxy;
 
 import java.io.File;
 
+import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.item.Item;
@@ -18,6 +19,9 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public void registerGateRenders(BlockFenceGate gate) {/*Do Nothing*/}
+
+	@Override
+	public void registerDoorRenders(BlockDoor door) {/*Do Nothing*/}
 
 	@Override
 	public void preInit() {/*Do Nothing*/}

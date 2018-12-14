@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.proxy;
 
+import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.properties.IProperty;
@@ -14,7 +15,7 @@ public class ClientProxy implements IProxy {
 	@Override
 	public void registerItemRender(Item item, int meta, String id) {
 		ModelLoader.setCustomModelResourceLocation(item, meta, 
-				new ModelResourceLocation(item.getRegistryName(), id));
+				new ModelResourceLocation(item.getRegistryName(), ""));
 	}
 
 	@Override
@@ -30,6 +31,15 @@ public class ClientProxy implements IProxy {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(gate), 0,
 				new ModelResourceLocation(gate.getRegistryName().toString(), "inventory"));
 		
+	}
+	
+	
+	@Override
+	public void registerDoorRenders(BlockDoor door) {
+		ModelLoader.setCustomStateMapper(door, 
+				new StateMap.Builder().ignore(BlockDoor.POWERED).build());
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(door), 0,
+				new ModelResourceLocation(door.getRegistryName(), "inventory"));
 	}
 
 	

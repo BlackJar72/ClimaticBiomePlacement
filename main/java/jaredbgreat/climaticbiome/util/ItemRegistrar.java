@@ -24,7 +24,7 @@ public class ItemRegistrar {
 	private static final List<Item> ITEMS = new ArrayList<>();
 	
 	public static void initItems() {
-		// LASTLY, after any items get registered
+		// LASTLY, after any items get reated
 		registerItems();
 	}
 	
@@ -42,6 +42,8 @@ public class ItemRegistrar {
 		for(Item item : ITEMS) {
 			if(item instanceof IHaveModel) {
 				((IHaveModel)item).registerModel();
+			} else {
+				ClimaticBiomes.proxy.registerItemRender(item, 0, "inventory");
 			}
 		}
 		for(Block block : BlockRegistrar.getBlocks()) {

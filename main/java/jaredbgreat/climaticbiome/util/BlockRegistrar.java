@@ -1,6 +1,7 @@
 package jaredbgreat.climaticbiome.util;
 
 import jaredbgreat.climaticbiome.biomes.feature.GenPine;
+import jaredbgreat.climaticbiome.blocks.BlockPineDoor;
 import jaredbgreat.climaticbiome.blocks.BlockPineFence;
 import jaredbgreat.climaticbiome.blocks.BlockPineGate;
 import jaredbgreat.climaticbiome.blocks.BlockPineLog;
@@ -37,6 +38,7 @@ public class BlockRegistrar {
 	public static BlockPineStairs blockPineStairs;
 	public static BlockPineFence blockPineFence;
 	public static BlockPineGate blockPineGate;
+	public static BlockPineDoor blockPineDoor;
 	
 	
 	public static void initBlocks() {
@@ -51,6 +53,7 @@ public class BlockRegistrar {
 		blockPineStairs = new BlockPineStairs(blockPinePlanks.getDefaultState(), "pine_stairs");
 		blockPineFence = new BlockPineFence("pine_fence");
 		blockPineGate = new BlockPineGate("pine_gate");
+		blockPineDoor = new BlockPineDoor("pine_door");
 		// LASTLY
 		registerBlocks();
 	}

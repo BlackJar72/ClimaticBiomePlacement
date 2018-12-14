@@ -1,7 +1,7 @@
 {
-    "parent": "block/door_bottom_rh",
+    "parent": "block/door_top_rh",
     "textures": {
-        "bottom": "climaticbiomesjbg:blocks/pineplanks",
-        "top": "climaticbiomesjbg:blocks/pineplanks"
+        "bottom": "climaticbiomesjbg:blocks/pinedoor1",
+        "top": "climaticbiomesjbg:blocks/pinedoor2"
     }
 }
