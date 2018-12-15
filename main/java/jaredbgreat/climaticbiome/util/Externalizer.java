@@ -97,7 +97,7 @@ public class Externalizer {
 			if(!listDir.exists()) {
 				listDir.mkdirs();
 			}
-			outFile = new File(confdir + File.separator + outDir + readMeFile);
+			outFile = new File(confdir + File.separator + outDir + File.separator + readMeFile);
 			if(!outFile.exists()) {
 				copyReadMe(outFile);
 			}

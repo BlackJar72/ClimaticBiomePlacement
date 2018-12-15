@@ -34,17 +34,19 @@ public class ConfigHandler {
 		config.load();	
 		
 		useBoP = config.getBoolean("UseBoPBiomes", "Compat", true, 
-						"If true it will use Biomes O'Plenty biomes in its world type. /n"
-						+ "If this is true it will also automatically use BoP climate table.")
+						"If true it will use Biomes O'Plenty biomes in its world type. \n"
+						+ "If this is true it will also automatically use BoP climate table. \n"
+						+ "If BoP is not installed this does nothing.")
 				 && net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");
 		
 		useTraverse = config.getBoolean("UseTraverseBiomes", "Compat", true, 
-						"If true it will use Traverse biomes in its world type.")
+						"If true it will use Traverse biomes in its world type. \n"
+						+ "If Traverse is not installed this does nothing.")
 				 && net.minecraftforge.fml.common.Loader.isModLoaded("traverse");
 		
 		useVanilla = config.getBoolean("UseMinecraftBiomes", "Compat", true, 
 						"If true it will use vanilla Minecraft biomes in its world type, \n"
-						+ "along with its own biome.  Note: If it may do this anyway if no "
+						+ "along with its own biomes.  Note: It may do this anyway if no "
 						+ "other biomes are provided for a climate area.");	
 		
 		useBoPTable = config.getBoolean("UseBoPClimateTable", "Compat", false, 
@@ -73,6 +75,11 @@ public class ConfigHandler {
 		
 		rockyScrub = config.getBoolean("RockyScrub", "General", true, 
 						"If true scrub biomes will have cobble bolders.");
+		
+		useDT = config.getBoolean("UseDynamicTress", "Compat", true, 
+						"If true this will use dynamic trees if dynamic tree is installed; \n"
+						+ "if dynamic trees is not installed this does nothing.")						
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("dynamictrees");
 		
 		config.save();	// Saving it all
 	}
