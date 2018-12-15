@@ -28,7 +28,7 @@ public class GetWarmForest implements IBiomeSpecifier {
 		plains  = GetPlains.getPlains();
 		swamp   = GetSwamp.getSwamp();
 		DefReader.readBiomeData(forests, "ForestWarm.cfg");
-		if(isEmpty()) {
+		if(forests.isEmpty()) {
 			forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.warmForest)), 5);
 			forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.warmForestHills)), 3);
 			forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.pineWoods)));

@@ -37,7 +37,7 @@ public class GetTaiga implements IBiomeSpecifier {
 		}
 		forest = new BiomeList();
 		DefReader.readBiomeData(forest, "Taiga.cfg");
-		if(isEmpty()){
+		if(forest.isEmpty()){
 			forest.addItem(new TempDoubleBiome(30,  tbound, 5),  4);
 			forest.addItem(new TempDoubleBiome(32,  tbound, 5),  2);
 			forest.addItem(new TempDoubleBiome(30,  tbound, 160));

@@ -29,8 +29,9 @@ import java.io.InputStreamReader;
 public class Externalizer {
 	private BufferedReader instream;
 	private BufferedWriter outstream;
-	private File           outFile;
-	private static final   String baseLocation = "/README.txt";
+	private static final   String baseLocation = "/assets/climaticbiomesjbg/BiomeLists/";
+	private static final   String outDir       = "BiomeConfig";
+	private static final   String readMeFile   = "README.txt";
 	
 	private static final String[] blists = {
 		"AplineDry.cfg",
@@ -74,6 +75,14 @@ public class Externalizer {
 	};
 	
 	
+	private static final String[] subdirs = {
+		"Minecraft",
+		"BiomeOPlenty",
+		"Traverse",
+		"custom"
+	};
+	
+	
 	/**
 	 * Exports a theme file by reading it from the jar and 
 	 * writing it to the hard drive, but only if a file with 
@@ -82,44 +91,70 @@ public class Externalizer {
 	 * @param name
 	 */
 	public void copyOut(File confdir) {
+		File outFile;
 		try {
-			outFile = new File(confdir.toString() + File.separator + baseLocation);
-			if(outFile.exists()) return;
-			instream = new BufferedReader(new InputStreamReader(getClass()
-					.getResourceAsStream(baseLocation)));
-			outstream = new BufferedWriter(new FileWriter(outFile));
-			String line;
-			if((instream != null) && (outstream != null)) 
-				while((line = instream.readLine()) != null) {
-					outstream.write(line + System.lineSeparator());
-				} else {
-					System.err.println("Error! Failed to write theme README file!");
-				}
-			if(instream  != null) instream.close();
-			if(outstream != null) outstream.close();
-		} catch (IOException e) {
+			File listDir = new File(confdir + File.separator + outDir);
+			if(!listDir.exists()) {
+				listDir.mkdirs();
+			}
+			outFile = new File(confdir + File.separator + outDir + readMeFile);
+			if(!outFile.exists()) {
+				copyReadMe(outFile);
+			}
+			copyLists(listDir);
+		} catch (Exception e) {
 			System.err.println("Error! Failed to write theme README file!");
 			e.printStackTrace();
 		} 
 	}
 	
 	
-	public void createBiomeLists(File confdir) {
-		String fileDir = confdir.toString() + File.separator + "biomes" + File.separator;
-		File dir = new File(fileDir);
-		if(!dir.exists()) {
-			dir.mkdirs();
-		}
-		try {
-			for(String name : blists) {
-				File file = new File(fileDir + name);			
+	public void copyLists(File listDir)  throws Exception {
+		for(String sub : subdirs) {
+			File dir = new File(listDir + File.separator + sub + File.separator);
+			if(!dir.exists()) {
+				dir.mkdirs();
+			}
+			for(String fname : blists) {
+				File file = new File(dir + File.separator + fname);
 				if(!file.exists()) {
-						file.createNewFile();
+					System.out.println("Creating file " + file);
+					copyBiomeList(file, sub, fname);					
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		}		
+	}
+	
+	
+	public void copyReadMe(File outFile) throws Exception {
+		instream = new BufferedReader(new InputStreamReader(getClass()
+				.getResourceAsStream(baseLocation + readMeFile)));
+		outstream = new BufferedWriter(new FileWriter(outFile));
+		String line;
+		if((instream != null) && (outstream != null)) 
+			while((line = instream.readLine()) != null) {
+				outstream.write(line + System.lineSeparator());
+			} else {
+				System.err.println("Error! Failed to write theme README file!");
+			}
+		if(instream  != null) instream.close();
+		if(outstream != null) outstream.close();		
+	}
+	
+	
+	public void copyBiomeList(File outFile, String dir, String name) throws Exception {
+		instream = new BufferedReader(new InputStreamReader(getClass()
+				.getResourceAsStream(baseLocation + dir + "/" + name)));
+		outstream = new BufferedWriter(new FileWriter(outFile));
+		String line;
+		if((instream != null) && (outstream != null)) 
+			while((line = instream.readLine()) != null) {
+				outstream.write(line + System.lineSeparator());
+			} else {
+				System.err.println("Error! Failed to write theme README file!");
+			}
+		if(instream  != null) instream.close();
+		if(outstream != null) outstream.close();		
 	}
 	
 

@@ -65,7 +65,6 @@ public class ClimaticBiomes {
     	DefReader.init(ForgeRegistries.BIOMES, confdir);
     	Externalizer extern = new Externalizer();
     	extern.copyOut(confdir);
-    	extern.createBiomeLists(confdir);
     	ItemRegistrar.oreDict();
     }
 
