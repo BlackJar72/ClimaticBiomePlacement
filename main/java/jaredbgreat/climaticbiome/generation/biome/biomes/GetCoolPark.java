@@ -22,16 +22,7 @@ public class GetCoolPark implements IBiomeSpecifier {
 		parks = new BiomeList();
 		plains = GetCoolPlains.getPlains();
 		woods = GetCoolForest.getForest();
-		if(ConfigHandler.cleanSlate) {
-			DefReader.readBiomeData(parks, "ParklandCool.cfg");
-			return;
-		}
-		if(ConfigHandler.useBoP) {
-			BoP.addCoolPark(parks);
-		}
-		if(ConfigHandler.useCfg) {
-			DefReader.readBiomeData(parks, "ParklandCool.cfg");			
-		}
+		DefReader.readBiomeData(parks, "ParklandCool.cfg");
 	}
 	
 

@@ -17,16 +17,11 @@ public class GetTundra extends BiomeList {
 	
 	
 	public void init() {
-		if(ConfigHandler.cleanSlate) {
-			DefReader.readBiomeData(this, "Tundra.cfg");
-			return;
-		}
-		addItem(new LeafBiome(12), 5);
-		addItem(new TempDoubleBiome(140, 2, 12));
-		addItem(new TempDoubleBiome(12,  2, 30));
-		if(ConfigHandler.useBoP) BoP.addTundra(this);
-		if(ConfigHandler.useCfg) {
-			DefReader.readBiomeData(this, "Tundra.cfg");
+		DefReader.readBiomeData(this, "Tundra.cfg");
+		if(isEmpty()) {
+			addItem(new LeafBiome(12), 5);
+			addItem(new TempDoubleBiome(140, 2, 12));
+			addItem(new TempDoubleBiome(12,  2, 30));
 		}
 	}
 	

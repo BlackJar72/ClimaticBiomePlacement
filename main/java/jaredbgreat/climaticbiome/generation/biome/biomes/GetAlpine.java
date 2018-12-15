@@ -24,21 +24,17 @@ public class GetAlpine implements IBiomeSpecifier {
 	public void init() {
 		wet = new BiomeList();
 		dry = new BiomeList();
-		if(ConfigHandler.cleanSlate) {
-			DefReader.readBiomeData(wet, "AplineWet.cfg");
-			DefReader.readBiomeData(dry, "AplineDry.cfg");
-			return;
+		DefReader.readBiomeData(wet, "AplineWet.cfg");
+		DefReader.readBiomeData(dry, "AplineDry.cfg");
+		if(wet.isEmpty()) {
+			wet.addItem(new LeafBiome(34));
+			wet.addItem(new LeafBiome(162));
+			wet.addItem(new NoiseDoubleBiome(34, 5, 162));
 		}
-		wet.addItem(new LeafBiome(34));
-		wet.addItem(new LeafBiome(162));
-		wet.addItem(new NoiseDoubleBiome(34, 5, 162));
-		dry.addItem(new LeafBiome(3));
-		dry.addItem(new LeafBiome(131));
-		dry.addItem(new NoiseDoubleBiome(3, 5, 131));
-		if(ConfigHandler.useBoP) BoP.addAlpine(wet, dry);
-		if(ConfigHandler.useCfg) {
-			DefReader.readBiomeData(wet, "AplineWet.cfg");
-			DefReader.readBiomeData(dry, "AplineDry.cfg");
+		if(dry.isEmpty()) {
+			dry.addItem(new LeafBiome(3));
+			dry.addItem(new LeafBiome(131));
+			dry.addItem(new NoiseDoubleBiome(3, 5, 131));
 		}
 	}
 

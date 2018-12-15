@@ -86,10 +86,10 @@ public class BoP {
 	
 	public static void addIslands(BiomeList frozen, BiomeList cold, BiomeList cool, 
 								  BiomeList warm, BiomeList hot, BiomeList desert) {
-		cool.addItem(new NoiseDoubleBiome(BOPBiomes.origin_beach.get(), 
-									      3, BOPBiomes.origin_island.get()));
-		warm.addItem(new LeafBiome(BOPBiomes.flower_island.get()));
-		hot.addItem(new LeafBiome(BOPBiomes.tropical_island.get()));
+		//cool.addItem(new NoiseDoubleBiome(BOPBiomes.origin_beach.get(), 
+		//							      3, BOPBiomes.origin_island.get()));
+		//warm.addItem(new LeafBiome(BOPBiomes.flower_island.get()));
+		//hot.addItem(new LeafBiome(BOPBiomes.tropical_island.get()));
 		frozen.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
 				new LeafBiome(Biome.getIdForBiome(BOPBiomes.volcanic_island.get()))));
 		cold.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 

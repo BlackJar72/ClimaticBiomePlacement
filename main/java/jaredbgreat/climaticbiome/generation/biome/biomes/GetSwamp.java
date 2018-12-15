@@ -27,23 +27,16 @@ public class GetSwamp implements IBiomeSpecifier {
 		cool = new BiomeList();
 		warm = new BiomeList();
 		hot  = new BiomeList();
-		if(ConfigHandler.cleanSlate) {
-			DefReader.readBiomeData(cold, "SwampCold.cfg");
-			DefReader.readBiomeData(cold, "SwampCool.cfg");
-			DefReader.readBiomeData(cold, "SwampWarm.cfg");
-			DefReader.readBiomeData(cold, "SwampTropical.cfg");
-			fixSwamps();
-			return;
-		}
-		warm.addItem(new LeafBiome(6), 3);
-		warm.addItem(new LeafBiome(134), 1);
-		cool.addItem(new SeedDoubleBiome(134, 3, 6));
-		if(ConfigHandler.useBoP) BoP.addSwamps(cold, cool, warm, hot);
-		if(ConfigHandler.useCfg) {
-			DefReader.readBiomeData(cold, "SwampCold.cfg");
-			DefReader.readBiomeData(cold, "SwampCool.cfg");
-			DefReader.readBiomeData(cold, "SwampWarm.cfg");
-			DefReader.readBiomeData(cold, "SwampTropical.cfg");
+		DefReader.readBiomeData(cold, "SwampCold.cfg");
+		DefReader.readBiomeData(cool, "SwampCool.cfg");
+		DefReader.readBiomeData(warm, "SwampWarm.cfg");
+		DefReader.readBiomeData(hot,  "SwampTropical.cfg");
+		if(warm.isEmpty()) {
+			warm.addItem(new LeafBiome(6), 3);
+			warm.addItem(new LeafBiome(134), 1);
+			if(cool.isEmpty()) {
+				cool.addItem(new SeedDoubleBiome(134, 3, 6));
+			}
 		}
 		// THIS MUST RUN LAST!!!
 		fixSwamps();

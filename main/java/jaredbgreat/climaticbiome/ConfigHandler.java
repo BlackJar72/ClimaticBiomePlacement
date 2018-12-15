@@ -7,11 +7,13 @@ import net.minecraftforge.common.config.Configuration;
 public class ConfigHandler {
 	
 	public static boolean useBoP = false;
-	public static boolean useBoPTable = false;
+	public static boolean useTraverse = false;
+	public static boolean useVanilla = true;	
+	public static boolean useBoPTable = false;	
+	public static boolean volcanicBoP = false;
 	public static boolean useCfg = true;
 	public static boolean writeList = true;
 	public static boolean rivers = true;
-	public static boolean cleanSlate = false;
 	public static boolean rockyScrub = true;
 	public static boolean useDT = false;
 
@@ -32,26 +34,37 @@ public class ConfigHandler {
 		config.load();	
 		
 		useBoP = config.getBoolean("UseBoPBiomes", "Compat", true, 
-						"If true it will use Biomes O'Plenty biomes in its world type.  If this \n"
-						+ "is true you must have all BoP biomes enabled or Minecraft will crash.  \n"
-						+ "to use only some BoP biomes you must make a custom config.  (If you do \n"
-						+ "not have BoP installed this does nothing.)")
-				 && net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");	
+						"If true it will use Biomes O'Plenty biomes in its world type. /n"
+						+ "If this is true it will also automatically use BoP climate table.")
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");
+		
+		useTraverse = config.getBoolean("UseTraverseBiomes", "Compat", true, 
+						"If true it will use Traverse biomes in its world type.")
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("traverse");
+		
+		useVanilla = config.getBoolean("UseMinecraftBiomes", "Compat", true, 
+						"If true it will use vanilla Minecraft biomes in its world type, \n"
+						+ "along with its own biome.  Note: If it may do this anyway if no "
+						+ "other biomes are provided for a climate area.");	
 		
 		useBoPTable = config.getBoolean("UseBoPClimateTable", "Compat", false, 
 						"If true the climate table for Biomes O'Plenty will be used even if \n"
 						+ "BoP is not install or used; you will need to provide biomes for \n"
-						+ "cool forest and cool plain in the config list or Minecraft will crash!");
+						+ "cool forest and cool plains.");	
+		
+		volcanicBoP = config.getBoolean("VolcanicBoPIslands", "Compat", true, 
+						"If true and Biomes O'Plenty is installed it will use create special \n"
+						+ "volvanic islands using BoP's volcanic island biome. If this biome \n"
+						+ "it not available Minecraft will crash.  If BoP is not installed ths \n"
+						+ "does nothing.")
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");
 				
 		writeList = config.getBoolean("WriteBiomelist", "Compat", true, 
 						"If true a list of all biome resource locations will be saved to a file.");
 		
 		useCfg = config.getBoolean("UseCustomConfigs", "Compat", true, 
-						"If true it read will files from the biomes folder to extends its worldgen.");		
-		
-		cleanSlate = config.getBoolean("NoDefaultBiomes", "Compat", false, 
-						"DANGER: If true there will be *NO* default biomes; if this is set to true \n"
-						+ "you *MUST* supply biomes to all list or Minecraft will crash!!!");		
+						"If true it read will files from the BiomeConfig/custom folder to extends \n"
+						+ "its worldgen. This is where to add extra biomes not otherwise supported.");	
 		
 		rivers = config.getBoolean("AdvancedRivers", "General", true, 
 						"If true there will be temperature specific rivers, which are good with \n"

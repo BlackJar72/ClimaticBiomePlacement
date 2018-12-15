@@ -7,22 +7,23 @@ import jaredbgreat.climaticbiome.generation.biome.NoiseDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.TempDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.WetDoubleBiome;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetTaiga.TaigaDoubleBiome;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.StringTokenizer;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.registries.IForgeRegistry;
+
+import org.apache.logging.log4j.Logger;
+import org.jline.utils.Log;
 
 public class BiomeParser {
 	private IForgeRegistry biomeReg;
@@ -33,9 +34,10 @@ public class BiomeParser {
 	private HashMap<String, ICommand> commands;
 	
 	
-	public BiomeParser(IForgeRegistry reg, File dir) {
+	public BiomeParser(IForgeRegistry reg, File dir, String sub) {
 		biomeReg = reg;
-		fileDir = dir.toString() + File.separator + "biomes" + File.separator;
+		fileDir = dir.toString() + File.separator + "BiomeConfig" 
+								 + File.separator + sub + File.separator;
 		File fd = new File(fileDir);
 		if(!fd.exists()) {
 			fd.mkdirs();
@@ -45,6 +47,7 @@ public class BiomeParser {
 		commands.put("noise", new NoiseParse());
 		commands.put("seed", new SeedParse());
 		commands.put("temp", new TempParse());
+		commands.put("taiga", new TaigaParse());
 		commands.put("wetness", new WetParse());
 	}
 	
@@ -59,13 +62,15 @@ public class BiomeParser {
 			}
 			return;
 		}
-		StringTokenizer tokens;
+		String line = null;
+		StringTokenizer tokens;		
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			while(reader.ready()) {
-				tokens = new StringTokenizer(reader.readLine(), "()");
-				String tag =tokens.nextToken().toLowerCase().trim();
-				if(tag.equals("") || tag.startsWith("#")) continue;
+				line = reader.readLine().trim();
+				if(line.isEmpty() || line.startsWith("#")) continue;
+				tokens = new StringTokenizer(line, "()");
+				String tag = tokens.nextToken().toLowerCase().trim();
 				list.addItem(commands.get(tag).parse(tokens.nextToken()));
 			}
 			reader.close();
@@ -73,7 +78,22 @@ public class BiomeParser {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (RuntimeException e) {
+			reportError(e, file, line);
 		}
+	}
+	
+	
+	private void reportError(RuntimeException ex, File file, String line) {
+		Logger logger = FMLLog.log;
+		Log.error("");
+		Log.error("*****************************");
+		Log.error("   Error in file: " + file);
+		Log.error("   " + line);
+		Log.error("   Caused excpetion: " + ex);		
+		Log.error("*****************************");
+		Log.error("");
+		throw ex;
 	}
 	
 	
@@ -107,6 +127,16 @@ public class BiomeParser {
 			int bound = Integer.parseInt(tokens.nextToken());
 			Biome b = (Biome)biomeReg.getValue(new ResourceLocation(tokens.nextToken()));		
 			return new TempDoubleBiome(a, bound, b);
+		}
+	}
+	
+	
+	private final class TaigaParse implements ICommand {
+		public IBiomeSpecifier parse(String in) {
+			StringTokenizer tokens = new StringTokenizer(in, ", ");
+			Biome a = (Biome)biomeReg.getValue(new ResourceLocation(tokens.nextToken()));
+			Biome b = (Biome)biomeReg.getValue(new ResourceLocation(tokens.nextToken()));		
+			return new TaigaDoubleBiome(a, b);
 		}
 	}
 	

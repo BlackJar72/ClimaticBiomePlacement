@@ -47,37 +47,27 @@ public class GetOcean implements IBiomeSpecifier {
 		islands1 = BiomeClimateTable.getLandTable();
 		islands2 = GetIslands.getIslands();
 		// Add biomes
-		if(ConfigHandler.cleanSlate) {
-			DefReader.readBiomeData(frozen, "OceanFrozen.cfg");
-			DefReader.readBiomeData(cold, "OceanCold.cfg");
-			DefReader.readBiomeData(cool, "OceanCool.cfg");
-			DefReader.readBiomeData(warm, "OceanWarm.cfg");
-			DefReader.readBiomeData(hot, "OceanHot.cfg");
-			DefReader.readBiomeData(dfrozen, "DeepOceanFrozen.cfg");
-			DefReader.readBiomeData(dcold, "DeepOceanCold.cfg");
-			DefReader.readBiomeData(dcool, "DeepOceanCool.cfg");
-			DefReader.readBiomeData(dwarm, "DeepOceanWarm.cfg");
-			DefReader.readBiomeData(dhot, "DeepOceanHot.cfg");
-			fixOceans();
-			return;
+		DefReader.readBiomeData(frozen,  "OceanFrozen.cfg");
+		DefReader.readBiomeData(cold,    "OceanCold.cfg");
+		DefReader.readBiomeData(cool,    "OceanCool.cfg");
+		DefReader.readBiomeData(warm,    "OceanWarm.cfg");
+		DefReader.readBiomeData(hot,     "OceanHot.cfg");
+		DefReader.readBiomeData(dfrozen, "DeepOceanFrozen.cfg");
+		DefReader.readBiomeData(dcold,   "DeepOceanCold.cfg");
+		DefReader.readBiomeData(dcool,   "DeepOceanCool.cfg");
+		DefReader.readBiomeData(dwarm,   "DeepOceanWarm.cfg");
+		DefReader.readBiomeData(dhot,    "DeepOceanHot.cfg");
+		if(cool.isEmpty()) {
+			cool.addItem(new LeafBiome(0));
 		}
-		cool.addItem(new LeafBiome(0));
-		dcool.addItem(new LeafBiome(24));
-		frozen.addItem(new LeafBiome(10));
-		dfrozen.addItem(new LeafBiome(10));
-		if(ConfigHandler.useBoP) BoP.addOceans(frozen, cold, cool, warm, hot, 
-				dfrozen, dcold, dcool, dwarm, dhot);
-		if(ConfigHandler.useCfg) {
-			DefReader.readBiomeData(frozen, "OceanFrozen.cfg");
-			DefReader.readBiomeData(cold, "OceanCold.cfg");
-			DefReader.readBiomeData(cool, "OceanCool.cfg");
-			DefReader.readBiomeData(warm, "OceanWarm.cfg");
-			DefReader.readBiomeData(hot, "OceanHot.cfg");
-			DefReader.readBiomeData(dfrozen, "DeepOceanFrozen.cfg");
-			DefReader.readBiomeData(dcold, "DeepOceanCold.cfg");
-			DefReader.readBiomeData(dcool, "DeepOceanCool.cfg");
-			DefReader.readBiomeData(dwarm, "DeepOceanWarm.cfg");
-			DefReader.readBiomeData(dhot, "DeepOceanHot.cfg");
+		if(dcool.isEmpty()) {
+			dcool.addItem(new LeafBiome(24));
+		}
+		if(frozen.isEmpty()) {
+			frozen.addItem(new LeafBiome(10));
+		}
+		if(dfrozen.isEmpty()) {
+			dfrozen.addItem(new LeafBiome(10));
 		}
 		// MUST BE LAST, ALWAYS!!!
 		fixOceans();

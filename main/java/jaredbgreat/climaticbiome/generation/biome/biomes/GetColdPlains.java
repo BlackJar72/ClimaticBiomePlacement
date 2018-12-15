@@ -19,16 +19,7 @@ public class GetColdPlains implements IBiomeSpecifier {
 	
 	public void init() {
 		coldPlains = new BiomeList();
-		if(ConfigHandler.cleanSlate) {
-			DefReader.readBiomeData(coldPlains, "PlainsCold.cfg");
-			return;
-		}
-		if(ConfigHandler.useBoP) {
-			BoP.addColdPlains(coldPlains);
-		}
-		if(ConfigHandler.useCfg) {
-			DefReader.readBiomeData(coldPlains, "PlainsCold.cfg");
-		}
+		DefReader.readBiomeData(coldPlains, "PlainsCold.cfg");
 		if(coldPlains.isEmpty()) {
 			coldPlains.addItem(new LeafBiome(1), 2);			
 		}

@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.biome.compat.userdef;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 
 import java.io.BufferedWriter;
@@ -13,15 +14,44 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class DefReader {
-	private static BiomeParser parser;
+	private static DefReader vanilla;
+	private static DefReader BoP;
+	private static DefReader traverse;
+	private static DefReader custom;
+	private BiomeParser parser;
 	
-	public static void readBiomeData(BiomeList list, String filename) {
+	
+	public DefReader(IForgeRegistry reg, File dir, String sub) {		
+		parser = new BiomeParser(reg, dir, sub);
+	}
+	
+	
+	public void readBiomeDataList(BiomeList list, String filename) {
 		parser.makeBiomeList(list, filename);
 	}
 	
 	
-	public static void init(IForgeRegistry reg, File dir) {		
-		parser = new BiomeParser(reg, dir);
+	public static void readBiomeData(BiomeList list, String filename) {
+		if(ConfigHandler.useVanilla) {
+			vanilla.parser.makeBiomeList(list, filename);
+		}
+		if(ConfigHandler.useBoP) {
+			BoP.parser.makeBiomeList(list, filename);
+		}
+		if(ConfigHandler.useTraverse) {
+			traverse.parser.makeBiomeList(list, filename);
+		}
+		if(ConfigHandler.useCfg) {
+			custom.parser.makeBiomeList(list, filename);
+		}
+	}
+	
+	
+	public static void init(IForgeRegistry reg, File dir) {
+		vanilla = new DefReader(reg, dir, "Minecraft");
+		BoP = new DefReader(reg, dir, "BiomeOPlenty");
+		traverse = new DefReader(reg, dir, "Traverse");
+		custom = new DefReader(reg, dir, "custom");
 	}
 	
 	

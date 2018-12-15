@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import net.minecraft.world.biome.Biome;
 import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
@@ -15,7 +16,17 @@ public class GetTaiga implements IBiomeSpecifier {
 		init();
 	}
 	private BiomeList forest;
-	int tbound;
+	private static int tbound;
+	
+	
+	public static final class TaigaDoubleBiome extends TempDoubleBiome {
+		public TaigaDoubleBiome(Biome a, Biome b) {
+			super(a, tbound, b);
+		}
+		public TaigaDoubleBiome(int a, int b) {
+			super(a, tbound, b);
+		}		
+	}
 	
 	
 	public void init() {
@@ -25,18 +36,13 @@ public class GetTaiga implements IBiomeSpecifier {
 			tbound = 7;
 		}
 		forest = new BiomeList();
-		if(ConfigHandler.cleanSlate) {
-			DefReader.readBiomeData(forest, "Taiga.cfg");
-			return;
-		}
-		forest.addItem(new TempDoubleBiome(30,  tbound, 5),  4);
-		forest.addItem(new TempDoubleBiome(32,  tbound, 5),  2);
-		forest.addItem(new TempDoubleBiome(30,  tbound, 160));
-		forest.addItem(new TempDoubleBiome(158, tbound, 19),  3);
-		forest.addItem(new TempDoubleBiome(158, tbound, 133), 2);
-		if(ConfigHandler.useBoP) BoP.addTaiga(tbound, forest);
-		if(ConfigHandler.useCfg) {
-			DefReader.readBiomeData(forest, "Taiga.cfg");
+		DefReader.readBiomeData(forest, "Taiga.cfg");
+		if(isEmpty()){
+			forest.addItem(new TempDoubleBiome(30,  tbound, 5),  4);
+			forest.addItem(new TempDoubleBiome(32,  tbound, 5),  2);
+			forest.addItem(new TempDoubleBiome(30,  tbound, 160));
+			forest.addItem(new TempDoubleBiome(158, tbound, 19),  3);
+			forest.addItem(new TempDoubleBiome(158, tbound, 133), 2);
 		}
 	}
 	

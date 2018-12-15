@@ -22,14 +22,7 @@ public class GetPark implements IBiomeSpecifier {
 		parks = new BiomeList();
 		plains = GetPlains.getPlains();
 		woods = GetForest.getForest();
-		if(ConfigHandler.cleanSlate) {
-			DefReader.readBiomeData(parks, "Parkland.cfg");;
-			return;
-		}
-		if(ConfigHandler.useBoP) BoP.addParks(parks);
-		if(ConfigHandler.useCfg) {
-			DefReader.readBiomeData(parks, "Parkland.cfg");
-		}
+		DefReader.readBiomeData(parks, "Parkland.cfg");
 	}
 	
 

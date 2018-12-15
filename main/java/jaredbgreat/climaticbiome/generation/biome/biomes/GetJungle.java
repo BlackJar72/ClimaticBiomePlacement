@@ -18,15 +18,10 @@ public class GetJungle extends BiomeList {
 
 	
 	public void init() {
-		if(ConfigHandler.cleanSlate) {
-			DefReader.readBiomeData(this, "Jungle.cfg");
-			return;
-		}
-		this.addItem(new LeafBiome(21), 3);
-		this.addItem(new LeafBiome(23), 2);
-		if(ConfigHandler.useBoP) BoP.addJungle(this);
-		if(ConfigHandler.useCfg) {
-			DefReader.readBiomeData(this, "Jungle.cfg");
+		DefReader.readBiomeData(this, "Jungle.cfg");
+		if(isEmpty()) {
+			addItem(new LeafBiome(21), 3);
+			addItem(new LeafBiome(23), 2);
 		}
 	}
 	

@@ -33,28 +33,15 @@ public class GetIslands implements IBiomeSpecifier {
 		hot    = new BiomeList();
 		desert = new BiomeList();
 		basic  = BiomeClimateTable.getLandTable();
-		if(ConfigHandler.cleanSlate) {
-			DefReader.readBiomeData(frozen, "SpecialIslandFrozen.cfg");
-			DefReader.readBiomeData(frozen, "SpecialIslandCold.cfg");
-			DefReader.readBiomeData(frozen, "SpecialIslandCool.cfg");
-			DefReader.readBiomeData(frozen, "SpecialIslandTemperate.cfg");
-			DefReader.readBiomeData(frozen, "SpecialIslandWarm.cfg");
-			DefReader.readBiomeData(frozen, "SpecialIslandTropical.cfg");
-			DefReader.readBiomeData(frozen, "SpecialIslandDesert.cfg");
-			return;
-		}
-		if(ConfigHandler.useBoP) BoP.addIslands((BiomeList)frozen, (BiomeList)cold, 
-											    (BiomeList)cool, (BiomeList)warm, 
-											    (BiomeList)hot, (BiomeList)desert);
-		if(ConfigHandler.useCfg) {
-			DefReader.readBiomeData(frozen, "SpecialIslandFrozen.cfg");
-			DefReader.readBiomeData(frozen, "SpecialIslandCold.cfg");
-			DefReader.readBiomeData(frozen, "SpecialIslandCool.cfg");
-			DefReader.readBiomeData(frozen, "SpecialIslandTemperate.cfg");
-			DefReader.readBiomeData(frozen, "SpecialIslandWarm.cfg");
-			DefReader.readBiomeData(frozen, "SpecialIslandTropical.cfg");
-			DefReader.readBiomeData(frozen, "SpecialIslandDesert.cfg");
-		}
+		DefReader.readBiomeData(frozen, "SpecialIslandFrozen.cfg");
+		DefReader.readBiomeData(cold,   "SpecialIslandCold.cfg");
+		DefReader.readBiomeData(cool,   "SpecialIslandCool.cfg");
+		DefReader.readBiomeData(warm,   "SpecialIslandWarm.cfg");
+		DefReader.readBiomeData(hot,    "SpecialIslandTropical.cfg");
+		DefReader.readBiomeData(desert, "SpecialIslandDesert.cfg");
+		if(ConfigHandler.volcanicBoP) BoP.addIslands((BiomeList)frozen, (BiomeList)cold, 
+                                                     (BiomeList)cool, (BiomeList)warm, 
+                                                     (BiomeList)hot, (BiomeList)desert);
 	}
 	
 

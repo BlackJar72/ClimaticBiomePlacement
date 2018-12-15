@@ -27,16 +27,11 @@ public class GetWarmForest implements IBiomeSpecifier {
 		alpine  = GetAlpine.getAlpine();
 		plains  = GetPlains.getPlains();
 		swamp   = GetSwamp.getSwamp();
-		if(ConfigHandler.cleanSlate) {
-			DefReader.readBiomeData(forests, "ForestWarm.cfg");
-			return;
-		}
-		forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.warmForest)), 5);
-		forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.warmForestHills)), 3);
-		forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.pineWoods)));	
-		if(ConfigHandler.useBoP) BoP.addWarmForest(forests);
-		if(ConfigHandler.useCfg) {
-			DefReader.readBiomeData(forests, "ForestWarm.cfg");
+		DefReader.readBiomeData(forests, "ForestWarm.cfg");
+		if(isEmpty()) {
+			forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.warmForest)), 5);
+			forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.warmForestHills)), 3);
+			forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.pineWoods)));
 		}
 	}
 	

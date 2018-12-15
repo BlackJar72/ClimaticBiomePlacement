@@ -18,19 +18,14 @@ public class GetChaparral extends BiomeList {
 	
 	
 	public void init() {
-		if(ConfigHandler.cleanSlate) {
-			DefReader.readBiomeData(this, "ChaparralScrub.cfg");
-			return;
-		}
-		addItem(new SeedDoubleBiome(
-				Biome.getIdForBiome(ModBiomes.denseScrubHills), 3, 
-				Biome.getIdForBiome(ModBiomes.denseScrub)), 2);
-		addItem(new SeedDoubleBiome(
-				Biome.getIdForBiome(ModBiomes.dryScrubHills), 3, 
-				Biome.getIdForBiome(ModBiomes.dryScrub)));
-		if(ConfigHandler.useBoP) BoP.addChaparral(this);
-		if(ConfigHandler.useCfg) {
-			DefReader.readBiomeData(this, "ChaparralScrub.cfg");
+		DefReader.readBiomeData(this, "ChaparralScrub.cfg");
+		if(isEmpty()){
+			addItem(new SeedDoubleBiome(
+					Biome.getIdForBiome(ModBiomes.denseScrubHills), 3, 
+					Biome.getIdForBiome(ModBiomes.denseScrub)), 2);
+			addItem(new SeedDoubleBiome(
+					Biome.getIdForBiome(ModBiomes.dryScrubHills), 3, 
+					Biome.getIdForBiome(ModBiomes.dryScrub)));
 		}
 	}
 	
