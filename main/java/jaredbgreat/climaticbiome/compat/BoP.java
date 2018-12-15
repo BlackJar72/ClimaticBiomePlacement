@@ -1,4 +1,4 @@
-package jaredbgreat.climaticbiome.generation.biome.compat;
+package jaredbgreat.climaticbiome.compat;
 
 import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
 import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;

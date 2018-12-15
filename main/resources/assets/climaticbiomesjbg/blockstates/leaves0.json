@@ -6,7 +6,7 @@
                 "model": "climaticbiomesjbg:pine_leaves"
             },
             "1": {
-                "model": "jungle_leaves"
+                "model": "minecraft:jungle_leaves"
             }
         },
         "hydro": {

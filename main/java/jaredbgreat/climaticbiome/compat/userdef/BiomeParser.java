@@ -1,4 +1,4 @@
-package jaredbgreat.climaticbiome.generation.biome.compat.userdef;
+package jaredbgreat.climaticbiome.compat.userdef;
 
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;

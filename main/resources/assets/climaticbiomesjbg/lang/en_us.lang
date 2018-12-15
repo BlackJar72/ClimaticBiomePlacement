@@ -11,4 +11,6 @@ tile.climaticbiomesjbg.pine_fence.name=Pine Fence
 tile.climaticbiomesjbg.pine_gate.name=Pine Fence Gate
 
 item.tile.climaticbiomesjbg.pine_door.name=Pine Door
+item.climaticbiomesjbg:pineseed.name=Pine Cone
+
 

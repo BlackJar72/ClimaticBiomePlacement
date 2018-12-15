@@ -76,11 +76,6 @@ public class ConfigHandler {
 		rockyScrub = config.getBoolean("RockyScrub", "General", true, 
 						"If true scrub biomes will have cobble bolders.");
 		
-		useDT = config.getBoolean("UseDynamicTress", "Compat", true, 
-						"If true this will use dynamic trees if dynamic tree is installed; \n"
-						+ "if dynamic trees is not installed this does nothing.")						
-				 && net.minecraftforge.fml.common.Loader.isModLoaded("dynamictrees");
-		
 		config.save();	// Saving it all
 	}
 	
