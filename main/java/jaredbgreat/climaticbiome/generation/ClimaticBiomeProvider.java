@@ -98,29 +98,23 @@ public class ClimaticBiomeProvider extends BiomeProvider {
     
     
     private int modRight4(int in) {
-    	in %= 4;
-    	if(in < 0) {
-    		in += 4;
-    	}
-    	return in;
+    	return in & 4;
     }
     
     
     private int chunkModulus(int in) {
-    	in %= 16;
-    	if(in < 0) {
-    		in += 16;
-    	}
-    	return in;
+    	return in & 0xf;
     }
 
     
     @Override
     public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed) {
+    	x /= 16;
+    	z /= 16;
     	int cr = radius / 16;
     	for(int i = -cr; i <= cr; i++)
         	for(int j = -cr; j <= cr; j++) {
-        		if(!allowed.contains(finder.getBiomeBlock(x, z))) {
+        		if(!allowed.contains(finder.getBiomeChunk(x + i, z + j))) {
         			return false;
         		}
         	}

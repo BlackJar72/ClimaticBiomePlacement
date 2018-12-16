@@ -15,6 +15,7 @@ public class ConfigHandler {
 	public static boolean writeList = true;
 	public static boolean rivers = true;
 	public static boolean rockyScrub = true;
+	public static boolean hasDT = false;
 	public static boolean useDT = false;
 
 	private static File dir;
@@ -75,6 +76,12 @@ public class ConfigHandler {
 		
 		rockyScrub = config.getBoolean("RockyScrub", "General", true, 
 						"If true scrub biomes will have cobble bolders.");
+		
+		hasDT = net.minecraftforge.fml.common.Loader.isModLoaded("dynamictrees");
+		
+		useDT = config.getBoolean("UseDynamicTress", "Compat", true, 
+						"If true this will use dynamic trees if dynamic tree is installed; \n"
+						+ "if dynamic trees is not installed this does nothing.") && hasDT;
 		
 		config.save();	// Saving it all
 	}

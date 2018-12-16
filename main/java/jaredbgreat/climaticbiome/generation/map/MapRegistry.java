@@ -302,8 +302,8 @@ public class MapRegistry {
 	 */
 	public Biome getBiomeChunk(int x, int z) {
 		return Biome.getBiome(getMapFromChunkCoord(x, z)
-				.getBiome(x - (256 * chunkToMap(x)), 
-						  z - (256 * chunkToMap(z))));
+				.getBiome(modRight(x + 128, 256), 
+						  modRight(z + 128, 256)));
 	}
 	
 	
@@ -568,7 +568,7 @@ public class MapRegistry {
 	 * @return
 	 */
     public Biome[] getChunkBiomeGen(int x, int z) {
-    	Biome[] out = new Biome[256];
+    	Biome[] out = new Biome[16];
     	int[] tiles = new int[9];
     	BiomeBasin[][] basins = new BiomeBasin[3][3];
     	for(int i = 0; i < tiles.length; i++) {
@@ -578,13 +578,13 @@ public class MapRegistry {
     		int z2 = z + z1;    		 		
     		tiles[i] = getGenIDChunk(x2, z2);
     		basins[i / 3][i % 3] = new BiomeBasin(
-    				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
-    				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
+    				(x1 * 4) + (chunkNoise.intFor(x2, z2, 10) % 4),
+    				(z1 * 4) + (chunkNoise.intFor(x2, z2, 11) % 4),
     				tiles[i], 1.0 + chunkNoise.doubleFor(x2, z2, 12));    				
     	}
-    	for(int i = 0; i < 16; i++)
-    		for(int j = 0; j < 16; j++) {
-    			out[(j * 16) + i] = getFullBiome(BiomeBasin.summateEffect(basins, 16 + i, 16 + j));
+    	for(int i = 0; i < 4; i++)
+    		for(int j = 0; j < 4; j++) {
+    			out[(j * 4) + i] = getFullBiome(BiomeBasin.summateEffect(basins, 4 + i, 4 + j));
     		}
     	return out;
     }
