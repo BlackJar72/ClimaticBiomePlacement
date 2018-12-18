@@ -43,16 +43,14 @@ public class DataBasePop implements IBiomeDataBasePopulator {
 		db.setChanceSelector(ModBiomes.warmForestHills, (rnd, spc, rad) -> EnumChance.OK, Operation.REPLACE);		
 		db.setSpeciesSelector(ModBiomes.tropicalForest,
 							  new RandomSpeciesSelector().add(acacia, 4).add(oak, 2)
-							  // Since I don't have mini-jungle trees yet
-							  .add(DynamicTreeHelper.floridaPine, 1), 
+							  /*.add(jungle, 1)*/, 
 							  Operation.REPLACE);
 		db.setCancelVanillaTreeGen(ModBiomes.tropicalForest, true);
 		db.setDensitySelector(ModBiomes.tropicalForest, (rnd, nd) -> nd * 1.0f, Operation.REPLACE);
 		db.setChanceSelector(ModBiomes.tropicalForest, (rnd, spc, rad) -> EnumChance.OK, Operation.REPLACE);
 		db.setSpeciesSelector(ModBiomes.tropicalForestHills, 
     			  			  new RandomSpeciesSelector().add(acacia, 4).add(oak, 2)
-							  // Since I don't have mini-jungle trees yet
-    			  			  .add(DynamicTreeHelper.floridaPine, 1), 
+    			  			  /*.add(jungle, 1)*/, 
     			  			  Operation.REPLACE);
 		db.setCancelVanillaTreeGen(ModBiomes.tropicalForestHills, true);
 		db.setDensitySelector(ModBiomes.tropicalForestHills, (rnd, nd) -> nd * 1.0f, Operation.REPLACE);

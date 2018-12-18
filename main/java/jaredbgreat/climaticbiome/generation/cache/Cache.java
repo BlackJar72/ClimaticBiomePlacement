@@ -218,7 +218,7 @@ public class Cache <T extends ICachable> {
      */
     private void grow() {
         ICachable[] old = data;
-        ICachable[] data = new ICachable[(old.length * 3) / 2];
+        data = new ICachable[(old.length * 3) / 2];
         for(int i = 0; i < old.length; i++) {
             if(old[i] != null) {
                 rebucket(old[i]);
@@ -234,7 +234,7 @@ public class Cache <T extends ICachable> {
      */
     private void shrink() {
         ICachable[] old = data;
-        ICachable[] data = new ICachable[old.length / 2];
+        data = new ICachable[old.length / 2];
         for(int i = 0; i < old.length; i++) {
             if(old[i] != null) {
                 rebucket(old[i]);

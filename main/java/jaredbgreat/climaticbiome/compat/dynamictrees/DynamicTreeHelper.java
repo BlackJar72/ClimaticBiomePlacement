@@ -2,6 +2,7 @@ package jaredbgreat.climaticbiome.compat.dynamictrees;
 
 import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.Info;
+import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
 import jaredbgreat.climaticbiome.compat.dynamictrees.trees.SpeciesSmallJungle;
 import jaredbgreat.climaticbiome.compat.dynamictrees.trees.TreePine;
 import jaredbgreat.climaticbiome.util.BlockRegistrar;
@@ -17,7 +18,11 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -35,6 +40,7 @@ import com.ferreusveritas.dynamictrees.blocks.LeavesPaging;
 import com.ferreusveritas.dynamictrees.blocks.LeavesProperties;
 import com.ferreusveritas.dynamictrees.trees.Species;
 import com.ferreusveritas.dynamictrees.trees.TreeFamily;
+import com.ferreusveritas.dynamictrees.trees.TreeFamily.ISpeciesLocationOverride;
 
 
 @Mod.EventBusSubscriber(modid="climaticbiomesjbg")
@@ -53,10 +59,6 @@ public class DynamicTreeHelper {
 		if(ConfigHandler.useDT) {
 			IForgeRegistry<Block> blockRegistry = GameRegistry.findRegistry(Block.class);
 			IForgeRegistry<Item> itemRegistry = GameRegistry.findRegistry(Item.class);
-			
-			jungle = TreeRegistry.findSpecies("jungle").getFamily();
-			smallJungle = new SpeciesSmallJungle(jungle);
-			//jungle.addSpeciesLocationOverride(ISpeciesLocationOverride);
 			
 			pineLeavesProperties 
 				= new LeavesProperties(BlockRegistrar.blockPineNeedles.getDefaultState());
@@ -79,6 +81,22 @@ public class DynamicTreeHelper {
 	public static void init() {
 		if(ConfigHandler.useDT) {
 			floridaPine = TreeRegistry.findSpecies(new ResourceLocation(Info.ID, "pine"));
+			
+			/*jungle = TreeRegistry.findSpecies("jungle").getFamily();
+			smallJungle = new SpeciesSmallJungle(jungle);
+			Species.REGISTRY.register(smallJungle);
+			jungle.addSpeciesLocationOverride(new ISpeciesLocationOverride() {
+				@Override
+				public Species getSpeciesForLocation(World world, BlockPos pos) {
+					Biome biome = world.getBiome(pos);
+					if(biome == ModBiomes.tropicalForest 
+							|| biome == ModBiomes.tropicalForestHills 
+							|| !BiomeDictionary.hasType(biome, Type.JUNGLE)) {
+						return smallJungle;
+					} else {
+						return jungle.getCommonSpecies();
+					}
+				}});*/
 		}
 	}
 	
@@ -86,11 +104,6 @@ public class DynamicTreeHelper {
 	@SubscribeEvent
     public static void registerDataBasePopulators(final BiomeDataBasePopulatorRegistryEvent event) {
         event.register(new DataBasePop());
-        System.out.println();
-        System.out.println("****************************");
-        System.out.println("Caught event: " + event);
-        System.out.println("****************************");
-        System.out.println();
     }
 	
 	

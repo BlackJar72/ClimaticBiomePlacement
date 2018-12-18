@@ -729,6 +729,11 @@ public class MapRegistry {
     		}    	
     	return in;
     }
+
+
+	public void cleanCaches() {
+		data.cleanup();		
+	}
 	
 
 }

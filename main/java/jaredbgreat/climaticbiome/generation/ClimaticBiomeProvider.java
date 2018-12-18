@@ -124,7 +124,7 @@ public class ClimaticBiomeProvider extends BiomeProvider {
     
     public void cleanupCache() {
         super.cleanupCache();
-        //finder.cleanCaches();
+        finder.cleanCaches();
     }
 
 

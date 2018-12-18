@@ -242,6 +242,20 @@ public class RegionMap extends AbstractCachable {
     }
     
     
+    public int hashCode() {
+    	return getCoords().hashCode();
+    }
+    
+    
+    public boolean equals(Object other) {
+    	if(other instanceof RegionMap) {
+    		return getCoords().equals(((RegionMap)other).getCoords());
+    	}
+    	return false;
+    	
+    }
+    
+    
     
     
 }
