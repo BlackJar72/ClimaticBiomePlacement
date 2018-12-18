@@ -1,7 +1,6 @@
 package jaredbgreat.climaticbiome.proxy;
 
 import jaredbgreat.climaticbiome.ConfigHandler;
-import jaredbgreat.climaticbiome.compat.dynamictrees.DynamicTreeHelper;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockLeaves;
@@ -66,14 +65,14 @@ public class ClientProxy implements IProxy {
 	@Override
 	public void preInit() {
     	if(ConfigHandler.useDT) {
-    		DynamicTreeHelper.clientPreInit();
+    		//DynamicTreeHelper.clientPreInit();
     	}
 	}
 
 	@Override
 	public void init() {
     	if(ConfigHandler.useDT) {
-    		DynamicTreeHelper.clientInit();
+    		//DynamicTreeHelper.clientInit();
     	}
 	}
 

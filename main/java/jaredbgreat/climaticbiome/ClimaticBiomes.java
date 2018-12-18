@@ -1,7 +1,6 @@
 package jaredbgreat.climaticbiome;
 
 import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
-import jaredbgreat.climaticbiome.compat.dynamictrees.DynamicTreeHelper;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
 import jaredbgreat.climaticbiome.proxy.IProxy;
@@ -48,7 +47,7 @@ public class ClimaticBiomes {
     	worldType = new ClimaticWorldType();
     	ModBiomes.createBiomes();
     	if(ConfigHandler.useDT) {
-    		DynamicTreeHelper.preInit();
+    		//DynamicTreeHelper.preInit();
     	}
     	proxy.preInit();
     }
@@ -57,7 +56,7 @@ public class ClimaticBiomes {
     @EventHandler
     public void init(FMLInitializationEvent event) { 	
     	if(ConfigHandler.hasDT) {
-    		DynamicTreeHelper.init();
+    		//DynamicTreeHelper.init();
     	}
     	proxy.init();
     	ItemRegistrar.addRecipes();
