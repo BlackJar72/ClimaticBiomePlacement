@@ -118,7 +118,7 @@ public class BiomeParser {
 			return new SeedDoubleBiome(a, bound, b);
 		}
 	}
-		
+
 	
 	private final class TempParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {

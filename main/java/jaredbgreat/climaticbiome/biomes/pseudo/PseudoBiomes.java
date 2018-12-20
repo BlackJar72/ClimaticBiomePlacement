@@ -1,6 +1,8 @@
 package jaredbgreat.climaticbiome.biomes.pseudo;
 
+import jaredbgreat.climaticbiome.biomes.SubBiome;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 
 public class PseudoBiomes {
@@ -23,6 +25,17 @@ public class PseudoBiomes {
 	public static void registerBiomes() {
 		SubBiomeRegistry reg = SubBiomeRegistry.getSubBiomeRegistry();
 		reg.add(deepRiver);
+	}
+	
+	
+	public static void addSubBiome(ResourceLocation vanillaRes, int id,
+				  float baseHeight, float heightVar) {
+		Biome vanilla = Biome.REGISTRY.getObject(vanillaRes);
+		SubBiome biome = new SubBiome(vanilla, id,  
+				new Biome.BiomeProperties(vanillaRes.getResourcePath() + id)
+					.setBaseHeight(baseHeight)
+					.setHeightVariation(heightVar));
+		SubBiomeRegistry.getSubBiomeRegistry().add(biome);
 	}
 	
 
