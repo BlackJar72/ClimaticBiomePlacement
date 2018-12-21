@@ -164,6 +164,7 @@ public class MapMaker {
         rm.build();
         makeBiomes(premap, 256, random.getRandomAt(coords.getX(), coords.getZ(), 3));
         for(int i = 0; i < premap.length; i++) {
+        	//makeBeach(premap[i]);
         	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
         }
     }
@@ -341,6 +342,29 @@ public class MapMaker {
                 sum += noise[i][j];
             }
         return sum;
+    }
+    
+    
+    private boolean notLand(ChunkTile t) {
+        return t.rlBiome == 0;
+    }
+    
+    
+    void makeBeach(ChunkTile t) {
+        if(notLand(t) || (t.getX() < 1) || (t.getX() > 254)
+                      || (t.getZ() < 1) || (t.getZ() > 254)) return;
+        int oceans = 0;
+        for(int i = -1; i < 2; i++) 
+            for(int j = -1; j < 2; j++) {
+                ChunkTile x = premap[((t.getX() + i) * RSIZE) + t.getZ() + j];
+                if(notLand(x)) {
+                    oceans++;
+                }
+            }
+        if(oceans < 3) return;
+        t.beach = t.getNoise() < (oceans - (2 * Math.max(oceans - 4, 0)) + 4 
+                - ((t.getBiomeSeed() >> 16) & 1)
+                + ((t.getBiomeSeed() >> 15) & 1));
     }
     
     

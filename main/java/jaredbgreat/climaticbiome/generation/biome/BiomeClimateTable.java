@@ -1,5 +1,9 @@
 package jaredbgreat.climaticbiome.generation.biome;
 
+import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetAlpine;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetChaparral;
@@ -128,7 +132,13 @@ public class BiomeClimateTable implements IBiomeSpecifier {
             }
             tile.nextBiomeSeed();
         }
-		return table[(tile.getTemp() * 10) + tile.getWet()].getBiome(tile);
+		int out = table[(tile.getTemp() * 10) + tile.getWet()].getBiome(tile);
+        if(tile.isIsBeach() 
+        		&& !BiomeDictionary.hasType(Biome.getBiome(out & 0xff), Type.HILLS)
+        		&& !BiomeDictionary.hasType(Biome.getBiome(out & 0xff), Type.MOUNTAIN)) {
+        	return Biome.getIdForBiome(Biomes.BEACH);
+        }
+		return out;
 	}
 
 

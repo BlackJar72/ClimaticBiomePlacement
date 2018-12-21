@@ -9,7 +9,7 @@
   "updateUrl": "",
   "authorList": ["JaredBGreat (Jared Blackburn)"],
   "credits": "Ferreusveritas and Mangoose, for making Dynamic Trees and helping me add Compatibility",
-  "logoFile": "",
+  "logoFile": "Icon.png",
   "screenshots": [],
   "dependencies": []
 }
