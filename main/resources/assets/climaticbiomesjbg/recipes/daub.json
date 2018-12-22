@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:dirt",
+            "data": 0
+        },
+        {
+            "item": "minecraft:stick"
+        },
+        {
+            "item": "minecraft:clay_ball"
+        },
+        {
+            "item": "minecraft:wheat"
+        }
+    ],
+    "result": {
+        "item": "climaticbiomesjbg:block_daub",        
+        "count": 4,
+        "data": 0
+        
+    }
+}

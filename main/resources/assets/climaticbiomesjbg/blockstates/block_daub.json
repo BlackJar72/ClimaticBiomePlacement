@@ -1,5 +1,7 @@
 {
     "variants": {
-        "normal": { "model": "climaticbiomesjbg:block_daub" }
+        "variant=stucco": { "model": "climaticbiomesjbg:block_daub" },        
+        "variant=brick": { "model": "climaticbiomesjbg:block_daub_brick" },        
+        "variant=small_brick": { "model": "climaticbiomesjbg:block_daub_small_brick" }
     }
 }

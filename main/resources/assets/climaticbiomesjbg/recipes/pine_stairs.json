@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "climaticbiomesjbg:wooden_stairs",
+  "group": "minecraft:wooden_stairs",
   "pattern": [
     "#  ",
     "## ",

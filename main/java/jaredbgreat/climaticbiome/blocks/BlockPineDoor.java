@@ -25,7 +25,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockPineDoor extends BlockDoor implements IHaveModel {
-	private Item item;
+	private final Item item;
 
 	public BlockPineDoor(String name) {
 		super(Material.WOOD);
@@ -40,7 +40,7 @@ public class BlockPineDoor extends BlockDoor implements IHaveModel {
 				.withProperty(HINGE, BlockDoor.EnumHingePosition.LEFT)
 				.withProperty(POWERED, Boolean.valueOf(false))
 				.withProperty(HALF, BlockDoor.EnumDoorHalf.LOWER));
-		Item item = new ItemDoor(this);
+		item = new ItemDoor(this);
 		item.setRegistryName(this.getRegistryName());
 		item.setUnlocalizedName(this.getUnlocalizedName());
 		BlockRegistrar.addBlock(this);

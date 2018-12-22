@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "climaticbiomesjbg:wooden_slab",
+  "group": "minecraft:wooden_slab",
   "pattern": [
     "###"
   ],

@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "climaticbiomesjbg:wooden_fence",
+  "group": "minecraft:wooden_fence",
   "pattern": [
     "W#W",
     "W#W"

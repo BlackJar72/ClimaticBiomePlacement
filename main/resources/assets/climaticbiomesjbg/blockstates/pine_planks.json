@@ -1,5 +1,6 @@
 {
     "variants": {
-        "normal": { "model": "climaticbiomesjbg:pine_planks" }
+        "variant=short": { "model": "climaticbiomesjbg:pine_planks" },
+        "variant=long": {"model": "climaticbiomesjbg:pine_planks_long"}
     }
 }

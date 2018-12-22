@@ -1,6 +1,7 @@
 package jaredbgreat.climaticbiome.util;
 
 import jaredbgreat.climaticbiome.biomes.feature.GenPine;
+import jaredbgreat.climaticbiome.blocks.BlockDaub;
 import jaredbgreat.climaticbiome.blocks.BlockPineDoor;
 import jaredbgreat.climaticbiome.blocks.BlockPineFence;
 import jaredbgreat.climaticbiome.blocks.BlockPineGate;
@@ -18,9 +19,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
@@ -42,7 +41,6 @@ public class BlockRegistrar {
 	
 	
 	public static void initBlocks() {
-		//blockDaub = new BlockDaub();
 		blockPineLog = new BlockPineLog();
 		blockPineNeedles = new BlockPineNeedles();
 		blockPineSappling = new BlockPineSapling("pine_sapling", new GenPine());
@@ -63,14 +61,6 @@ public class BlockRegistrar {
 		IForgeRegistry<Block> regs = GameRegistry.findRegistry(Block.class);
 		for(Block block : BLOCKS) {
 			regs.register(block);
-		}
-	}
-	
-	
-	@SubscribeEvent
-	public static void registerModels(ModelRegistryEvent event) {
-		for(Block block : BLOCKS) {
-			
 		}
 	}
 	
