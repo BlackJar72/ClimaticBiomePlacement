@@ -1,7 +1,6 @@
 package jaredbgreat.climaticbiome.util;
 
 import jaredbgreat.climaticbiome.biomes.feature.GenPine;
-import jaredbgreat.climaticbiome.blocks.BlockDaub;
 import jaredbgreat.climaticbiome.blocks.BlockPineDoor;
 import jaredbgreat.climaticbiome.blocks.BlockPineFence;
 import jaredbgreat.climaticbiome.blocks.BlockPineGate;
