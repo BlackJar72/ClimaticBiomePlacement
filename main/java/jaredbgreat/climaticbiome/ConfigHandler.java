@@ -17,6 +17,7 @@ public class ConfigHandler {
 	public static boolean rockyScrub = true;
 	public static boolean hasDT = false;
 	public static boolean useDT = false;
+	public static boolean addIslands = true;
 
 	private static File dir;
 	private static File file;
@@ -76,6 +77,12 @@ public class ConfigHandler {
 		
 		rockyScrub = config.getBoolean("RockyScrub", "General", true, 
 						"If true scrub biomes will have cobble bolders.");
+		
+		addIslands = config.getBoolean("AddIslands", "General", true, 
+						"If true extra islands will be generated in the ocean \n "
+						+ "for reason I don't understand these islands tend to be \n "
+						+ "chunky and squarish, but are interesting to find. \n "
+						+ "Since they can generate by land they may no be true isalnds.");
 		
 		config.save();	// Saving it all
 	}

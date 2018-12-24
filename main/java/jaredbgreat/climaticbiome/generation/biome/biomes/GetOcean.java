@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
@@ -95,11 +96,11 @@ public class GetOcean implements IBiomeSpecifier {
 					}
 				}
 				return 0;				
-			} else if((seed & 1) == 0) {
+			} else if(ConfigHandler.addIslands && ((seed & 1) == 0)) {
 				if(noise > (4 + (seed % 3))) {
 					return islands1.getBiome(tile.nextBiomeSeed());
 				}
-			} else {
+			} else if(ConfigHandler.addIslands) {
 				if(noise > (2 + (seed % 3))) {
 					return islands2.getBiome(tile);
 				}				
