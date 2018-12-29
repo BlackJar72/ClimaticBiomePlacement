@@ -4,6 +4,7 @@ import jaredbgreat.climaticbiome.biomes.SubBiome;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class PseudoBiomes {
 	public static BiomeDeepRiver deepRiver;	
@@ -31,7 +32,7 @@ public class PseudoBiomes {
 	
 	public static void addSubBiome(ResourceLocation vanillaRes, int id,
 				  float baseHeight, float heightVar) {
-		Biome vanilla = Biome.REGISTRY.getObject(vanillaRes);
+		Biome vanilla = ForgeRegistries.BIOMES.getValue(vanillaRes);
 		SubBiome biome = new SubBiome(vanilla, id,  
 				new Biome.BiomeProperties(vanillaRes.getResourcePath() + id)
 					.setBaseHeight(baseHeight)

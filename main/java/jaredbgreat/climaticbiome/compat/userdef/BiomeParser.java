@@ -99,11 +99,10 @@ public class BiomeParser {
 	
 	private final class NoiseParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			StringTokenizer tokens = new StringTokenizer(in, ", ");
-			Biome a = (Biome)biomeReg.getValue(new ResourceLocation(tokens.nextToken()));
-			int bound = Integer.parseInt(tokens.nextToken());
-			Biome b = (Biome)biomeReg.getValue(new ResourceLocation(tokens.nextToken()));		
-			return new NoiseDoubleBiome(a, bound, b);
+			StringTokenizer tokens = new StringTokenizer(in, ", ");		
+			return new NoiseDoubleBiome(tokens.nextToken(), 
+					   Integer.parseInt(tokens.nextToken()), 
+					   tokens.nextToken(), biomeReg);
 		}
 	}
 	
@@ -111,51 +110,53 @@ public class BiomeParser {
 	
 	private final class SeedParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			StringTokenizer tokens = new StringTokenizer(in, ", ");
-			Biome a = (Biome)biomeReg.getValue(new ResourceLocation(tokens.nextToken()));
-			int bound = Integer.parseInt(tokens.nextToken());
-			Biome b = (Biome)biomeReg.getValue(new ResourceLocation(tokens.nextToken()));		
-			return new SeedDoubleBiome(a, bound, b);
+			StringTokenizer tokens = new StringTokenizer(in, ", ");		
+			return new SeedDoubleBiome(tokens.nextToken(), 
+					   Integer.parseInt(tokens.nextToken()), 
+					   tokens.nextToken(), biomeReg);
 		}
 	}
 
 	
 	private final class TempParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			StringTokenizer tokens = new StringTokenizer(in, ", ");
-			Biome a = (Biome)biomeReg.getValue(new ResourceLocation(tokens.nextToken()));
-			int bound = Integer.parseInt(tokens.nextToken());
-			Biome b = (Biome)biomeReg.getValue(new ResourceLocation(tokens.nextToken()));		
-			return new TempDoubleBiome(a, bound, b);
+			StringTokenizer tokens = new StringTokenizer(in, ", ");		
+			return new TempDoubleBiome(tokens.nextToken(), 
+					   Integer.parseInt(tokens.nextToken()), 
+					   tokens.nextToken(), biomeReg);
 		}
 	}
 	
 	
 	private final class TaigaParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			StringTokenizer tokens = new StringTokenizer(in, ", ");
-			Biome a = (Biome)biomeReg.getValue(new ResourceLocation(tokens.nextToken()));
-			Biome b = (Biome)biomeReg.getValue(new ResourceLocation(tokens.nextToken()));		
-			return new TaigaDoubleBiome(a, b);
+			StringTokenizer tokens = new StringTokenizer(in, ", ");	
+			return new TaigaDoubleBiome(tokens.nextToken(), 
+					   tokens.nextToken(), biomeReg);
 		}
 	}
 	
 	
 	private final class WetParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			StringTokenizer tokens = new StringTokenizer(in, ", ");
-			Biome a = (Biome)biomeReg.getValue(new ResourceLocation(tokens.nextToken()));
-			int bound = Integer.parseInt(tokens.nextToken());
-			Biome b = (Biome)biomeReg.getValue(new ResourceLocation(tokens.nextToken()));		
-			return new WetDoubleBiome(a, bound, b);
+			StringTokenizer tokens = new StringTokenizer(in, ", ");	
+			return new WetDoubleBiome(tokens.nextToken(), 
+					   Integer.parseInt(tokens.nextToken()), 
+					   tokens.nextToken(), biomeReg);
 		}		
 	}
 	
 	
 	private final class LeafParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			Biome b = (Biome)biomeReg.getValue(new ResourceLocation(in));		
-			return new LeafBiome(b);
+			StringTokenizer tokens = new StringTokenizer(in, ":");
+			if(tokens.countTokens() < 3) {
+				return new LeafBiome((Biome)biomeReg.getValue(new ResourceLocation(in)));
+			} else {
+				return new LeafBiome(Biome.getIdForBiome(((Biome)biomeReg.getValue(new 
+						ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))) 
+						+ (Integer.parseInt(tokens.nextToken()) << 8));
+			}
 		}
 	}	
 	

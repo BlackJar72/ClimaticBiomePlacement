@@ -32,6 +32,8 @@ public class Externalizer {
 	private static final   String baseLocation = "/assets/climaticbiomesjbg/BiomeLists/";
 	private static final   String outDir       = "BiomeConfig";
 	private static final   String readMeFile   = "README.txt";
+	private static final   String varDir       = "BiomeVariants";
+	private static final   String varFileName  = "variants.cfg";
 	
 	private static final String[] blists = {
 		"AplineDry.cfg",
@@ -122,7 +124,16 @@ public class Externalizer {
 					copyBiomeList(file, sub, fname);					
 				}
 			}
-		}		
+		}
+		File dir = new File(listDir + File.separator + varDir + File.separator);
+		if(!dir.exists()) {
+			dir.mkdirs();
+		}
+		File file = new File(dir + File.separator + varFileName);
+		if(!file.exists()) {
+			System.out.println("Creating file " + file);
+			copyBiomeList(file, varDir, varFileName);					
+		}
 	}
 	
 	

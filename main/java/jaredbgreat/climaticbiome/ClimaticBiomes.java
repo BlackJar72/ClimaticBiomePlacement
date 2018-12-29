@@ -2,6 +2,7 @@ package jaredbgreat.climaticbiome;
 
 import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
+import jaredbgreat.climaticbiome.compat.userdef.VariantParser;
 import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
 import jaredbgreat.climaticbiome.proxy.IProxy;
 import jaredbgreat.climaticbiome.util.BlockRegistrar;
@@ -76,6 +77,7 @@ public class ClimaticBiomes {
     	DefReader.init(ForgeRegistries.BIOMES, confdir);
     	Externalizer extern = new Externalizer();
     	extern.copyOut(confdir);
+    	VariantParser.parse(confdir);
     	ItemRegistrar.oreDict();
     	if(ConfigHandler.moreMansion) {
 	    	for(Biome biome : ForgeRegistries.BIOMES.getValues()) {

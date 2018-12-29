@@ -7,6 +7,7 @@ import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.TempDoubleBiome;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.registries.IForgeRegistry;
 
 public class GetTaiga implements IBiomeSpecifier {
 	private static GetTaiga taiga;
@@ -24,7 +25,10 @@ public class GetTaiga implements IBiomeSpecifier {
 		}
 		public TaigaDoubleBiome(int a, int b) {
 			super(a, tbound, b);
-		}		
+		}
+		public TaigaDoubleBiome(String a, String b, IForgeRegistry biomeReg) {
+			super(a, tbound, b, biomeReg);
+		}	
 	}
 	
 	
