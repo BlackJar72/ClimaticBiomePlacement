@@ -25,6 +25,7 @@ public class PseudoBiomes {
 	public static void registerBiomes() {
 		SubBiomeRegistry reg = SubBiomeRegistry.getSubBiomeRegistry();
 		reg.add(deepRiver);
+		reg.add(deepFrozenRiver);
 	}
 	
 	

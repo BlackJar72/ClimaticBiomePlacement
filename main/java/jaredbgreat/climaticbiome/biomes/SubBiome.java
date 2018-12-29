@@ -8,6 +8,11 @@ public class SubBiome extends Biome {
 	public SubBiome(Biome parent, int sid, BiomeProperties properties) {
 		super(properties);
 		id = Biome.getIdForBiome(parent) | (sid << 8);
+//		System.out.println();
+//		System.out.println("***********************");
+//		System.out.println(parent.getBiomeName() + ":" + sid + " = " + getSubId());
+//		System.out.println("***********************");
+//		System.out.println();
 	}
 	
 	

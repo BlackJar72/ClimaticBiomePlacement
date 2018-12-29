@@ -546,6 +546,7 @@ public class MapRegistry {
 	
 	
 	public Biome getFullBiome(int id) {
+		//System.err.println("Biome ID: " + id);
 		Biome out;
 		if(id < 256) {
 			return Biome.getBiome(id, Biomes.DEFAULT);

@@ -1,5 +1,7 @@
 package jaredbgreat.climaticbiome.biomes;
 
+import java.util.logging.Logger;
+
 import jaredbgreat.climaticbiome.generation.cache.ICachable;
 
 public class SubBiomeRegistry {
@@ -79,14 +81,27 @@ public class SubBiomeRegistry {
         while(offset < data.length) {
             int slot = (bucket + offset) % data.length;
             if(data[slot] == null) {
+            	showError(id);
                 return null;
             } else if(data[slot].getSubId() == id) {
                 return data[slot];
             } else {
                 offset++;
             }
-        }        
+        } 
+    	showError(id);       
         return null;
+    }
+    
+    
+    private void showError(int id) {
+    	System.err.println();
+    	System.err.println("*******************************************");
+    	System.err.println("Returning NULL for subbiome id " + id);
+    	System.err.println("Your game is about to crash and this is why.");
+    	System.err.println("Subbiome " + id + " must be registeerd!" );
+    	System.err.println("*******************************************");
+    	System.err.println();    	
     }
     
     
