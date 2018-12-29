@@ -90,7 +90,7 @@ public class ClimaticBiomes {
     	} catch(UnsupportedOperationException e) {
     		Logger log = Logger.getLogger("Minecraft");
     		log.warning("[Climatic Biomes] Woodland Mansion genaraion cannot be modified!");
-    		log.warning("[Climatic Biomes] You will need a newer Forge (or Java?) version to for Mansion changes (Forge 1.12.2-14.23.5.2795 works)");
+    		log.warning("[Climatic Biomes] You might need a different version of Forge or Java (probably Java)");
     	}
     }
 
