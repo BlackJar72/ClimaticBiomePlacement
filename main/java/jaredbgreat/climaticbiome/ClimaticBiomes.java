@@ -10,6 +10,7 @@ import jaredbgreat.climaticbiome.util.Externalizer;
 import jaredbgreat.climaticbiome.util.ItemRegistrar;
 
 import java.io.File;
+import java.util.logging.Logger;
 
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.WoodlandMansion;
@@ -22,7 +23,6 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 
@@ -79,13 +79,18 @@ public class ClimaticBiomes {
     	extern.copyOut(confdir);
     	VariantParser.parse(confdir);
     	ItemRegistrar.oreDict();
-    	if(ConfigHandler.moreMansion) {
-	    	for(Biome biome : ForgeRegistries.BIOMES.getValues()) {
-	    		if(BiomeDictionary.hasType(biome, Type.FOREST) 
-	    				&& !WoodlandMansion.ALLOWED_BIOMES.contains(biome)) {
-	    			WoodlandMansion.ALLOWED_BIOMES.add(biome);
-	    		}
+    	try {
+	    	if(ConfigHandler.moreMansion) {
+		    	for(Biome biome : ForgeRegistries.BIOMES.getValues()) {
+		    		if(BiomeDictionary.hasType(biome, Type.FOREST) 
+		    				&& !WoodlandMansion.ALLOWED_BIOMES.contains(biome)) {
+		    		}
+		    	}
 	    	}
+    	} catch(UnsupportedOperationException e) {
+    		Logger log = Logger.getLogger("Minecraft");
+    		log.warning("[Climatic Biomes] Woodland Mansion genaraion cannot be modified!");
+    		log.warning("[Climatic Biomes] You will need a newer Forge (or Java?) version to for Mansion changes (Forge 1.12.2-14.23.5.2795 works)");
     	}
     }
 
