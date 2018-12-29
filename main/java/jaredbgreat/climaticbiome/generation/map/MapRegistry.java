@@ -551,7 +551,11 @@ public class MapRegistry {
 		if(id < 256) {
 			return Biome.getBiome(id, Biomes.DEFAULT);
 		} else {
-			return subbiomes.get(id);
+			out = subbiomes.get(id);
+			if(out == null) {
+				out = Biome.getBiome(id & 0xff, Biomes.DEFAULT);
+			}
+			return out;
 		}
 	}
 	

@@ -98,7 +98,6 @@ public class SubBiomeRegistry {
     	System.err.println();
     	System.err.println("*******************************************");
     	System.err.println("Returning NULL for subbiome id " + id);
-    	System.err.println("Your game is about to crash and this is why.");
     	System.err.println("Subbiome " + id + " must be registeerd!" );
     	System.err.println("*******************************************");
     	System.err.println();    	
