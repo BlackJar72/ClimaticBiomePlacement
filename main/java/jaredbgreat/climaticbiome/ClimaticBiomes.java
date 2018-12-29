@@ -10,6 +10,10 @@ import jaredbgreat.climaticbiome.util.ItemRegistrar;
 
 import java.io.File;
 
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.structure.WoodlandMansion;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -17,6 +21,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 
@@ -72,6 +77,14 @@ public class ClimaticBiomes {
     	Externalizer extern = new Externalizer();
     	extern.copyOut(confdir);
     	ItemRegistrar.oreDict();
+    	if(ConfigHandler.moreMansion) {
+	    	for(Biome biome : ForgeRegistries.BIOMES.getValues()) {
+	    		if(BiomeDictionary.hasType(biome, Type.FOREST) 
+	    				&& !WoodlandMansion.ALLOWED_BIOMES.contains(biome)) {
+	    			WoodlandMansion.ALLOWED_BIOMES.add(biome);
+	    		}
+	    	}
+    	}
     }
 
 }

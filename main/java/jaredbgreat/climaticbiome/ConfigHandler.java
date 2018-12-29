@@ -18,6 +18,7 @@ public class ConfigHandler {
 	public static boolean hasDT = false;
 	public static boolean useDT = false;
 	public static boolean addIslands = true;
+	public static boolean moreMansion = true;
 
 	private static File dir;
 	private static File file;
@@ -83,6 +84,11 @@ public class ConfigHandler {
 						+ "for reason I don't understand these islands tend to be \n "
 						+ "chunky and squarish, but are interesting to find. \n "
 						+ "Since they can generate by land they may no be true isalnds.");
+		
+		moreMansion = config.getBoolean("MoreMansion", "General", true, 
+						"If true woodland mansion will appear in all forest types; \n"
+						+ " this fits the mods theme and eliminates a major lag spike but \n"
+						+ " will effect all world types (even vanilla).");
 		
 		config.save();	// Saving it all
 	}
