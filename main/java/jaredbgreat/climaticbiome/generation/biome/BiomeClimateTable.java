@@ -6,6 +6,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetAlpine;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetBeach;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetChaparral;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetColdPlains;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetCoolForest;
@@ -68,6 +69,7 @@ public class BiomeClimateTable implements IBiomeSpecifier {
     IBiomeSpecifier GRASSb;
     IBiomeSpecifier PARKb;
     IBiomeSpecifier RIVER;
+    GetBeach        BEACH;
 	
 	/**
 	 * Create a table for looking up biomes based on temperature 
@@ -122,7 +124,6 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 			return OCEAN.getBiome(tile);
 		}
 		if(tile.isRiver()) {
-			//System.out.println("Generating a RIVER!!!");
 			return RIVER.getBiome(tile);
 		}
         if(tile.getTemp() > 4 && ((tile.getWet() - tile.getVal()) > (tile.getNoise() - 1))) {
@@ -133,10 +134,12 @@ public class BiomeClimateTable implements IBiomeSpecifier {
             tile.nextBiomeSeed();
         }
 		int out = table[(tile.getTemp() * 10) + tile.getWet()].getBiome(tile);
-        if(tile.isIsBeach() 
-        		&& !BiomeDictionary.hasType(Biome.getBiome(out & 0xff), Type.HILLS)
-        		&& !BiomeDictionary.hasType(Biome.getBiome(out & 0xff), Type.MOUNTAIN)) {
-        	return Biome.getIdForBiome(Biomes.BEACH);
+        if(tile.isIsBeach()) {
+        	if(BiomeDictionary.hasType(Biome.getBiome(out & 0xff), Type.HILLS)
+        	   || BiomeDictionary.hasType(Biome.getBiome(out & 0xff), Type.MOUNTAIN)) {
+        		return BEACH.getHighBiome(tile);
+        	}
+        	return BEACH.getBiome(tile);
         }
 		return out;
 	}
@@ -174,6 +177,7 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 	    GRASSb = GetCoolPlains.getPlains();
 	    PARKb = GetCoolPark.getPark();
 	    RIVER = GetRiver.getRiver();
+	    BEACH = GetBeach.getBeach();
 	    // TODO: Logic to determine which table to create,
 	    if(ConfigHandler.useBoP || ConfigHandler.useBoPTable) {
 	    	makeModdedTable();

@@ -164,7 +164,14 @@ public class MapMaker {
         rm.build();
         makeBiomes(premap, 256, random.getRandomAt(coords.getX(), coords.getZ(), 3));
         for(int i = 0; i < premap.length; i++) {
-        	//makeBeach(premap[i]);
+        	makeBeach(premap[i]);
+        	//datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
+        }
+        for(int i = 0; i < premap.length; i++) {
+        	growBeach1(premap[i]);
+        }
+        for(int i = 0; i < premap.length; i++) {
+        	growBeach2(premap[i]);
         	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
         }
     }
@@ -362,9 +369,32 @@ public class MapMaker {
                 }
             }
         if(oceans < 3) return;
-        t.beach = t.getNoise() < (oceans - (2 * Math.max(oceans - 4, 0)) + 4 
+        t.beach = t.getNoise() < (oceans - (2 * Math.max(oceans - 5, 0)) + 5 
                 - ((t.getBiomeSeed() >> 16) & 1)
                 + ((t.getBiomeSeed() >> 15) & 1));
+    }
+    
+    
+    void growBeach1(ChunkTile t) {
+        if(!notLand(t) || (t.getX() < 1) || (t.getX() > 254)
+                       || (t.getZ() < 1) || (t.getZ() > 254)) return;
+        int beaches = 0;
+        for(int i = -1; i < 2; i++) 
+            for(int j = -1; j < 2; j++) {
+                ChunkTile x = premap[((t.getX() + i) * RSIZE) + t.getZ() + j];
+                if(!notLand(x) && x.beach) {
+                    beaches++;
+                }
+            }
+        if(beaches < 1) return;
+        t.beach = t.getNoise() < (beaches + 4 
+                - ((t.getBiomeSeed() >> 14) & 1)
+                + ((t.getBiomeSeed() >> 13) & 1));
+    }
+    
+    
+    void growBeach2(ChunkTile t) {
+    	if(t.beach) t.rlBiome = 1;
     }
     
     

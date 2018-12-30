@@ -86,9 +86,10 @@ public class ConfigHandler {
 						+ "Since they can generate by land they may no be true isalnds.");
 		
 		moreMansion = config.getBoolean("MoreMansion", "General", true, 
-						"If true woodland mansion will appear in all forest types; \n"
+						"If true woodland mansion might appear in all forest types; \n"
 						+ " this fits the mods theme and eliminates a major lag spike but \n"
-						+ " will effect all world types (even vanilla).");
+						+ " will effect all world types (even vanilla); depending on Forge / \n"
+						+ " Java / OS / unknown factors it might not work.");
 		
 		config.save();	// Saving it all
 	}

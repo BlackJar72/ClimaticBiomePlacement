@@ -162,13 +162,6 @@ public class River {
         map.getTile(t.x + 1, t.z).beRiver();
         map.getTile(t.x + 1, t.z + 1).beRiver();
         map.getTile(t.x, t.z + 1).beRiver();
-        /*//MAYBE...!
-        map.getTile(t.x - 1, t.z).beRiver();
-        map.getTile(t.x - 1, t.z - 1).beRiver();
-        map.getTile(t.x, t.z - 1).beRiver();
-        map.getTile(t.x + 1, t.z - 1).beRiver();
-        map.getTile(t.x - 1, t.z + 1).beRiver();
-        */
     }
     
 }

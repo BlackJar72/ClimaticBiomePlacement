@@ -82,44 +82,6 @@ public class GetOcean implements IBiomeSpecifier {
 		//        This means adding ice noise to the main map.
 		int iceNoise = tile.getNoise();
 		tile.nextBiomeSeed();
-		if(((seed % 5) == 0) && notNearEdge(tile)) {
-			int noise = tile.getNoise();
-			if((seed % 31) == 0) {
-				if((tile.getTemp() > 9) && (tile.getTemp() < 19)
-						                && (tile.getWet() > 3)  
-						                && (tile.getVal() < 4)) {
-					if(noise < 5) {
-						return 14;
-					}
-					if(noise < 7) {
-						return 15;
-					}
-				}
-				return 0;				
-			} else if(ConfigHandler.addIslands && ((seed & 1) == 0)) {
-				if(noise > (4 + (seed % 3))) {
-					return islands1.getBiome(tile.nextBiomeSeed());
-				}
-			} else if(ConfigHandler.addIslands) {
-				if(noise > (2 + (seed % 3))) {
-					return islands2.getBiome(tile);
-				}				
-			}
-	        if(((iceNoise / 2) - temp) > -1) {
-	        	return frozen.getBiome(tile);
-	        }
-        	if(temp < 6) {
-        		return cold.getBiome(tile);
-        	} 
-        	if(temp < 12) {
-        		return cool.getBiome(tile);        		
-        	} 
-        	if(temp < 18) {
-        		return warm.getBiome(tile);
-        	}
-        	return hot.getBiome(tile);
-        
-		}
         if(((iceNoise / 2) - temp) > -1) {
         	if(tile.getVal() < 2) {
         		return dfrozen.getBiome(tile);        		
@@ -127,6 +89,45 @@ public class GetOcean implements IBiomeSpecifier {
         	return frozen.getBiome(tile);
         }
         if((tile.getVal()) < 3) {
+
+    		if(((seed % 5) == 0) && notNearEdge(tile)) {
+    			int noise = tile.getNoise();
+    			if((seed % 31) == 0) {
+    				if((tile.getTemp() > 9) && (tile.getTemp() < 19)
+    						                && (tile.getWet() > 3)  
+    						                && (tile.getVal() < 4)) {
+    					if(noise < 5) {
+    						return 14;
+    					}
+    					if(noise < 7) {
+    						return 15;
+    					}
+    				}
+    				return 0;				
+    			} else if(ConfigHandler.addIslands && ((seed & 1) == 0)) {
+    				if(noise > (4 + (seed % 3))) {
+    					return islands1.getBiome(tile.nextBiomeSeed());
+    				}
+    			} else if(ConfigHandler.addIslands) {
+    				if(noise > (2 + (seed % 3))) {
+    					return islands2.getBiome(tile);
+    				}				
+    			}
+    	        if(((iceNoise / 2) - temp) > -1) {
+    	        	return frozen.getBiome(tile);
+    	        }
+            	if(temp < 6) {
+            		return cold.getBiome(tile);
+            	} 
+            	if(temp < 12) {
+            		return cool.getBiome(tile);        		
+            	} 
+            	if(temp < 18) {
+            		return warm.getBiome(tile);
+            	}
+            	return hot.getBiome(tile);
+            
+    		}
         	if(temp < 7) {
         		return dcold.getBiome(tile);
         	} 

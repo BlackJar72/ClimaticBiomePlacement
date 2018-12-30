@@ -33,7 +33,7 @@ public class GetTaiga implements IBiomeSpecifier {
 	
 	
 	public void init() {
-		if(ConfigHandler.useBoP) { // FIXME: Use something more generic, not BoP specific
+		if(ConfigHandler.useBoP || ConfigHandler.useBoPTable) {
 			tbound = 6;
 		} else {
 			tbound = 7;

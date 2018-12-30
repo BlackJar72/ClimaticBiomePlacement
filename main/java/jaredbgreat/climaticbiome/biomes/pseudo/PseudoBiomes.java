@@ -8,7 +8,8 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class PseudoBiomes {
 	public static BiomeDeepRiver deepRiver;	
-	public static BiomeDeepRiver deepFrozenRiver;	
+	public static BiomeDeepRiver deepFrozenRiver;
+	public static SubBiome lowRockBeach;
 	
 	
 	public static void createBiomes() {
@@ -20,6 +21,9 @@ public class PseudoBiomes {
 												        .setTemperature(0.0F)
 												        .setRainfall(0.5F)
 												        .setSnowEnabled());
+		//lowRockBeach = new SubBiome(Biome.getBiome(25), 1, 
+		//		new Biome.BiomeProperties("Stone Beach").setBaseHeight(0.0f)
+		//		                                        .setHeightVariation(0.025f));
 	}
 	
 	
