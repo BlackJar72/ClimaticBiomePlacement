@@ -18,6 +18,7 @@ public class ConfigHandler {
 	public static boolean hasDT = false;
 	public static boolean useDT = false;
 	public static boolean addIslands = true;
+	public static boolean addBeaches = true;
 	public static boolean moreMansion = true;
 
 	private static File dir;
@@ -78,6 +79,9 @@ public class ConfigHandler {
 		
 		rockyScrub = config.getBoolean("RockyScrub", "General", true, 
 						"If true scrub biomes will have cobble bolders.");
+		
+		addBeaches = config.getBoolean("AddBeaches", "General", true, 
+						"If true there will be beaches.");
 		
 		addIslands = config.getBoolean("AddIslands", "General", true, 
 						"If true extra islands will be generated in the ocean \n "

@@ -6,6 +6,7 @@
 package jaredbgreat.climaticbiome.generation.generator;
 
 import static jaredbgreat.climaticbiome.util.SpatialNoise.absModulus;
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
@@ -163,15 +164,18 @@ public class MapMaker {
                 regions[4], coords.getX(), coords.getZ());
         rm.build();
         makeBiomes(premap, 256, random.getRandomAt(coords.getX(), coords.getZ(), 3));
-        for(int i = 0; i < premap.length; i++) {
-        	makeBeach(premap[i]);
-        	//datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
+        if(ConfigHandler.addBeaches) {
+	        for(int i = 0; i < premap.length; i++) {
+	        	makeBeach(premap[i]);
+	        }
+	        for(int i = 0; i < premap.length; i++) {
+	        	growBeach1(premap[i]);
+	        }
         }
         for(int i = 0; i < premap.length; i++) {
-        	growBeach1(premap[i]);
-        }
-        for(int i = 0; i < premap.length; i++) {
-        	growBeach2(premap[i]);
+        	if(ConfigHandler.addBeaches) {
+        		growBeach2(premap[i]);
+        	}
         	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
         }
     }

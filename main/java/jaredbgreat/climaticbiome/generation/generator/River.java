@@ -16,6 +16,7 @@ public class River {
     final ChangeQueue Q;
     private int oc;
     private ChunkTile last;
+    private boolean wasRiver;
     
     private enum AS {
         P2 (2,   0),
@@ -65,6 +66,12 @@ public class River {
                 return out;
             }
         }
+        public boolean contains(ChunkTile t) {
+        	for(int i = 0; (i < data.length) && (data[i] != null); i++) {
+        		if(data[i] == t) return true;
+        	}
+        	return false;
+        }
     }  
     
     
@@ -72,6 +79,7 @@ public class River {
         last = null;
         MAX = MapMaker.RSIZE - 2;
         Q = new ChangeQueue();
+        wasRiver = false;
         map = mapIn;
         begin = high;
         end   = low;
@@ -126,9 +134,13 @@ public class River {
         if(t == last) {
             return false;
         }
+        if(wasRiver) {
+        	return true;
+        }
         last = t;
+        wasRiver = t.isRiver() && !Q.contains(t);
         return ((t.rlBiome == 0) && ((t.val < 3) || (oc > 8))) 
-                || outOfBounds(x, y) || t.isRiver();
+                || outOfBounds(x, y);
     }
     
     
