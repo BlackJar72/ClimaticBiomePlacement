@@ -47,15 +47,6 @@ public final class Coords {
     public int getZ() {
             return z;
     }
-        
-        
-    public static int absMod(int n, int m) {
-    	int out = n % m;
-    	if(out < 0) {
-    			out += m;
-        }
-        return out;
-    }
     
     
     public String toString() {

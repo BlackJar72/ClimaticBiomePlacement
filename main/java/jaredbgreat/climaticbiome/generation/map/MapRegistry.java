@@ -236,6 +236,11 @@ public class MapRegistry {
 		}
 	}
 	
+	
+	/**
+	 * A class for hashing data that is streamed through, 
+	 * purely for debugging.
+	 */
 	private class Hasher {
     	int hash = 0;
     	int count = 0;

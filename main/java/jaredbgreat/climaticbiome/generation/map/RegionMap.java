@@ -256,6 +256,12 @@ public class RegionMap extends AbstractCachable {
     }
     
     
+    /**
+     * Returns a hash based on the data array; purely for
+     * debugging.
+     * 
+     * @return
+     */
     public int otherHash() {
     	int hash = 0;
     	int count = 0;
@@ -273,6 +279,12 @@ public class RegionMap extends AbstractCachable {
     }
     
     
+    /**
+     * Returns a hash of the input array, for debugging.
+     * 
+     * @param in
+     * @return
+     */
     public static int otherHash(short[] in) {
     	int hash = 0;
     	int count = 0;
