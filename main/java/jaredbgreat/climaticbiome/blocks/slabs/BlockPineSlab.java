@@ -94,11 +94,6 @@ public class BlockPineSlab extends BlockSlabBase {
 	}
 
 	@Override
-	public String getUnlocalizedName(int meta) {
-		return null;
-	}
-
-	@Override
 	public IProperty getVariantProperty() {
 		return HALF;
 	}

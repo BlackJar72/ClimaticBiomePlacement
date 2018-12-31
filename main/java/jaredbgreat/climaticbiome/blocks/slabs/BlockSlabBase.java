@@ -30,4 +30,9 @@ public abstract class BlockSlabBase extends BlockSlab implements IHaveModel {
 		}
 	}
 
+	@Override
+	public String getUnlocalizedName(int meta) {
+		return "tile.climaticbiomesjbg.pine_slab";
+	}
+
 }

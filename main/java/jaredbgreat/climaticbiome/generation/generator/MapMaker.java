@@ -88,30 +88,37 @@ public class MapMaker {
     
     
     private Region[] findRegions(int x, int z) {
+//        System.out.println();
+//        System.out.println("******************************");
+//        System.out.println("Getting Regions For: " + x + ", " + z);
         Region[] out = new Region[9];
         int index = 0;
         for(int i = -1; i < 2; i++)
             for(int j = -1; j < 2; j++) {
             	regionCoords.init(x + i, z + j);
-                //out[index] = regionPool.getEntry(regionCoords);
                 out[index] = regionCache.get(regionCoords);
+//                System.out.println("Making Region: " + regionCoords);
                 if(out[index] == null) {
                 	out[index] = new Region(x + i, z + j, 
                                 regionNoise);
                         regionCache.add(out[index]);
                 } else {
                         out[index].use();
-                	//out[index].init(coords[0] + i, coords[1] + j, regionNoise);
-                	//regionPool.add(out[index], regionCoords);
                 }
-                index++;
-            }
+                index++;            }
+//        System.out.println("******************************");
+//        System.out.println();
         return out;
     }
     
     
-    public void generate(RegionMap datamap) {    	
+    public void generate(RegionMap datamap) {
         Coords coords = datamap.getCoords();
+        System.out.println();
+        System.out.println("******************************");
+        System.out.println("Creating Region Map: " + coords);
+        System.out.println("******************************");
+        System.out.println();
         xoff = (coords.getX() * 256) - 128;
         zoff = (coords.getZ() * 256) - 128;
 		Region[] regions = findRegions(coords.getX(), coords.getZ());

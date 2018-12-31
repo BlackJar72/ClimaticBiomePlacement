@@ -60,4 +60,9 @@ public class MutableCoords {
             }
             return out;
         }
+        
+        
+        public String toString() {
+        	return "(" + x + ", " + z + ")";
+        }
 }

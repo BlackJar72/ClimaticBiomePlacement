@@ -256,6 +256,40 @@ public class RegionMap extends AbstractCachable {
     }
     
     
+    public int otherHash() {
+    	int hash = 0;
+    	int count = 0;
+    	for(int i = 0; i < data.length; i++) {
+    		for(int j = 0; j < 2; j++) {
+		    	int longbyte = (data[i] >> (j * 8)) & 0xff;
+		    	hash ^= longbyte << (8 * count);
+		    	hash ^= hash << 13;
+		    	hash ^= hash >> 5;
+		    	hash ^= hash << 17;
+		    	count = (++count) % 4;
+    		}
+    	}
+    	return hash;
+    }
+    
+    
+    public static int otherHash(short[] in) {
+    	int hash = 0;
+    	int count = 0;
+    	for(int i = 0; i < in.length; i++) {
+    		for(int j = 0; j < 2; j++) {
+		    	int longbyte = (in[i] >> (j * 8)) & 0xff;
+		    	hash ^= longbyte << (8 * count);
+		    	hash ^= hash << 13;
+		    	hash ^= hash >> 5;
+		    	hash ^= hash << 17;
+		    	count = (++count) % 4;
+    		}
+    	}
+    	return hash;
+    }
+    
+    
     
     
 }

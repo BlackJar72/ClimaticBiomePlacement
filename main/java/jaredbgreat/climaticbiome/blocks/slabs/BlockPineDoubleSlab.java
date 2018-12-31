@@ -69,12 +69,6 @@ public class BlockPineDoubleSlab extends BlockSlabBase {
 
 	
 	@Override
-	public String getUnlocalizedName(int meta) {
-		return null;
-	}
-
-	
-	@Override
 	public boolean isDouble() {
 		return true;
 	}

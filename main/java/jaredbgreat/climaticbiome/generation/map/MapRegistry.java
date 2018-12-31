@@ -116,6 +116,7 @@ public class MapRegistry {
 			readMap(out);
 			data.add(out);
 		}
+		//System.out.println("Accessing Map: " + x + ", " + z);
 		return out;
 	}
 	
@@ -175,6 +176,7 @@ public class MapRegistry {
 	 */
 	private void initializeMap(RegionMap map) {		
 		maker.generate(map);
+		System.out.println("Map Hash: " + map.otherHash());
 		if(cansave) writeMap(map);
 	}
 	
@@ -188,7 +190,7 @@ public class MapRegistry {
 		}
 		File file = getSaveFile(x, z);
 		short[] data = map.getData();
-		if(file != null && file.exists()) {
+		if(false/*file != null && file.exists()*/) {
 			try {				
 				FileInputStream fs = new FileInputStream(file);
 				for(int i = 0; i < 65536; i++) {
@@ -212,14 +214,20 @@ public class MapRegistry {
 		int x = coords.getX();
 		int z = coords.getZ();
 		File file = getSaveFile(x, z);
-		if(file != null) { 
+		if(file != null && !file.exists()) { 
 			short[] data = map.getData();
+			System.out.println("Map Center: " + data[32896]);
+			System.out.println("Writing Data: " + RegionMap.otherHash(data));
+			Hasher hasher = new Hasher();
 			try {
 				FileOutputStream fs = new FileOutputStream(file);
 				for(int i = 0; i < 65536; i++) {
 						fs.write(data[i] & 0xff);
+						hasher.next(data[i] & 0xff);
 						fs.write((data[i] & 0xff00) >> 8);
+						hasher.next((data[i] & 0xff00) >> 8);
 					}
+				System.out.println("Wrote Data: " + hasher.getHash());
 				fs.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -227,6 +235,21 @@ public class MapRegistry {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	private class Hasher {
+    	int hash = 0;
+    	int count = 0;
+    	public void next(int b) {
+	    	hash ^= (b & 0xff) << (8 * count);
+	    	hash ^= hash << 13;
+	    	hash ^= hash >> 5;
+	    	hash ^= hash << 17;
+	    	count = (++count) % 4;
+		}
+    	public int getHash() {
+    		return hash;
+    	}
 	}
 	
 	
