@@ -38,45 +38,5 @@ public class SubBiome extends Biome {
 				int x, int z, double noiseVal) {
 		parent.genTerrainBlocks(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
 	}
-	
-	
-	
-	/*
-	 * The methods below should now normally be called in the current system,
-	 * as these biomes are only used for generating the terrain while the 
-	 * parent biome will used for decoration.  However, they are here in case needed 
-	 * in some future version.
-	 */
-	
-	
-	@Override
-	public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
-		return parent.getRandomTreeFeature(rand);
-	}
-	
-	
-
-	@Override
-    public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos) {
-		return parent.pickRandomFlower(rand, pos);
-    }
-	
-	
-	@Override
-	public void decorate(World worldIn, Random rand, BlockPos pos) {
-		parent.decorate(worldIn, rand, pos);
-	}
-	
-	
-	@Override
-    public Class <? extends Biome > getBiomeClass() {
-        return parent.getBiomeClass();
-    }
-	
-
-    @Override
-    public void addDefaultFlowers() {
-    	parent.addDefaultFlowers();
-    }
 
 }
