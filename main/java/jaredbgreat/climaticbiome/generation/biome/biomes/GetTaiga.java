@@ -16,18 +16,22 @@ public class GetTaiga implements IBiomeSpecifier {
 		init();
 	}
 	private BiomeList forest;
+	private IBiomeSpecifier alpine;
 	private static int tbound;
 	
 	
 	public static final class TaigaDoubleBiome extends TempDoubleBiome {
 		public TaigaDoubleBiome(Biome a, Biome b) {
 			super(a, tbound, b);
+			System.out.println("tbound = " + tbound);
 		}
 		public TaigaDoubleBiome(int a, int b) {
 			super(a, tbound, b);
+			System.out.println("tbound = " + tbound);
 		}
 		public TaigaDoubleBiome(String a, String b, IForgeRegistry biomeReg) {
 			super(a, tbound, b, biomeReg);
+			System.out.println("tbound = " + tbound);
 		}	
 	}
 	
@@ -39,6 +43,7 @@ public class GetTaiga implements IBiomeSpecifier {
 			tbound = 7;
 		}
 		forest = new BiomeList();
+		alpine = GetAlpine.getAlpine();
 		DefReader.readBiomeData(forest, "Taiga.cfg");
 		if(forest.isEmpty()){
 			forest.addItem(new TempDoubleBiome(30,  tbound, 5),  4);
@@ -52,7 +57,7 @@ public class GetTaiga implements IBiomeSpecifier {
 
 	@Override
 	public int getBiome(ChunkTile tile) {
-		// Doing this to allow for possible addition of other types (e.g., alpine)
+		if((tile.getBiomeSeed() % 5) == 0) return alpine.getBiome(tile);
 		return forest.getBiome(tile);
 	}
 	

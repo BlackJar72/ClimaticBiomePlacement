@@ -39,7 +39,7 @@ public class GetForest implements IBiomeSpecifier {
 	public int getBiome(ChunkTile tile) {
 		int role1 = tile.getBiomeSeed() % 5;
 		int role2 = tile.getBiomeSeed() % 7;
-		int role3 = tile.getBiomeSeed() % 12;
+		int role3 = tile.getBiomeSeed() % 11;
 		tile.nextBiomeSeed();
 		if((role1) == 0) {
 			return alpine.getBiome(tile);

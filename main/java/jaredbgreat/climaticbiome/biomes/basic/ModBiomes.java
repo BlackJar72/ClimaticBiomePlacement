@@ -4,6 +4,7 @@ import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.pseudo.PseudoBiomes;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetRiver;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeHills;
 import net.minecraft.world.biome.BiomeRiver;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -25,6 +26,12 @@ public class ModBiomes {
 	public static Scrub          dryScrub;
 	public static Scrub          denseScrubHills;
 	public static Scrub          dryScrubHills;
+	
+	// Extra Mountains
+	public static SubtropicalMountains warmMountain;
+	public static SubtropicalMountains warmMountainTrees;
+	public static TropicalMountains    hotMountain;
+	public static TropicalMountains    hotMountainTrees;
 	
 	// Advanced Rivers
 	public static BiomeRiver coolRiver;
@@ -84,6 +91,38 @@ public class ModBiomes {
 					.setBaseHeight(0.45F)
 					.setHeightVariation(0.3F));
 		makeMoreUsable(dryScrubHills);
+		warmMountain  
+				= new SubtropicalMountains(BiomeHills.Type.NORMAL,
+						new Biome.BiomeProperties("Warm Extreme Hills")
+					.setTemperature(0.6F)
+					.setRainfall(0.3F)
+					.setBaseHeight(1.0F)
+					.setHeightVariation(0.5F));
+		makeMoreUsable(warmMountain);
+		warmMountainTrees
+				= new SubtropicalMountains(BiomeHills.Type.EXTRA_TREES,
+						new Biome.BiomeProperties("Warm Forested Extreme Hills")
+					.setTemperature(0.6F)
+					.setRainfall(0.65F)
+					.setBaseHeight(1.0F)
+					.setHeightVariation(0.5F));
+		makeMoreUsable(warmMountainTrees);
+		hotMountain  
+				= new TropicalMountains(BiomeHills.Type.NORMAL,
+						new Biome.BiomeProperties("Tropical Extreme Hills")
+					.setTemperature(0.8F)
+					.setRainfall(0.3F)
+					.setBaseHeight(1.0F)
+					.setHeightVariation(0.5F));
+		makeMoreUsable(warmMountain);
+		hotMountainTrees
+				= new TropicalMountains(BiomeHills.Type.EXTRA_TREES,
+						new Biome.BiomeProperties("Tropical Forested Extreme Hills")
+					.setTemperature(0.8F)
+					.setRainfall(0.8F)
+					.setBaseHeight(1.0F)
+					.setHeightVariation(0.5F));
+		makeMoreUsable(hotMountainTrees);
 		// Lastly
 		PseudoBiomes.createBiomes();
 		if(ConfigHandler.rivers) {
@@ -112,16 +151,28 @@ public class ModBiomes {
 				.setRegistryName("dense_scrub_hills"));
 		event.getRegistry().register(dryScrubHills
 				.setRegistryName("dry_scrub_hills"));
+		event.getRegistry().register(warmMountain
+				.setRegistryName("warm_mountain"));
+		event.getRegistry().register(warmMountainTrees
+				.setRegistryName("warm_mountain_trees"));
+		event.getRegistry().register(hotMountain
+				.setRegistryName("hot_mountain"));
+		event.getRegistry().register(hotMountainTrees
+				.setRegistryName("hot_mountain_trees"));
 		setupBiomeTypes();
 		BiomeDictionary.addTypes(warmForest, Type.FOREST, Type.CONIFEROUS);
 		BiomeDictionary.addTypes(tropicalForest, Type.FOREST, Type.JUNGLE, Type.HOT);
-		BiomeDictionary.addTypes(pineWoods, Type.FOREST, Type.WET, Type.HOT, Type.CONIFEROUS, Type.SWAMP);
+		BiomeDictionary.addTypes(pineWoods, Type.FOREST, Type.WET, Type.HOT, Type.CONIFEROUS, Type.SWAMP, Type.SAVANNA);
 		BiomeDictionary.addTypes(warmForestHills, Type.FOREST, Type.CONIFEROUS, Type.HILLS);
 		BiomeDictionary.addTypes(tropicalForestHills, Type.FOREST, Type.JUNGLE, Type.HOT, Type.HILLS);
 		BiomeDictionary.addTypes(denseScrub, Type.SPARSE, Type.HOT, Type.DRY);
 		BiomeDictionary.addTypes(dryScrub, Type.SPARSE, Type.HOT, Type.DRY, Type.SANDY);
 		BiomeDictionary.addTypes(denseScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS);
 		BiomeDictionary.addTypes(dryScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS, Type.SANDY);
+		BiomeDictionary.addTypes(warmMountain, Type.HILLS, Type.MOUNTAIN);
+		BiomeDictionary.addTypes(warmMountainTrees, Type.HILLS, Type.MOUNTAIN, Type.FOREST);
+		BiomeDictionary.addTypes(hotMountain, Type.HILLS, Type.MOUNTAIN, Type.HOT);
+		BiomeDictionary.addTypes(hotMountainTrees, Type.HILLS, Type.MOUNTAIN, Type.FOREST, Type.HOT);
 		// Lastly
 		PseudoBiomes.registerBiomes();
 		if(ConfigHandler.rivers) {

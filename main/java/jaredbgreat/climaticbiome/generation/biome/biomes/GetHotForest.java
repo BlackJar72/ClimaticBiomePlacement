@@ -3,25 +3,50 @@ package jaredbgreat.climaticbiome.generation.biome.biomes;
 import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
+import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
+import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 import net.minecraft.world.biome.Biome;
 
-public class GetHotForest extends BiomeList {
-	private static GetHotForest  tforest;
+public class GetHotForest implements IBiomeSpecifier {
+	private static GetHotForest tforest;
 	private GetHotForest() {
 		super();
 		init();
 	}
+	private BiomeList forests;
+	private GetAlpine alpine;
+	private GetPlains plains;
+	private GetSwamp swamp;
 	
 	
 	public void init() {
-		DefReader.readBiomeData(this, "ForestTropical.cfg");
+		forests = new BiomeList();
+		alpine  = GetAlpine.getAlpine();
+		swamp   = GetSwamp.getSwamp();
+		DefReader.readBiomeData(forests, "ForestTropical.cfg");
 		if(isEmpty()) {
-			addItem(new SeedDoubleBiome(151, 5, 23));
-			addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.tropicalForestHills)));
-			addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.tropicalForest)), 3);
+			forests.addItem(new SeedDoubleBiome(151, 5, 23));
+			forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.tropicalForestHills)));
+			forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.tropicalForest)), 3);
 		}
+	}
+
+
+
+	@Override
+	public int getBiome(ChunkTile tile) {
+		int role1 = tile.getBiomeSeed() % 5;
+		int role2 = tile.getBiomeSeed() % 7;
+		tile.nextBiomeSeed();
+		if((role1) == 0) {
+			return alpine.getBiome(tile);
+		}
+		if((role2) == 0) {
+			return swamp.getBiome(tile);
+		}
+		return forests.getBiome(tile);
 	}
 	
 	
@@ -30,6 +55,12 @@ public class GetHotForest extends BiomeList {
 			tforest = new GetHotForest();
 		}
 		return tforest;
+	}
+
+
+	@Override
+	public boolean isEmpty() {
+		return false;
 	}
 
 }

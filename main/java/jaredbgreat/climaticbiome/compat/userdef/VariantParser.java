@@ -24,6 +24,7 @@ public class VariantParser {
 			BufferedReader reader = new BufferedReader(new FileReader(fileName));
 			while(reader.ready()) {
 				String line = reader.readLine().trim();
+				//System.out.println(line);
 				//System.err.println(line);
 				if(line.isEmpty() || line.startsWith("#")) continue;
 				StringTokenizer tokens = new StringTokenizer(line, ":, ");

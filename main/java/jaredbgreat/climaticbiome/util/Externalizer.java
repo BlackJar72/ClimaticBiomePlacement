@@ -36,8 +36,13 @@ public class Externalizer {
 	private static final   String varFileName  = "variants.cfg";
 	
 	private static final String[] blists = {
+		"AplineCold.cfg",
 		"AplineDry.cfg",
 		"AplineWet.cfg",
+		"AplineDryWarm.cfg",
+		"AplineWetWarm.cfg",
+		"AplineDryHot.cfg",
+		"AplineWetHot.cfg",
 		"ChaparralScrub.cfg",
 		"DeepOceanCold.cfg",
 		"DeepOceanCool.cfg",

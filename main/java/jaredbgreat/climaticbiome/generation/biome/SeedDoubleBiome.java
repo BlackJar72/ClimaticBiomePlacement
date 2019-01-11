@@ -31,7 +31,7 @@ public class SeedDoubleBiome implements IBiomeSpecifier {
 			this.a = Biome.getIdForBiome((Biome)biomeReg.getValue(new ResourceLocation(a)));
 		} else {
 			this.a = Biome.getIdForBiome((Biome)biomeReg
-					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.countTokens())))
+					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))
 					+ (Integer.parseInt(tokens.nextToken()) << 8);
 		}
 		tokens = new StringTokenizer(a, ":");
@@ -39,7 +39,7 @@ public class SeedDoubleBiome implements IBiomeSpecifier {
 			this.b = Biome.getIdForBiome((Biome)biomeReg.getValue(new ResourceLocation(a)));
 		} else {
 			this.b = Biome.getIdForBiome((Biome)biomeReg
-					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.countTokens())))
+					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))
 					+ (Integer.parseInt(tokens.nextToken()) << 8);
 		}
 		this.chance = chance;

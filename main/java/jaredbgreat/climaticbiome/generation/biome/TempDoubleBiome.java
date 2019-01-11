@@ -31,15 +31,15 @@ public class TempDoubleBiome implements IBiomeSpecifier {
 			this.a = Biome.getIdForBiome((Biome)biomeReg.getValue(new ResourceLocation(a)));
 		} else {
 			this.a = Biome.getIdForBiome((Biome)biomeReg
-					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.countTokens())))
+					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))
 					+ (Integer.parseInt(tokens.nextToken()) << 8);
 		}
-		tokens = new StringTokenizer(a, ":");
+		tokens = new StringTokenizer(b, ":");
 		if(tokens.countTokens() < 3) {
-			this.b = Biome.getIdForBiome((Biome)biomeReg.getValue(new ResourceLocation(a)));
+			this.b = Biome.getIdForBiome((Biome)biomeReg.getValue(new ResourceLocation(b)));
 		} else {
 			this.b = Biome.getIdForBiome((Biome)biomeReg
-					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.countTokens())))
+					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))
 					+ (Integer.parseInt(tokens.nextToken()) << 8);
 		}
 		this.boundary = boundary;
@@ -50,8 +50,12 @@ public class TempDoubleBiome implements IBiomeSpecifier {
 	public int getBiome(ChunkTile tile) {
 		int r = tile.getBiomeSeed();
 		if((tile.getTemp() + (r & 1) - ((r & 2) >> 1)) < boundary) {
+			System.out.println("temp = " + (tile.getTemp() + (r & 1) - ((r & 2) >> 1)));
+			System.out.println("boundary = " + boundary + "; returning biome A = " + a);
 			return a;
 		} else {
+			System.out.println("temp = " + (tile.getTemp() + (r & 1) - ((r & 2) >> 1)));
+			System.out.println("boundary = " + boundary + "; returning biome B = " + b);
 			return b;
 		}
 	}

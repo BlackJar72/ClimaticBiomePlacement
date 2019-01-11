@@ -6,28 +6,14 @@ import java.util.Random;
 
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeForest;
+import net.minecraft.world.biome.BiomeHills;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
-/**
- * We don't have birches here in the humid subtropical zone, they prefer cooler 
- * weather -- but we do have plenty of pines.
- * 
- * @author Jared Blackburn
- */
-public class WarmForest extends BiomeForest {
+public class TropicalMountains extends BiomeHills {
 	private final GenPine PinGenerator;
 
-	public WarmForest() {
-		super(BiomeForest.Type.NORMAL, 
-				new Biome.BiomeProperties("Subtropical Forest")
-					.setTemperature(0.8f)
-					.setRainfall(0.85f));
-		PinGenerator = new GenPine();
-	}
-
-	
-	public WarmForest(Biome.BiomeProperties prop) {
-		super(BiomeForest.Type.NORMAL, prop);
+	public TropicalMountains(Type p_i46710_1_, BiomeProperties properties) {
+		super(p_i46710_1_, properties);
 		PinGenerator = new GenPine();
 	}
 
