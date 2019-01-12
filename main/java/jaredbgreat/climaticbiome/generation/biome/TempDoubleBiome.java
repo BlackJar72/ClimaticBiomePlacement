@@ -50,12 +50,8 @@ public class TempDoubleBiome implements IBiomeSpecifier {
 	public int getBiome(ChunkTile tile) {
 		int r = tile.getBiomeSeed();
 		if((tile.getTemp() + (r & 1) - ((r & 2) >> 1)) < boundary) {
-			System.out.println("temp = " + (tile.getTemp() + (r & 1) - ((r & 2) >> 1)));
-			System.out.println("boundary = " + boundary + "; returning biome A = " + a);
 			return a;
 		} else {
-			System.out.println("temp = " + (tile.getTemp() + (r & 1) - ((r & 2) >> 1)));
-			System.out.println("boundary = " + boundary + "; returning biome B = " + b);
 			return b;
 		}
 	}

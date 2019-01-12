@@ -23,15 +23,12 @@ public class GetTaiga implements IBiomeSpecifier {
 	public static final class TaigaDoubleBiome extends TempDoubleBiome {
 		public TaigaDoubleBiome(Biome a, Biome b) {
 			super(a, tbound, b);
-			System.out.println("tbound = " + tbound);
 		}
 		public TaigaDoubleBiome(int a, int b) {
 			super(a, tbound, b);
-			System.out.println("tbound = " + tbound);
 		}
 		public TaigaDoubleBiome(String a, String b, IForgeRegistry biomeReg) {
 			super(a, tbound, b, biomeReg);
-			System.out.println("tbound = " + tbound);
 		}	
 	}
 	

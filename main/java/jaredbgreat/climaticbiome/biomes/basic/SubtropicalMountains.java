@@ -22,8 +22,9 @@ public class SubtropicalMountains extends BiomeHills {
     	int kind = rand.nextInt(10);
 		switch(kind) {
 			case 0: return BIG_TREE_FEATURE;
-			case 1: return BIRCH;
-			case 2: return SPRUCE;
+			case 1: 
+			case 2: return BIRCH;
+			case 3: return SPRUCE;
 			default: return TREE_FEATURE;
 		}
     }
