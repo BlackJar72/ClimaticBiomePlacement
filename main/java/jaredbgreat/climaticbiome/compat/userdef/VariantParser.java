@@ -1,13 +1,11 @@
 package jaredbgreat.climaticbiome.compat.userdef;
 
 import jaredbgreat.climaticbiome.biomes.pseudo.PseudoBiomes;
+import jaredbgreat.dldungeons.parser.Tokenizer;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.util.StringTokenizer;
 
 import net.minecraft.util.ResourceLocation;
 
@@ -27,7 +25,7 @@ public class VariantParser {
 				//System.out.println(line);
 				//System.err.println(line);
 				if(line.isEmpty() || line.startsWith("#")) continue;
-				StringTokenizer tokens = new StringTokenizer(line, ":, ");
+				Tokenizer tokens = new Tokenizer(line, ":, ");
 				PseudoBiomes.addSubBiome(
 						new ResourceLocation(tokens.nextToken(), tokens.nextToken()), 
 						Integer.parseInt(tokens.nextToken()), 

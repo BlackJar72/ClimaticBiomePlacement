@@ -8,6 +8,7 @@ import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.TempDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.WetDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetTaiga.TaigaDoubleBiome;
+import jaredbgreat.dldungeons.parser.Tokenizer;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,7 +16,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.StringTokenizer;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
@@ -63,13 +63,13 @@ public class BiomeParser {
 			return;
 		}
 		String line = null;
-		StringTokenizer tokens;		
+		Tokenizer tokens;		
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			while(reader.ready()) {
 				line = reader.readLine().trim();
 				if(line.isEmpty() || line.startsWith("#")) continue;
-				tokens = new StringTokenizer(line, "()");
+				tokens = new Tokenizer(line, "()");
 				String tag = tokens.nextToken().toLowerCase().trim();
 				list.addItem(commands.get(tag).parse(tokens.nextToken()));
 			}
@@ -99,7 +99,7 @@ public class BiomeParser {
 	
 	private final class NoiseParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			StringTokenizer tokens = new StringTokenizer(in, ", ");		
+			Tokenizer tokens = new Tokenizer(in, ", ");		
 			return new NoiseDoubleBiome(tokens.nextToken(), 
 					   Integer.parseInt(tokens.nextToken()), 
 					   tokens.nextToken(), biomeReg);
@@ -110,7 +110,7 @@ public class BiomeParser {
 	
 	private final class SeedParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			StringTokenizer tokens = new StringTokenizer(in, ", ");		
+			Tokenizer tokens = new Tokenizer(in, ", ");		
 			return new SeedDoubleBiome(tokens.nextToken(), 
 					   Integer.parseInt(tokens.nextToken()), 
 					   tokens.nextToken(), biomeReg);
@@ -120,7 +120,7 @@ public class BiomeParser {
 	
 	private final class TempParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			StringTokenizer tokens = new StringTokenizer(in, ", ");		
+			Tokenizer tokens = new Tokenizer(in, ", ");		
 			return new TempDoubleBiome(tokens.nextToken(), 
 					   Integer.parseInt(tokens.nextToken()), 
 					   tokens.nextToken(), biomeReg);
@@ -130,7 +130,7 @@ public class BiomeParser {
 	
 	private final class TaigaParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			StringTokenizer tokens = new StringTokenizer(in, ", ");	
+			Tokenizer tokens = new Tokenizer(in, ", ");	
 			return new TaigaDoubleBiome(tokens.nextToken(), 
 					   tokens.nextToken(), biomeReg);
 		}
@@ -139,7 +139,7 @@ public class BiomeParser {
 	
 	private final class WetParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			StringTokenizer tokens = new StringTokenizer(in, ", ");	
+			Tokenizer tokens = new Tokenizer(in, ", ");	
 			return new WetDoubleBiome(tokens.nextToken(), 
 					   Integer.parseInt(tokens.nextToken()), 
 					   tokens.nextToken(), biomeReg);
@@ -149,7 +149,7 @@ public class BiomeParser {
 	
 	private final class LeafParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			StringTokenizer tokens = new StringTokenizer(in, ":");
+			Tokenizer tokens = new Tokenizer(in, ":");
 			if(tokens.countTokens() < 3) {
 				return new LeafBiome((Biome)biomeReg.getValue(new ResourceLocation(in)));
 			} else {
