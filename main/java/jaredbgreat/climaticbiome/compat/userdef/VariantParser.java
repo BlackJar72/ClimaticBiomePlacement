@@ -25,7 +25,7 @@ public class VariantParser {
 				//System.out.println(line);
 				//System.err.println(line);
 				if(line.isEmpty() || line.startsWith("#")) continue;
-				Tokenizer tokens = new Tokenizer(line, ":, ");
+				Tokenizer tokens = new Tokenizer(line, ":, \t");
 				PseudoBiomes.addSubBiome(
 						new ResourceLocation(tokens.nextToken(), tokens.nextToken()), 
 						Integer.parseInt(tokens.nextToken()), 

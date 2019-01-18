@@ -99,7 +99,7 @@ public class BiomeParser {
 	
 	private final class NoiseParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			Tokenizer tokens = new Tokenizer(in, ", ");		
+			Tokenizer tokens = new Tokenizer(in, ", \t");		
 			return new NoiseDoubleBiome(tokens.nextToken(), 
 					   Integer.parseInt(tokens.nextToken()), 
 					   tokens.nextToken(), biomeReg);
@@ -110,7 +110,7 @@ public class BiomeParser {
 	
 	private final class SeedParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			Tokenizer tokens = new Tokenizer(in, ", ");		
+			Tokenizer tokens = new Tokenizer(in, ", \t");		
 			return new SeedDoubleBiome(tokens.nextToken(), 
 					   Integer.parseInt(tokens.nextToken()), 
 					   tokens.nextToken(), biomeReg);
@@ -130,7 +130,7 @@ public class BiomeParser {
 	
 	private final class TaigaParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			Tokenizer tokens = new Tokenizer(in, ", ");	
+			Tokenizer tokens = new Tokenizer(in, ", \t");	
 			return new TaigaDoubleBiome(tokens.nextToken(), 
 					   tokens.nextToken(), biomeReg);
 		}
@@ -139,7 +139,7 @@ public class BiomeParser {
 	
 	private final class WetParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			Tokenizer tokens = new Tokenizer(in, ", ");	
+			Tokenizer tokens = new Tokenizer(in, ", \t");	
 			return new WetDoubleBiome(tokens.nextToken(), 
 					   Integer.parseInt(tokens.nextToken()), 
 					   tokens.nextToken(), biomeReg);
