@@ -1,5 +1,8 @@
 package jaredbgreat.climaticbiome.generation.biome;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
@@ -134,9 +137,16 @@ public class BiomeClimateTable implements IBiomeSpecifier {
             tile.nextBiomeSeed();
         }
 		int out = table[(tile.getTemp() * 10) + tile.getWet()].getBiome(tile);
+    	Biome outb = Biome.getBiome(out & 0xff);
+    	if(outb == null) {
+    		Logger.getLogger("minecraft").log(Level.SEVERE, 
+    				"[CLIMATIC_BIOMES] Error! Could not find biome with id " 
+    						+ out + "; returning 0 (Ocean).  (Check your configs.)");
+    		return 0;
+    	}
         if(tile.isIsBeach()) {
-        	if(BiomeDictionary.hasType(Biome.getBiome(out & 0xff), Type.HILLS)
-        	   || BiomeDictionary.hasType(Biome.getBiome(out & 0xff), Type.MOUNTAIN)) {
+        	if(BiomeDictionary.hasType(outb, Type.HILLS)
+        	   || BiomeDictionary.hasType(outb, Type.MOUNTAIN)) {
         		return BEACH.getHighBiome(tile);
         	}
         	return BEACH.getBiome(tile);
