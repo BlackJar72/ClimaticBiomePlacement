@@ -20,6 +20,8 @@ public class ConfigHandler {
 	public static boolean addIslands = true;
 	public static boolean addBeaches = true;
 	public static boolean moreMansion = true;
+	public static boolean moddedBlocks = true;
+	public static boolean deepSand = true;
 
 	private static File dir;
 	private static File file;
@@ -79,6 +81,9 @@ public class ConfigHandler {
 		
 		rockyScrub = config.getBoolean("RockyScrub", "General", true, 
 						"If true scrub biomes will have cobble bolders.");
+		
+		deepSand = config.getBoolean("DeepSandInScrub", "General", true, 
+						"If true sand in dry scrub will be 3-4 blocks deep, otherwise it will be 1.");
 		
 		addBeaches = config.getBoolean("AddBeaches", "General", true, 
 						"If true there will be beaches.");

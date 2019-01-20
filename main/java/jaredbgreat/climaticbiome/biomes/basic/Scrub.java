@@ -95,7 +95,11 @@ public class Scrub extends Biome {
 
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, 
     		int x, int z, double noise) {
-        fillerBlock = Blocks.DIRT.getDefaultState();
+    	if(ConfigHandler.deepSand && (type == Type.DRY) && (noise > 1.25)) {
+    		fillerBlock = type.altTop;
+    	} else {
+    		fillerBlock = Blocks.DIRT.getDefaultState();
+    	}
         if (noise > 1.25) {
         	this.topBlock = type.altTop;
         } else {
