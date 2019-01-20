@@ -35,9 +35,9 @@ public class NoiseDoubleBiome implements IBiomeSpecifier {
 					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))
 					+ (Integer.parseInt(tokens.nextToken()) << 8);
 		}
-		tokens = new StringTokenizer(a, ":");
+		tokens = new StringTokenizer(b, ":");
 		if(tokens.countTokens() < 3) {
-			this.b = Biome.getIdForBiome((Biome)biomeReg.getValue(new ResourceLocation(a)));
+			this.b = Biome.getIdForBiome((Biome)biomeReg.getValue(new ResourceLocation(b)));
 		} else {
 			this.b = Biome.getIdForBiome((Biome)biomeReg
 					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))
