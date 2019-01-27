@@ -55,7 +55,7 @@ public class ModBiomes {
 					.setHeightVariation(0.3F));
 		makeMoreUsable(warmForestHills);
 		tropicalForestHills 
-				= new TropicalForest(new Biome.BiomeProperties("Subtropical Forest Hills")
+				= new TropicalForest(new Biome.BiomeProperties("Tropical Forest Hills")
 					.setTemperature(0.9F)
 					.setRainfall(0.7F)
 					.setBaseHeight(0.45F)
