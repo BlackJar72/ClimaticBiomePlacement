@@ -21,9 +21,6 @@ public class PseudoBiomes {
 												        .setTemperature(0.0F)
 												        .setRainfall(0.5F)
 												        .setSnowEnabled());
-		//lowRockBeach = new SubBiome(Biome.getBiome(25), 1, 
-		//		new Biome.BiomeProperties("Stone Beach").setBaseHeight(0.0f)
-		//		                                        .setHeightVariation(0.025f));
 	}
 	
 	

@@ -50,7 +50,7 @@ public class SubBiomeRegistry {
      * @param item the object to be added.
      */
     public void add(SubBiome item) {
-    	System.err.println("Adding Biome with id " + item.getSubId());
+    	System.out.println("Adding Biome with id " + item.getSubId());
         int bucket = (xorshift(item.getSubId())) % data.length;
         int offset = 0;
         while(offset < data.length) {
