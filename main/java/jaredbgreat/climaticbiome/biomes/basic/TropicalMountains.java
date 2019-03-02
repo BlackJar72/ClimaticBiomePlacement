@@ -1,5 +1,9 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
+import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.IPineFinder;
+import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.PineFinder;
+import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.SpruceFinder;
 import jaredbgreat.climaticbiome.biomes.feature.GenPine;
 
 import java.util.Random;
@@ -22,11 +26,15 @@ public class TropicalMountains extends BiomeHills {
     private static final IBlockState JUNGLE_LEAF = Blocks.LEAVES.getDefaultState()
     		.withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.JUNGLE)
     		.withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
-	private final GenPine PinGenerator;
+	private final IPineFinder PINE;
 
 	public TropicalMountains(Type p_i46710_1_, BiomeProperties properties) {
 		super(p_i46710_1_, properties);
-		PinGenerator = new GenPine();
+        if(ConfigHandler.addPines) {
+        	PINE = new PineFinder();
+        } else {
+        	PINE = new SpruceFinder();
+        }
 	}
 
 	
@@ -39,7 +47,7 @@ public class TropicalMountains extends BiomeHills {
     			return BIG_TREE_FEATURE;
     		case 2:
     		case 3:
-    			return PinGenerator;
+    			return PINE.getTree(rand);
     		case 4:
     			return new WorldGenTrees(false, 4 + rand.nextInt(7), JUNGLE_LOG, JUNGLE_LEAF, true);
     		default:

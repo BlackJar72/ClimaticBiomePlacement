@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.feature.GenPine;
 
 import java.util.Random;
@@ -9,6 +10,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeForest;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
+import net.minecraft.world.gen.feature.WorldGenTaiga1;
+import net.minecraft.world.gen.feature.WorldGenTaiga2;
 
 /**
  * A warm, subtropical biome based loosely on parts of northern Florida, 
@@ -19,7 +22,7 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
  * @author Jared Blackburn
  */
 public class Pinewoods extends BiomeForest {
-	private static final GenPine PINE_GENERATOR = new GenPine();
+	private final IPineFinder PINE;
 	private static final IBlockState WATER_LILY = Blocks.WATERLILY.getDefaultState();
 
 	public Pinewoods() {
@@ -32,6 +35,11 @@ public class Pinewoods extends BiomeForest {
 	    decorator.grassPerChunk = 10;
         decorator.clayPerChunk = 1;
         decorator.waterlilyPerChunk = 2;
+        if(ConfigHandler.addPines) {
+        	PINE = new PineFinder();
+        } else {
+        	PINE = new SpruceFinder();
+        }
 	}
 
 	
@@ -40,8 +48,32 @@ public class Pinewoods extends BiomeForest {
     	if((rand.nextInt(8) % 8) == 0) {
     		return SWAMP_FEATURE;
     	} else {
-    		return PINE_GENERATOR;
+    		return PINE.getTree(rand);
     	}
     }
+	
+	
+	static interface IPineFinder {
+		WorldGenAbstractTree getTree(Random rand);
+	}
+	
+	
+	static class PineFinder implements IPineFinder {
+		final GenPine PINE_GENERATOR = new GenPine();
+		@Override
+		public WorldGenAbstractTree getTree(Random rand) {
+			return PINE_GENERATOR;
+		}		
+	}
+	
+	
+	static class SpruceFinder implements IPineFinder {    
+		final WorldGenTaiga1 PINE_GENERATOR = new WorldGenTaiga1();
+		final WorldGenTaiga2 SPRUCE_GENERATOR = new WorldGenTaiga2(false);
+		@Override
+		public WorldGenAbstractTree getTree(Random rand) {
+			return rand.nextBoolean() ? PINE_GENERATOR : SPRUCE_GENERATOR;
+		}		
+	}
 
 }

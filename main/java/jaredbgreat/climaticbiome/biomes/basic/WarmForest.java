@@ -1,5 +1,9 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
+import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.IPineFinder;
+import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.PineFinder;
+import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.SpruceFinder;
 import jaredbgreat.climaticbiome.biomes.feature.GenPine;
 
 import java.util.Random;
@@ -15,20 +19,28 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
  * @author Jared Blackburn
  */
 public class WarmForest extends BiomeForest {
-	private final GenPine PinGenerator;
+	private final IPineFinder PINE;
 
 	public WarmForest() {
 		super(BiomeForest.Type.NORMAL, 
 				new Biome.BiomeProperties("Subtropical Forest")
 					.setTemperature(0.8f)
 					.setRainfall(0.85f));
-		PinGenerator = new GenPine();
+        if(ConfigHandler.addPines) {
+        	PINE = new PineFinder();
+        } else {
+        	PINE = new SpruceFinder();
+        }
 	}
 
 	
 	public WarmForest(Biome.BiomeProperties prop) {
 		super(BiomeForest.Type.NORMAL, prop);
-		PinGenerator = new GenPine();
+        if(ConfigHandler.addPines) {
+        	PINE = new PineFinder();
+        } else {
+        	PINE = new SpruceFinder();
+        }
 	}
 
 	
@@ -39,7 +51,7 @@ public class WarmForest extends BiomeForest {
     		case 0:
     			return BIG_TREE_FEATURE;
     		case 1:
-    			return PinGenerator;
+    			return PINE.getTree(rand);
     		default:
     			return TREE_FEATURE;
     	}

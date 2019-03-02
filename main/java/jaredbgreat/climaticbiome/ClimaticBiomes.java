@@ -1,6 +1,7 @@
 package jaredbgreat.climaticbiome;
 
 import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
+import jaredbgreat.climaticbiome.biomes.feature.GenPine;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.compat.userdef.VariantParser;
 import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
@@ -48,8 +49,11 @@ public class ClimaticBiomes {
     			+ File.separator + Info.DIR);
     	configHandler = new ConfigHandler(confdir.toString());
     	configHandler.load();
-    	BlockRegistrar.initBlocks();
-    	ItemRegistrar.initItems();
+    	if(ConfigHandler.moddedBlocks) {
+	    	BlockRegistrar.initBlocks();
+	    	ItemRegistrar.initItems();
+    	}
+    	GenPine.init();
     	worldType = new ClimaticWorldType();
     	ModBiomes.createBiomes();
     	if(ConfigHandler.useDT) {

@@ -27,7 +27,9 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public void fixRenders(BlockLeaves in) {
-		in.setGraphicsLevel(Minecraft.getMinecraft().isFancyGraphicsEnabled());
+		if(ConfigHandler.moddedBlocks) {
+			in.setGraphicsLevel(Minecraft.getMinecraft().isFancyGraphicsEnabled());
+		}
 	}
 	
 	

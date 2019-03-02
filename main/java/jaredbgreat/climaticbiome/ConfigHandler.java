@@ -21,6 +21,7 @@ public class ConfigHandler {
 	public static boolean addBeaches = true;
 	public static boolean moreMansion = true;
 	public static boolean moddedBlocks = true;
+	public static boolean addPines = true;
 	public static boolean deepSand = true;
 
 	private static File dir;
@@ -99,6 +100,15 @@ public class ConfigHandler {
 						+ " this fits the mods theme and eliminates a major lag spike but \n"
 						+ " will effect all world types (even vanilla); depending on Forge / \n"
 						+ " Java / OS / unknown factors it might not work.");
+				
+		addPines = config.getBoolean("AddPines", "Pines", true, 
+						"If true modded pine trees will appear in warmer climate. \n"
+						+ "If false spruce will be added instead.  \n"
+						+ "This does not effect if pine blocks technically exist.");
+		
+		moddedBlocks = config.getBoolean("ModdedBlocks", "Pines", true, 
+						"If pine blocks exist and pines will be made from them. \n"
+						+ "If false these blocks don't exist and pines are made from spruce blocks.");
 		
 		config.save();	// Saving it all
 	}
