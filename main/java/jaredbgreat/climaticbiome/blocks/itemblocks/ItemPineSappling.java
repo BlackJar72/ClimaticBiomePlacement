@@ -26,25 +26,6 @@ public class ItemPineSappling extends ItemBlock {
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
     
-
-	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, 
-			BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		IBlockState ground = world.getBlockState(pos);
-		if(ground.getBlock().canSustainPlant(ground, world, pos.down(), EnumFacing.UP, 
-				(IPlantable) Blocks.SAPLING)) {
-			IBlockState plant = BlockRegistrar.blockPineSappling.getDefaultState();
-			world.setBlockState(pos.up(), plant);
-			if(!player.isCreative()) {
-				ItemStack stack = player.getHeldItem(hand); 
-				stack.setCount(stack.getCount() - 1);
-			}
-			return EnumActionResult.SUCCESS;
-		} else {
-			return EnumActionResult.FAIL;
-		}
-	}
-    
     
     @Override
 	public int getItemBurnTime(ItemStack stack) {
