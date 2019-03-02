@@ -109,7 +109,8 @@ public class ConfigHandler {
 		
 		moddedBlocks = config.getBoolean("ModdedBlocks", "Pines", true, 
 						"If pine blocks exist and pines will be made from them. \n"
-						+ "If false these blocks don't exist and pines are made from spruce blocks.");
+						+ "If false these blocks don't exist and pines are made from spruce blocks. \n"
+						+ "If dynamic trees compatibility is ues this will do nothing!");
 		
 		config.save();	// Saving it all
 	}
