@@ -23,6 +23,7 @@ public class ConfigHandler {
 	public static boolean moddedBlocks = true;
 	public static boolean addPines = true;
 	public static boolean deepSand = true;
+	public static boolean badBiomeSpam = false;
 
 	private static File dir;
 	private static File file;
@@ -111,6 +112,11 @@ public class ConfigHandler {
 						"If pine blocks exist and pines will be made from them. \n"
 						+ "If false these blocks don't exist and pines are made from spruce blocks. \n"
 						+ "If dynamic trees compatibility is ues this will do nothing!");
+		
+		badBiomeSpam = config.getBoolean("ErrorsForBadBiomeID", "Debugging", false, 
+						"If true an error message will be printed to the console whenever a \n"
+						+ "biome can't be fount for an ID (this will spam the console and may \n"
+						+ "freeze the game).  Othewise they will silently become oceans.");
 		
 		config.save();	// Saving it all
 	}

@@ -70,6 +70,7 @@ public class ClimaticBiomes {
     	}
     	proxy.init();
     	ItemRegistrar.addRecipes();
+    	makeFiles();
     }
 
 
@@ -79,8 +80,6 @@ public class ClimaticBiomes {
     		DefReader.writeList(confdir);
     	}
     	DefReader.init(ForgeRegistries.BIOMES, confdir);
-    	Externalizer extern = new Externalizer();
-    	extern.copyOut(confdir);
     	VariantParser.parse(confdir);
     	ItemRegistrar.oreDict();
     	try {
@@ -97,5 +96,11 @@ public class ClimaticBiomes {
     		log.warning("[Climatic Biomes] You might need a different version of Forge or Java (probably Java)");
     	}
     }
-
+    
+    
+    private void makeFiles() {
+    	Externalizer extern = new Externalizer();
+    	extern.copyOut(confdir);    	
+    }
+    
 }

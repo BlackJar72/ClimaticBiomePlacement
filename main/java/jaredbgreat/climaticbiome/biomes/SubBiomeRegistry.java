@@ -2,6 +2,7 @@ package jaredbgreat.climaticbiome.biomes;
 
 import java.util.logging.Logger;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.ICachable;
 
 public class SubBiomeRegistry {
@@ -95,12 +96,14 @@ public class SubBiomeRegistry {
     
     
     private void showError(int id) {
-    	System.err.println();
-    	System.err.println("*******************************************");
-    	System.err.println("Returning NULL for subbiome id " + id);
-    	System.err.println("Subbiome " + id + " must be registeerd!" );
-    	System.err.println("*******************************************");
-    	System.err.println();    	
+    	if(ConfigHandler.badBiomeSpam) {
+	    	System.err.println();
+	    	System.err.println("*******************************************");
+	    	System.err.println("Returning NULL for subbiome id " + id);
+	    	System.err.println("Subbiome " + id + " must be registeerd!" );
+	    	System.err.println("*******************************************");
+	    	System.err.println();    	
+    	}
     }
     
     
