@@ -13,6 +13,7 @@ import jaredbgreat.climaticbiome.util.ItemRegistrar;
 import java.io.File;
 import java.util.logging.Logger;
 
+import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.WoodlandMansion;
 import net.minecraftforge.common.BiomeDictionary;
@@ -30,6 +31,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 @Mod(modid=Info.ID, name=Info.NAME, version=Info.VERSION,
 acceptableRemoteVersions=Info.VERSION, dependencies=Info.DEPSTR)
 public class ClimaticBiomes {
+	
 	@Instance
 	public static ClimaticBiomes instance;
 	public static ClimaticWorldType worldType;
@@ -40,8 +42,6 @@ public class ClimaticBiomes {
 			    serverSide = "jaredbgreat.climaticbiome.proxy.ServerProxy")
 	public static IProxy proxy;
 	
-
-
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -56,18 +56,12 @@ public class ClimaticBiomes {
     	GenPine.init();
     	worldType = new ClimaticWorldType();
     	ModBiomes.createBiomes();
-    	if(ConfigHandler.useDT) {
-    		//DynamicTreeHelper.preInit();
-    	}
     	proxy.preInit();
     }
 
 
     @EventHandler
-    public void init(FMLInitializationEvent event) { 	
-    	if(ConfigHandler.hasDT) {
-    		//DynamicTreeHelper.init();
-    	}
+    public void init(FMLInitializationEvent event) { 
     	proxy.init();
     	ItemRegistrar.addRecipes();
     	makeFiles();
@@ -76,6 +70,9 @@ public class ClimaticBiomes {
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+    	if(ConfigHandler.makeDefault) {
+    		moveWorldTypes();
+    	}
     	if(ConfigHandler.writeList) {
     		DefReader.writeList(confdir);
     	}
@@ -101,6 +98,15 @@ public class ClimaticBiomes {
     private void makeFiles() {
     	Externalizer extern = new Externalizer();
     	extern.copyOut(confdir);    	
+    }
+    
+    
+    private void moveWorldTypes() {
+    	int id = worldType.getId();
+    	for(int i = id; i > id; i--) {
+    		WorldType.WORLD_TYPES[i] = worldType.WORLD_TYPES[i - 1]; 
+    	}
+    	WorldType.WORLD_TYPES[0] = worldType;
     }
     
 }

@@ -24,6 +24,7 @@ public class ConfigHandler {
 	public static boolean addPines = true;
 	public static boolean deepSand = true;
 	public static boolean badBiomeSpam = false;
+	public static boolean makeDefault = true;
 
 	private static File dir;
 	private static File file;
@@ -117,6 +118,10 @@ public class ConfigHandler {
 						"If true an error message will be printed to the console whenever a \n"
 						+ "biome can't be fount for an ID (this will spam the console and may \n"
 						+ "freeze the game).  Othewise they will silently become oceans.");
+		
+		makeDefault = config.getBoolean("MakeDefaut", "General", true, 
+						"If true the Climatic world type will be moved to the top of the list \n"
+						+ "of world types and will be used by default on new worlds.");
 		
 		config.save();	// Saving it all
 	}
