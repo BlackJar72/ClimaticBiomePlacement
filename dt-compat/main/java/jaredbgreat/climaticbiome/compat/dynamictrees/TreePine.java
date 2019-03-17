@@ -43,7 +43,9 @@ public class TreePine extends TreeFamily {
 		
 		@Override
 		public boolean isBiomePerfect(Biome biome) {
-			return biome == ModBiomes.pineWoods;
+			return biome == ModBiomes.pineWoods 
+				|| biome == ModBiomes.warmForest
+				|| biome == ModBiomes.warmForestHills;
 		}
 		
 	}
