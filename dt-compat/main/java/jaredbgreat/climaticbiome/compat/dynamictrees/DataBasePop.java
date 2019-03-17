@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.compat.dynamictrees;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
 
 import com.ferreusveritas.dynamictrees.api.TreeRegistry;
@@ -20,6 +21,7 @@ public class DataBasePop implements IBiomeDataBasePopulator {
 	private static Species apple;
 	private static Species oakswamp;
 	private static Species cactus;
+	private static Species pine;
 
 	@Override
 	public void populate(BiomeDataBase db) {
@@ -32,12 +34,17 @@ public class DataBasePop implements IBiomeDataBasePopulator {
 		apple = TreeRegistry.findSpeciesSloppy("apple");
 		oakswamp = TreeRegistry.findSpeciesSloppy("oakswamp");
 		cactus = TreeRegistry.findSpeciesSloppy("cactus");
+		if(ConfigHandler.addPines) {
+			pine = DynamicTreeHelper.floridaPine;
+		} else {
+			pine = spruce;
+		}
 		
 		System.err.println("spruce = " + spruce);
 		
 		db.setSpeciesSelector(ModBiomes.warmForest, 
 				              new RandomSpeciesSelector().add(oak, 4)
-				              .add(DynamicTreeHelper.floridaPine, 1), 
+				              .add(pine, 1), 
 				              Operation.REPLACE);
 		db.setForestness(ModBiomes.warmForest, 1.0f);
 		db.setCancelVanillaTreeGen(ModBiomes.warmForest, true);
@@ -45,7 +52,7 @@ public class DataBasePop implements IBiomeDataBasePopulator {
 		db.setChanceSelector(ModBiomes.warmForest, (rnd, spc, rad) -> EnumChance.OK, Operation.REPLACE);
 		db.setSpeciesSelector(ModBiomes.warmForestHills, 
 	              			  new RandomSpeciesSelector().add(oak, 4)
-	              			  .add(DynamicTreeHelper.floridaPine, 1), 
+	              			  .add(pine, 1), 
 	                          Operation.REPLACE);
 		db.setForestness(ModBiomes.warmForestHills, 1.0f);
 		db.setCancelVanillaTreeGen(ModBiomes.warmForestHills, true);
@@ -68,7 +75,7 @@ public class DataBasePop implements IBiomeDataBasePopulator {
 		db.setDensitySelector(ModBiomes.tropicalForestHills, (rnd, nd) -> nd * 1.0f, Operation.REPLACE);
 		db.setChanceSelector(ModBiomes.tropicalForestHills, (rnd, spc, rad) -> EnumChance.OK, Operation.REPLACE);
 		db.setSpeciesSelector(ModBiomes.pineWoods, 
-	  			  			  new RandomSpeciesSelector().add(DynamicTreeHelper.floridaPine, 4)
+	  			  			  new RandomSpeciesSelector().add(pine, 4)
 	  			  			  .add(oakswamp, 1), 
 	  			  			  Operation.REPLACE);
 		db.setForestness(ModBiomes.pineWoods, 1.0f);
@@ -130,7 +137,7 @@ public class DataBasePop implements IBiomeDataBasePopulator {
 		
 		db.setSpeciesSelector(ModBiomes.hotMountain, 
 	  			  new RandomSpeciesSelector().add(oak, 4)
-	  			  							 .add(DynamicTreeHelper.floridaPine, 2), 
+	  			  							 .add(pine, 2), 
 	  			  							 Operation.REPLACE);
 		db.setDensitySelector(ModBiomes.hotMountain, (rnd, nd) -> 0.0f, Operation.REPLACE);
 		db.setChanceSelector(ModBiomes.hotMountain, (rnd, spc, rad) -> rnd.nextInt(24) == 0 
@@ -140,7 +147,7 @@ public class DataBasePop implements IBiomeDataBasePopulator {
 		
 		db.setSpeciesSelector(ModBiomes.hotMountainTrees, 
 	  			  new RandomSpeciesSelector().add(oak, 4)
-											 .add(DynamicTreeHelper.floridaPine, 2), 
+											 .add(pine, 2), 
 											 Operation.REPLACE);
 		db.setDensitySelector(ModBiomes.hotMountainTrees, (rnd, nd) -> 0.0f, Operation.REPLACE);
 		db.setChanceSelector(ModBiomes.hotMountainTrees, (rnd, spc, rad) -> rnd.nextBoolean() 

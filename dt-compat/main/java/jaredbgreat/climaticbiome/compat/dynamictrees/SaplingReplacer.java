@@ -15,11 +15,11 @@ import com.ferreusveritas.dynamictrees.trees.Species;
  * This is supposed to replace placed sappling with dynamic trees; 
  * I have no idea why it doesn't work.
  */
-//@Mod.EventBusSubscriber(modid="climaticbiomesdt")
+@Mod.EventBusSubscriber(modid="climaticbiomesdt")
 public class SaplingReplacer {
 
 	@SubscribeEvent
-	public void onPlaceSaplingEvent(PlaceEvent event) {
+	public static void onPlaceSaplingEvent(PlaceEvent event) {
 		IBlockState state = event.getPlacedBlock();		
 		Species species = null;
 		
