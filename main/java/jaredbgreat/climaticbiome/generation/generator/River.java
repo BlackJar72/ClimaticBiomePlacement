@@ -87,8 +87,6 @@ public class River {
         da = angle = 0;
         cx = begin.x - x * MapMaker.RSIZE + MapMaker.RADIUS;
         cy = begin.z - z * MapMaker.RSIZE + MapMaker.RADIUS;
-        //System.err.println(cx + ", " + cy + " -> " + (cx - map.getXoff()) + ", " + (cy - map.getZoff()) 
-        //		+ "  (XOff = " + map.getXoff() + ", ZOff = " + map.getZoff() + ") ");
         double length = findLength(cx, cy, end.x, end.z);
         dx = (end.x - begin.x) / length;
         dy = (end.z - begin.z) / length;

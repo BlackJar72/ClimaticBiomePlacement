@@ -103,7 +103,7 @@ public class ClimaticBiomes {
     
     private void moveWorldTypes() {
     	int id = worldType.getId();
-    	for(int i = id; i > id; i--) {
+    	for(int i = id; i > 1; i--) {
     		WorldType.WORLD_TYPES[i] = worldType.WORLD_TYPES[i - 1]; 
     	}
     	WorldType.WORLD_TYPES[0] = worldType;
