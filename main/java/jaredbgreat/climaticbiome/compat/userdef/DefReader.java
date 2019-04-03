@@ -9,6 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import biomesoplenty.common.world.WorldTypeBOP;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -63,6 +65,20 @@ public class DefReader {
 			for(Biome biome : biomes) {
 				fs.write(biome.getRegistryName().toString());
 				fs.newLine();
+			}
+			fs.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		file = new File(confdir.toString() + File.separator + "WorldTypeList.txt");
+		try {
+			BufferedWriter fs = new BufferedWriter(new FileWriter(file));
+			for(int i = 0; i < WorldType.WORLD_TYPES.length; i++) {
+				if((WorldType.WORLD_TYPES[i] != null) 
+						&& WorldType.WORLD_TYPES[i].canBeCreated()) {
+					fs.write(WorldType.WORLD_TYPES[i].getName());
+					fs.newLine();
+				}
 			}
 			fs.close();
 		} catch (IOException e) {

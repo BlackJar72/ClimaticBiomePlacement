@@ -1,5 +1,7 @@
 package jaredbgreat.climaticbiome;
 
+import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
+
 import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
@@ -26,6 +28,7 @@ public class ConfigHandler {
 	public static boolean badBiomeSpam = false;
 	public static boolean makeDefault = false;
 	public static boolean addToVanilla = false;
+	public static String  chunkProvider = "default";
 
 	private static File dir;
 	private static File file;
@@ -127,6 +130,12 @@ public class ConfigHandler {
 		
 		addToVanilla = config.getBoolean("AddToVanilla", "General", false, 
 						"If true the biomes from this mod will appear in vanilla world types.");
+		
+		chunkProvider = config.getString("ChunkProvider", "General", "default", 
+						"You can use another mods chunk provider here if you like; \n"
+						+ "Warning: This is not guaraunteed to work (could depend "
+						+ "on how the other mod is written, which is out of my control).");
+		ClimaticWorldType.setChunkProviderType(chunkProvider);
 		
 		config.save();	// Saving it all
 	}

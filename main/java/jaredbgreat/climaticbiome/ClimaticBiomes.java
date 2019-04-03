@@ -82,6 +82,7 @@ public class ClimaticBiomes {
     	DefReader.init(ForgeRegistries.BIOMES, confdir);
     	VariantParser.parse(confdir);
     	ItemRegistrar.oreDict();
+    	ClimaticWorldType.initChunkProviderType();
     	try {
 	    	if(ConfigHandler.moreMansion) {
 		    	for(Biome biome : ForgeRegistries.BIOMES.getValues()) {
