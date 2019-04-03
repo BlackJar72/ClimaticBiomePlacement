@@ -56,6 +56,18 @@ public class GetOcean implements IBiomeSpecifier {
 		DefReader.readBiomeData(dcool,   "DeepOceanCool.cfg");
 		DefReader.readBiomeData(dwarm,   "DeepOceanWarm.cfg");
 		DefReader.readBiomeData(dhot,    "DeepOceanHot.cfg");
+		if(warm.isEmpty()) {
+			warm.addItem(new LeafBiome(0));
+		}
+		if(hot.isEmpty()) {
+			hot.addItem(new LeafBiome(0));
+		}
+		if(dwarm.isEmpty()) {
+			dwarm.addItem(new LeafBiome(24));
+		}
+		if(dhot.isEmpty()) {
+			dhot.addItem(new LeafBiome(24));
+		}
 		if(cool.isEmpty()) {
 			cool.addItem(new LeafBiome(0));
 		}

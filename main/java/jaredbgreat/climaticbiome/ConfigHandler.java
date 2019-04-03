@@ -24,7 +24,8 @@ public class ConfigHandler {
 	public static boolean addPines = true;
 	public static boolean deepSand = true;
 	public static boolean badBiomeSpam = false;
-	public static boolean makeDefault = true;
+	public static boolean makeDefault = false;
+	public static boolean addToVanilla = false;
 
 	private static File dir;
 	private static File file;
@@ -119,9 +120,13 @@ public class ConfigHandler {
 						+ "biome can't be fount for an ID (this will spam the console and may \n"
 						+ "freeze the game).  Othewise they will silently become oceans.");
 		
-		makeDefault = config.getBoolean("MakeDefaut", "General", true, 
+		makeDefault = config.getBoolean("MakeDefaut", "General", false, 
 						"If true the Climatic world type will be moved to the top of the list \n"
-						+ "of world types and will be used by default on new worlds.");
+						+ "of world types and will be used by default on new worlds. \n"
+						+ "(Note that it will be impossible to create a default vanilla world.)");
+		
+		addToVanilla = config.getBoolean("AddToVanilla", "General", false, 
+						"If true the biomes from this mod will appear in vanilla world types.");
 		
 		config.save();	// Saving it all
 	}

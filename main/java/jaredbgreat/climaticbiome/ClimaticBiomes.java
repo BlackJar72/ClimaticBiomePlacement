@@ -56,6 +56,9 @@ public class ClimaticBiomes {
     	GenPine.init();
     	worldType = new ClimaticWorldType();
     	ModBiomes.createBiomes();
+    	if(ConfigHandler.addToVanilla) {
+    		ModBiomes.addToVanilla();
+    	}
     	proxy.preInit();
     }
 
@@ -102,10 +105,6 @@ public class ClimaticBiomes {
     
     
     private void moveWorldTypes() {
-    	int id = worldType.getId();
-    	for(int i = id; i > 1; i--) {
-    		WorldType.WORLD_TYPES[i] = worldType.WORLD_TYPES[i - 1]; 
-    	}
     	WorldType.WORLD_TYPES[0] = worldType;
     }
     

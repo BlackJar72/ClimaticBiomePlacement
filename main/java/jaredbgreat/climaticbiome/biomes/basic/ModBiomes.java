@@ -9,6 +9,8 @@ import net.minecraft.world.biome.BiomeRiver;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.common.BiomeManager.BiomeEntry;
+import net.minecraftforge.common.BiomeManager.BiomeType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -230,5 +232,24 @@ public class ModBiomes {
 		BiomeDictionary.addTypes(warmRiver, Type.RIVER, Type.WATER);
 		BiomeDictionary.addTypes(hotRiver, Type.RIVER, Type.WATER, Type.HOT);		
 		GetRiver.initAdvanced();
+	}
+	
+	
+	public static void addToVanilla() {
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmForest, 5));
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(tropicalForest, 5));
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmForestHills, 5));
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(tropicalForestHills, 5));
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(pineWoods, 5));
+
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(denseScrub, 5));
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(denseScrubHills, 5));
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(dryScrub, 5));
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(dryScrubHills, 5));
+		
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMountain, 5));
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMountainTrees, 5));
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(hotMountain, 5));
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(hotMountainTrees, 5));		
 	}
 }
