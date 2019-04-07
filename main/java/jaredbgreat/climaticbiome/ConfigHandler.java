@@ -78,7 +78,7 @@ public class ConfigHandler {
 		writeBiomeLists = config.getBoolean("WriteBiomelist", "Compat", true, 
 						"If true a list of all biome resource locations will be saved to a file.");
 		
-		writeWTLists = config.getBoolean("WriteWTlist", "Compat", false, 
+		writeWTLists = config.getBoolean("WriteWorldTypeList", "Compat", false, 
 						"If true a list creatable world types by resource location; /n"
 						+ "WARNING: This has been known to crash the game with certain setups \n"
 						+ "(core mods?  Forge version?).");
