@@ -70,7 +70,11 @@ public class DefReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		file = new File(confdir.toString() + File.separator + "WorldTypeList.txt");
+	}
+	
+	
+	public static void writeWTList(File confdir) {
+		File file = new File(confdir.toString() + File.separator + "WorldTypeList.txt");
 		try {
 			BufferedWriter fs = new BufferedWriter(new FileWriter(file));
 			for(int i = 0; i < WorldType.WORLD_TYPES.length; i++) {

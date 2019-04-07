@@ -76,8 +76,11 @@ public class ClimaticBiomes {
     	if(ConfigHandler.makeDefault) {
     		moveWorldTypes();
     	}
-    	if(ConfigHandler.writeList) {
+    	if(ConfigHandler.writeBiomeLists) {
     		DefReader.writeList(confdir);
+    	}
+    	if(ConfigHandler.writeWTLists) {
+    		DefReader.writeWTList(confdir);
     	}
     	DefReader.init(ForgeRegistries.BIOMES, confdir);
     	VariantParser.parse(confdir);

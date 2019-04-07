@@ -14,7 +14,8 @@ public class ConfigHandler {
 	public static boolean useBoPTable = false;	
 	public static boolean volcanicBoP = false;
 	public static boolean useCfg = true;
-	public static boolean writeList = true;
+	public static boolean writeBiomeLists = true;
+	public static boolean writeWTLists = false;
 	public static boolean rivers = true;
 	public static boolean rockyScrub = true;
 	public static boolean hasDT = false;
@@ -74,8 +75,14 @@ public class ConfigHandler {
 						+ "does nothing.")
 				 && net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");
 				
-		writeList = config.getBoolean("WriteBiomelist", "Compat", true, 
+		writeBiomeLists = config.getBoolean("WriteBiomelist", "Compat", true, 
 						"If true a list of all biome resource locations will be saved to a file.");
+		
+		writeWTLists = config.getBoolean("WriteWTlist", "Compat", false, 
+						"If true a list creatable world types by resource location; /n"
+						+ "WARNING: This has been known to crash the game with certain setups \n"
+						+ "(core mods?  Forge version?).");
+
 		
 		useCfg = config.getBoolean("UseCustomConfigs", "Compat", true, 
 						"If true it read will files from the BiomeConfig/custom folder to extends \n"
