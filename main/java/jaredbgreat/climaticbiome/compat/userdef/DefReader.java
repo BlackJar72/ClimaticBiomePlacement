@@ -78,8 +78,7 @@ public class DefReader {
 		try {
 			BufferedWriter fs = new BufferedWriter(new FileWriter(file));
 			for(int i = 0; i < WorldType.WORLD_TYPES.length; i++) {
-				if((WorldType.WORLD_TYPES[i] != null) 
-						&& WorldType.WORLD_TYPES[i].canBeCreated()) {
+				if((WorldType.WORLD_TYPES[i] != null)) {
 					fs.write(WorldType.WORLD_TYPES[i].getName());
 					fs.newLine();
 				}
