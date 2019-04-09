@@ -1,5 +1,10 @@
 package jaredbgreat.climaticbiome;
 
+import net.minecraft.util.JsonUtils;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 public class ClimaticWorldSettings {
 	
 	// Core settings
@@ -43,26 +48,87 @@ public class ClimaticWorldSettings {
 	}
 	
 	
+	/**
+	 * A method to reset the settings based on json.  I'm
+	 * not sure where the json is supposed to be from -- a 
+	 * the string in the main world save file?
+	 * 
+	 * @param json
+	 * @return this 
+	 * 
+	 */
+	public ClimaticWorldSettings fromJson(JsonElement json) {
+		JsonObject jsonObj = json.getAsJsonObject();		
+		{
+			if(JsonUtils.hasField(jsonObj, "useBoP"))
+				useBoP = JsonUtils.getBoolean(jsonObj, "useBoP");
+			
+			if(JsonUtils.hasField(jsonObj, "useTraverse")) 			
+				useTraverse = JsonUtils.getBoolean(jsonObj, "useTraverse");
+			
+			if(JsonUtils.hasField(jsonObj, "useVanilla")) 		
+				useVanilla = JsonUtils.getBoolean(jsonObj, "useVanilla");
+			
+			if(JsonUtils.hasField(jsonObj, "useBoPTable")) 			
+				useBoPTable = JsonUtils.getBoolean(jsonObj, "useBoPTable");
+			
+			if(JsonUtils.hasField(jsonObj, "volcanicBoP")) 			
+				volcanicBoP = JsonUtils.getBoolean(jsonObj, "volcanicBoP");
+			
+			if(JsonUtils.hasField(jsonObj, "useCfg")) 		
+				useCfg = JsonUtils.getBoolean(jsonObj, "useCfg");
+			
+			if(JsonUtils.hasField(jsonObj, "rivers")) 		
+				rivers = JsonUtils.getBoolean(jsonObj, "rivers");
+			
+			if(JsonUtils.hasField(jsonObj, "rockyScrub")) 		
+				rockyScrub = JsonUtils.getBoolean(jsonObj, "rockyScrub");
+			
+			if(JsonUtils.hasField(jsonObj, "hasDT")) 		
+				hasDT = JsonUtils.getBoolean(jsonObj, "hasDT");
+			
+			if(JsonUtils.hasField(jsonObj, "useDT")) 		
+				useDT = JsonUtils.getBoolean(jsonObj, "useDT");
+			
+			if(JsonUtils.hasField(jsonObj, "addIslands")) 		
+				addIslands = JsonUtils.getBoolean(jsonObj, "addIslands");
+			
+			if(JsonUtils.hasField(jsonObj, "addBeaches")) 		
+				addBeaches = JsonUtils.getBoolean(jsonObj, "addBeaches");
+			
+			if(JsonUtils.hasField(jsonObj, "moreMansion")) 		
+				moreMansion = JsonUtils.getBoolean(jsonObj, "moreMansion");
+			
+			if(JsonUtils.hasField(jsonObj, "deepSand")) 		
+				deepSand = JsonUtils.getBoolean(jsonObj, "deepSand");
+		}		
+		return this;
+	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*-*****************************************************-*/
-	/*-***************** Factory Inner Class ***************-*/
-	/*-*****************************************************-*/
-	
-	public static class SettingFactory {
-		
+	/**
+	 * This creates a json version of the world settings, for 
+	 * saving ... somewhere.
+	 * 
+	 * @return A json representation of the settings.
+	 */
+	public JsonElement toJson() {
+		JsonObject jsonObj = new JsonObject();		
+		jsonObj.addProperty("useBoP", useBoP);	
+		jsonObj.addProperty("useTraverse", useTraverse);
+		jsonObj.addProperty("useVanilla", useVanilla);	
+		jsonObj.addProperty("useBoPTable", useBoPTable);
+		jsonObj.addProperty("volcanicBoP", volcanicBoP);
+		jsonObj.addProperty("useCfg", useCfg);
+		jsonObj.addProperty("rivers", rivers);	
+		jsonObj.addProperty("rockyScrub", rockyScrub);
+		jsonObj.addProperty("hasDT", hasDT);
+		jsonObj.addProperty("useDT", useDT);	
+		jsonObj.addProperty("addIslands", addIslands);
+		jsonObj.addProperty("addBeaches", addBeaches);	
+		jsonObj.addProperty("moreMansion", moreMansion);
+		jsonObj.addProperty("deepSand", deepSand);
+		return jsonObj;
 	}
 
 }
