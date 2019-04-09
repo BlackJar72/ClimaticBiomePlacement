@@ -4,11 +4,11 @@ import net.minecraft.util.JsonUtils;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class ClimaticWorldSettings {
 	
 	// Core settings
-	// NOTE: Some of these may not actually be used (i.e., but configured per world)!!!
 	public boolean useBoP;
 	public boolean useTraverse;
 	public boolean useVanilla;	
@@ -107,10 +107,23 @@ public class ClimaticWorldSettings {
 	
 	
 	/**
-	 * This creates a json version of the world settings, for 
+	 * A wrapper for fromJson that allows this to be configured 
+	 * by directy supply json text as a string.
+	 * 
+	 * @param json
+	 * @return this
+	 */
+	public ClimaticWorldSettings fromJsonString(String json) {
+		JsonParser parser = new JsonParser();
+		return fromJson(parser.parse(json));
+	}
+	
+	
+	/**
+	 * This creates a JsonElement version of the world settings, for 
 	 * saving ... somewhere.
 	 * 
-	 * @return A json representation of the settings.
+	 * @return A JsonElement representation of the settings.
 	 */
 	public JsonElement toJson() {
 		JsonObject jsonObj = new JsonObject();		
@@ -129,6 +142,18 @@ public class ClimaticWorldSettings {
 		jsonObj.addProperty("moreMansion", moreMansion);
 		jsonObj.addProperty("deepSand", deepSand);
 		return jsonObj;
+	}
+	
+	
+	/**
+	 * This is a convenience wrapper around toJson(), allowing 
+	 * a (text-based) json representation to the settings to 
+	 * be obtained ... for saving ... somewhere.
+	 * 
+	 * @return A json (text) representation of the settings.
+	 */
+	public String toJsonString() {
+		return toJson().toString();
 	}
 
 }

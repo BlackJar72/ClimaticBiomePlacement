@@ -6,6 +6,7 @@ import net.minecraft.client.gui.GuiCreateWorld;
 import net.minecraft.client.gui.GuiPageButtonList;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSlider;
+import net.minecraft.client.resources.I18n;
 
 public class GuiConfigureWorld extends GuiScreen 
 implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
@@ -20,14 +21,19 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
 
 	public GuiConfigureWorld(GuiCreateWorld guiCreateWorld,
 			String chunkProviderSettingsJson) {
-        this.parent = (GuiCreateWorld)guiCreateWorld;
-        if(chunkProviderSettingsJson.isEmpty()) {
-        	settings = new ClimaticWorldSettings();
-        } else {
-        	// FIXME: This is a stand-in until I've made a proper factory / interpreter; TODO: make factory
-        	settings = new ClimaticWorldSettings();        	
-        }
+        parent = (GuiCreateWorld)guiCreateWorld;
+        settings = new ClimaticWorldSettings();
 	}
+	
+	
+	@Override
+    public void initGui() {
+		title = I18n.format("options.customizeTitle");
+		buttonList.clear();
+		buttonList.add(new GuiButton(302, 20, 5, 80, 20, I18n.format("createWorld.customize.custom.prev")));
+		
+	}
+	
 
 	@Override
 	public void setEntryValue(int id, boolean value) {
@@ -51,6 +57,15 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
 	public String getText(int id, String name, float value) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}	
+	
+
+	@Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        drawDefaultBackground();
+        drawCenteredString(this.fontRenderer, this.title, this.width / 2, 2, 16777215);
+
+        super.drawScreen(mouseX, mouseY, partialTicks);
+    }
 
 }
