@@ -125,6 +125,9 @@ public class River {
     
     private boolean shouldEnd(int x, int y) {
         ChunkTile t = map.getTile(x, y);
+        if(outOfBounds(x, y)) {
+        	return true;
+        }
         // This will be true if the biome is water
         if(t.rlBiome == 0) {
             oc++;
@@ -137,8 +140,7 @@ public class River {
         }
         last = t;
         wasRiver = t.isRiver() && !Q.contains(t);
-        return ((t.rlBiome == 0) && ((t.val < 3) || (oc > 8))) 
-                || outOfBounds(x, y);
+        return ((t.rlBiome == 0) && ((t.val < 3) || (oc > 8)));
     }
     
     
