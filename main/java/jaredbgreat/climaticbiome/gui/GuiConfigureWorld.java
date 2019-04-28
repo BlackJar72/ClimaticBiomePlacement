@@ -1,6 +1,7 @@
 package jaredbgreat.climaticbiome.gui;
 
 import jaredbgreat.climaticbiome.ClimaticWorldSettings;
+import jaredbgreat.climaticbiome.Info;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiCreateWorld;
 import net.minecraft.client.gui.GuiPageButtonList;
@@ -31,8 +32,44 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
 		title = I18n.format("options.customizeTitle");
 		buttonList.clear();
 		buttonList.add(new GuiButton(302, 20, 5, 80, 20, I18n.format("createWorld.customize.custom.prev")));
+		buttonList.add(new GuiButton(303, this.width - 100, 5, 80, 20, 
+				I18n.format("createWorld.customize.custom.next")));
+        buttonList.add(new GuiButton(304, this.width / 2 - 187, this.height - 27, 90, 20, 
+        		I18n.format("createWorld.customize.custom.defaults")));
+        buttonList.add(new GuiButton(300, this.width / 2 + 98, this.height - 27, 90, 20, 
+        		I18n.format("gui.done")));
+		
 		
 	}
+	
+
+
+    private void createPagedList() {
+        GuiPageButtonList.GuiListEntry[] options1 = {
+//        		new GuiPageButtonList.GuiSlideEntry(160, 
+//        				I18n.format(Info.ID + "createWorld.customize.biomesize"), 
+//        				true, this, 8f, 64f, (float)16),
+        		new GuiPageButtonList.GuiButtonEntry(
+        				64, I18n.format(Info.ID + "createWorld.customize.addrivers"), 
+        				true, true),
+        		new GuiPageButtonList.GuiButtonEntry(
+        				64, I18n.format(Info.ID + "createWorld.customize.addbeaches"), 
+        				true, true),
+        		new GuiPageButtonList.GuiButtonEntry(
+        				64, I18n.format(Info.ID + "createWorld.customize.addboulders"), 
+        				true, true),
+        		new GuiPageButtonList.GuiButtonEntry(
+        				64, I18n.format(Info.ID + "createWorld.customize.deepsand"), 
+        				true, true),
+        		new GuiPageButtonList.GuiButtonEntry(
+        				64, I18n.format(Info.ID + "createWorld.customize.addislands"), 
+        				true, true),
+        		
+        };
+        
+        list = new GuiPageButtonList(mc, this.width, this.height, 32, this.height - 32, 25, 
+        		this, new GuiPageButtonList.GuiListEntry[][]{options1, options1, options1, options1});
+    }
 	
 
 	@Override

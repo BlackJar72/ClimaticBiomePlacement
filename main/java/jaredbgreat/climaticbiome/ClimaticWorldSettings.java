@@ -17,7 +17,6 @@ public class ClimaticWorldSettings {
 	public boolean useCfg;
 	public boolean rivers;
 	public boolean rockyScrub;
-	public boolean hasDT;
 	public boolean useDT;
 	public boolean addIslands;
 	public boolean addBeaches;
@@ -39,7 +38,6 @@ public class ClimaticWorldSettings {
 		this.useCfg = ConfigHandler.useCfg;
 		this.rivers = ConfigHandler.rivers;
 		this.rockyScrub = ConfigHandler.rockyScrub;
-		this.hasDT = ConfigHandler.hasDT;
 		this.useDT = ConfigHandler.useDT;
 		this.addIslands = ConfigHandler.addIslands;
 		this.addBeaches = ConfigHandler.addBeaches;
@@ -83,9 +81,6 @@ public class ClimaticWorldSettings {
 			
 			if(JsonUtils.hasField(jsonObj, "rockyScrub")) 		
 				rockyScrub = JsonUtils.getBoolean(jsonObj, "rockyScrub");
-			
-			if(JsonUtils.hasField(jsonObj, "hasDT")) 		
-				hasDT = JsonUtils.getBoolean(jsonObj, "hasDT");
 			
 			if(JsonUtils.hasField(jsonObj, "useDT")) 		
 				useDT = JsonUtils.getBoolean(jsonObj, "useDT");
@@ -135,7 +130,6 @@ public class ClimaticWorldSettings {
 		jsonObj.addProperty("useCfg", useCfg);
 		jsonObj.addProperty("rivers", rivers);	
 		jsonObj.addProperty("rockyScrub", rockyScrub);
-		jsonObj.addProperty("hasDT", hasDT);
 		jsonObj.addProperty("useDT", useDT);	
 		jsonObj.addProperty("addIslands", addIslands);
 		jsonObj.addProperty("addBeaches", addBeaches);	
