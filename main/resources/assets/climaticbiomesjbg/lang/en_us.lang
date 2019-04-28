@@ -1,4 +1,6 @@
 generator.climatic_bp=Climatic
+createWorld.climaticbiomesjbg.biomesize=Biome Size
+createWorld.climaticbiomesjbg.genscale=Climate Scale
 
 tile.climaticbiomesjbg.pine_log.name=Pine Wood
 tile.climaticbiomesjbg.pine_leaves.oak.name=Pine Needles

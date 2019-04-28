@@ -4,10 +4,12 @@ import jaredbgreat.climaticbiome.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.Info;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiCreateWorld;
+import net.minecraft.client.gui.GuiOptionSlider;
 import net.minecraft.client.gui.GuiPageButtonList;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSlider;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.settings.GameSettings.Options;
 
 public class GuiConfigureWorld extends GuiScreen 
 implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
@@ -38,7 +40,16 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
         		I18n.format("createWorld.customize.custom.defaults")));
         buttonList.add(new GuiButton(300, this.width / 2 + 98, this.height - 27, 90, 20, 
         		I18n.format("gui.done")));
-		
+        
+        // Sizing sliders -- these will be hidden from release version until / unless 
+        //                   scaling options are implemented in the generator.
+        buttonList.add(new GuiIntSlider(this, 64, 40, 40, 
+        		I18n.format("createWorld." + Info.ID + ".biomesize"), 4, 64, 16, this));
+        buttonList.add(new GuiScaleSlider(this, 65, width - 190, 40, 
+        		I18n.format("createWorld." + Info.ID + ".genscale")));
+        
+        // Buttons for boolean options
+        
 		
 	}
 	
@@ -46,9 +57,9 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
 
     private void createPagedList() {
         GuiPageButtonList.GuiListEntry[] options1 = {
-//        		new GuiPageButtonList.GuiSlideEntry(160, 
-//        				I18n.format(Info.ID + "createWorld.customize.biomesize"), 
-//        				true, this, 8f, 64f, (float)16),
+        		new GuiPageButtonList.GuiSlideEntry(160, 
+        				I18n.format(Info.ID + "createWorld.customize.biomesize"), 
+        				true, this, 8f, 64f, (float)16),
         		new GuiPageButtonList.GuiButtonEntry(
         				64, I18n.format(Info.ID + "createWorld.customize.addrivers"), 
         				true, true),
@@ -92,8 +103,7 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
 
 	@Override
 	public String getText(int id, String name, float value) {
-		// TODO Auto-generated method stub
-		return null;
+		return name + ": " + (int)value;
 	}	
 	
 
