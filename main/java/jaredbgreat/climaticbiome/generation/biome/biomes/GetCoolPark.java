@@ -20,6 +20,8 @@ public class GetCoolPark implements IBiomeSpecifier {
 		parks = new BiomeList();
 		plains = GetCoolPlains.getPlains();
 		woods = GetCoolForest.getForest();
+		parks.addItem(plains);
+		parks.addItem(woods);
 		DefReader.readBiomeData(parks, "ParklandCool.cfg");
 	}
 	
@@ -27,7 +29,7 @@ public class GetCoolPark implements IBiomeSpecifier {
 	@Override
 	public int getBiome(ChunkTile tile) {
 		int seed = tile.getBiomeSeed();
-		if(parks.isEmpty() || ((seed & 5) == 0)) {
+		if((seed % 5) == 0) {
 			if((seed & 1) == 0) {
 				tile.nextBiomeSeed();
 				return woods.getBiome(tile);
