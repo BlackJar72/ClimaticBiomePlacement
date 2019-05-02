@@ -64,5 +64,15 @@ public class BiomeList implements IBiomeSpecifier {
 	public int size() {
 		return list.size();
 	}
+	
+	
+	public boolean remove(IBiomeSpecifier bs) {
+		return list.remove(bs);
+	}
+	
+	
+	public boolean merge(BiomeList other) {
+		return list.addAll(other.list);
+	}
 
 }

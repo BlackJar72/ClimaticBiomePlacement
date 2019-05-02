@@ -5,6 +5,8 @@ import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
+import java.util.List;
+
 public class GetCoolPark implements IBiomeSpecifier {
 	private static GetCoolPark pland;
 	private GetCoolPark() {
@@ -28,17 +30,6 @@ public class GetCoolPark implements IBiomeSpecifier {
 
 	@Override
 	public int getBiome(ChunkTile tile) {
-		int seed = tile.getBiomeSeed();
-		if((seed % 5) == 0) {
-			if((seed & 1) == 0) {
-				tile.nextBiomeSeed();
-				return woods.getBiome(tile);
-			} else {
-				tile.nextBiomeSeed();
-				return plains.getBiome(tile);				
-			}
-		}
-		tile.nextBiomeSeed();
 		return parks.getBiome(tile);
 	}
 	
@@ -48,6 +39,11 @@ public class GetCoolPark implements IBiomeSpecifier {
 			pland = new GetCoolPark();
 		}
 		return pland;
+	}
+	
+	
+	BiomeList getList() {
+		return parks;
 	}
 
 

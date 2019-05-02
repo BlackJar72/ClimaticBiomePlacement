@@ -52,6 +52,11 @@ public class GetCoolPlains implements IBiomeSpecifier  {
 	}
 	
 	
+	BiomeList getList() {
+		return plains;
+	}
+	
+	
 	public static GetCoolPlains getPlains() {
 		if(grassland == null) {
 			grassland = new GetCoolPlains();

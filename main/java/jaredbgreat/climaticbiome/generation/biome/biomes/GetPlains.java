@@ -45,8 +45,16 @@ public class GetPlains implements IBiomeSpecifier {
 		}
 		return grassland;
 	}
-
-
+	
+	
+	/**
+	 * For mixing temperate and cool temperate zones in 
+	 * for use in classic temperature zones.
+	 */
+	public void collapseCool() {
+		plains.merge(GetCoolPlains.getPlains().getList());
+	}
+	
 
 	@Override
 	public boolean isEmpty() {

@@ -5,6 +5,9 @@ import jaredbgreat.climaticbiome.biomes.feature.GenPine;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.compat.userdef.VariantParser;
 import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetForest;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetPark;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetPlains;
 import jaredbgreat.climaticbiome.proxy.IProxy;
 import jaredbgreat.climaticbiome.util.BlockRegistrar;
 import jaredbgreat.climaticbiome.util.Externalizer;
@@ -98,6 +101,11 @@ public class ClimaticBiomes {
     		Logger log = Logger.getLogger("Minecraft");
     		log.warning("[Climatic Biomes] Woodland Mansion genaraion cannot be modified!");
     		log.warning("[Climatic Biomes] You might need a different version of Forge or Java (probably Java)");
+    	}
+    	if(!(ConfigHandler.useBoP || ConfigHandler.useBoPTable)) {
+    		GetForest.getForest().collapseCool();
+    		GetPlains.getPlains().collapseCool();
+    		GetPark.getPark().collapseCoole();
     	}
     }
     

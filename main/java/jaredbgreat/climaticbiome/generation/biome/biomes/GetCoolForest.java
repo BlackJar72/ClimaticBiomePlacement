@@ -9,7 +9,7 @@ import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 
 /**
- * This specifer is specifically for words using biome mods that 
+ * This specifier is specifically for words using biome mods that 
  * imply a cool temperate band between the taiga zone and the 
  * basic temperate zone.
  * 
@@ -65,6 +65,11 @@ public class GetCoolForest implements IBiomeSpecifier {
 	@Override
 	public boolean isEmpty() {
 		return false;
+	}
+	
+	
+	BiomeList getList() {
+		return forests;
 	}
 	
 	
