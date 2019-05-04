@@ -30,6 +30,7 @@ public class ConfigHandler {
 	public static boolean makeDefault = false;
 	public static boolean addToVanilla = false;
 	public static String  chunkProvider = "default";
+	public static int     biomeSize = 16;
 
 	private static File dir;
 	private static File file;
@@ -143,6 +144,9 @@ public class ConfigHandler {
 						+ "Warning: This is not guaraunteed to work (could depend "
 						+ "on how the other mod is written, which is out of my control).");
 		ClimaticWorldType.setChunkProviderType(chunkProvider);
+		
+		biomeSize = config.getInt("BiomeSize", "Size", 16, 4, 64, "The average width of a "
+						+ "biome area in chunks");
 		
 		config.save();	// Saving it all
 	}
