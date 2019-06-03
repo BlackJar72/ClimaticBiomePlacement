@@ -67,7 +67,8 @@ public class DynamicTreeHelper {
 	
 	
 	public static void init() {
-		floridaPine = TreeRegistry.findSpecies(new ResourceLocation(Info.ID, "pine"));
+		floridaPine = TreeRegistry.findSpecies(
+				new ResourceLocation(jaredbgreat.climaticbiome.Info.ID, "pine"));
 	}
 	
 	
