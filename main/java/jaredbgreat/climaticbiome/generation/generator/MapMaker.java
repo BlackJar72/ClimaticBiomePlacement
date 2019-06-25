@@ -111,11 +111,6 @@ public class MapMaker {
         xoff = ((coords.getX() * 256) - 128) * scale.whole;
         zoff = ((coords.getZ() * 256) - 128) * scale.whole;
 		Region[] regions = findRegions(coords.getX(), coords.getZ());
-		/*for(int i = 0; i < 3; i++) {
-				System.out.println(regions[(i * 3) + 0].toCoords() + " "
-				                 + regions[(i * 3) + 1].toCoords() + " "
-				                 + regions[(i * 3) + 2].toCoords());
-		}*/
         ArrayList<BasinNode> basins = new ArrayList<>();
         ArrayList<ClimateNode> temp = new ArrayList<>();
         ArrayList<ClimateNode> wet = new ArrayList<>();
@@ -164,8 +159,17 @@ public class MapMaker {
                 regions[4], coords.getX(), coords.getZ(), scale);
         rm.build();
         
-        makeBiomes(premap, random.getRandomAt(coords.getX(), coords.getZ(), 3));
+        if(ConfigHandler.forceWhole) {
+        	makeBiomesWhole(premap, random.getRandomAt(coords.getX(), coords.getZ(), 3));
+        } else {
+        	makeBiomes(premap, random.getRandomAt(coords.getX(), coords.getZ(), 3));
+        }
         if(ConfigHandler.addBeaches) {
+        	if(ConfigHandler.extraBeaches) {
+		        for(int i = 0; i < premap.length; i++) {
+		        	makeUniversalBeach(premap[i]);
+		        }
+        	}
 	        for(int i = 0; i < premap.length; i++) {
 	        	makeBeach(premap[i]);
 	        }
@@ -304,6 +308,28 @@ public class MapMaker {
     }
     
     
+    public void makeBiomesWhole(ChunkTile[] premap, RandomAt random) {
+        int size = ConfigHandler.biomeSize;
+        int across = (RSIZE * scale.whole) / size;
+        int down = across;
+        subbiomes = new BiomeBasin[across][down];
+        for(int i = 0; i < across; i++) 
+            for(int j = 0; j < down; j++) {
+                subbiomes[i][j]
+                        = new BiomeBasin((i * size) + random.nextInt(size),
+                                    (j * size) + random.nextInt(size),
+                                    random.nextInt() | 0xff000000,
+                                    1.0 + random.nextDouble(), this);
+            }
+        for (ChunkTile tile : premap) {
+        	ChunkTile basis = BiomeBasin.summateForCenter(subbiomes, tile);
+            tile.biomeSeed = basis.biomeSeed;
+            tile.wet  = basis.wet;
+            tile.temp = basis.temp;
+        }
+    }
+    
+    
     private int[] refineBasicNoise(int[][] noise, ChunkTile[] premap) {
         int[] out = new int[premap.length];
         // Could be better optimized, but this is a test of the gui and api
@@ -368,6 +394,21 @@ public class MapMaker {
         t.beach = t.getNoise() < (oceans - (2 * Math.max(oceans - 5, 0)) + 5 
                 - ((t.getBiomeSeed() >> 16) & 1)
                 + ((t.getBiomeSeed() >> 15) & 1));
+    }
+    
+    
+    void makeUniversalBeach(ChunkTile t) {
+        if(notLand(t) || (t.getX() < 1) || (t.getX() > 254)
+                      || (t.getZ() < 1) || (t.getZ() > 254)) return;
+        int oceans = 0;
+        for(int i = -1; i < 2; i++) 
+            for(int j = -1; j < 2; j++) {
+                ChunkTile x = premap[((t.getX() + i) * RSIZE * scale.whole) + t.getZ() + j];
+                if(notLand(x)) {
+                    oceans++;
+                }
+            }
+        t.beach = (oceans > 0);
     }
     
     

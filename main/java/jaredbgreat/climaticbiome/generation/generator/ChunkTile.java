@@ -68,6 +68,10 @@ public class ChunkTile extends AbstractCachable {
     public int getWet() {
         return wet;
     }
+    
+    public double getHeight() {
+    	return height;
+    }
 
     public int getBiomeSeed() {
         return biomeSeed;
