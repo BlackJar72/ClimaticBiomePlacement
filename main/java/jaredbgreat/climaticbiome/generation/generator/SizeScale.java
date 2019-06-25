@@ -31,7 +31,7 @@ public enum SizeScale {
             value = SizeScale.valueOf(change.toUpperCase());
         }
         public void set(int change) {
-            value = SizeScale.values()[change];
+            value = SizeScale.values()[change - 1];
         }
     }
     
@@ -41,8 +41,8 @@ public enum SizeScale {
     }
     
     
-    public static void set(int change) {
-        setting = SizeScale.values()[change];
+    public static SizeScale get(int change) {
+        return SizeScale.values()[change - 1];
     }
     
     

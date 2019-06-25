@@ -47,6 +47,18 @@ public class GetPark implements IBiomeSpecifier {
 		}
 		return pland;
 	}
+	
+	
+	/**
+	 * For mixing temperate and cool temperate zones in 
+	 * for use in classic temperature zones.
+	 */
+	public void collapseCoole() {
+		parks.merge(GetCoolPark.getPark().getList());
+		// These have been merges elsewhere so get rid of the copies
+		parks.remove(GetCoolForest.getForest());
+		parks.remove(GetCoolPlains.getPlains());
+	}
 
 
 	@Override

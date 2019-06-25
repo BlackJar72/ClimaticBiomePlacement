@@ -41,6 +41,11 @@ public class GetCoolPark implements IBiomeSpecifier {
 	}
 	
 	
+	BiomeList getList() {
+		return parks;
+	}
+	
+	
 	public static GetCoolPark getPark() {
 		if(pland == null) {
 			pland = new GetCoolPark();

@@ -3,7 +3,6 @@ package jaredbgreat.climaticbiome.compat.dynamictrees;
 import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
 import jaredbgreat.climaticbiome.blocks.BlockPineNeedles;
 import jaredbgreat.climaticbiome.util.BlockRegistrar;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -12,6 +11,7 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 
 import com.ferreusveritas.dynamictrees.ModTrees;
 import com.ferreusveritas.dynamictrees.api.TreeRegistry;
+import com.ferreusveritas.dynamictrees.items.Seed;
 import com.ferreusveritas.dynamictrees.systems.featuregen.FeatureGenConiferTopper;
 import com.ferreusveritas.dynamictrees.systems.featuregen.FeatureGenPodzol;
 import com.ferreusveritas.dynamictrees.trees.Species;
@@ -46,6 +46,13 @@ public class TreePine extends TreeFamily {
 			return biome == ModBiomes.pineWoods 
 				|| biome == ModBiomes.warmForest
 				|| biome == ModBiomes.warmForestHills;
+		}
+		
+
+		public Species generateSeed() {
+			Seed seed = new Seed(jaredbgreat.climaticbiome.Info.ID + ":pine" + "seed");
+			setSeedStack(new ItemStack(seed));
+			return this;
 		}
 		
 	}
