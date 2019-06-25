@@ -9,10 +9,12 @@ public class LandmassMaker {
     SizeScale scale;
     double currentScale;
     BasinNode[] basins;
+    int xoff, zoff;
     
     
     LandmassMaker(int rx, int ry, SpatialNoise rand, 
-                BasinNode[] basinAr, SizeScale sc, int startW) {
+                BasinNode[] basinAr, SizeScale sc, int startW,
+                int xoffIn, int zoffIn) {
         random = rand;
         size = startW * sc.whole;
         regx = rx;
@@ -20,6 +22,8 @@ public class LandmassMaker {
         scale = sc;
         currentScale = 1.0;
         basins = basinAr;
+        xoff = xoffIn;
+        zoff = zoffIn;
     }
     
     
@@ -28,7 +32,7 @@ public class LandmassMaker {
         for(int i = 0; i < size; i++) 
             for(int j = 0; j < size; j++) {
                 out[(i * size) + j] 
-                        = new ChunkTile(i, j, regx * size, regz * size);
+                        = new ChunkTile(i, j, xoff, zoff);
         }        
         HeightNoise heightmaker 
                 = new HeightNoise(random, size, 16 * scale.whole, 1.0, regx, regz);

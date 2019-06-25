@@ -39,8 +39,8 @@ public class ClimateNode extends BasinNode {
         double sum    = 0.0;
         double power, weakness;
         for(int i = 0; i < n.length; i++) {
-            double x = t.x * scale;
-            double z = t.z * scale;
+            double x = t.tx * scale;
+            double z = t.tz * scale;
             if((n[i].x == (int)x) && (n[i].z == (int)z) && (n[i].faintness == 0)) {
                 return (int)n[i].value;
             }

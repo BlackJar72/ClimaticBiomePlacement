@@ -184,7 +184,7 @@ public class MapMaker {
     
     private void makeLandmass(BasinNode[] basins, int cx, int cz, SpatialNoise random) {
         LandmassMaker maker = new LandmassMaker(cx, cz, 
-                random, basins, scale, RSIZE);
+                random, basins, scale, RSIZE, xoff, zoff);
         premap = maker.generate();
     }
     
