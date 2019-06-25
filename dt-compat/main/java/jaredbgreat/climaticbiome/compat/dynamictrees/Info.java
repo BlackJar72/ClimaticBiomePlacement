@@ -5,7 +5,7 @@ public class Info {
 	public static final String ID = "climaticbiomesdt";
 	public static final String NAME = "Climatic Biomes Dynamic Trees Compat";
 	public static final String DIR = "ClimaticBiomes";
-	public static final String VERSION = "1.2.1";
+	public static final String VERSION = "1.2.2";
 	public static final String MINECRAFT = "1.12.2";
 	public static final String CHANNEL =  "climaticbiomesdt";
 	
