@@ -1,6 +1,7 @@
 package jaredbgreat.climaticbiome;
 
 import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
+import jaredbgreat.climaticbiome.generation.generator.SizeScale;
 
 import java.io.File;
 
@@ -30,7 +31,9 @@ public class ConfigHandler {
 	public static boolean makeDefault = false;
 	public static boolean addToVanilla = false;
 	public static String  chunkProvider = "default";
-	public static int     biomeSize = 16;
+	
+	public static int        biomeSize  = 16;
+	public static SizeScale  regionSize = SizeScale.X1;
 
 	private static File dir;
 	private static File file;
@@ -147,6 +150,12 @@ public class ConfigHandler {
 		
 		biomeSize = config.getInt("BiomeSize", "Size", 16, 4, 64, "The average width of a "
 						+ "biome area in chunks");
+		
+		regionSize.set(config.getInt("MapScale", "Size", 1, 2, 3, "The number of scale time to "
+						+ "scale up the map \n"
+						+ "     1 = x1 ->  4096 x 4096  blocks\n"
+						+ "     2 = x2 ->  8192 x 8192  blocks\n"
+						+ "     3 = x4 -> 16384 x 16384 blocks\n"));
 		
 		config.save();	// Saving it all
 	}

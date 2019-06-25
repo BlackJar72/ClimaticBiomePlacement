@@ -26,7 +26,7 @@ public class ClimateNode extends BasinNode {
     }
     
     
-    public double getWeaknessAt(int atx, int aty) {
+    public double getWeaknessAt(double atx, double aty) {
         double xdisplace = ((double)(x - atx) * decay);
         double ydisplace = ((double)(z - aty) * decay);
         return Math.min((xdisplace * xdisplace) + (ydisplace * ydisplace), 1.0)
@@ -34,21 +34,22 @@ public class ClimateNode extends BasinNode {
     }
     
     
-    public static int summateEffect(ClimateNode[] n, ChunkTile t, double noise) {
+    public static double summateEffect(ClimateNode[] n, ChunkTile t, double noise, double scale) {
         double effect = 0.0;
         double sum    = 0.0;
         double power, weakness;
         for(int i = 0; i < n.length; i++) {
-            if((n[i].x == t.tx) && (n[i].z == t.tz) && (n[i].faintness == 0)) {
+            double x = t.x * scale;
+            double z = t.z * scale;
+            if((n[i].x == (int)x) && (n[i].z == (int)z) && (n[i].faintness == 0)) {
                 return (int)n[i].value;
             }
-            weakness = n[i].getWeaknessAt(t.tx, t.tz);
+            weakness = n[i].getWeaknessAt(x, z);
             power = 1.0 / weakness;
             sum += power;
             effect += ((double)n[i].value) * power;
         }
-        //System.out.println((int)(effect / sum));
-        return (int)Math.max((effect / sum) + noise, 0);
+        return Math.max((effect / sum) + noise, 0);
     }
     
     
