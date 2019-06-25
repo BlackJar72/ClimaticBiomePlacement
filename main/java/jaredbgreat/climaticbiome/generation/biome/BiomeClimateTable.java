@@ -129,7 +129,7 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 		if(tile.isRiver()) {
 			return RIVER.getBiome(tile);
 		}
-        if(tile.getTemp() > 4 && ((tile.getWet() - tile.getVal()) > (tile.getNoise() - 1))) {
+        if(tile.getTemp() > 7 && ((tile.getWet() - tile.getVal() - tile.getHeight()) > 0)) {
             if((tile.getBiomeSeed() & 0x1) == 1) {
                 tile.nextBiomeSeed();
                 return SWAMP.getBiome(tile);

@@ -11,8 +11,11 @@ import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetOcean implements IBiomeSpecifier {
 	private static GetOcean oceans;
+	private int nearEdge, farEdge;
 	private GetOcean() {
 		super();
+		nearEdge = 5 + ConfigHandler.regionSize.whole;
+		farEdge  = (256 * ConfigHandler.regionSize.whole) - 6 - ConfigHandler.regionSize.whole;
 		init();
 	}
 	BiomeList frozen;
@@ -89,22 +92,14 @@ public class GetOcean implements IBiomeSpecifier {
 	public int getBiome(ChunkTile tile) {
 		int temp = tile.getTemp();
 		int seed = tile.getBiomeSeed();
-		// FIXME: WRONG NOISE!    Create other noise,
-		//        this is not the noise I want!
-		//        This means adding ice noise to the main map.
 		int iceNoise = tile.getNoise();
 		tile.nextBiomeSeed();
-        if(((iceNoise / 2) - temp) > -1) {
-        	if(tile.getVal() < 2) {
-        		return dfrozen.getBiome(tile);        		
-        	}
-        	return frozen.getBiome(tile);
-        }
-        if((tile.getVal()) < 3) {
-
-    		if(((seed % 5) == 0) && notNearEdge(tile)) {
-    			int noise = tile.getNoise();
-    			if((seed % 31) == 0) {
+        if(ConfigHandler.addIslands && (tile.getHeight() < 0.5) 
+        							&& ((tile.getVal() < 3) || !ConfigHandler.forceWhole) 
+        							&& ((seed % 5) == 0) 
+        							&& notNearEdge(tile)) {
+    		int noise = tile.getNoise();
+    		if((seed % 31) == 0) {
     				if((tile.getTemp() > 9) && (tile.getTemp() < 19)
     						                && (tile.getWet() > 3)) {
     					if(noise < 5) {
@@ -123,45 +118,48 @@ public class GetOcean implements IBiomeSpecifier {
     				if(noise > (2 + (seed % 3))) {
     					return islands2.getBiome(tile);
     				}				
-    			}
-    	        if(((iceNoise / 2) - temp) > -1) {
-    	        	return frozen.getBiome(tile);
-    	        }
-            	if(temp < 6) {
-            		return cold.getBiome(tile);
-            	} 
-            	if(temp < 12) {
-            		return cool.getBiome(tile);        		
-            	} 
-            	if(temp < 18) {
-            		return warm.getBiome(tile);
-            	}
-            	return hot.getBiome(tile);
-            
+    			} else {
+    				return getShallowOcean(tile, temp, iceNoise);
+    			}    			
+    		} else if((tile.getHeight()) < 0.2) {
+    			return getDeepOcean(tile, temp, iceNoise);
     		}
-        	if(temp < 7) {
-        		return dcold.getBiome(tile);
-        	} 
-        	if(temp < 13) {
-        		return dcool.getBiome(tile);        		
-        	} 
-        	if(temp < 19) {
-        		return dwarm.getBiome(tile);
-        	}
-        	return dhot.getBiome(tile);
-        } else {
-        	if(temp < 6) {
-        		return cold.getBiome(tile);
-        	} 
-        	if(temp < 12) {
-        		return cool.getBiome(tile);        		
-        	} 
-        	if(temp < 18) {
-        		return warm.getBiome(tile);
-        	}
-        	return hot.getBiome(tile);
-        }
+    	return getShallowOcean(tile, temp, iceNoise);
     }
+	
+	
+	public int getDeepOcean(ChunkTile tile, int temp, int iceNoise) {
+        if(((iceNoise / 2) - temp) > -1) {
+        	return dfrozen.getBiome(tile);
+        }
+    	if(temp < 7) {
+    		return dcold.getBiome(tile);
+    	} 
+    	if(temp < 13) {
+    		return dcool.getBiome(tile);        		
+    	} 
+    	if(temp < 19) {
+    		return dwarm.getBiome(tile);
+    	}
+    	return dhot.getBiome(tile);
+	}
+	
+	
+	public int getShallowOcean(ChunkTile tile, int temp, int iceNoise) {
+        if(((iceNoise / 2) - temp) > -1) {
+        	return frozen.getBiome(tile);
+        }
+    	if(temp < 7) {
+    		return cold.getBiome(tile);
+    	} 
+    	if(temp < 13) {
+    		return cool.getBiome(tile);        		
+    	} 
+    	if(temp < 19) {
+    		return warm.getBiome(tile);
+    	}
+    	return hot.getBiome(tile);
+	}
 	
 	
 	public static GetOcean getOcean() {
@@ -216,7 +214,7 @@ public class GetOcean implements IBiomeSpecifier {
 	private boolean notNearEdge(ChunkTile tile) {
 		int x = tile.getX();
 		int z = tile.getZ();
-		return ((x > 5) && (x < 250)) && ((z > 5) && (z < 250));
+		return ((x > nearEdge) && (x < farEdge)) && ((z > nearEdge) && (z < farEdge));
 	}
 
 

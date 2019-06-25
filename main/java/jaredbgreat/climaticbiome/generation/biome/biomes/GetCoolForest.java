@@ -9,7 +9,7 @@ import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 
 /**
- * This specifier is specifically for words using biome mods that 
+ * This specifer is specifically for words using biome mods that 
  * imply a cool temperate band between the taiga zone and the 
  * basic temperate zone.
  * 

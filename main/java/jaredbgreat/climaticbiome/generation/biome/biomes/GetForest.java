@@ -60,6 +60,12 @@ public class GetForest implements IBiomeSpecifier {
 		}
 		return tforest;
 	}
+
+
+	@Override
+	public boolean isEmpty() {
+		return false;
+	}
 	
 	
 	/**
@@ -68,12 +74,6 @@ public class GetForest implements IBiomeSpecifier {
 	 */
 	public void collapseCool() {
 		forests.merge(GetCoolForest.getForest().getList());
-	}
-
-
-	@Override
-	public boolean isEmpty() {
-		return false;
-	}
+}
 
 }

@@ -20,7 +20,9 @@ public class ChunkTile extends AbstractCachable {
     int temp = 0, wet = 0;
     int biomeSeed = 0;
     int noiseVal = 0;
-    boolean mountain = false, hilly = false, river = false, beach = false;
+    int river;
+    double height;
+    boolean mountain = false, hilly = false, beach = false;
     
     
     public ChunkTile(int x, int z, int xoff, int zoff) {
@@ -66,6 +68,10 @@ public class ChunkTile extends AbstractCachable {
     public int getWet() {
         return wet;
     }
+    
+    public double getHeight() {
+    	return height;
+    }
 
     public int getBiomeSeed() {
         return biomeSeed;
@@ -84,11 +90,11 @@ public class ChunkTile extends AbstractCachable {
     }
 
     public boolean isRiver() {
-        return river;
+        return river > 0;
     }
 
-    public void beRiver() {
-        river = true;
+    public void beRiver(int id) {
+        river = id;
     }      
 
     public void beIsBeach() {

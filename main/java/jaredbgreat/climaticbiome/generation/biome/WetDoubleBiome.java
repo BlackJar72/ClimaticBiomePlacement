@@ -48,7 +48,6 @@ public class WetDoubleBiome implements IBiomeSpecifier {
 
 	@Override
 	public int getBiome(ChunkTile tile) {
-		tile.nextBiomeSeed();
 		int r = tile.getBiomeSeed();
 		if((tile.getWet() + (r & 1) - ((r & 2) >> 1)) < boundary) {
 			return a;

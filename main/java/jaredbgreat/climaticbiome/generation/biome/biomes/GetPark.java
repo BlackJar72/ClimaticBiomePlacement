@@ -5,8 +5,6 @@ import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
-import java.util.List;
-
 public class GetPark implements IBiomeSpecifier {
 	private static GetPark pland;
 	private GetPark() {
@@ -22,26 +20,24 @@ public class GetPark implements IBiomeSpecifier {
 		parks = new BiomeList();
 		plains = GetPlains.getPlains();
 		woods = GetForest.getForest();
-		parks.addItem(plains);
-		parks.addItem(woods);
 		DefReader.readBiomeData(parks, "Parkland.cfg");
 	}
 	
 
 	@Override
 	public int getBiome(ChunkTile tile) {
+		int seed = tile.getBiomeSeed();
+		if(parks.isEmpty() || ((seed & 5) == 0)) {
+			if((seed & 1) == 0) {
+				tile.nextBiomeSeed();
+				return woods.getBiome(tile);
+			} else {
+				tile.nextBiomeSeed();
+				return plains.getBiome(tile);				
+			}
+		}
+		tile.nextBiomeSeed();
 		return parks.getBiome(tile);
-	}
-	
-	
-	/**
-	 * For mixing temperate and cool temperate zones in 
-	 * for use in classic temperature zones.
-	 */
-	public void collapseCoole() {
-		parks.merge(GetCoolPlains.getPlains().getList());
-		parks.remove(GetCoolForest.getForest());
-		parks.remove(GetCoolPlains.getPlains());
 	}
 	
 	
@@ -50,6 +46,18 @@ public class GetPark implements IBiomeSpecifier {
 			pland = new GetPark();
 		}
 		return pland;
+	}
+	
+	
+	/**
+	 * For mixing temperate and cool temperate zones in 
+	 * for use in classic temperature zones.
+	 */
+	public void collapseCoole() {
+		parks.merge(GetCoolPark.getPark().getList());
+		// These have been merges elsewhere so get rid of the copies
+		parks.remove(GetCoolForest.getForest());
+		parks.remove(GetCoolPlains.getPlains());
 	}
 
 

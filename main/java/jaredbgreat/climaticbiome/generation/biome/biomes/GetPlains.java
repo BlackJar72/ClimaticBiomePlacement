@@ -54,7 +54,8 @@ public class GetPlains implements IBiomeSpecifier {
 	public void collapseCool() {
 		plains.merge(GetCoolPlains.getPlains().getList());
 	}
-	
+
+
 
 	@Override
 	public boolean isEmpty() {

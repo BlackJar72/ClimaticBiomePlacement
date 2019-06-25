@@ -56,16 +56,6 @@ public class BiomeList implements IBiomeSpecifier {
 	}
 	
 	
-	public boolean isEmpty() {
-		return list.isEmpty();
-	}
-	
-	
-	public int size() {
-		return list.size();
-	}
-	
-	
 	public boolean remove(IBiomeSpecifier bs) {
 		return list.remove(bs);
 	}
@@ -73,6 +63,16 @@ public class BiomeList implements IBiomeSpecifier {
 	
 	public boolean merge(BiomeList other) {
 		return list.addAll(other.list);
+	}
+	
+	
+	public boolean isEmpty() {
+		return list.isEmpty();
+	}
+	
+	
+	public int size() {
+		return list.size();
 	}
 
 }

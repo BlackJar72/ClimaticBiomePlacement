@@ -1,6 +1,7 @@
 package jaredbgreat.climaticbiome;
 
 import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
+import jaredbgreat.climaticbiome.generation.generator.SizeScale;
 
 import java.io.File;
 
@@ -22,6 +23,7 @@ public class ConfigHandler {
 	public static boolean useDT = false;
 	public static boolean addIslands = true;
 	public static boolean addBeaches = true;
+	public static boolean extraBeaches = false;
 	public static boolean moreMansion = true;
 	public static boolean moddedBlocks = true;
 	public static boolean addPines = true;
@@ -30,7 +32,10 @@ public class ConfigHandler {
 	public static boolean makeDefault = false;
 	public static boolean addToVanilla = false;
 	public static String  chunkProvider = "default";
-	public static int     biomeSize = 16;
+	
+	public static int        biomeSize  = 16;
+	public static SizeScale  regionSize = SizeScale.X1;
+	public static boolean    forceWhole = false;
 
 	private static File dir;
 	private static File file;
@@ -100,14 +105,16 @@ public class ConfigHandler {
 		deepSand = config.getBoolean("DeepSandInScrub", "General", true, 
 						"If true sand in dry scrub will be 3-4 blocks deep, otherwise it will be 1.");
 		
+		extraBeaches = config.getBoolean("AddExtraBeaches", "General", false, 
+						"There will be lots of beaches (some in weird places).");
+		
 		addBeaches = config.getBoolean("AddBeaches", "General", true, 
-						"If true there will be beaches.");
+						"If true there will be beaches.") || extraBeaches;
 		
 		addIslands = config.getBoolean("AddIslands", "General", true, 
 						"If true extra islands will be generated in the ocean \n "
 						+ "for reason I don't understand these islands tend to be \n "
-						+ "chunky and squarish, but are interesting to find. \n "
-						+ "Since they can generate by land they may no be true isalnds.");
+						+ "chunky and squarish, but are interesting to find.");
 		
 		moreMansion = config.getBoolean("MoreMansion", "General", true, 
 						"If true woodland mansion might appear in all forest types; \n"
@@ -147,6 +154,16 @@ public class ConfigHandler {
 		
 		biomeSize = config.getInt("BiomeSize", "Size", 16, 4, 64, "The average width of a "
 						+ "biome area in chunks");
+		
+		regionSize = SizeScale.get(config.getInt("MapScale", "Size", 1, 2, 3, "The number of scale time to "
+						+ "scale up the map \n"
+						+ "     1 = x1 ->  4096 x 4096  blocks\n"
+						+ "     2 = x2 ->  8192 x 8192  blocks\n"
+						+ "     3 = x4 -> 16384 x 16384 blocks\n"));
+		
+		forceWhole = config.getBoolean("ForceWholeBiome", "Size", false, 
+				"If true biome areas will not be split.  Instead they will all be the same biome. \n "
+				+ "(Note: This could have strange effects with large biomes on a small map");
 		
 		config.save();	// Saving it all
 	}
