@@ -287,8 +287,8 @@ public class MapMaker {
     
     
     public void makeBiomes(ChunkTile[] premap, int sizeBlocks, RandomAt random) {
-        int size = sizeBlocks / 16;
-        int across = BSIZE;
+        int size = ConfigHandler.biomeSize;
+        int across = RSIZE / size;
         int down = across;
         subbiomes = new BiomeBasin[across][down];
         for(int i = 0; i < across; i++) 
