@@ -56,7 +56,7 @@ public class MapRegistry {
 	
 	
 	public MapRegistry(long seed, World w) {
-		cWidth = 256 * ConfigHandler.regionSize.whole;
+		cWidth = MapMaker.RSIZE * ConfigHandler.regionSize.whole;
 		bWidth = cWidth * 16;
 		dataSize = cWidth * cWidth;
 		cOffset = cWidth / 2;
@@ -387,7 +387,7 @@ public class MapRegistry {
 	 */
 	public Biome getGenBiomeChunk(int x, int z) {
 		int id = getMapFromBlockCoord(x, z)
-				.getSubBiomeId((x - cOffset) % 256, (z - cOffset) % cWidth);
+				.getSubBiomeId((x - cOffset) % cWidth, (z - cOffset) % cWidth);
 		if(id < 256) {
 			return Biome.getBiome(id);
 		}

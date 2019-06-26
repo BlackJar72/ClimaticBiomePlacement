@@ -164,23 +164,14 @@ public class MapMaker {
         } else {
         	makeBiomes(premap, random.getRandomAt(coords.getX(), coords.getZ(), 3));
         }
-        if(ConfigHandler.addBeaches) {
-        	if(ConfigHandler.extraBeaches) {
-		        for(int i = 0; i < premap.length; i++) {
-		        	makeUniversalBeach(premap[i]);
-		        }
-        	}
-	        for(int i = 0; i < premap.length; i++) {
-	        	makeBeach(premap[i]);
-	        }
-	        for(int i = 0; i < premap.length; i++) {
-	        	growBeach1(premap[i]);
-	        }
+        for(int i = 0; i < premap.length; i++) {
+        	thinBeach(premap[i]);
         }
         for(int i = 0; i < premap.length; i++) {
-        	if(ConfigHandler.addBeaches) {
-        		growBeach2(premap[i]);
-        	}
+        	growBeach1(premap[i]);
+        }
+        for(int i = 0; i < premap.length; i++) {
+        	growBeach2(premap[i]);
         	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
         }
     }
@@ -379,6 +370,23 @@ public class MapMaker {
     }
     
     
+    void thinBeach(ChunkTile t) {
+        if(!t.beach) return;
+        int oceans = 0;
+        for(int i = -2; i < 3; i++) 
+            for(int j = -1; j < 2; j++) {
+                ChunkTile x = premap[((t.getX() + i) * RSIZE * scale.whole) + t.getZ() + j];
+                if(notLand(x)) {
+                    oceans++;
+                }
+            }
+        if(oceans < 1) {
+        	t.beach = false;
+        	return;
+        }
+    }
+    
+    
     void makeBeach(ChunkTile t) {
         if(notLand(t) || (t.getX() < 1) || (t.getX() > 254)
                       || (t.getZ() < 1) || (t.getZ() > 254)) return;
@@ -408,7 +416,7 @@ public class MapMaker {
                     oceans++;
                 }
             }
-        t.beach = (oceans > 0);
+        t.beach = (oceans > 1);
     }
     
     

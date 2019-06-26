@@ -30,6 +30,7 @@ public class GetOcean implements IBiomeSpecifier {
 	BiomeList dhot;
 	IBiomeSpecifier islands1; // Main land biomes
 	IBiomeSpecifier islands2; // Special island-only biomes
+	IBiomeSpecifier beaches;
 	
 	
 	public void init() {
@@ -48,6 +49,8 @@ public class GetOcean implements IBiomeSpecifier {
 		// Islands
 		islands1 = BiomeClimateTable.getLandTable();
 		islands2 = GetIslands.getIslands();
+		// Beaches
+		beaches = GetBeach.getBeach();
 		// Add biomes
 		DefReader.readBiomeData(frozen,  "OceanFrozen.cfg");
 		DefReader.readBiomeData(cold,    "OceanCold.cfg");
@@ -90,6 +93,9 @@ public class GetOcean implements IBiomeSpecifier {
 	
 	@Override
 	public int getBiome(ChunkTile tile) {
+		if(tile.isIsBeach() && !tile.isRiver() && !swampy(tile)) {
+			return beaches.getBiome(tile);
+		}
 		int temp = tile.getTemp();
 		int seed = tile.getBiomeSeed();
 		int iceNoise = tile.getNoise();
@@ -221,6 +227,12 @@ public class GetOcean implements IBiomeSpecifier {
 	@Override
 	public boolean isEmpty() {
 		return false;
+	}
+	
+	
+	private boolean swampy(ChunkTile tile) {
+		return ((tile.getTemp() > 7) 
+				&& ((tile.getWet() - tile.getVal() - tile.getHeight()) > 0));
 	}
 
 

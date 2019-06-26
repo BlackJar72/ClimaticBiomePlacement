@@ -15,6 +15,7 @@ public class ConfigHandler {
 	public static boolean useBoPTable = false;	
 	public static boolean volcanicBoP = false;
 	public static boolean useCfg = true;
+	public static boolean jeid = false;
 	public static boolean writeBiomeLists = true;
 	public static boolean writeWTLists = false;
 	public static boolean rivers = true;
@@ -22,8 +23,6 @@ public class ConfigHandler {
 	public static boolean hasDT = false;
 	public static boolean useDT = false;
 	public static boolean addIslands = true;
-	public static boolean addBeaches = true;
-	public static boolean extraBeaches = false;
 	public static boolean moreMansion = true;
 	public static boolean moddedBlocks = true;
 	public static boolean addPines = true;
@@ -57,7 +56,13 @@ public class ConfigHandler {
 						"If true it will use Biomes O'Plenty biomes in its world type. \n"
 						+ "If this is true it will also automatically use BoP climate table. \n"
 						+ "If BoP is not installed this does nothing.")
-				 && net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");	
+		
+		jeid = config.getBoolean("JEID", "Compat", true, 
+						"If true it will use Just Enough IDs for biome IDs if available. \n"
+						+ "Set this to false to keep JEID from breaking existing worlds \n"
+						+ "(this will limit the number real biome IDs this recognizes to 256).")
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("jeid");
 		
 		useTraverse = config.getBoolean("UseTraverseBiomes", "Compat", true, 
 						"If true it will use Traverse biomes in its world type. \n"
@@ -105,12 +110,6 @@ public class ConfigHandler {
 		deepSand = config.getBoolean("DeepSandInScrub", "General", true, 
 						"If true sand in dry scrub will be 3-4 blocks deep, otherwise it will be 1.");
 		
-		extraBeaches = config.getBoolean("AddExtraBeaches", "General", false, 
-						"There will be lots of beaches (some in weird places).");
-		
-		addBeaches = config.getBoolean("AddBeaches", "General", true, 
-						"If true there will be beaches.") || extraBeaches;
-		
 		addIslands = config.getBoolean("AddIslands", "General", true, 
 						"If true extra islands will be generated in the ocean \n "
 						+ "for reason I don't understand these islands tend to be \n "
@@ -155,11 +154,12 @@ public class ConfigHandler {
 		biomeSize = config.getInt("BiomeSize", "Size", 16, 4, 64, "The average width of a "
 						+ "biome area in chunks");
 		
-		regionSize = SizeScale.get(config.getInt("MapScale", "Size", 1, 2, 3, "The number of scale time to "
-						+ "scale up the map \n"
+		regionSize = SizeScale.get(config.getInt("MapScale", "Size", 1, 2, 3, "The distance multiplier for "
+						+ "scaling up the map \n"
 						+ "     1 = x1 ->  4096 x 4096  blocks\n"
 						+ "     2 = x2 ->  8192 x 8192  blocks\n"
-						+ "     3 = x4 -> 16384 x 16384 blocks\n"));
+						+ "     3 = x3 -> 12288 x 12288 blocks\n"
+						+ "     4 = x4 -> 16384 x 16384 blocks\n"));
 		
 		forceWhole = config.getBoolean("ForceWholeBiome", "Size", false, 
 				"If true biome areas will not be split.  Instead they will all be the same biome. \n "

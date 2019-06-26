@@ -1,0 +1,377 @@
+diff --git a/main/java/jaredbgreat/climaticbiome/ConfigHandler.java b/main/java/jaredbgreat/climaticbiome/ConfigHandler.java
+index 6fb452e..df19758 100644
+--- a/main/java/jaredbgreat/climaticbiome/ConfigHandler.java
++++ b/main/java/jaredbgreat/climaticbiome/ConfigHandler.java
+@@ -15,6 +15,7 @@ public class ConfigHandler {
+ 	public static boolean useBoPTable = false;	
+ 	public static boolean volcanicBoP = false;
+ 	public static boolean useCfg = true;
++	public static boolean jeid = false;
+ 	public static boolean writeBiomeLists = true;
+ 	public static boolean writeWTLists = false;
+ 	public static boolean rivers = true;
+@@ -22,8 +23,6 @@ public class ConfigHandler {
+ 	public static boolean hasDT = false;
+ 	public static boolean useDT = false;
+ 	public static boolean addIslands = true;
+-	public static boolean addBeaches = true;
+-	public static boolean extraBeaches = false;
+ 	public static boolean moreMansion = true;
+ 	public static boolean moddedBlocks = true;
+ 	public static boolean addPines = true;
+@@ -57,7 +56,13 @@ public class ConfigHandler {
+ 						"If true it will use Biomes O'Plenty biomes in its world type. \n"
+ 						+ "If this is true it will also automatically use BoP climate table. \n"
+ 						+ "If BoP is not installed this does nothing.")
+-				 && net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");
++				 && net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");	
++		
++		jeid = config.getBoolean("JEID", "Compat", true, 
++						"If true it will use Just Enough IDs for biome IDs if available. \n"
++						+ "Set this to false to keep JEID from breaking existing worlds \n"
++						+ "(this will limit the number real biome IDs this recognizes to 256).")
++				 && net.minecraftforge.fml.common.Loader.isModLoaded("jeid");
+ 		
+ 		useTraverse = config.getBoolean("UseTraverseBiomes", "Compat", true, 
+ 						"If true it will use Traverse biomes in its world type. \n"
+@@ -105,12 +110,6 @@ public class ConfigHandler {
+ 		deepSand = config.getBoolean("DeepSandInScrub", "General", true, 
+ 						"If true sand in dry scrub will be 3-4 blocks deep, otherwise it will be 1.");
+ 		
+-		extraBeaches = config.getBoolean("AddExtraBeaches", "General", false, 
+-						"There will be lots of beaches (some in weird places).");
+-		
+-		addBeaches = config.getBoolean("AddBeaches", "General", true, 
+-						"If true there will be beaches.") || extraBeaches;
+-		
+ 		addIslands = config.getBoolean("AddIslands", "General", true, 
+ 						"If true extra islands will be generated in the ocean \n "
+ 						+ "for reason I don't understand these islands tend to be \n "
+@@ -155,11 +154,12 @@ public class ConfigHandler {
+ 		biomeSize = config.getInt("BiomeSize", "Size", 16, 4, 64, "The average width of a "
+ 						+ "biome area in chunks");
+ 		
+-		regionSize = SizeScale.get(config.getInt("MapScale", "Size", 1, 2, 3, "The number of scale time to "
+-						+ "scale up the map \n"
++		regionSize = SizeScale.get(config.getInt("MapScale", "Size", 1, 2, 3, "The distance multiplier for "
++						+ "scaling up the map \n"
+ 						+ "     1 = x1 ->  4096 x 4096  blocks\n"
+ 						+ "     2 = x2 ->  8192 x 8192  blocks\n"
+-						+ "     3 = x4 -> 16384 x 16384 blocks\n"));
++						+ "     3 = x3 -> 12288 x 12288 blocks\n"
++						+ "     4 = x4 -> 16384 x 16384 blocks\n"));
+ 		
+ 		forceWhole = config.getBoolean("ForceWholeBiome", "Size", false, 
+ 				"If true biome areas will not be split.  Instead they will all be the same biome. \n "
+diff --git a/main/java/jaredbgreat/climaticbiome/Info.java b/main/java/jaredbgreat/climaticbiome/Info.java
+index 51cb267..f27e7bc 100644
+--- a/main/java/jaredbgreat/climaticbiome/Info.java
++++ b/main/java/jaredbgreat/climaticbiome/Info.java
+@@ -10,6 +10,6 @@ public final class Info {
+ 	public static final String CHANNEL =  "climaticbiomejbg";
+ 	
+ 	// Dependencies, for simplicity elsewhere
+-	public static final String DEPSTR = "after:biomesoplenty; after:dynamictrees";
++	public static final String DEPSTR = "after:biomesoplenty; after:dynamictrees; after:jeid";
+ 
+ }
+diff --git a/main/java/jaredbgreat/climaticbiome/generation/generator/LandmassMaker.java b/main/java/jaredbgreat/climaticbiome/generation/generator/LandmassMaker.java
+index d8da23d..7446ed6 100644
+--- a/main/java/jaredbgreat/climaticbiome/generation/generator/LandmassMaker.java
++++ b/main/java/jaredbgreat/climaticbiome/generation/generator/LandmassMaker.java
+@@ -56,6 +56,10 @@ public class LandmassMaker {
+             for(int j = 0; j < size; j++) {
+                 if(out[(i * size) + j].height > 0.6) {
+                     out[(i * size) + j].rlBiome = 1;
++                    //if((out[(i * size) + j].height < 0.70) 
++                    //		&& (out[(i * size) + j].val < 6)) {
++                    //    //out[(i * size) + j].beach = true;
++                    //}
+                 } else {
+                     out[(i * size) + j].rlBiome = 0;                    
+                 }
+diff --git a/main/java/jaredbgreat/climaticbiome/generation/generator/MapMaker.java b/main/java/jaredbgreat/climaticbiome/generation/generator/MapMaker.java
+index ebf16dd..57e5734 100644
+--- a/main/java/jaredbgreat/climaticbiome/generation/generator/MapMaker.java
++++ b/main/java/jaredbgreat/climaticbiome/generation/generator/MapMaker.java
+@@ -164,12 +164,7 @@ public class MapMaker {
+         } else {
+         	makeBiomes(premap, random.getRandomAt(coords.getX(), coords.getZ(), 3));
+         }
+-        if(ConfigHandler.addBeaches) {
+-        	if(ConfigHandler.extraBeaches) {
+-		        for(int i = 0; i < premap.length; i++) {
+-		        	makeUniversalBeach(premap[i]);
+-		        }
+-        	}
++        if(true) {
+ 	        for(int i = 0; i < premap.length; i++) {
+ 	        	makeBeach(premap[i]);
+ 	        }
+@@ -178,7 +173,7 @@ public class MapMaker {
+ 	        }
+         }
+         for(int i = 0; i < premap.length; i++) {
+-        	if(ConfigHandler.addBeaches) {
++        	if(true) {
+         		growBeach2(premap[i]);
+         	}
+         	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
+@@ -390,10 +385,11 @@ public class MapMaker {
+                     oceans++;
+                 }
+             }
+-        if(oceans < 3) return;
++        if(oceans < 1) return;
+         t.beach = t.getNoise() < (oceans - (2 * Math.max(oceans - 5, 0)) + 5 
+                 - ((t.getBiomeSeed() >> 16) & 1)
+                 + ((t.getBiomeSeed() >> 15) & 1));
++        if(t.beach) t.rlBiome = 1;
+     }
+     
+     
+@@ -409,6 +405,7 @@ public class MapMaker {
+                 }
+             }
+         t.beach = (oceans > 0);
++        if(t.beach) t.rlBiome = 1;
+     }
+     
+     
+diff --git a/main/java/jaredbgreat/climaticbiome/generation/generator/SizeScale.java b/main/java/jaredbgreat/climaticbiome/generation/generator/SizeScale.java
+index 53ca22e..b9baea9 100644
+--- a/main/java/jaredbgreat/climaticbiome/generation/generator/SizeScale.java
++++ b/main/java/jaredbgreat/climaticbiome/generation/generator/SizeScale.java
+@@ -6,6 +6,7 @@ package jaredbgreat.climaticbiome.generation.generator;
+ public enum SizeScale {
+     X1 (1, 0),
+     X2 (2, 1),
++    X3 (3, 2), // Not accurate, but should work for what it's used for
+     X4 (4, 2);
+     
+     public final int whole;
+diff --git a/main/java/jaredbgreat/climaticbiome/generation/map/MapRegistry.java b/main/java/jaredbgreat/climaticbiome/generation/map/MapRegistry.java
+index aecf26f..49ed512 100644
+--- a/main/java/jaredbgreat/climaticbiome/generation/map/MapRegistry.java
++++ b/main/java/jaredbgreat/climaticbiome/generation/map/MapRegistry.java
+@@ -365,8 +365,8 @@ public class MapRegistry {
+ 	 */
+ 	public Biome getGenBiomeBlock(int x, int z) {
+ 		int id = getMapFromBlockCoord(x, z)
+-				.getSubBiomeId((x - bOffset) % bWidth, (z - bOffset) % bWidth);
+-		if(id < 256) {
++				.getFullBiome((x - bOffset) % bWidth, (z - bOffset) % bWidth);
++		if(id < 256 || ConfigHandler.jeid) {
+ 			return Biome.getBiome(id);
+ 		}
+ 		// TODO: Add a registry (an ArrayList, NOT a Forge registry) for pseudo-biomes.
+@@ -387,8 +387,8 @@ public class MapRegistry {
+ 	 */
+ 	public Biome getGenBiomeChunk(int x, int z) {
+ 		int id = getMapFromBlockCoord(x, z)
+-				.getSubBiomeId((x - cOffset) % 256, (z - cOffset) % cWidth);
+-		if(id < 256) {
++				.getSubBiomeId((x - cOffset) % cWidth, (z - cOffset) % cWidth);
++		if((id < 256) || ConfigHandler.jeid) {
+ 			return Biome.getBiome(id);
+ 		}
+ 		// TODO: Add a registry (an ArrayList, NOT a Forge registry) for pseudo-biomes.
+@@ -590,7 +590,7 @@ public class MapRegistry {
+ 	public Biome getFullBiome(int id) {
+ 		//System.err.println("Biome ID: " + id);
+ 		Biome out;
+-		if(id < 256) {
++		if((id < 256) || ConfigHandler.jeid) {
+ 			return Biome.getBiome(id, Biomes.DEFAULT);
+ 		} else {
+ 			out = subbiomes.get(id);
+diff --git a/main/java/jaredbgreat/climaticbiome/generation/map/RegionMap.java b/main/java/jaredbgreat/climaticbiome/generation/map/RegionMap.java
+index 34387b7..eeb0e0a 100644
+--- a/main/java/jaredbgreat/climaticbiome/generation/map/RegionMap.java
++++ b/main/java/jaredbgreat/climaticbiome/generation/map/RegionMap.java
+@@ -29,17 +29,6 @@ public class RegionMap extends AbstractCachable {
+     	super.finalize();
+     }
+     
+-    /**
+-     * Gets the actual in game biome id.
+-     * 
+-     * @param x relative chunk x within region
+-     * @param z relative chunk x within region
+-     * @return The biome as a single byte.
+-     */
+-    public byte getBiomeAsByte(int x, int z) {
+-        return (byte)(data[(x * cWidth) + z] & 0xff);
+-    }
+-    
+     
+     /**
+      * Returns in game biome id.
+@@ -53,20 +42,6 @@ public class RegionMap extends AbstractCachable {
+     }
+     
+     
+-    /**
+-     * Returns the and id for the sub-biome exentions as a byte.
+-     * 
+-     * The id will be returned as a short.
+-     * 
+-     * @param x relative chunk x within region
+-     * @param z relative chunk x within region
+-     * @return The biome id for world-gen as a short
+-     */
+-    public byte getSubBiomeAsByte(int x, int z) {
+-        return (byte)((data[(x * cWidth) + z] & 0xff00) >> 8);
+-    }
+-    
+-    
+     /**
+      * Returns the and id for the sub-biome exentions as a byte.
+      * 
+@@ -81,24 +56,6 @@ public class RegionMap extends AbstractCachable {
+     }
+     
+     
+-    /**
+-     * Returns the id for the biome to be for world gen.  For 
+-     * registered biomes this should be there real id, and less than 
+-     * 256.  For pseudo-biomes used for generated specialized terrain 
+-     * this should contain the real biome in the lower byte and the 
+-     * id of the variant in the higher byte.
+-     * 
+-     * The id will be returned as a short.
+-     * 
+-     * @param x relative chunk x within region
+-     * @param z relative chunk x within region
+-     * @return The biome id for world-gen as a short
+-     */
+-    public short getFullBiomeAsShort(int x, int z) {
+-        return (short)((data[(x * cWidth) + z] & 0xffff));
+-    }
+-    
+-    
+     /**
+      * Returns the id for the biome to be for world gen.  For 
+      * registered biomes this should be there real id, and less than 
+@@ -113,120 +70,7 @@ public class RegionMap extends AbstractCachable {
+      * @return The biome id for world-gen as an int
+      */
+     public int getFullBiome(int x, int z) {
+-        return (data[(x * cWidth) + z] & 0xffff);
+-    }
+-    
+-    
+-    /**
+-     * This sets the biome data using a byte.
+-     * 
+-     * @param biome
+-     * @param x relative chunk x within region
+-     * @param z relative chunk x within region
+-     */
+-    public void setBiome(byte biome, int x, int z) {
+-        data[(x * cWidth) + z] &= 0xffffff00;
+-        data[(x * cWidth) + z] |= biome;
+-    }
+-    
+-    
+-    /**
+-     * This sets the biome data using an int.
+-     * 
+-     * @param biome
+-     * @param x relative chunk x within region
+-     * @param z relative chunk x within region
+-     */
+-    public void setBiome(int biome, int x, int z) {
+-        data[(x * cWidth) + z] &= 0xffffff00;
+-        data[(x * cWidth) + z] |= (biome & 0xff);
+-    }
+-    
+-    
+-    /**
+-     * This set the pseudo biome used by world gen.  This will 
+-     * most often be the same as the real biome, but may not if 
+-     * if specialized terrain generation is desired.
+-     * 
+-     * @param biome
+-     * @param x relative chunk x within region
+-     * @param z relative chunk x within region
+-     */
+-    public void setPseudoBiome(int biome, int x, int z) {
+-        data[(x * cWidth) + z] &= 0xffff00ff;
+-        data[(x * cWidth) + z] |= ((biome & 0xffff) << 8);
+-    }
+-    
+-    
+-    /**
+-     * This will set the real and pseudo-biomes to the same value 
+-     * while assuming no data has been stored (i.e., that the array 
+-     * is freshly initialized so that the value is zero).
+-     * 
+-     * @param biome
+-     * @param x relative chunk x within region
+-     * @param z relative chunk x within region
+-     */
+-    public void setBiomeExpress(int biome, int x, int z) {
+-        data[(x * cWidth) + z] &= 0xffff0000;
+-        data[(x * cWidth) + z] |= biome;        
+-    }
+-    
+-    
+-    /**
+-     * This will set the real and pseudo-biomes to the same value 
+-     * while assuming no data has been stored (i.e., that the array 
+-     * is freshly initialized so that the value is zero).
+-     * 
+-     * @param biome
+-     * @param x relative chunk x within region
+-     * @param z relative chunk x within region
+-     */
+-    public void setBiomeExpress(int biome, int sub, int x, int z) {
+-        data[(x * cWidth) + z] &= 0xffff0000;
+-        data[(x * cWidth) + z] |= (biome & 0xffffff00);
+-        data[(x * cWidth) + z] |= (sub & 0xffff00) << 8;        
+-    }
+-    
+-    
+-    /**
+-     * This sets the biome data using a byte.
+-     * 
+-     * @param biome
+-     * @param x relative chunk x within region
+-     * @param z relative chunk x within region
+-     */
+-    public void setBiome(byte biome, int i) {
+-        data[i] &= 0xffff0000;
+-        data[i] |= biome;
+-    }
+-    
+-    
+-    /**
+-     * This sets the biome data using an int.
+-     * 
+-     * @param biome
+-     * @param x relative chunk x within region
+-     * @param z relative chunk x within region
+-     */
+-    public void setBiome(int biome, int i) {
+-        data[i] &= 0xffffff00;
+-        data[i] |= (biome & 0xff);
+-    }
+-    
+-    
+-    /**
+-     * This set the pseudo biome used by world gen.  This will 
+-     * most often be the same as the real biome, but may not if 
+-     * if specialized terrain generation is desired.
+-     * 
+-     * @param biome
+-     * @param x relative chunk x within region
+-     * @param z relative chunk x within region
+-     */
+-    public void setPseudoBiome(int biome, int i) {
+-        data[i] &= 0xffff00ff;
+-        data[i] |= ((biome & 0xff) << 8);
++        return (data[(x * cWidth) + z]);
+     }
+     
+     
