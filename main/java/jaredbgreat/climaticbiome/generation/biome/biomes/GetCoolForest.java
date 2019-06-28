@@ -68,6 +68,11 @@ public class GetCoolForest implements IBiomeSpecifier {
 	}
 	
 	
+	BiomeList getList() {
+		return forests;
+	}
+	
+	
 	public static GetCoolForest getForest() {
 		if(cforest == null) {
 			cforest = new GetCoolForest();

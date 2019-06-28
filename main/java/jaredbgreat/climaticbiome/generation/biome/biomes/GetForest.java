@@ -66,5 +66,14 @@ public class GetForest implements IBiomeSpecifier {
 	public boolean isEmpty() {
 		return false;
 	}
+	
+	
+	/**
+	 * For mixing temperate and cool temperate zones in 
+	 * for use in classic temperature zones.
+	 */
+	public void collapseCool() {
+		forests.merge(GetCoolForest.getForest().getList());
+}
 
 }

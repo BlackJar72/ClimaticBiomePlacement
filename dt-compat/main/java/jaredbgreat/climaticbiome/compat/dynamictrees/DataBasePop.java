@@ -40,8 +40,6 @@ public class DataBasePop implements IBiomeDataBasePopulator {
 			pine = spruce;
 		}
 		
-		System.err.println("spruce = " + spruce);
-		
 		db.setSpeciesSelector(ModBiomes.warmForest, 
 				              new RandomSpeciesSelector().add(oak, 4)
 				              .add(pine, 1), 

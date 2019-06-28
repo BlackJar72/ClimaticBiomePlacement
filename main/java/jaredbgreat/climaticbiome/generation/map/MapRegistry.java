@@ -2,6 +2,7 @@ package jaredbgreat.climaticbiome.generation.map;
 
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
 import jaredbgreat.climaticbiome.ClimaticBiomes;
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
@@ -42,6 +43,12 @@ public class MapRegistry {
     private final SpatialNoise regionNoise;
     private final SpatialNoise biomeNoise;
     
+    public final int dataSize;
+    public final int cWidth;
+    public final int bWidth;
+    public final int cOffset;
+    public final int bOffset;
+    
     private final MapMaker maker;
     private World world;
     private File savedir =  null;
@@ -49,6 +56,11 @@ public class MapRegistry {
 	
 	
 	public MapRegistry(long seed, World w) {
+		cWidth = MapMaker.RSIZE * ConfigHandler.regionSize.whole;
+		bWidth = cWidth * 16;
+		dataSize = cWidth * cWidth;
+		cOffset = cWidth / 2;
+		bOffset = bWidth / 2;
 		data = new Cache<>();
 		subbiomes = SubBiomeRegistry.getSubBiomeRegistry();
         Random random = new Random(seed);
@@ -112,7 +124,7 @@ public class MapRegistry {
 		//System.out.println("{" + x + ", " + z + "}");
 		RegionMap out = data.get(x, z);
 		if(out == null) {
-			out = new RegionMap(x, z);
+			out = new RegionMap(x, z, cWidth);
 			readMap(out);
 			data.add(out);
 		}
@@ -128,7 +140,8 @@ public class MapRegistry {
 	 * @return
 	 */
 	public RegionMap getMap(BlockPos pos) {
-		return getMap((pos.getX() + 2048) / 4096, (pos.getZ() + 2048) / 4096);
+		return getMap((pos.getX() + bOffset) / bWidth, 
+				      (pos.getZ() + bOffset) / bWidth);
 	}
 	
 	
@@ -142,7 +155,8 @@ public class MapRegistry {
 	 * @return
 	 */
 	public RegionMap getMapFromBlockCoord(int x, int z) {
-		return getMap((x + 2048) / 4096, (z + 2048) / 4096);
+		return getMap((x + bOffset) / bWidth, 
+				      (z + bOffset) / bWidth);
 	}
 	
 	
@@ -154,17 +168,18 @@ public class MapRegistry {
 	 * @return
 	 */
 	public RegionMap getMapFromChunkCoord(int x, int z) {
-		return getMap((x + 128) / 256, (z + 128) / 256);
+		return getMap((x + cOffset) / cWidth, 
+				      (z + cOffset) / cWidth);
 	}
 	
 	
 	public int chunkToMap(int c) {
-		return (c + 128) / 256;
+		return (c + cOffset) / cWidth;
 	}
 	
 	
 	public int blockToMap(int c) {
-		return (c + 2048) / 4096;
+		return (c + bOffset) / cWidth;
 	}
 	
 	/**
@@ -193,7 +208,7 @@ public class MapRegistry {
 		if(file != null && file.exists()) {
 			try {				
 				FileInputStream fs = new FileInputStream(file);
-				for(int i = 0; i < 65536; i++) {
+				for(int i = 0; i < dataSize; i++) {
 						data[i] = (short)fs.read();
 						data[i] |= (fs.read() << 8);
 					}
@@ -220,7 +235,7 @@ public class MapRegistry {
 			//Hasher hasher = new Hasher();
 			try {
 				FileOutputStream fs = new FileOutputStream(file);
-				for(int i = 0; i < 65536; i++) {
+				for(int i = 0; i < dataSize; i++) {
 						fs.write(data[i] & 0xff);
 						//hasher.next(data[i] & 0xff);
 						fs.write((data[i] & 0xff00) >> 8);
@@ -269,8 +284,8 @@ public class MapRegistry {
 	public int getBiomeIDBlock(int x, int z) {
 		x /= 16;	z /= 16;
 		return getMapFromChunkCoord(x, z)
-				.getBiome(x - (256 * chunkToMap(x)), 
-						  z - (256 * chunkToMap(z)));
+				.getBiome(x - (cWidth * chunkToMap(x)), 
+						  z - (cWidth * chunkToMap(z)));
 	}
 		
 	
@@ -283,8 +298,8 @@ public class MapRegistry {
 	 */
 	public int getBiomeIDChunk(int x, int z) {
 		return getMapFromChunkCoord(x, z)
-				.getBiome(modRight(x + 128, 256), 
-						  modRight(z + 128, 256));
+				.getBiome(modRight(x + cOffset, cWidth), 
+						  modRight(z + cOffset, cWidth));
 	}
 	
 	
@@ -297,8 +312,8 @@ public class MapRegistry {
 	 */
 	public int getGenIDChunk(int x, int z) {
 		return getMapFromChunkCoord(x, z)
-				.getFullBiome(modRight(x + 128, 256), 
-						        modRight(z + 128, 256));
+				.getFullBiome(modRight(x + cOffset, cWidth), 
+						        modRight(z + cOffset, cWidth));
 	}
 
 	
@@ -315,8 +330,8 @@ public class MapRegistry {
 	public Biome getBiomeBlock(int x, int z) {
 		x /= 16;	z /= 16;
 		return Biome.getBiome(getMapFromChunkCoord(x, z)
-				.getBiome(modRight(x + 128, 256), 
-						  modRight(z + 128, 256)));
+				.getBiome(modRight(x + cOffset, cWidth), 
+						  modRight(z + cOffset, cWidth)));
 	}
 		
 	
@@ -329,8 +344,8 @@ public class MapRegistry {
 	 */
 	public Biome getBiomeChunk(int x, int z) {
 		return Biome.getBiome(getMapFromChunkCoord(x, z)
-				.getBiome(modRight(x + 128, 256), 
-						  modRight(z + 128, 256)));
+				.getBiome(modRight(x + cOffset, cWidth), 
+						  modRight(z + cOffset, cWidth)));
 	}
 	
 	
@@ -350,7 +365,7 @@ public class MapRegistry {
 	 */
 	public Biome getGenBiomeBlock(int x, int z) {
 		int id = getMapFromBlockCoord(x, z)
-				.getSubBiomeId((x - 2048) % 4096, (z - 2048) % 4096);
+				.getSubBiomeId((x - bOffset) % bWidth, (z - bOffset) % bWidth);
 		if(id < 256) {
 			return Biome.getBiome(id);
 		}
@@ -372,7 +387,7 @@ public class MapRegistry {
 	 */
 	public Biome getGenBiomeChunk(int x, int z) {
 		int id = getMapFromBlockCoord(x, z)
-				.getSubBiomeId((x - 128) % 256, (z - 128) % 256);
+				.getSubBiomeId((x - cOffset) % cWidth, (z - cOffset) % cWidth);
 		if(id < 256) {
 			return Biome.getBiome(id);
 		}

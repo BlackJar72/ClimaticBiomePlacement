@@ -45,8 +45,9 @@ public class GetBeach implements IBiomeSpecifier {
 	
 	
 	public int getHighBiome(ChunkTile tile) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(tile.getTemp() < tbound) {
+			return rock.getBiome(tile);
+		} else return 0;
 	}
 
 	

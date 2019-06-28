@@ -1,18 +1,26 @@
 package jaredbgreat.climaticbiome.generation.map;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
 import jaredbgreat.climaticbiome.generation.generator.MapMaker;
 
 public class RegionMap extends AbstractCachable {
-    MapMaker maker;
-    final short[] data = new short[65536];
+    
+    public final int dataSize;
+    public final int cWidth;
+    public final int bWidth;
+    
+    final short[] data;
     
     static int n = 0;
     
-    public RegionMap(int x, int z) {
+    public RegionMap(int x, int z, int width) {
         super(x, z);
+        cWidth = width;
+        bWidth = width * 16;
+        dataSize = width * width;
+        data = new short[dataSize];
         n++;
-        //System.out.println("Creating map " + x + ", " + z + "; there are " + n + " maps.");
     }
     
     
@@ -29,7 +37,7 @@ public class RegionMap extends AbstractCachable {
      * @return The biome as a single byte.
      */
     public byte getBiomeAsByte(int x, int z) {
-        return (byte)(data[(x * 256) + z] & 0xff);
+        return (byte)(data[(x * cWidth) + z] & 0xff);
     }
     
     
@@ -41,7 +49,7 @@ public class RegionMap extends AbstractCachable {
      * @return The biome id as in int
      */
     public int getBiome(int x, int z) {
-        return (data[(x * 256) + z] & 0xff);
+        return (data[(x * cWidth) + z] & 0xff);
     }
     
     
@@ -55,7 +63,7 @@ public class RegionMap extends AbstractCachable {
      * @return The biome id for world-gen as a short
      */
     public byte getSubBiomeAsByte(int x, int z) {
-        return (byte)((data[(x * 256) + z] & 0xff00) >> 8);
+        return (byte)((data[(x * cWidth) + z] & 0xff00) >> 8);
     }
     
     
@@ -69,7 +77,7 @@ public class RegionMap extends AbstractCachable {
      * @return The biome id for world-gen as a short
      */
     public int getSubBiomeId(int x, int z) {
-        return (data[(x * 256) + z] & 0xff00) >> 8;
+        return (data[(x * cWidth) + z] & 0xff00) >> 8;
     }
     
     
@@ -87,7 +95,7 @@ public class RegionMap extends AbstractCachable {
      * @return The biome id for world-gen as a short
      */
     public short getFullBiomeAsShort(int x, int z) {
-        return (short)((data[(x * 256) + z] & 0xffff));
+        return (short)((data[(x * cWidth) + z] & 0xffff));
     }
     
     
@@ -105,7 +113,7 @@ public class RegionMap extends AbstractCachable {
      * @return The biome id for world-gen as an int
      */
     public int getFullBiome(int x, int z) {
-        return (data[(x * 256) + z] & 0xffff);
+        return (data[(x * cWidth) + z] & 0xffff);
     }
     
     
@@ -117,8 +125,8 @@ public class RegionMap extends AbstractCachable {
      * @param z relative chunk x within region
      */
     public void setBiome(byte biome, int x, int z) {
-        data[(x * 256) + z] &= 0xffffff00;
-        data[(x * 256) + z] |= biome;
+        data[(x * cWidth) + z] &= 0xffffff00;
+        data[(x * cWidth) + z] |= biome;
     }
     
     
@@ -130,8 +138,8 @@ public class RegionMap extends AbstractCachable {
      * @param z relative chunk x within region
      */
     public void setBiome(int biome, int x, int z) {
-        data[(x * 256) + z] &= 0xffffff00;
-        data[(x * 256) + z] |= (biome & 0xff);
+        data[(x * cWidth) + z] &= 0xffffff00;
+        data[(x * cWidth) + z] |= (biome & 0xff);
     }
     
     
@@ -145,8 +153,8 @@ public class RegionMap extends AbstractCachable {
      * @param z relative chunk x within region
      */
     public void setPseudoBiome(int biome, int x, int z) {
-        data[(x * 256) + z] &= 0xffff00ff;
-        data[(x * 256) + z] |= ((biome & 0xffff) << 8);
+        data[(x * cWidth) + z] &= 0xffff00ff;
+        data[(x * cWidth) + z] |= ((biome & 0xffff) << 8);
     }
     
     
@@ -160,8 +168,8 @@ public class RegionMap extends AbstractCachable {
      * @param z relative chunk x within region
      */
     public void setBiomeExpress(int biome, int x, int z) {
-        data[(x * 256) + z] &= 0xffff0000;
-        data[(x * 256) + z] |= biome;        
+        data[(x * cWidth) + z] &= 0xffff0000;
+        data[(x * cWidth) + z] |= biome;        
     }
     
     
@@ -175,9 +183,9 @@ public class RegionMap extends AbstractCachable {
      * @param z relative chunk x within region
      */
     public void setBiomeExpress(int biome, int sub, int x, int z) {
-        data[(x * 256) + z] &= 0xffff0000;
-        data[(x * 256) + z] |= (biome & 0xffffff00);
-        data[(x * 256) + z] |= (sub & 0xffff00) << 8;        
+        data[(x * cWidth) + z] &= 0xffff0000;
+        data[(x * cWidth) + z] |= (biome & 0xffffff00);
+        data[(x * cWidth) + z] |= (sub & 0xffff00) << 8;        
     }
     
     

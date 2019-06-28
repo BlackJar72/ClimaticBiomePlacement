@@ -13,6 +13,7 @@ import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.cache.MutableCoords;
 import jaredbgreat.climaticbiome.generation.map.RegionMap;
+import jaredbgreat.climaticbiome.util.HeightNoise;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
 import jaredbgreat.climaticbiome.util.SpatialNoise.RandomAt;
 
@@ -32,28 +33,20 @@ public class MapMaker {
     public static final int RSIZE = 4096 / CSIZE; // region / "continent" size
     public static final int RADIUS = RSIZE / 2; // radius for basin effect range
     public static final int SQRADIUS = RADIUS * RADIUS;
-    public static final int BSIZE = 256 / CSIZE; // base size for (sub)biomes
-    public static final int GENSIZE = 7; // area of chunks to looks at
-    public static final int GENHALF1 = GENSIZE  / 2;
-    public static final int GENHALF0 = GENHALF1 - 1;
-    public static final int GENHALF2 = GENHALF1 + 1;
-    public static final int GENSQ = GENSIZE * GENSIZE; // area of chunks to looks at
 
     private final Cache<Region> regionCache = new Cache(32);
     
     private MutableCoords regionCoords = new MutableCoords(); 
     private MutableCoords chunkCoords = new MutableCoords(); 
     
-    //final ChunkTile[] premap;
-    private BasinNode[] basins;
-    private ClimateNode[] temp;
-    private ClimateNode[] wet;
     private ClimateNode[] height;
     private BiomeBasin[][] subbiomes;
     
     public final SpatialNoise chunkNoise;
     public final SpatialNoise regionNoise;
     public final SpatialNoise biomeNoise;
+    
+    public final SizeScale scale;
     
     private int xoff;
     private int zoff;    
@@ -65,6 +58,7 @@ public class MapMaker {
         this.chunkNoise  = chunkNoise;
         this.regionNoise = regionNoise;
         this.biomeNoise  = biomeNoise;
+        scale = ConfigHandler.regionSize;
         specifier = BiomeClimateTable.getClimateTable();
     }
     
@@ -88,16 +82,12 @@ public class MapMaker {
     
     
     private Region[] findRegions(int x, int z) {
-//        System.out.println();
-//        System.out.println("******************************");
-//        System.out.println("Getting Regions For: " + x + ", " + z);
         Region[] out = new Region[9];
         int index = 0;
         for(int i = -1; i < 2; i++)
             for(int j = -1; j < 2; j++) {
             	regionCoords.init(x + i, z + j);
                 out[index] = regionCache.get(regionCoords);
-//                System.out.println("Making Region: " + regionCoords);
                 if(out[index] == null) {
                 	out[index] = new Region(x + i, z + j, 
                                 regionNoise);
@@ -105,9 +95,8 @@ public class MapMaker {
                 } else {
                         out[index].use();
                 }
-                index++;            }
-//        System.out.println("******************************");
-//        System.out.println();
+                	index++;
+                }
         return out;
     }
     
@@ -119,14 +108,9 @@ public class MapMaker {
         System.out.println("Creating Region Map: " + coords);
         System.out.println("******************************");
         System.out.println();
-        xoff = (coords.getX() * 256) - 128;
-        zoff = (coords.getZ() * 256) - 128;
+        xoff = ((coords.getX() * 256) - 128) * scale.whole;
+        zoff = ((coords.getZ() * 256) - 128) * scale.whole;
 		Region[] regions = findRegions(coords.getX(), coords.getZ());
-		/*for(int i = 0; i < 3; i++) {
-				System.out.println(regions[(i * 3) + 0].toCoords() + " "
-				                 + regions[(i * 3) + 1].toCoords() + " "
-				                 + regions[(i * 3) + 2].toCoords());
-		}*/
         ArrayList<BasinNode> basins = new ArrayList<>();
         ArrayList<ClimateNode> temp = new ArrayList<>();
         ArrayList<ClimateNode> wet = new ArrayList<>();
@@ -138,53 +122,65 @@ public class MapMaker {
         BasinNode[] basinAr = basins.toArray(new BasinNode[basins.size()]);
         ClimateNode[] tempAr = temp.toArray(new ClimateNode[temp.size()]);
         ClimateNode[] wetAr = wet.toArray(new ClimateNode[wet.size()]);
+        
         SpatialNoise random = chunkNoise;
-        premap = new ChunkTile[RSIZE * RSIZE];
-        for(int i = 0; i < RSIZE; i++) 
-            for(int j = 0; j < RSIZE; j++) {
-                premap[(i * RSIZE) + j] = new ChunkTile(i, j, xoff, zoff);
-            }
-		for(int i = 0; i < premap.length; i++) {
-            premap[i].val = BasinNode.summateEffect(basinAr, premap[i]);
-            edgeFix(premap[i]);
-        }
-        int[] noisy = refineNoise(premap, makeNoise(random, 0), 4);
-        for(int i = 0; i < premap.length; i++) {
-            premap[i].rlBiome = 1 - noisy[i];
-        }
+        makeLandmass(basinAr, coords.getX(), coords.getZ(), random);
+        
+        HeightNoise climateMaker 
+                = new HeightNoise(chunkNoise, RSIZE * scale.whole, 
+                        32 * scale.whole, 2.0, 
+                        coords.getX(), coords.getZ());
+        
         double[] doubleNoise;
+        double[][] climateNoise = climateMaker.process(128);
         doubleNoise = averageNoise(premap, makeDoubleNoise(random, 1));
         for(int i = 0; i < premap.length; i++) {
-            premap[i].temp = Math.min(ClimateNode.summateEffect(tempAr, premap[i], 
-                    doubleNoise[i]), 24);
+            premap[i].temp = (int)Math.max(Math.min(
+                    ClimateNode.summateEffect(tempAr, premap[i], 
+                    doubleNoise[i], scale.inv) + 
+                    climateNoise[i / (RSIZE * scale.whole)]
+                            [i % (RSIZE * scale.whole)], 24), 0);
         }
+        
         doubleNoise = averageNoise(premap, makeDoubleNoise(random, 2));
         for(int i = 0; i < premap.length; i++) {
-            premap[i].wet = Math.min(ClimateNode.summateEffect(wetAr, premap[i], 
-                    doubleNoise[i]), 9);
+            premap[i].wet = (int)Math.max(Math.min(ClimateNode.summateEffect(wetAr, premap[i], 
+                    doubleNoise[i], scale.inv) + 
+                    climateNoise[i / (RSIZE * scale.whole)]
+                            [i % (RSIZE * scale.whole)], 9), 0);
         }
+        
         int[] noise = refineNoise10(makeNoise(random, 4), premap);
         for(int i = 0; i < premap.length; i++) {
             premap[i].noiseVal = noise[i];
         }
+        
         RiverMaker rm = new RiverMaker(this, random.longFor(coords.getX(), coords.getZ(), 16), 
-                regions[4], coords.getX(), coords.getZ());
+                regions[4], coords.getX(), coords.getZ(), scale);
         rm.build();
-        makeBiomes(premap, 256, random.getRandomAt(coords.getX(), coords.getZ(), 3));
-        if(ConfigHandler.addBeaches) {
-	        for(int i = 0; i < premap.length; i++) {
-	        	makeBeach(premap[i]);
-	        }
-	        for(int i = 0; i < premap.length; i++) {
-	        	growBeach1(premap[i]);
-	        }
+        
+        if(ConfigHandler.forceWhole) {
+        	makeBiomesWhole(premap, random.getRandomAt(coords.getX(), coords.getZ(), 3));
+        } else {
+        	makeBiomes(premap, random.getRandomAt(coords.getX(), coords.getZ(), 3));
         }
         for(int i = 0; i < premap.length; i++) {
-        	if(ConfigHandler.addBeaches) {
-        		growBeach2(premap[i]);
-        	}
+        	thinBeach(premap[i]);
+        }
+        for(int i = 0; i < premap.length; i++) {
+        	growBeach1(premap[i]);
+        }
+        for(int i = 0; i < premap.length; i++) {
+        	growBeach2(premap[i]);
         	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
         }
+    }
+    
+    
+    private void makeLandmass(BasinNode[] basins, int cx, int cz, SpatialNoise random) {
+        LandmassMaker maker = new LandmassMaker(cx, cz, 
+                random, basins, scale, RSIZE, xoff, zoff);
+        premap = maker.generate();
     }
     
     
@@ -199,10 +195,9 @@ public class MapMaker {
     
     
     protected int[][] makeNoise(SpatialNoise random, int t) {
-        int[][] noise = new int[RSIZE + 2][RSIZE + 2];
-        for(int i = 0; i < (RSIZE + 2); i++)
-            for(int j = 0; j < (RSIZE + 2); j++) {
-            	// TODO: Adjust for map position
+        int[][] noise = new int[RSIZE * scale.whole + 2][RSIZE * scale.whole + 2];
+        for(int i = 0; i < (RSIZE * scale.whole + 2); i++)
+            for(int j = 0; j < (RSIZE * scale.whole + 2); j++) {
                 noise[i][j] = absModulus(random.intFor(i + xoff, j + zoff, t), 2);
             }
         return noise;
@@ -220,9 +215,9 @@ public class MapMaker {
     
     protected int[] refineNoise(ChunkTile[] premap, int[][] noise) {
         int[] out = new int[premap.length];
-        for(int i = 1; i < (RSIZE + 1); i++) 
-            for(int j = 1; j < (RSIZE + 1); j++) {
-                out[((j - 1) * RSIZE) + (i - 1)] = refineCell(premap, noise, i, j);
+        for(int i = 1; i < (RSIZE * scale.whole + 1); i++) 
+            for(int j = 1; j < (RSIZE * scale.whole + 1); j++) {
+                out[((j - 1) * RSIZE * scale.whole) + (i - 1)] = refineCell(premap, noise, i, j);
             }
         return out;
     }
@@ -231,8 +226,8 @@ public class MapMaker {
     protected int[][] refineNoise2(ChunkTile[] premap, int[][] noise) {
         int[][] out = new int[noise.length][noise[0].length];
         // Could be better optimized, but this is a test of the gui and api
-        for(int i = 1; i < (RSIZE + 1); i++) 
-            for(int j = 1; j < (RSIZE + 1); j++) {
+        for(int i = 1; i < (RSIZE * scale.whole + 1); i++) 
+            for(int j = 1; j < (RSIZE * scale.whole + 1); j++) {
                 out[i][j] = refineCell(premap, noise, i, j);
             }
         return out;
@@ -246,7 +241,7 @@ public class MapMaker {
             for(int j = y - 1; j <= y + 1; j++) {
                 sum += noise[i][j];
             }
-        if(sum < premap[((y -1) * RSIZE) + (x - 1)].val) {
+        if(sum < premap[((y -1) * RSIZE * scale.whole) + (x - 1)].val) {
             return 0;
         } else {
             return 1;
@@ -255,9 +250,9 @@ public class MapMaker {
     
     
     private double[][] makeDoubleNoise(SpatialNoise random, int t) {
-        double[][] noise = new double[RSIZE + 4][RSIZE + 4];
-        for(int i = 0; i < (RSIZE + 2); i++)
-            for(int j = 0; j < (RSIZE + 2); j++) {
+        double[][] noise = new double[RSIZE * scale.whole + 4][RSIZE * scale.whole + 4];
+        for(int i = 0; i < (RSIZE * scale.whole + 2); i++)
+            for(int j = 0; j < (RSIZE * scale.whole + 2); j++) {
                 noise[i][j] = (random.doubleFor(i + xoff, j + zoff, t) / 5) - 0.1;
             }
         return noise;
@@ -266,10 +261,9 @@ public class MapMaker {
     
     public double[] averageNoise(ChunkTile[] premap, double[][] noise) {
         double[] out = new double[premap.length];
-        // Could be better optimized, but this is a test of the gui and api
-        for(int i = 2; i < (RSIZE + 2); i++) 
-            for(int j = 2; j < (RSIZE + 2); j++) {
-                out[((j - 2) * RSIZE) + (i - 2)] = averageNoise(noise, i, j);
+        for(int i = 2; i < (RSIZE * scale.whole + 2); i++) 
+            for(int j = 2; j < (RSIZE * scale.whole + 2); j++) {
+                out[((j - 2) * RSIZE * scale.whole) + (i - 2)] = averageNoise(noise, i, j);
             }
         return out;
     }
@@ -286,9 +280,9 @@ public class MapMaker {
     }
     
     
-    public void makeBiomes(ChunkTile[] premap, int sizeBlocks, RandomAt random) {
-        int size = sizeBlocks / 16;
-        int across = BSIZE;
+    public void makeBiomes(ChunkTile[] premap, RandomAt random) {
+        int size = ConfigHandler.biomeSize;
+        int across = (RSIZE * scale.whole) / size;
         int down = across;
         subbiomes = new BiomeBasin[across][down];
         for(int i = 0; i < across; i++) 
@@ -305,32 +299,40 @@ public class MapMaker {
     }
     
     
-    private void edgeFix(ChunkTile t) {
-        if(t.x < 10) {
-            t.val += ((t.x - 10) / 2);
-        } else if(t.x >= (RSIZE - 10)) {
-            t.val -= ((t.x - RSIZE + 10) / 2);
-        }
-        if(t.z < 10) {
-            t.val += ((t.z - 10) /  2);
-        } else if(t.z >= (RSIZE - 10)) {
-            t.val -= ((t.z - RSIZE + 10) / 2);
+    public void makeBiomesWhole(ChunkTile[] premap, RandomAt random) {
+        int size = ConfigHandler.biomeSize;
+        int across = (RSIZE * scale.whole) / size;
+        int down = across;
+        subbiomes = new BiomeBasin[across][down];
+        for(int i = 0; i < across; i++) 
+            for(int j = 0; j < down; j++) {
+                subbiomes[i][j]
+                        = new BiomeBasin((i * size) + random.nextInt(size),
+                                    (j * size) + random.nextInt(size),
+                                    random.nextInt() | 0xff000000,
+                                    1.0 + random.nextDouble(), this);
+            }
+        for (ChunkTile tile : premap) {
+        	ChunkTile basis = BiomeBasin.summateForCenter(subbiomes, tile);
+            tile.biomeSeed = basis.biomeSeed;
+            tile.wet  = basis.wet;
+            tile.temp = basis.temp;
         }
     }
     
     
-    private static int[] refineBasicNoise(int[][] noise, ChunkTile[] premap) {
+    private int[] refineBasicNoise(int[][] noise, ChunkTile[] premap) {
         int[] out = new int[premap.length];
         // Could be better optimized, but this is a test of the gui and api
-        for(int i = 1; i < (RSIZE + 1); i++) 
-            for(int j = 1; j < (RSIZE + 1); j++) {
-                out[((j - 1) * RSIZE) + (i - 1)] = refineBasicCell(noise, i, j);
+        for(int i = 1; i < (RSIZE * scale.whole + 1); i++) 
+            for(int j = 1; j < (RSIZE * scale.whole + 1); j++) {
+                out[((j - 1) * RSIZE * scale.whole) + (i - 1)] = refineBasicCell(noise, i, j);
             }
         return out;
     }
     
     
-    private static int refineBasicCell(int[][] noise, int x, int y) {
+    private int refineBasicCell(int[][] noise, int x, int y) {
         int sum = 0;
         // Yes, I include the cell itself -- its simpler and works for me
         for(int i = x - 1; i <= x + 1; i++) 
@@ -341,18 +343,18 @@ public class MapMaker {
     }
     
     
-    private static int[] refineNoise10(int[][] noise, ChunkTile[] premap) {
+    private int[] refineNoise10(int[][] noise, ChunkTile[] premap) {
         int[] out = new int[premap.length];
         // Could be better optimized, but this is a test of the gui and api
-        for(int i = 1; i < (RSIZE + 1); i++) 
-            for(int j = 1; j < (RSIZE + 1); j++) {
-                out[((j - 1) * RSIZE) + (i - 1)] = refineCell10(noise, i, j);
+        for(int i = 1; i < (RSIZE * scale.whole + 1); i++) 
+            for(int j = 1; j < (RSIZE * scale.whole + 1); j++) {
+                out[((j - 1) * RSIZE * scale.whole) + (i - 1)] = refineCell10(noise, i, j);
             }
         return out;
     }
     
     
-    private static int refineCell10(int[][] noise, int x, int y) {
+    private int refineCell10(int[][] noise, int x, int y) {
         int sum = 0;
         // Yes, I include the cell itself -- its simpler and works for me
         for(int i = x - 1; i <= x + 1; i++) 
@@ -368,13 +370,30 @@ public class MapMaker {
     }
     
     
+    void thinBeach(ChunkTile t) {
+        if(!t.beach) return;
+        int oceans = 0;
+        for(int i = -2; i < 3; i++) 
+            for(int j = -1; j < 2; j++) {
+                ChunkTile x = premap[((t.getX() + i) * RSIZE * scale.whole) + t.getZ() + j];
+                if(notLand(x)) {
+                    oceans++;
+                }
+            }
+        if(oceans < 1) {
+        	t.beach = false;
+        	return;
+        }
+    }
+    
+    
     void makeBeach(ChunkTile t) {
         if(notLand(t) || (t.getX() < 1) || (t.getX() > 254)
                       || (t.getZ() < 1) || (t.getZ() > 254)) return;
         int oceans = 0;
         for(int i = -1; i < 2; i++) 
             for(int j = -1; j < 2; j++) {
-                ChunkTile x = premap[((t.getX() + i) * RSIZE) + t.getZ() + j];
+                ChunkTile x = premap[((t.getX() + i) * RSIZE * scale.whole) + t.getZ() + j];
                 if(notLand(x)) {
                     oceans++;
                 }
@@ -386,13 +405,28 @@ public class MapMaker {
     }
     
     
+    void makeUniversalBeach(ChunkTile t) {
+        if(notLand(t) || (t.getX() < 1) || (t.getX() > 254)
+                      || (t.getZ() < 1) || (t.getZ() > 254)) return;
+        int oceans = 0;
+        for(int i = -1; i < 2; i++) 
+            for(int j = -1; j < 2; j++) {
+                ChunkTile x = premap[((t.getX() + i) * RSIZE * scale.whole) + t.getZ() + j];
+                if(notLand(x)) {
+                    oceans++;
+                }
+            }
+        t.beach = (oceans > 1);
+    }
+    
+    
     void growBeach1(ChunkTile t) {
         if(!notLand(t) || (t.getX() < 1) || (t.getX() > 254)
                        || (t.getZ() < 1) || (t.getZ() > 254)) return;
         int beaches = 0;
         for(int i = -1; i < 2; i++) 
             for(int j = -1; j < 2; j++) {
-                ChunkTile x = premap[((t.getX() + i) * RSIZE) + t.getZ() + j];
+                ChunkTile x = premap[((t.getX() + i) * RSIZE * scale.whole) + t.getZ() + j];
                 if(!notLand(x) && x.beach) {
                     beaches++;
                 }
@@ -411,7 +445,7 @@ public class MapMaker {
     
     public ChunkTile getTile(int x, int y) {
     	//System.err.println("Geting Tile: " + x + ", " + y + " = " + ((x * RSIZE) + y));
-        int index = (x * RSIZE) + y;
+        int index = (x * RSIZE * scale.whole) + y;
         //System.err.println(x + ", " + y + " = " + index);
         return premap[index];
     }
