@@ -15,7 +15,7 @@ public class ConfigHandler {
 	public static boolean useBoPTable = false;	
 	public static boolean volcanicBoP = false;
 	public static boolean useCfg = true;
-	public static boolean jeid = false;
+	//public static boolean jeid = false;
 	public static boolean writeBiomeLists = true;
 	public static boolean writeWTLists = false;
 	public static boolean rivers = true;
@@ -30,6 +30,7 @@ public class ConfigHandler {
 	public static boolean badBiomeSpam = false;
 	public static boolean makeDefault = false;
 	public static boolean addToVanilla = false;
+	public static boolean extraBeaches = false;
 	public static String  chunkProvider = "default";
 	
 	public static int        biomeSize  = 16;
@@ -58,11 +59,11 @@ public class ConfigHandler {
 						+ "If BoP is not installed this does nothing.")
 				 && net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");	
 		
-		jeid = config.getBoolean("JEID", "Compat", true, 
-						"If true it will use Just Enough IDs for biome IDs if available. \n"
-						+ "Set this to false to keep JEID from breaking existing worlds \n"
-						+ "(this will limit the number real biome IDs this recognizes to 256).")
-				 && net.minecraftforge.fml.common.Loader.isModLoaded("jeid");
+//		jeid = config.getBoolean("JEID", "Compat", true, 
+//						"If true it will use Just Enough IDs for biome IDs if available. \n"
+//						+ "Set this to false to keep JEID from breaking existing worlds \n"
+//						+ "(this will limit the number real biome IDs this recognizes to 256).")
+//				 && net.minecraftforge.fml.common.Loader.isModLoaded("jeid");
 		
 		useTraverse = config.getBoolean("UseTraverseBiomes", "Compat", true, 
 						"If true it will use Traverse biomes in its world type. \n"
@@ -103,6 +104,9 @@ public class ConfigHandler {
 						"If true there will be temperature specific rivers, which are good with \n"
 						+ "seasons and weather related mods, but will use a few more ids.  \n"
 						+ "set this to false if you are running out of biome ids.");
+		
+		extraBeaches = config.getBoolean("ExtraBeaches", "General", false, 
+						"If true there will be more beaches.");
 		
 		rockyScrub = config.getBoolean("RockyScrub", "General", true, 
 						"If true scrub biomes will have cobble bolders.");
@@ -152,14 +156,15 @@ public class ConfigHandler {
 		ClimaticWorldType.setChunkProviderType(chunkProvider);
 		
 		biomeSize = config.getInt("BiomeSize", "Size", 16, 4, 64, "The average width of a "
-						+ "biome area in chunks");
+						+ "biome area in chunks.");
 		
-		regionSize = SizeScale.get(config.getInt("MapScale", "Size", 1, 2, 3, "The distance multiplier for "
+		regionSize = SizeScale.get(config.getInt("MapScale", "Size", 1, 1, 4, "The distance multiplier for "
 						+ "scaling up the map \n"
 						+ "     1 = x1 ->  4096 x 4096  blocks\n"
 						+ "     2 = x2 ->  8192 x 8192  blocks\n"
 						+ "     3 = x3 -> 12288 x 12288 blocks\n"
-						+ "     4 = x4 -> 16384 x 16384 blocks\n"));
+						+ "     4 = x4 -> 16384 x 16384 blocks\n"
+						+ "WARNING: Chaning this will break existing worlds!!!"));
 		
 		forceWhole = config.getBoolean("ForceWholeBiome", "Size", false, 
 				"If true biome areas will not be split.  Instead they will all be the same biome. \n "
