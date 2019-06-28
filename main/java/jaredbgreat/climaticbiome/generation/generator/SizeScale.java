@@ -6,6 +6,7 @@ package jaredbgreat.climaticbiome.generation.generator;
 public enum SizeScale {
     X1 (1, 0),
     X2 (2, 1),
+    X3 (3, 2), // Not accurate, but should work for what it's used for
     X4 (4, 2);
     
     public final int whole;
