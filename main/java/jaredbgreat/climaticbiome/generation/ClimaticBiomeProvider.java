@@ -128,7 +128,7 @@ public class ClimaticBiomeProvider extends BiomeProvider {
     public void cleanupCache() {
         if(vanillaCacheValid) try {
                 super.cleanupCache();
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
                 // This is hacky and only testing will tell
                 // if I needed to call the super class method;
                 // i.e., if not doing so will cause memory
