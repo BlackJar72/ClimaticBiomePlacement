@@ -30,6 +30,7 @@ public class ConfigHandler {
 	public static boolean badBiomeSpam = false;
 	public static boolean makeDefault = false;
 	public static boolean addToVanilla = false;
+	public static boolean extraBeaches = false;
 	public static String  chunkProvider = "default";
 	
 	public static int        biomeSize  = 16;
@@ -103,6 +104,9 @@ public class ConfigHandler {
 						"If true there will be temperature specific rivers, which are good with \n"
 						+ "seasons and weather related mods, but will use a few more ids.  \n"
 						+ "set this to false if you are running out of biome ids.");
+		
+		extraBeaches = config.getBoolean("ExtraBeaches", "General", false, 
+						"If true there will be more beaches.");
 		
 		rockyScrub = config.getBoolean("RockyScrub", "General", true, 
 						"If true scrub biomes will have cobble bolders.");
