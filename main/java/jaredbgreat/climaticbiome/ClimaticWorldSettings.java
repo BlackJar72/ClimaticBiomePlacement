@@ -1,13 +1,16 @@
 package jaredbgreat.climaticbiome;
 
 import jaredbgreat.climaticbiome.generation.generator.SizeScale;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.JsonUtils;
+import net.minecraft.world.storage.WorldSavedData;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class ClimaticWorldSettings {
+public class ClimaticWorldSettings extends WorldSavedData {
+	public static final String DATA_NAME = Info.ID + "GenSettings"; 
 	
 	// Core settings
 	public boolean useBoP;
@@ -28,13 +31,33 @@ public class ClimaticWorldSettings {
 	
 	public int biomeSize;
 	public SizeScale regionSize;
-	
+		
 	
 	/**
 	 * This default constructor will create a version that matches 
 	 * set in the global config file (treating them as run-time defaults).
 	 */
 	public ClimaticWorldSettings() {
+		super(DATA_NAME);
+		setDataFromConfig();
+	}
+	
+	
+	/**
+	 * Required constructor here only becaue required for some reason.
+	 * 
+	 * @param s
+	 */
+	public ClimaticWorldSettings(String s) {
+		super(s);
+		setDataFromConfig();
+	}
+	
+	
+	/**
+	 * Populate data using the config (defaults)
+	 */
+	private final void setDataFromConfig() {
 		this.useBoP = ConfigHandler.useBoP;
 		this.useTraverse = ConfigHandler.useTraverse;
 		this.useVanilla = ConfigHandler.useVanilla;	
@@ -50,7 +73,12 @@ public class ClimaticWorldSettings {
 		this.deepSand = ConfigHandler.deepSand;	
 		this.forceWhole = ConfigHandler.forceWhole;	
 		this.biomeSize = ConfigHandler.biomeSize;
-		this.regionSize = ConfigHandler.regionSize;
+		this.regionSize = ConfigHandler.regionSize;		
+	}
+	
+	
+	public final void resetFromConfig() {
+		setDataFromConfig();
 	}
 	
 	
@@ -168,6 +196,56 @@ public class ClimaticWorldSettings {
 	 */
 	public String toJsonString() {
 		return toJson().toString();
+	}
+
+
+	/*-***************************************************************-*
+	 *                       NBT STUFF BELOW                           *
+	 *-***************************************************************-*/
+	
+	
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		NBTTagCompound tag = nbt.getCompoundTag("CimaticGenSettings");		
+		useBoP = tag.getBoolean("useBoP");	
+		useTraverse = tag.getBoolean("useTraverse");
+		useVanilla = tag.getBoolean("useVanilla");	
+		useBoPTable = tag.getBoolean("useBoPTable");
+		volcanicBoP = tag.getBoolean("volcanicBoP");
+		useCfg = tag.getBoolean("useCfg");
+		rivers = tag.getBoolean("rivers");	
+		rockyScrub = tag.getBoolean("rockyScrub");
+		useDT = tag.getBoolean("useDT");	
+		addIslands = tag.getBoolean("addIslands");
+		extraBeaches = tag.getBoolean("extraBeaches");
+		moreMansion = tag.getBoolean("moreMansion");
+		deepSand = tag.getBoolean("deepSand");
+		forceWhole = tag.getBoolean("forceWholeBiome");
+		biomeSize = tag.getInteger("biomeSize");
+		regionSize = SizeScale.get(tag.getInteger("regionSize"));
+	}
+
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+		NBTTagCompound tag = compound.getCompoundTag("CimaticGenSettings");
+		tag.setBoolean("useBoP", useBoP);	
+		tag.setBoolean("useTraverse", useTraverse);
+		tag.setBoolean("useVanilla", useVanilla);	
+		tag.setBoolean("useBoPTable", useBoPTable);
+		tag.setBoolean("volcanicBoP", volcanicBoP);
+		tag.setBoolean("useCfg", useCfg);
+		tag.setBoolean("rivers", rivers);	
+		tag.setBoolean("rockyScrub", rockyScrub);
+		tag.setBoolean("useDT", useDT);	
+		tag.setBoolean("addIslands", addIslands);
+		tag.setBoolean("extraBeaches", extraBeaches);	
+		tag.setBoolean("moreMansion", moreMansion);
+		tag.setBoolean("deepSand", deepSand);
+		tag.setBoolean("forceWholeBiome", forceWhole);
+		tag.setInteger("biomeSize", biomeSize);
+		tag.setInteger("regionSize", regionSize.ordinal() + 1);
+		return compound;
 	}
 
 }

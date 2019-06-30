@@ -15,18 +15,34 @@ import net.minecraft.world.biome.BiomeProvider;
 
 
 public class ClimaticBiomeProvider extends BiomeProvider {
-        private World world;
-        private MapRegistry finder;
-        private boolean vanillaCacheValid;
-        private ClimaticWorldSettings settings;
-        
-        
-        public ClimaticBiomeProvider(World world) {             
-                super(/*world.getWorldInfo()*/);
-                vanillaCacheValid = true;
-                this.world = world;
-                finder = new MapRegistry(world.getSeed(), world);
-        }
+    private World world;
+    private MapRegistry finder;
+    private boolean vanillaCacheValid;
+    private ClimaticWorldSettings settings;
+    
+    
+    public ClimaticBiomeProvider(World world) {             
+            super(/*world.getWorldInfo()*/);
+            vanillaCacheValid = true;
+            this.world = world;
+            makeSettings();
+            world.getPerWorldStorage();
+            finder = new MapRegistry(world.getSeed(), world);
+    }
+    
+    /**
+     * This will take care of building the correct generation settings;
+     * hopefully it will remain relatively simple.
+     * 
+     * For now this will simply get settings as a new object, and then 
+     * read in the correct version (if any) for existing worlds.  Eventually 
+     * it will need to interact with the gui (which will hold a version for 
+     * new worlds to be set by the player).
+     */
+    private void makeSettings() {
+    	settings = new ClimaticWorldSettings();
+    	// TODO: Read in saved data.
+    }
         
 
     @Nullable
