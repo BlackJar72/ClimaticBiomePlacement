@@ -3,6 +3,8 @@ package jaredbgreat.climaticbiome;
 import jaredbgreat.climaticbiome.generation.generator.SizeScale;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.JsonUtils;
+import net.minecraft.world.World;
+import net.minecraft.world.storage.MapStorage;
 import net.minecraft.world.storage.WorldSavedData;
 
 import com.google.gson.JsonElement;
@@ -197,6 +199,11 @@ public class ClimaticWorldSettings extends WorldSavedData {
 	public String toJsonString() {
 		return toJson().toString();
 	}
+	
+	
+	public String toString() {
+		return super.toString() + " " + toJsonString();
+	}
 
 
 	/*-***************************************************************-*
@@ -206,7 +213,10 @@ public class ClimaticWorldSettings extends WorldSavedData {
 	
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
-		NBTTagCompound tag = nbt.getCompoundTag("CimaticGenSettings");		
+    	System.out.println("**********************");
+    	System.out.println("Reading NBT");
+    	System.out.println("**********************");
+		NBTTagCompound tag = nbt.getCompoundTag(DATA_NAME);		
 		useBoP = tag.getBoolean("useBoP");	
 		useTraverse = tag.getBoolean("useTraverse");
 		useVanilla = tag.getBoolean("useVanilla");	
@@ -228,7 +238,10 @@ public class ClimaticWorldSettings extends WorldSavedData {
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-		NBTTagCompound tag = compound.getCompoundTag("CimaticGenSettings");
+    	System.out.println("**********************");
+    	System.out.println("Reating NBT");
+    	System.out.println("**********************");
+		NBTTagCompound tag = compound.getCompoundTag(DATA_NAME);
 		tag.setBoolean("useBoP", useBoP);	
 		tag.setBoolean("useTraverse", useTraverse);
 		tag.setBoolean("useVanilla", useVanilla);	
@@ -246,6 +259,39 @@ public class ClimaticWorldSettings extends WorldSavedData {
 		tag.setInteger("biomeSize", biomeSize);
 		tag.setInteger("regionSize", regionSize.ordinal() + 1);
 		return compound;
+	}
+	
+	
+	/*-****************************************************-*
+	 *               Other Storage Stuff                   -*      
+	 *-****************************************************-*/
+	
+	
+	
+	public static ClimaticWorldSettings get(World world) {
+		MapStorage storage = world.getPerWorldStorage();
+		ClimaticWorldSettings settings = 
+					(ClimaticWorldSettings)storage
+						.getOrLoadData(ClimaticWorldSettings.class, 
+								DATA_NAME);
+    	
+    	if(!world.isRemote) {
+	    	System.out.println();
+	    	System.out.println("**********************");
+	    	System.out.println(settings);
+	    	System.out.println("**********************");
+	    	System.out.println();
+    	}
+		
+		if(settings == null) {
+			settings = new ClimaticWorldSettings();
+			settings.setDirty(true);
+			storage.setData(DATA_NAME, settings);
+			settings.setDirty(true);
+			storage.saveAllData();
+		}
+		
+		return settings;		
 	}
 
 }

@@ -12,6 +12,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
+import net.minecraft.world.storage.MapStorage;
+import net.minecraft.world.storage.WorldSavedData;
 
 
 public class ClimaticBiomeProvider extends BiomeProvider {
@@ -26,7 +28,6 @@ public class ClimaticBiomeProvider extends BiomeProvider {
             vanillaCacheValid = true;
             this.world = world;
             makeSettings();
-            world.getPerWorldStorage();
             finder = new MapRegistry(world.getSeed(), world);
     }
     
@@ -40,8 +41,16 @@ public class ClimaticBiomeProvider extends BiomeProvider {
      * new worlds to be set by the player).
      */
     private void makeSettings() {
-    	settings = new ClimaticWorldSettings();
-    	// TODO: Read in saved data.
+    	settings = ClimaticWorldSettings.get(world);
+    	
+    	if(!world.isRemote) {
+	    	System.out.println();
+	    	System.out.println("**********************");
+	    	System.out.println(settings);
+	    	System.out.println("**********************");
+	    	System.out.println();
+    	}
+    	
     }
         
 
