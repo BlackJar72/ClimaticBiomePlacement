@@ -158,7 +158,7 @@ public class ConfigHandler {
 		biomeSize = config.getInt("BiomeSize", "Size", 16, 4, 64, "The average width of a "
 						+ "biome area in chunks.");
 		
-		regionSize = SizeScale.get(config.getInt("MapScale", "Size", 1, 2, 3, "The distance multiplier for "
+		regionSize = SizeScale.get(config.getInt("MapScale", "Size", 1, 1, 4, "The distance multiplier for "
 						+ "scaling up the map \n"
 						+ "     1 = x1 ->  4096 x 4096  blocks\n"
 						+ "     2 = x2 ->  8192 x 8192  blocks\n"

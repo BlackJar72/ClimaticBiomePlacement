@@ -19,7 +19,7 @@ public class ClimaticWorldSettings {
 	public boolean rockyScrub;
 	public boolean useDT;
 	public boolean addIslands;
-	public boolean addBeaches;
+	public boolean extraBeaches;
 	public boolean moreMansion;
 	public boolean addPines;
 	public boolean deepSand;
@@ -40,7 +40,7 @@ public class ClimaticWorldSettings {
 		this.rockyScrub = ConfigHandler.rockyScrub;
 		this.useDT = ConfigHandler.useDT;
 		this.addIslands = ConfigHandler.addIslands;
-		this.addBeaches = ConfigHandler.addBeaches;
+		this.extraBeaches = ConfigHandler.extraBeaches;
 		this.moreMansion = ConfigHandler.moreMansion;
 		this.deepSand = ConfigHandler.deepSand;		
 	}
@@ -89,7 +89,7 @@ public class ClimaticWorldSettings {
 				addIslands = JsonUtils.getBoolean(jsonObj, "addIslands");
 			
 			if(JsonUtils.hasField(jsonObj, "addBeaches")) 		
-				addBeaches = JsonUtils.getBoolean(jsonObj, "addBeaches");
+				extraBeaches = JsonUtils.getBoolean(jsonObj, "extraBeaches");
 			
 			if(JsonUtils.hasField(jsonObj, "moreMansion")) 		
 				moreMansion = JsonUtils.getBoolean(jsonObj, "moreMansion");
@@ -132,7 +132,7 @@ public class ClimaticWorldSettings {
 		jsonObj.addProperty("rockyScrub", rockyScrub);
 		jsonObj.addProperty("useDT", useDT);	
 		jsonObj.addProperty("addIslands", addIslands);
-		jsonObj.addProperty("addBeaches", addBeaches);	
+		jsonObj.addProperty("extraBeaches", extraBeaches);	
 		jsonObj.addProperty("moreMansion", moreMansion);
 		jsonObj.addProperty("deepSand", deepSand);
 		return jsonObj;

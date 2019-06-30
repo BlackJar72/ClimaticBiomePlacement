@@ -102,6 +102,11 @@ public class ClimaticBiomes {
     		log.warning("[Climatic Biomes] Woodland Mansion genaraion cannot be modified!");
     		log.warning("[Climatic Biomes] You might need a different version of Forge or Java (probably Java)");
     	}
+    	if(!(ConfigHandler.useBoP || ConfigHandler.useBoPTable)) {
+    		GetForest.getForest().collapseCool();
+    		GetPlains.getPlains().collapseCool();
+    		GetPark.getPark().collapseCoole();
+    	}
     }
     
     
