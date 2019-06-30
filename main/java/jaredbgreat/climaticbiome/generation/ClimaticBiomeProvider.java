@@ -1,8 +1,8 @@
 package jaredbgreat.climaticbiome.generation;
 
+import jaredbgreat.climaticbiome.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.generation.map.MapRegistry;
 
-import java.io.File;
 import java.util.List;
 import java.util.Random;
 
@@ -12,13 +12,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
-import net.minecraftforge.common.DimensionManager;
 
 
 public class ClimaticBiomeProvider extends BiomeProvider {
         private World world;
         private MapRegistry finder;
         private boolean vanillaCacheValid;
+        private ClimaticWorldSettings settings;
         
         
         public ClimaticBiomeProvider(World world) {             

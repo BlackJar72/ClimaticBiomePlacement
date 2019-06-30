@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome;
 
+import jaredbgreat.climaticbiome.generation.generator.SizeScale;
 import net.minecraft.util.JsonUtils;
 
 import com.google.gson.JsonElement;
@@ -23,6 +24,10 @@ public class ClimaticWorldSettings {
 	public boolean moreMansion;
 	public boolean addPines;
 	public boolean deepSand;
+	public boolean forceWhole;
+	
+	public int biomeSize;
+	public SizeScale regionSize;
 	
 	
 	/**
@@ -42,7 +47,10 @@ public class ClimaticWorldSettings {
 		this.addIslands = ConfigHandler.addIslands;
 		this.extraBeaches = ConfigHandler.extraBeaches;
 		this.moreMansion = ConfigHandler.moreMansion;
-		this.deepSand = ConfigHandler.deepSand;		
+		this.deepSand = ConfigHandler.deepSand;	
+		this.forceWhole = ConfigHandler.forceWhole;	
+		this.biomeSize = ConfigHandler.biomeSize;
+		this.regionSize = ConfigHandler.regionSize;
 	}
 	
 	
@@ -96,6 +104,15 @@ public class ClimaticWorldSettings {
 			
 			if(JsonUtils.hasField(jsonObj, "deepSand")) 		
 				deepSand = JsonUtils.getBoolean(jsonObj, "deepSand");
+			
+			if(JsonUtils.hasField(jsonObj, "forceWholeBiome")) 		
+				forceWhole = JsonUtils.getBoolean(jsonObj, "forceWholeBiome");
+			
+			if(JsonUtils.hasField(jsonObj, "biomeSize")) 		
+				biomeSize = JsonUtils.getInt(jsonObj, "biomeSize");
+			
+			if(JsonUtils.hasField(jsonObj, "regionSize")) 		
+				regionSize = SizeScale.get(JsonUtils.getInt(jsonObj, "regionSize"));
 		}		
 		return this;
 	}
@@ -135,6 +152,9 @@ public class ClimaticWorldSettings {
 		jsonObj.addProperty("extraBeaches", extraBeaches);	
 		jsonObj.addProperty("moreMansion", moreMansion);
 		jsonObj.addProperty("deepSand", deepSand);
+		jsonObj.addProperty("forceWholeBiome", forceWhole);
+		jsonObj.addProperty("biomeSize", biomeSize);
+		jsonObj.addProperty("regionSize", regionSize.ordinal() + 1);
 		return jsonObj;
 	}
 	

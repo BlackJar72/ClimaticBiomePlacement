@@ -107,6 +107,8 @@ public class ClimaticBiomes {
     		GetPlains.getPlains().collapseCool();
     		GetPark.getPark().collapseCoole();
     	}
+    	// In production / release versions this should do nothing!
+    	testingOut();
     }
     
     
@@ -119,5 +121,11 @@ public class ClimaticBiomes {
     private void moveWorldTypes() {
     	WorldType.WORLD_TYPES[0] = worldType;
     }
+        
+    
+    /**
+     * In production / release versions this should do nothing!
+     */
+    private void testingOut() {}
     
 }
