@@ -7,7 +7,7 @@ public class GuiScaleSlider extends GuiSlider {
 
 	public GuiScaleSlider(GuiResponder guiResponder, int idIn, int x, int y,
 			String nameIn) {
-		super(guiResponder, idIn, x, y, nameIn, 0, 2, 0, new ScaleFormatter());
+		super(guiResponder, idIn, x, y, nameIn, 0, 3, 0, new ScaleFormatter());
 	}
 
 	
@@ -24,7 +24,7 @@ public class GuiScaleSlider extends GuiSlider {
 
 	
 	private static class ScaleFormatter implements GuiSlider.FormatHelper {
-		private static final String[] valueStrings = new String[]{"x1", "x2", "x4"};
+		private static final String[] valueStrings = new String[]{"x1", "x2", "x3", "x4"};
 		@Override
 		public String getText(int id, String name, float value) {
 			return name + ": " + valueStrings[(int)value];

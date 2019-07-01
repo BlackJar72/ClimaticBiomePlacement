@@ -24,7 +24,7 @@ public class ClimaticBiomeProvider extends BiomeProvider {
     
     
     public ClimaticBiomeProvider(World world) {             
-            super(/*world.getWorldInfo()*/);
+            super(world.getWorldInfo());
             vanillaCacheValid = true;
             this.world = world;
             makeSettings();
@@ -41,11 +41,12 @@ public class ClimaticBiomeProvider extends BiomeProvider {
      * new worlds to be set by the player).
      */
     private void makeSettings() {
-    	settings = ClimaticWorldSettings.get(world);
+    	//settings = ClimaticWorldSettings.get(world);
     	
     	if(!world.isRemote) {
 	    	System.out.println();
 	    	System.out.println("**********************");
+	    	System.out.println(world.getWorldInfo().getGeneratorOptions());
 	    	System.out.println(settings);
 	    	System.out.println("**********************");
 	    	System.out.println();

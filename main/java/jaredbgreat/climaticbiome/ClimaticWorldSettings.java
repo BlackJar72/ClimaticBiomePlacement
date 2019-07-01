@@ -5,6 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapStorage;
+import net.minecraft.world.storage.WorldInfo;
 import net.minecraft.world.storage.WorldSavedData;
 
 import com.google.gson.JsonElement;
@@ -275,6 +276,9 @@ public class ClimaticWorldSettings extends WorldSavedData {
 						.getOrLoadData(ClimaticWorldSettings.class, 
 								DATA_NAME);
     	
+		WorldInfo info = world.getWorldInfo();
+    	System.out.println(world.getWorldInfo().getGeneratorOptions());
+		
     	if(!world.isRemote) {
 	    	System.out.println();
 	    	System.out.println("**********************");
@@ -285,10 +289,10 @@ public class ClimaticWorldSettings extends WorldSavedData {
 		
 		if(settings == null) {
 			settings = new ClimaticWorldSettings();
-			settings.setDirty(true);
 			storage.setData(DATA_NAME, settings);
 			settings.setDirty(true);
 			storage.saveAllData();
+			settings.setDirty(true);
 		}
 		
 		return settings;		
