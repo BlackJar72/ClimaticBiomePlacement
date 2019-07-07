@@ -47,12 +47,14 @@ public class MapRegistry {
     public final int cWidth;
     public final int bWidth;
     public final int cOffset;
-    public final int bOffset;
+    public final int bOffset;    
     
     private final MapMaker maker;
     private World world;
     private File savedir =  null;
     private boolean cansave = true;
+    
+    private boolean noFakes;
 	
 	
 	public MapRegistry(long seed, World w) {
@@ -68,7 +70,14 @@ public class MapRegistry {
         regionNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         biomeNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         maker = new MapMaker(chunkNoise, regionNoise, biomeNoise);
+        noFakes = areFakesInvalid();
         world = w;
+	}
+	
+	
+	private final boolean areFakesInvalid() {
+		return net.minecraftforge.fml.common.Loader.isModLoaded("lostcities") 
+        		&& ConfigHandler.chunkProvider.equalsIgnoreCase("lostcities");
 	}
 	
 	
@@ -270,23 +279,6 @@ public class MapRegistry {
     		return hash;
     	}
 	}
-	
-	
-	/**
-	 * Return the biome ID as an int for the the given x,z block coordinates.  
-	 * Note that this is not the true biome, of the exact block 
-	 * but actually the dominant biome for the chunk.
-	 * 
-	 * @param x
-	 * @param z
-	 * @return
-	 */
-	public int getBiomeIDBlock(int x, int z) {
-		x /= 16;	z /= 16;
-		return getMapFromChunkCoord(x, z)
-				.getBiome(x - (cWidth * chunkToMap(x)), 
-						  z - (cWidth * chunkToMap(z)));
-	}
 		
 	
 	/**
@@ -315,24 +307,6 @@ public class MapRegistry {
 				.getFullBiome(modRight(x + cOffset, cWidth), 
 						        modRight(z + cOffset, cWidth));
 	}
-
-	
-	
-	/**
-	 * Return the biome for the the given x,z block coordinates.  
-	 * Note that this is not the true biome, of the exact block 
-	 * but actually the dominant biome for the chunk.
-	 * 
-	 * @param x
-	 * @param z
-	 * @return
-	 */
-	public Biome getBiomeBlock(int x, int z) {
-		x /= 16;	z /= 16;
-		return Biome.getBiome(getMapFromChunkCoord(x, z)
-				.getBiome(modRight(x + cOffset, cWidth), 
-						  modRight(z + cOffset, cWidth)));
-	}
 		
 	
 	/**
@@ -345,32 +319,7 @@ public class MapRegistry {
 	public Biome getBiomeChunk(int x, int z) {
 		return Biome.getBiome(getMapFromChunkCoord(x, z)
 				.getBiome(modRight(x + cOffset, cWidth), 
-						  modRight(z + cOffset, cWidth)));
-	}
-	
-	
-	/**
-	 * Return the biome for world generation at the the given x,z 
-	 * block coordinates.  This is too allow the use of pseudo-
-	 * biomes or similar tricks to represent special features inside 
-	 * the real biome and slight variations that should not be a 
-	 * separate biome.
-	 *   
-	 * Note that this is not the true biome, of the exact block 
-	 * but actually the dominant biome for the chunk.
-	 * 
-	 * @param x
-	 * @param z
-	 * @return
-	 */
-	public Biome getGenBiomeBlock(int x, int z) {
-		int id = getMapFromBlockCoord(x, z)
-				.getSubBiomeId((x - bOffset) % bWidth, (z - bOffset) % bWidth);
-		if(id < 256) {
-			return Biome.getBiome(id);
-		}
-		// TODO: Add a registry (an ArrayList, NOT a Forge registry) for pseudo-biomes.
-		return Biome.getBiome(id & 0xff); // Yes, this is totally wrong! 
+						  modRight(z + cOffset, cWidth) & 0xff));
 	}
 		
 	
@@ -390,9 +339,13 @@ public class MapRegistry {
 				.getSubBiomeId((x - cOffset) % cWidth, (z - cOffset) % cWidth);
 		if(id < 256) {
 			return Biome.getBiome(id);
+		} else {
+			Biome out = subbiomes.get(id);
+			if(noFakes || (out == null)) {
+				out = Biome.getBiome(id & 0xff, Biomes.DEFAULT);
+			}
+			return out;
 		}
-		// TODO: Add a registry (an ArrayList, NOT a Forge registry) for pseudo-biomes.
-		return Biome.getBiome(id & 0xff); // Yes, this is totally wrong! 
 	}
     
 	
@@ -594,7 +547,7 @@ public class MapRegistry {
 			return Biome.getBiome(id, Biomes.DEFAULT);
 		} else {
 			out = subbiomes.get(id);
-			if(out == null) {
+			if(noFakes || (out == null)) {
 				out = Biome.getBiome(id & 0xff, Biomes.DEFAULT);
 			}
 			return out;
