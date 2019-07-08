@@ -18,7 +18,7 @@ public class GetRiver implements IBiomeSpecifier {
 
 	
 	@Override
-	public int getBiome(ChunkTile tile) {
+	public long getBiome(ChunkTile tile) {
 		if(ConfigHandler.rivers) {
 			int t = tile.getTemp();
 			if(t < 5) {

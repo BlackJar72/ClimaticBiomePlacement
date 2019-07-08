@@ -18,7 +18,7 @@ public class LeafBiome implements IBiomeSpecifier {
 	
 	
 	@Override
-	public int getBiome(ChunkTile tile) {
+	public long getBiome(ChunkTile tile) {
 		return biome;
 	}
 

@@ -29,7 +29,7 @@ public class GetWarmPlains implements IBiomeSpecifier {
 	
 
 	@Override
-	public int getBiome(ChunkTile tile) {
+	public long getBiome(ChunkTile tile) {
 		int t = tile.getTemp() - tbound;
 		if((tile.getBiomeSeed() % 5) < t) {
 			tile.nextBiomeSeed();

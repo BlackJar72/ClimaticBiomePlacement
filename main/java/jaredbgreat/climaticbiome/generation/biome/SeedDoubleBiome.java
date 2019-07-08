@@ -8,10 +8,11 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class SeedDoubleBiome implements IBiomeSpecifier {
-	private final int a, b, chance;
+	private final long a, b;
+	private final int chance;
 	
 	
-	public SeedDoubleBiome(int a, int chance, int b) {
+	public SeedDoubleBiome(long a, int chance, long b) {
 		this.a = a;
 		this.b = b;
 		this.chance = chance;
@@ -32,7 +33,7 @@ public class SeedDoubleBiome implements IBiomeSpecifier {
 		} else {
 			this.a = Biome.getIdForBiome((Biome)biomeReg
 					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))
-					+ (Integer.parseInt(tokens.nextToken()) << 8);
+					+ (Long.parseLong(tokens.nextToken()) << 32);
 		}
 		tokens = new StringTokenizer(b, ":");
 		if(tokens.countTokens() < 3) {
@@ -40,14 +41,14 @@ public class SeedDoubleBiome implements IBiomeSpecifier {
 		} else {
 			this.b = Biome.getIdForBiome((Biome)biomeReg
 					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))
-					+ (Integer.parseInt(tokens.nextToken()) << 8);
+					+ (Long.parseLong(tokens.nextToken()) << 32);
 		}
 		this.chance = chance;
 	}
 	
 
 	@Override
-	public int getBiome(ChunkTile tile) {
+	public long getBiome(ChunkTile tile) {
 		tile.nextBiomeSeed();
 		if((tile.getBiomeSeed() % chance) == 0) {
 			return a;

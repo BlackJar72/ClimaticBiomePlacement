@@ -36,7 +36,7 @@ public class GetForest implements IBiomeSpecifier {
 	
 
 	@Override
-	public int getBiome(ChunkTile tile) {
+	public long getBiome(ChunkTile tile) {
 		int role1 = tile.getBiomeSeed() % 5;
 		int role2 = tile.getBiomeSeed() % 7;
 		int role3 = tile.getBiomeSeed() % 11;

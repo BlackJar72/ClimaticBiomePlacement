@@ -92,7 +92,7 @@ public class GetOcean implements IBiomeSpecifier {
 
 	
 	@Override
-	public int getBiome(ChunkTile tile) {
+	public long getBiome(ChunkTile tile) {
 		if(tile.isIsBeach() && !tile.isRiver() && !swampy(tile)) {
 			return beaches.getBiome(tile);
 		}
@@ -134,7 +134,7 @@ public class GetOcean implements IBiomeSpecifier {
     }
 	
 	
-	public int getDeepOcean(ChunkTile tile, int temp, int iceNoise) {
+	public long getDeepOcean(ChunkTile tile, int temp, int iceNoise) {
         if(((iceNoise / 2) - temp) > -1) {
         	return dfrozen.getBiome(tile);
         }
@@ -151,7 +151,7 @@ public class GetOcean implements IBiomeSpecifier {
 	}
 	
 	
-	public int getShallowOcean(ChunkTile tile, int temp, int iceNoise) {
+	public long getShallowOcean(ChunkTile tile, int temp, int iceNoise) {
         if(((iceNoise / 2) - temp) > -1) {
         	return frozen.getBiome(tile);
         }

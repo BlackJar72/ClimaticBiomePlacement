@@ -1,7 +1,8 @@
 package jaredbgreat.climaticbiome.generation;
 
-import jaredbgreat.climaticbiome.ClimaticWorldSettings;
+import jaredbgreat.climaticbiome.generation.map.IMapRegistry;
 import jaredbgreat.climaticbiome.generation.map.MapRegistry;
+import jaredbgreat.climaticbiome.generation.map.NewMapRegistry;
 
 import java.util.List;
 import java.util.Random;
@@ -12,47 +13,24 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
-import net.minecraft.world.storage.MapStorage;
-import net.minecraft.world.storage.WorldSavedData;
 
 
 public class ClimaticBiomeProvider extends BiomeProvider {
-    private World world;
-    private MapRegistry finder;
-    private boolean vanillaCacheValid;
-    private ClimaticWorldSettings settings;
-    
-    
-    public ClimaticBiomeProvider(World world) {             
-            super(world.getWorldInfo());
-            vanillaCacheValid = true;
-            this.world = world;
-            makeSettings();
-            finder = new MapRegistry(world.getSeed(), world);
-    }
-    
-    /**
-     * This will take care of building the correct generation settings;
-     * hopefully it will remain relatively simple.
-     * 
-     * For now this will simply get settings as a new object, and then 
-     * read in the correct version (if any) for existing worlds.  Eventually 
-     * it will need to interact with the gui (which will hold a version for 
-     * new worlds to be set by the player).
-     */
-    private void makeSettings() {
-    	//settings = ClimaticWorldSettings.get(world);
-    	
-    	if(!world.isRemote) {
-	    	System.out.println();
-	    	System.out.println("**********************");
-	    	System.out.println(world.getWorldInfo().getGeneratorOptions());
-	    	System.out.println(settings);
-	    	System.out.println("**********************");
-	    	System.out.println();
-    	}
-    	
-    }
+        private World world;
+        private IMapRegistry finder;
+        private boolean vanillaCacheValid;
+        
+        
+        public ClimaticBiomeProvider(World world) {             
+                super(/*world.getWorldInfo()*/);
+                vanillaCacheValid = true;
+                this.world = world;
+                if(net.minecraftforge.fml.common.Loader.isModLoaded("jeid")) {
+                	finder = new NewMapRegistry(world.getSeed(), world);
+                } else {
+                	finder = new MapRegistry(world.getSeed(), world);
+                }
+        }
         
 
     @Nullable

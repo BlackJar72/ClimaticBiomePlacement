@@ -12,6 +12,7 @@ import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.cache.MutableCoords;
+import jaredbgreat.climaticbiome.generation.map.IRegionMap;
 import jaredbgreat.climaticbiome.generation.map.RegionMap;
 import jaredbgreat.climaticbiome.util.HeightNoise;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
@@ -101,13 +102,13 @@ public class MapMaker {
     }
     
     
-    public void generate(RegionMap datamap) {
+    public void generate(IRegionMap datamap) {
         Coords coords = datamap.getCoords();
-        System.out.println();
-        System.out.println("******************************");
-        System.out.println("Creating Region Map: " + coords);
-        System.out.println("******************************");
-        System.out.println();
+//        System.out.println();
+//        System.out.println("******************************");
+//        System.out.println("Creating Region Map: " + coords);
+//        System.out.println("******************************");
+//        System.out.println();
         xoff = ((coords.getX() * 256) - 128) * scale.whole;
         zoff = ((coords.getZ() * 256) - 128) * scale.whole;
 		Region[] regions = findRegions(coords.getX(), coords.getZ());
@@ -172,6 +173,7 @@ public class MapMaker {
         }
         for(int i = 0; i < premap.length; i++) {
         	growBeach2(premap[i]);
+        	// FIXME!!!!
         	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
         }
     }

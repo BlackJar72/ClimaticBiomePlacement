@@ -43,7 +43,7 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 			table = t;
 		}
 		@Override
-		public int getBiome(ChunkTile tile) {
+		public long getBiome(ChunkTile tile) {
 			return table[(tile.getTemp() * 10) + tile.getWet()].getBiome(tile);
 		}
 		@Override
@@ -92,7 +92,7 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 	 * available.  The interpretation of wetness is relative to what 
 	 * is typical for a temperature region (e.g., most deserts are in 
 	 * the sub-tropics). 
-	 * 
+	 * int
 	 * @param table *MUST* be 250 elements!
 	 */
 	private BiomeClimateTable(IBiomeSpecifier... table) {
@@ -122,7 +122,7 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 	
 
 	@Override
-	public int getBiome(ChunkTile tile) {
+	public long getBiome(ChunkTile tile) {
 		if(tile.getRlBiome() == 0) {
 			return OCEAN.getBiome(tile);
 		}
@@ -136,8 +136,8 @@ public class BiomeClimateTable implements IBiomeSpecifier {
             }
             tile.nextBiomeSeed();
         }
-		int out = table[(tile.getTemp() * 10) + tile.getWet()].getBiome(tile);
-    	Biome outb = Biome.getBiome(out & 0xff);
+		long out = table[(tile.getTemp() * 10) + tile.getWet()].getBiome(tile);
+    	Biome outb = Biome.getBiome((int)out);
     	if(outb == null) {
     		Logger.getLogger("minecraft").log(Level.SEVERE, 
     				"[CLIMATIC_BIOMES] Error! Could not find biome with id " 

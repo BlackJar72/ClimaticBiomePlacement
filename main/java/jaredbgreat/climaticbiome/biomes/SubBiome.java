@@ -16,11 +16,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class SubBiome extends Biome {
 	private Biome parent;
-	private int id; // Sub-ID
+	private long  id; // Sub-ID
 
 	public SubBiome(Biome parent, int sid, BiomeProperties properties) {
 		super(properties);
-		id = Biome.getIdForBiome(parent) | (sid << 8);
+		id  = Biome.getIdForBiome(parent) | (sid << 32);
 		this.parent = parent;
         this.topBlock = parent.topBlock;
         this.fillerBlock = parent.fillerBlock;
@@ -28,7 +28,7 @@ public class SubBiome extends Biome {
 	}
 	
 	
-	public int getSubId() {
+	public long getSubId() {
 		return id;
 	}
 	

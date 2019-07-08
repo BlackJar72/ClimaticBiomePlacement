@@ -45,13 +45,23 @@ public class SubBiomeRegistry {
     }
     
     
+    private int xorshift(long in) {
+    	in ^= in << 11;
+    	in ^= in >> 5;
+    	in ^= in << 17;
+    	in ^= in >> 13;
+    	in &= 0x7fffffff;
+    	return (int)(in & 0xffffffffL);
+    }
+    
+    
     /**
      * At a new element to the cache.
      * 
      * @param item the object to be added.
      */
     public void add(SubBiome item) {
-    	System.out.println("Adding Biome with id " + item.getSubId());
+    	System.out.println("Adding Pseudo-Biome with id " + item.getSubId());
         int bucket = (xorshift(item.getSubId())) % data.length;
         int offset = 0;
         while(offset < data.length) {
@@ -71,18 +81,18 @@ public class SubBiomeRegistry {
     }
     
     
-    /**
-     * Return the element at the given Coords.
-     * @param coords
-     * @return the object stored for those coordinates, or null.
-     */
     public SubBiome get(int id) {
+    	return get(expandID(id));
+    }
+    
+    
+    public SubBiome get(long id) {
         int bucket = (xorshift(id)) % data.length;
         int offset = 0;
         while(offset < data.length) {
             int slot = (bucket + offset) % data.length;
             if(data[slot] == null) {
-            	showError(id);
+            	showError((int)id);
                 return null;
             } else if(data[slot].getSubId() == id) {
                 return data[slot];
@@ -90,12 +100,18 @@ public class SubBiomeRegistry {
                 offset++;
             }
         } 
-    	showError(id);       
+    	showError((int)id);       
         return null;
     }
     
     
-    private void showError(int id) {
+    private long expandID(long id) {
+    	return (id & 0xff) + ((id & 0xff00) << 24);
+    }
+    
+    
+    
+    private void showError(long id) {
     	if(ConfigHandler.badBiomeSpam) {
 	    	System.err.println();
 	    	System.err.println("*******************************************");

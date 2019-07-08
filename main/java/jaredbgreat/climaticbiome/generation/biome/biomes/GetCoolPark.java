@@ -25,7 +25,7 @@ public class GetCoolPark implements IBiomeSpecifier {
 	
 
 	@Override
-	public int getBiome(ChunkTile tile) {
+	public long getBiome(ChunkTile tile) {
 		int seed = tile.getBiomeSeed();
 		if(parks.isEmpty() || ((seed & 5) == 0)) {
 			if((seed & 1) == 0) {
