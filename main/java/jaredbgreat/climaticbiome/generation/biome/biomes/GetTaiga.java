@@ -53,7 +53,7 @@ public class GetTaiga implements IBiomeSpecifier {
 	
 
 	@Override
-	public int getBiome(ChunkTile tile) {
+	public long getBiome(ChunkTile tile) {
 		if((tile.getBiomeSeed() % 5) == 0) return alpine.getBiome(tile);
 		return forest.getBiome(tile);
 	}

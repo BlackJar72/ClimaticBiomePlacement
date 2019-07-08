@@ -1,8 +1,9 @@
 package jaredbgreat.climaticbiome.generation;
 
+import jaredbgreat.climaticbiome.generation.map.IMapRegistry;
 import jaredbgreat.climaticbiome.generation.map.MapRegistry;
+import jaredbgreat.climaticbiome.generation.map.NewMapRegistry;
 
-import java.io.File;
 import java.util.List;
 import java.util.Random;
 
@@ -12,12 +13,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
-import net.minecraftforge.common.DimensionManager;
 
 
 public class ClimaticBiomeProvider extends BiomeProvider {
         private World world;
-        private MapRegistry finder;
+        private IMapRegistry finder;
         private boolean vanillaCacheValid;
         
         
@@ -25,7 +25,11 @@ public class ClimaticBiomeProvider extends BiomeProvider {
                 super(/*world.getWorldInfo()*/);
                 vanillaCacheValid = true;
                 this.world = world;
-                finder = new MapRegistry(world.getSeed(), world);
+                if(net.minecraftforge.fml.common.Loader.isModLoaded("jeid")) {
+                	finder = new NewMapRegistry(world.getSeed(), world);
+                } else {
+                	finder = new MapRegistry(world.getSeed(), world);
+                }
         }
         
 

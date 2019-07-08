@@ -8,10 +8,11 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class TempDoubleBiome implements IBiomeSpecifier {
-	private final int a, b, boundary;
+	private final long a, b;
+	private final int boundary;
 	
 	
-	public TempDoubleBiome(int a, int boundary, int b) {
+	public TempDoubleBiome(long a, int boundary, long b) {
 		this.a = a;
 		this.b = b;
 		this.boundary = boundary;
@@ -32,7 +33,7 @@ public class TempDoubleBiome implements IBiomeSpecifier {
 		} else {
 			this.a = Biome.getIdForBiome((Biome)biomeReg
 					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))
-					+ (Integer.parseInt(tokens.nextToken()) << 8);
+					+ (Long.parseLong(tokens.nextToken()) << 32);
 		}
 		tokens = new StringTokenizer(b, ":");
 		if(tokens.countTokens() < 3) {
@@ -40,14 +41,14 @@ public class TempDoubleBiome implements IBiomeSpecifier {
 		} else {
 			this.b = Biome.getIdForBiome((Biome)biomeReg
 					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))
-					+ (Integer.parseInt(tokens.nextToken()) << 8);
+					+ (Long.parseLong(tokens.nextToken()) << 32);
 		}
 		this.boundary = boundary;
 	}
 	
 
 	@Override
-	public int getBiome(ChunkTile tile) {
+	public long getBiome(ChunkTile tile) {
 		int r = tile.getBiomeSeed();
 		if((tile.getTemp() + (r & 1) - ((r & 2) >> 1)) < boundary) {
 			return a;

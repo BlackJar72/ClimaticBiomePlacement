@@ -9,10 +9,11 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class NoiseDoubleBiome implements IBiomeSpecifier {
-	private final int a, b, boundary;
+	private final long a, b;
+	private final int boundary;
 	
 	
-	public NoiseDoubleBiome(int a, int boundary, int b) {
+	public NoiseDoubleBiome(long a, int boundary, long b) {
 		this.a = a;
 		this.b = b;
 		this.boundary = boundary;
@@ -33,7 +34,7 @@ public class NoiseDoubleBiome implements IBiomeSpecifier {
 		} else {
 			this.a = Biome.getIdForBiome((Biome)biomeReg
 					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))
-					+ (Integer.parseInt(tokens.nextToken()) << 8);
+					+ (Long.parseLong(tokens.nextToken()) << 32);
 		}
 		tokens = new StringTokenizer(b, ":");
 		if(tokens.countTokens() < 3) {
@@ -41,14 +42,14 @@ public class NoiseDoubleBiome implements IBiomeSpecifier {
 		} else {
 			this.b = Biome.getIdForBiome((Biome)biomeReg
 					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))
-					+ (Integer.parseInt(tokens.nextToken()) << 8);
+					+ (Long.parseLong(tokens.nextToken()) << 32);
 		}
 		this.boundary = boundary;
 	}
 	
 
 	@Override
-	public int getBiome(ChunkTile tile) {
+	public long getBiome(ChunkTile tile) {
 		if(tile.getNoise() < boundary) {
 			return a;
 		} else {

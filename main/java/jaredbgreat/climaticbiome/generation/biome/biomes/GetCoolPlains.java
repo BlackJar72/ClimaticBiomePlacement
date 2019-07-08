@@ -34,7 +34,7 @@ public class GetCoolPlains implements IBiomeSpecifier  {
 	
 	
 	@Override
-	public int getBiome(ChunkTile tile) {
+	public long getBiome(ChunkTile tile) {
 		int seed = tile.getBiomeSeed();
 		if((seed % 4) == 0) {
 			tile.nextBiomeSeed();

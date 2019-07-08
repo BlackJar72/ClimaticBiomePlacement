@@ -16,7 +16,7 @@ public class NoiseSpecialBiome implements IBiomeSpecifier {
 	
 
 	@Override
-	public int getBiome(ChunkTile tile) {
+	public long getBiome(ChunkTile tile) {
 		tile.nextBiomeSeed();
 		if(tile.getNoise() < boundary) {
 			return a.getBiome(tile);
