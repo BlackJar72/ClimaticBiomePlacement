@@ -71,7 +71,17 @@ public class BiomeParser {
 				if(line.isEmpty() || line.startsWith("#")) continue;
 				tokens = new Tokenizer(line, "()");
 				String tag = tokens.nextToken().toLowerCase().trim();
+				try {
 				list.addItem(commands.get(tag).parse(tokens.nextToken()));
+				} catch (Exception e) {
+					System.err.println();
+					System.err.println("******************");
+					System.err.println("Tag: " + tag);
+					System.err.println("******************");
+					System.err.println();
+					e.printStackTrace();
+					throw e;
+				}
 			}
 			reader.close();
 		} catch (FileNotFoundException e) {

@@ -165,16 +165,19 @@ public class MapMaker {
         } else {
         	makeBiomes(premap, random.getRandomAt(coords.getX(), coords.getZ(), 3));
         }
-        for(int i = 0; i < premap.length; i++) {
-        	thinBeach(premap[i]);
+        int start = (RSIZE * scale.whole * 2) + 2;
+        int end = premap.length - start;
+        for(int i = start; i < end; i++) {
+                thinBeach(premap[i]);
+        }
+        for(int i = start; i < end; i++) {
+                growBeach1(premap[i]);
+        }
+        for(int i = start; i < end; i++) {
+                growBeach2(premap[i]);
         }
         for(int i = 0; i < premap.length; i++) {
-        	growBeach1(premap[i]);
-        }
-        for(int i = 0; i < premap.length; i++) {
-        	growBeach2(premap[i]);
-        	// FIXME!!!!
-        	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
+                datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
         }
     }
     
