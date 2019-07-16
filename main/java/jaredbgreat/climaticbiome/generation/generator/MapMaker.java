@@ -104,11 +104,6 @@ public class MapMaker {
     
     public void generate(IRegionMap datamap) {
         Coords coords = datamap.getCoords();
-//        System.out.println();
-//        System.out.println("******************************");
-//        System.out.println("Creating Region Map: " + coords);
-//        System.out.println("******************************");
-//        System.out.println();
         xoff = ((coords.getX() * 256) - 128) * scale.whole;
         zoff = ((coords.getZ() * 256) - 128) * scale.whole;
 		Region[] regions = findRegions(coords.getX(), coords.getZ());
@@ -156,32 +151,55 @@ public class MapMaker {
             premap[i].noiseVal = noise[i];
         }
         
-        RiverMaker rm = new RiverMaker(this, random.longFor(coords.getX(), coords.getZ(), 16), 
-                regions[4], coords.getX(), coords.getZ(), scale);
-        rm.build();
+        if((ConfigHandler.mode < 3)) {
+	        RiverMaker rm = new RiverMaker(this, random.longFor(coords.getX(), coords.getZ(), 16), 
+	                regions[4], coords.getX(), coords.getZ(), scale);
+	        rm.build();
+        }
         
         if(ConfigHandler.forceWhole) {
         	makeBiomesWhole(premap, random.getRandomAt(coords.getX(), coords.getZ(), 3));
         } else {
         	makeBiomes(premap, random.getRandomAt(coords.getX(), coords.getZ(), 3));
         }
-        for(int i = 0; i < premap.length; i++) {
+        int start = (RSIZE * scale.whole * 2) + 2;
+        int end = premap.length - start;
+        for(int i = start; i < end; i++) {
         	thinBeach(premap[i]);
         }
-        for(int i = 0; i < premap.length; i++) {
+        for(int i = start; i < end; i++) {
         	growBeach1(premap[i]);
         }
-        for(int i = 0; i < premap.length; i++) {
+        for(int i = start; i < end; i++) {
         	growBeach2(premap[i]);
-        	// FIXME!!!!
+        }
+        for(int i = 0; i < premap.length; i++) {
         	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
         }
     }
     
     
     private void makeLandmass(BasinNode[] basins, int cx, int cz, SpatialNoise random) {
-        LandmassMaker maker = new LandmassMaker(cx, cz, 
+        LandmassMaker maker;
+        switch(ConfigHandler.mode) {
+        case 1:
+        case 2:
+        	maker = new LandmassMaker(cx, cz,
                 random, basins, scale, RSIZE, xoff, zoff);
+        	break;
+        case 3:
+        	maker = new WaterworldMaker(cx, cz,
+                random, basins, scale, RSIZE, xoff, zoff);
+        	break;
+        case 4: 
+        	maker = new SurvivalIslandMaker(cx, cz,
+                    random, basins, scale, RSIZE, xoff, zoff);
+            	break;
+        default:
+        	maker = new LandmassMaker(cx, cz,
+                random, basins, scale, RSIZE, xoff, zoff);
+        	break;
+        }
         premap = maker.generate();
     }
     

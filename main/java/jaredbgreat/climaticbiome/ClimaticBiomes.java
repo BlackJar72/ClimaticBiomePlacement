@@ -16,6 +16,8 @@ import jaredbgreat.climaticbiome.util.ItemRegistrar;
 import java.io.File;
 import java.util.logging.Logger;
 
+import org.apache.logging.log4j.LogManager;
+
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.WoodlandMansion;
@@ -45,9 +47,12 @@ public class ClimaticBiomes {
 			    serverSide = "jaredbgreat.climaticbiome.proxy.ServerProxy")
 	public static IProxy proxy;
 	
+	public static org.apache.logging.log4j.Logger logger;
+	
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+    	logger = event.getModLog();
     	confdir = new File(event.getModConfigurationDirectory().toPath()
     			+ File.separator + Info.DIR);
     	configHandler = new ConfigHandler(confdir.toString());

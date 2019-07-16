@@ -1,5 +1,7 @@
 package jaredbgreat.climaticbiome.compat.userdef;
 
+import jaredbgreat.climaticbiome.ClimaticBiomes;
+import jaredbgreat.climaticbiome.Info;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
@@ -16,12 +18,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jline.utils.Log;
 
@@ -71,7 +75,15 @@ public class BiomeParser {
 				if(line.isEmpty() || line.startsWith("#")) continue;
 				tokens = new Tokenizer(line, "()");
 				String tag = tokens.nextToken().toLowerCase().trim();
+				try {
 				list.addItem(commands.get(tag).parse(tokens.nextToken()));
+	            } catch (Exception e) {
+	            	ClimaticBiomes.logger.error("\nFailed to load biome: \n"
+	            			+ " \t Tag: " + tag + "\n"
+	            			+ " \t Full String: " + line + "\n");
+	                e.printStackTrace();
+	                throw e;
+	            }
 			}
 			reader.close();
 		} catch (FileNotFoundException e) {
@@ -153,9 +165,9 @@ public class BiomeParser {
 			if(tokens.countTokens() < 3) {
 				return new LeafBiome((Biome)biomeReg.getValue(new ResourceLocation(in)));
 			} else {
-				return new LeafBiome(Biome.getIdForBiome(((Biome)biomeReg.getValue(new 
-						ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))) 
-						+ (Integer.parseInt(tokens.nextToken()) << 8));
+				return new LeafBiome((long)(Biome.getIdForBiome(((Biome)biomeReg.getValue(new 
+						ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken()))))) 
+						+ (Long.parseLong(tokens.nextToken()) << 32));
 			}
 		}
 	}	

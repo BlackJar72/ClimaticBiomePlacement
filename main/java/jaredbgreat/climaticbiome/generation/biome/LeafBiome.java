@@ -4,10 +4,10 @@ import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 import net.minecraft.world.biome.Biome;
 
 public class LeafBiome implements IBiomeSpecifier {
-	private final int biome;
+	private final long biome;
 
 	
-	public LeafBiome(int biome) {
+	public LeafBiome(long biome) {
 		this.biome = biome;
 	}
 

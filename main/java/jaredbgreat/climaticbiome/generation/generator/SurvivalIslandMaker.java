@@ -4,27 +4,13 @@ import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.util.HeightNoise;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
 
-public class LandmassMaker {
-    SpatialNoise random;
-    int regx, regz, size;
-    SizeScale scale;
-    double currentScale;
-    BasinNode[] basins;
-    int xoff, zoff;
+public class SurvivalIslandMaker extends LandmassMaker {
     
     
-    LandmassMaker(int rx, int ry, SpatialNoise rand, 
+    SurvivalIslandMaker(int rx, int ry, SpatialNoise rand, 
                 BasinNode[] basinAr, SizeScale sc, int startW,
                 int xoffIn, int zoffIn) {
-        random = rand;
-        size = startW * sc.whole;
-        regx = rx;
-        regz = ry;
-        scale = sc;
-        currentScale = 1.0;
-        basins = basinAr;
-        xoff = xoffIn;
-        zoff = zoffIn;
+    	super(rx, ry, rand, basinAr, sc, startW, xoffIn, zoffIn);
     }
     
     
@@ -41,17 +27,12 @@ public class LandmassMaker {
         double[][] heights = heightmaker.process(0);
         for(int i = 0; i < size; i++)
             for(int j = 0; j < size; j++) {
-                out[(i * size) + j].height 
-                        = edgeFix(out[(i * size) + j], 
-                                BasinNode.summateEffect(basins, 
-                                        out[(i * size) + j], 
-                                scale.inv));
+                out[(i * size) + j].height
+                        = getFromCenter(out[(i * size) + j], scale.inv);
                 out[(i * size) + j].val = (int)out[(i * size) + j].height;
                 out[(i * size) + j].height /= 10.0;
-                out[(i * size) + j].height = ((out[(i * size) + j].height 
-                        + (heights[i][j] / 2.0) + 0.5) 
-                        * out[(i * size) + j].height) 
-                        + heights[i][j];
+                out[(i * size) + j].height = out[(i * size) + j].height 
+                        + Math.abs(heights[i][j]);
             }
         
         for(int i = 0; i < size; i++)
@@ -70,20 +51,12 @@ public class LandmassMaker {
         return out;
     }
     
-    
-    protected double edgeFix(ChunkTile t, double val) {
-        if(t.x < (10 * scale.whole)) {
-            val += ((t.x - (10 * scale.whole)) / (2 * scale.whole));
-        } else if(t.x >= (size - (10 * scale.whole))) {
-            val -= ((t.x - size + (10 * scale.whole)) / (2 * scale.whole));
-        }
-        if(t.z < (10 * scale.whole)) {
-            val += ((t.z - (10 * scale.whole)) /  (2 * scale.whole));
-        } else if(t.z >= (size - (10 * scale.whole))) {
-            val -= ((t.z - size + (10 * scale.whole)) / (2 * scale.whole));
-        }
-        return val;
-    }
-    
+    private double getFromCenter(ChunkTile tile, double inv) {
+    	double x = tile.getTX() * inv;
+    	double z = tile.getTZ() * inv;
+    	double dist = Math.sqrt((x * x) + (z * z));
+    	return Math.max(0.0, 16.0 - dist);
+    	
+    }    
     
 }

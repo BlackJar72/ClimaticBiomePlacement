@@ -36,6 +36,9 @@ public class ConfigHandler {
 	public static int        biomeSize  = 16;
 	public static SizeScale  regionSize = SizeScale.X1;
 	public static boolean    forceWhole = false;
+	public static double     sisize     = 6.0; 
+	
+	public static int mode = 1;
 
 	private static File dir;
 	private static File file;
@@ -57,13 +60,7 @@ public class ConfigHandler {
 						"If true it will use Biomes O'Plenty biomes in its world type. \n"
 						+ "If this is true it will also automatically use BoP climate table. \n"
 						+ "If BoP is not installed this does nothing.")
-				 && net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");	
-		
-//		jeid = config.getBoolean("JEID", "Compat", true, 
-//						"If true it will use Just Enough IDs for biome IDs if available. \n"
-//						+ "Set this to false to keep JEID from breaking existing worlds \n"
-//						+ "(this will limit the number real biome IDs this recognizes to 256).")
-//				 && net.minecraftforge.fml.common.Loader.isModLoaded("jeid");
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");
 		
 		useTraverse = config.getBoolean("UseTraverseBiomes", "Compat", true, 
 						"If true it will use Traverse biomes in its world type. \n"
@@ -169,6 +166,14 @@ public class ConfigHandler {
 		forceWhole = config.getBoolean("ForceWholeBiome", "Size", false, 
 				"If true biome areas will not be split.  Instead they will all be the same biome. \n "
 				+ "(Note: This could have strange effects with large biomes on a small map");
+		
+		
+		mode = config.getInt("MapType", "general", 1, 1, 4, "The kind of maps:\n"
+				+ " \t 1: Continents\n"
+				+ " \t 2: Islands (large)\n"
+				+ " \t 3: Water-World (only ADDED islands)\n"
+				+ " \t 4: Survival Island");
+		
 		
 		config.save();	// Saving it all
 	}
