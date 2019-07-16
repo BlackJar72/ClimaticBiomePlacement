@@ -117,7 +117,7 @@ public class ConfigHandler {
 						+ "chunky and squarish, but are interesting to find.");
 		
 		moreMansion = config.getBoolean("MoreMansion", "General", true, 
-						"If true woodland mansion might appear in all forest types; \n"
+						"If true woodConfigHandler.rivers && land mansion might appear in all forest types; \n"
 						+ " this fits the mods theme and eliminates a major lag spike but \n"
 						+ " will effect all world types (even vanilla); depending on Forge / \n"
 						+ " Java / OS / unknown factors it might not work.");
@@ -172,7 +172,10 @@ public class ConfigHandler {
 				+ " \t 1: Continents\n"
 				+ " \t 2: Islands (large)\n"
 				+ " \t 3: Water-World (only ADDED islands)\n"
-				+ " \t 4: Survival Island");
+				+ " \t 4: Survival Island (Experimental; may put you in water)");
+		
+		sisize = config.getInt("Survival Island Size", "Size", 4, 4, 18, "How big survival "
+						+ "islands are.") + 6.0;
 		
 		
 		config.save();	// Saving it all

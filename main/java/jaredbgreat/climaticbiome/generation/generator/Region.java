@@ -107,11 +107,16 @@ public final class Region extends AbstractCachable {
     
     
     private void makePoles(ClimateNode[] nodes, SpatialNoise.RandomAt random) {
+    	int movex = 0, movez = 0;
+    	if(ConfigHandler.mode == 4) {
+    		movex = random.nextInt(512) - 256;
+    		movez = random.nextInt(512) - 256;
+    	}
         int dist = (RSIZE / 6) 
                 + random.nextInt(RSIZE / 4);
         double angle = random.nextDouble() * 2 * Math.PI;
-        int x = cx + RADIUS + (int)(dist * Math.cos(angle));
-        int y = cz + RADIUS + (int)(dist * Math.sin(angle));
+        int x = cx + RADIUS + (int)(dist * Math.cos(angle)) + movex;
+        int y = cz + RADIUS + (int)(dist * Math.sin(angle)) + movez;
         nodes[0] = new ClimateNode(x, y, 0, 
                 (BasinNode.getLogScaled(-14) / 40) * 1.5, 0);
         dist = (RSIZE / 6) + random.nextInt(RSIZE / 4);

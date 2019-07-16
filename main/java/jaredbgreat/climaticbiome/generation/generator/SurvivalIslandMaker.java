@@ -55,8 +55,7 @@ public class SurvivalIslandMaker extends LandmassMaker {
     	double x = tile.getTX() * inv;
     	double z = tile.getTZ() * inv;
     	double dist = Math.sqrt((x * x) + (z * z));
-    	return Math.max(0.0, 16.0 - dist);
-    	
+    	return Math.max(0.0, ConfigHandler.sisize - dist);    	
     }    
     
 }

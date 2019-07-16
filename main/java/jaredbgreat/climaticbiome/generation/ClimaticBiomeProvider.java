@@ -116,16 +116,16 @@ public class ClimaticBiomeProvider extends BiomeProvider {
     
     @Override
     public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed) {
-        x /= 16;
-        z /= 16;
-        int cr = radius / 16;
+        x = (x - 8) / 16;
+        z = (z - 8) / 16;
+        int cr = (radius / 16) + 1;
         for(int i = -cr; i <= cr; i++)
                 for(int j = -cr; j <= cr; j++) {
                         if(!allowed.contains(finder.getBiomeChunk(x + i, z + j))) {
                                 return false;
                         }
                 }
-        return true;
+        return allowed.contains(finder.getBiomeChunk(x, z));
     }
 
     
