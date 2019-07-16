@@ -11,26 +11,32 @@ import javax.annotation.Nullable;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldSettings;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
 
 
 public class ClimaticBiomeProvider extends BiomeProvider {
-        private World world;
-        private IMapRegistry finder;
-        private boolean vanillaCacheValid;
-        
-        
-        public ClimaticBiomeProvider(World world) {             
-                super(/*world.getWorldInfo()*/);
-                vanillaCacheValid = true;
-                this.world = world;
-                if(net.minecraftforge.fml.common.Loader.isModLoaded("jeid")) {
-                	finder = new NewMapRegistry(world.getSeed(), world);
-                } else {
-                	finder = new MapRegistry(world.getSeed(), world);
-                }
-        }
+    private World world;
+    private IMapRegistry finder;
+    private boolean vanillaCacheValid;
+    
+    
+    public ClimaticBiomeProvider(World world) {             
+            super(/*world.getWorldInfo()*/);
+            vanillaCacheValid = true;
+            this.world = world;
+            if(net.minecraftforge.fml.common.Loader.isModLoaded("jeid")) {
+            	finder = new NewMapRegistry(world.getSeed(), world);
+            } else {
+            	finder = new MapRegistry(world.getSeed(), world);
+            }
+    }
+    
+    
+    private void getSettings(World world) {
+    	WorldSettings settings;
+    }
         
 
     @Nullable

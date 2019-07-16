@@ -12,7 +12,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class ClimaticWorldSettings extends WorldSavedData {
+public class ClimaticWorldSettings {
 	public static final String DATA_NAME = Info.ID + "GenSettings"; 
 	
 	// Core settings
@@ -41,7 +41,6 @@ public class ClimaticWorldSettings extends WorldSavedData {
 	 * set in the global config file (treating them as run-time defaults).
 	 */
 	public ClimaticWorldSettings() {
-		super(DATA_NAME);
 		setDataFromConfig();
 	}
 	
@@ -52,7 +51,6 @@ public class ClimaticWorldSettings extends WorldSavedData {
 	 * @param s
 	 */
 	public ClimaticWorldSettings(String s) {
-		super(s);
 		setDataFromConfig();
 	}
 	
@@ -204,98 +202,6 @@ public class ClimaticWorldSettings extends WorldSavedData {
 	
 	public String toString() {
 		return super.toString() + " " + toJsonString();
-	}
-
-
-	/*-***************************************************************-*
-	 *                       NBT STUFF BELOW                           *
-	 *-***************************************************************-*/
-	
-	
-	@Override
-	public void readFromNBT(NBTTagCompound nbt) {
-    	System.out.println("**********************");
-    	System.out.println("Reading NBT");
-    	System.out.println("**********************");
-		NBTTagCompound tag = nbt.getCompoundTag(DATA_NAME);		
-		useBoP = tag.getBoolean("useBoP");	
-		useTraverse = tag.getBoolean("useTraverse");
-		useVanilla = tag.getBoolean("useVanilla");	
-		useBoPTable = tag.getBoolean("useBoPTable");
-		volcanicBoP = tag.getBoolean("volcanicBoP");
-		useCfg = tag.getBoolean("useCfg");
-		rivers = tag.getBoolean("rivers");	
-		rockyScrub = tag.getBoolean("rockyScrub");
-		useDT = tag.getBoolean("useDT");	
-		addIslands = tag.getBoolean("addIslands");
-		extraBeaches = tag.getBoolean("extraBeaches");
-		moreMansion = tag.getBoolean("moreMansion");
-		deepSand = tag.getBoolean("deepSand");
-		forceWhole = tag.getBoolean("forceWholeBiome");
-		biomeSize = tag.getInteger("biomeSize");
-		regionSize = SizeScale.get(tag.getInteger("regionSize"));
-	}
-
-
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-    	System.out.println("**********************");
-    	System.out.println("Reating NBT");
-    	System.out.println("**********************");
-		NBTTagCompound tag = compound.getCompoundTag(DATA_NAME);
-		tag.setBoolean("useBoP", useBoP);	
-		tag.setBoolean("useTraverse", useTraverse);
-		tag.setBoolean("useVanilla", useVanilla);	
-		tag.setBoolean("useBoPTable", useBoPTable);
-		tag.setBoolean("volcanicBoP", volcanicBoP);
-		tag.setBoolean("useCfg", useCfg);
-		tag.setBoolean("rivers", rivers);	
-		tag.setBoolean("rockyScrub", rockyScrub);
-		tag.setBoolean("useDT", useDT);	
-		tag.setBoolean("addIslands", addIslands);
-		tag.setBoolean("extraBeaches", extraBeaches);	
-		tag.setBoolean("moreMansion", moreMansion);
-		tag.setBoolean("deepSand", deepSand);
-		tag.setBoolean("forceWholeBiome", forceWhole);
-		tag.setInteger("biomeSize", biomeSize);
-		tag.setInteger("regionSize", regionSize.ordinal() + 1);
-		return compound;
-	}
-	
-	
-	/*-****************************************************-*
-	 *               Other Storage Stuff                   -*      
-	 *-****************************************************-*/
-	
-	
-	
-	public static ClimaticWorldSettings get(World world) {
-		MapStorage storage = world.getPerWorldStorage();
-		ClimaticWorldSettings settings = 
-					(ClimaticWorldSettings)storage
-						.getOrLoadData(ClimaticWorldSettings.class, 
-								DATA_NAME);
-    	
-		WorldInfo info = world.getWorldInfo();
-    	System.out.println(world.getWorldInfo().getGeneratorOptions());
-		
-    	if(!world.isRemote) {
-	    	System.out.println();
-	    	System.out.println("**********************");
-	    	System.out.println(settings);
-	    	System.out.println("**********************");
-	    	System.out.println();
-    	}
-		
-		if(settings == null) {
-			settings = new ClimaticWorldSettings();
-			storage.setData(DATA_NAME, settings);
-			settings.setDirty(true);
-			storage.saveAllData();
-			settings.setDirty(true);
-		}
-		
-		return settings;		
 	}
 
 }

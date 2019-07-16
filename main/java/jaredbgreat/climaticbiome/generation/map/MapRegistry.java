@@ -1,25 +1,28 @@
 package jaredbgreat.climaticbiome.generation.map;
 
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
-import jaredbgreat.climaticbiome.ClimaticBiomes;
+import jaredbgreat.climaticbiome.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
 import jaredbgreat.climaticbiome.generation.generator.MapMaker;
+import jaredbgreat.climaticbiome.util.Debug;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
 import net.minecraft.init.Biomes;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.DimensionManager;
@@ -43,15 +46,16 @@ public class MapRegistry implements IMapRegistry {
     private final SpatialNoise regionNoise;
     private final SpatialNoise biomeNoise;
     
-    public final int dataSize;
-    public final int cWidth;
-    public final int bWidth;
-    public final int cOffset;
-    public final int bOffset;    
+    public int dataSize;
+    public int cWidth;
+    public int bWidth;
+    public int cOffset;
+    public int bOffset;    
     
     private final MapMaker maker;
     private World world;
     private File savedir =  null;
+    private ClimaticWorldSettings settings;
     private boolean cansave = true;
     
     private boolean noFakes;
@@ -72,6 +76,14 @@ public class MapRegistry implements IMapRegistry {
         maker = new MapMaker(chunkNoise, regionNoise, biomeNoise);
         noFakes = areFakesInvalid();
         world = w;
+	}
+	
+	private void applySettings(ClimaticWorldSettings settings) {
+		cWidth = MapMaker.RSIZE * settings.regionSize.whole;
+		bWidth = cWidth * 16;
+		dataSize = cWidth * cWidth;
+		cOffset = cWidth / 2;
+		bOffset = bWidth / 2;		
 	}
 	
 	
@@ -107,6 +119,25 @@ public class MapRegistry implements IMapRegistry {
 	}
 	
 	
+	@Override
+	public File findSettingsFile() {
+		File out;
+		if(world == null || world.getMinecraftServer() == null) {
+			return null;
+		}
+		if(world.getMinecraftServer().isDedicatedServer()) {
+			out = world.getMinecraftServer().getFile("world" + File.separator + "ClimaticMaps" 
+								   + File.separator + "settings");
+		} else {
+			out = new File(DimensionManager.getCurrentSaveRootDirectory().toString() 
+						+ File.separator + "ClimaticMaps" 
+						+ File.separator + "settings"
+						+ File.separator + "Dim" + ".json");
+		}
+		return out;
+	}
+	
+	
 	private File getSaveFile(int x, int z) {
 		if(savedir == null) {
 			findSaveDir();
@@ -137,11 +168,59 @@ public class MapRegistry implements IMapRegistry {
 		//System.out.println("{" + x + ", " + z + "}");
 		RegionMap out = data.get(x, z);
 		if(out == null) {
-			out = new RegionMap(x, z, cWidth);
+			if(settings == null) {
+				settings = loadSettings();
+				applySettings(settings);
+			}
+			out = new RegionMap(x, z, cWidth, settings);
 			readMap(out);
 			data.add(out);
 		}
 		//System.out.println("Accessing Map: " + x + ", " + z);
+		return out;
+	}
+	
+	
+	private ClimaticWorldSettings loadSettings() {
+		Debug.bigSysout(settings);
+		ClimaticWorldSettings out = null;
+		File file = findSettingsFile();
+		if(file != null) {
+			if(file.exists() && file.isFile() && file.canRead()) {
+				try {				
+					BufferedReader fs = new BufferedReader(new FileReader(file));
+					StringBuilder b = new StringBuilder();
+					while(fs.ready()) {
+						b.append(fs.readLine());
+					}
+					out = new ClimaticWorldSettings(b.toString());
+					fs.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				out = new ClimaticWorldSettings();
+				try {
+					if(!file.exists() || (file.isFile() && file.canWrite())) {
+						BufferedWriter fs = new BufferedWriter(new FileWriter(file));
+						fs.write(out.toString());
+						fs.close();
+					}
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		}
+		if(out == null) {
+			Debug.bigSysout(" *** FUCK YOU!!! *** ");
+			out = new ClimaticWorldSettings();
+		}
+		Debug.bigSysout(out);
 		return out;
 	}
 	

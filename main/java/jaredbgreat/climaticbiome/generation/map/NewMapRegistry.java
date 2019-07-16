@@ -89,6 +89,25 @@ public class NewMapRegistry implements IMapRegistry {
 	}
 	
 	
+	@Override
+	public File findSettingsFile() {
+		File out;
+		if(world == null || world.getMinecraftServer() == null) {
+			return null;
+		}
+		if(world.getMinecraftServer().isDedicatedServer()) {
+			out = world.getMinecraftServer().getFile("world" + File.separator + "ClimaticMaps" 
+								   + File.separator + "settings");
+		} else {
+			out = new File(DimensionManager.getCurrentSaveRootDirectory().toString() 
+						+ File.separator + "ClimaticMaps" 
+						+ File.separator + "settings"
+						+ File.separator + "Dim" + ".json");
+		}
+		return out;
+	}
+	
+	
 	private File getSaveFile(int x, int z) {
 		if(savedir == null) {
 			findSaveDir();

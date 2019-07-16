@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.map;
 
+import jaredbgreat.climaticbiome.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
 import jaredbgreat.climaticbiome.generation.generator.MapMaker;
@@ -14,7 +15,7 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
     
     static int n = 0;
     
-    public RegionMap(int x, int z, int width) {
+    public RegionMap(int x, int z, int width, ClimaticWorldSettings settings) {
         super(x, z);
         cWidth = width;
         bWidth = width * 16;

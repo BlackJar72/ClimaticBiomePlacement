@@ -1,17 +1,21 @@
 package jaredbgreat.climaticbiome.generation;
 
 import jaredbgreat.climaticbiome.gui.GuiConfigureWorld;
+import jaredbgreat.climaticbiome.util.Debug;
 
 import javax.annotation.Nonnull;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiCreateWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldSettings;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkGeneratorOverworld;
 import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.storage.ISaveHandler;
+import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -28,6 +32,12 @@ public class ClimaticWorldType extends WorldType {
 	}
 
     public IChunkGenerator getChunkGenerator(World world, String generatorOptions) {
+    	Debug.bigSysout("The Generator Options: \n" + generatorOptions + "\n");
+    	if(generatorOptions.trim().isEmpty()) {
+    		Debug.bigSysout("\"Options\" was empty!");
+    		ISaveHandler savior = world.getSaveHandler();
+    		WorldInfo info = world.getWorldInfo();
+    	}
     	if(normalChunks) {
     		return new ChunkGeneratorOverworld(world, world.getSeed(), 
         		world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
