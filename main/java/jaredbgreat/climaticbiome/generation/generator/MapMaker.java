@@ -21,6 +21,9 @@ import jaredbgreat.climaticbiome.util.SpatialNoise.RandomAt;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+
 
 
 /**
@@ -102,7 +105,7 @@ public class MapMaker {
     }
     
     
-    public void generate(IRegionMap datamap) {
+    public void generate(IRegionMap datamap, World world) {
         Coords coords = datamap.getCoords();
         xoff = ((coords.getX() * 256) - 128) * scale.whole;
         zoff = ((coords.getZ() * 256) - 128) * scale.whole;

@@ -173,7 +173,7 @@ public class NewMapRegistry implements IMapRegistry {
 	 * @param map
 	 */
 	private void initializeMap(NewRegionMap map) {		
-		maker.generate(map);
+		maker.generate(map, world);
 		if(cansave) writeMap(map);
 	}
 	

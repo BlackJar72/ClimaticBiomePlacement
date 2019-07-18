@@ -199,7 +199,7 @@ public class MapRegistry implements IMapRegistry {
 	 * @param map
 	 */
 	private void initializeMap(RegionMap map) {		
-		maker.generate(map);
+		maker.generate(map, world);
 		if(cansave) writeMap(map);
 	}
 	

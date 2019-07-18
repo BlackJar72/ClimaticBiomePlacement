@@ -3,6 +3,8 @@ package jaredbgreat.climaticbiome.generation.generator;
 import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.util.HeightNoise;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class SurvivalIslandMaker extends LandmassMaker {
     
