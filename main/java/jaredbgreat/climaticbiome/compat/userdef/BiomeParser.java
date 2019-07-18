@@ -1,6 +1,8 @@
 package jaredbgreat.climaticbiome.compat.userdef;
 
 import jaredbgreat.climaticbiome.ClimaticBiomes;
+import jaredbgreat.climaticbiome.ConfigHandler;
+import jaredbgreat.climaticbiome.exception.BiomeReadingException;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.IslandBiome;
@@ -81,7 +83,10 @@ public class BiomeParser {
 		            	ClimaticBiomes.logger.error("\nFailed to load biome: \n"
 		            			+ " \t Tag: " + tag + "\n"
 		            			+ " \t Full String: " + line + "\n"
-		            			+ " \t File: " + filename + "\n");						
+		            			+ " \t File: " + filename + "\n");	
+		            	if(ConfigHandler.failfast) {
+		            		throw new BiomeReadingException();
+		            	}
 					}
 	            } catch (Exception e) {
 	            	ClimaticBiomes.logger.error("\nFailed to load biome: \n"

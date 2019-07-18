@@ -43,7 +43,7 @@ public class DefReader {
 		if(ConfigHandler.useTraverse) {
 			traverse.parser.makeBiomeList(list, filename);
 		}
-		if(ConfigHandler.useTraverse) {
+		if(ConfigHandler.useNT) {
 			nt.parser.makeBiomeList(list, filename);
 		}
 		if(ConfigHandler.useCfg) {

@@ -16,7 +16,6 @@ public class ConfigHandler {
 	public static boolean useBoPTable = false;	
 	public static boolean volcanicBoP = false;
 	public static boolean useCfg = true;
-	//public static boolean jeid = false;
 	public static boolean writeBiomeLists = true;
 	public static boolean writeWTLists = false;
 	public static boolean rivers = true;
@@ -38,6 +37,8 @@ public class ConfigHandler {
 	public static SizeScale  regionSize = SizeScale.X1;
 	public static boolean    forceWhole = false;
 	public static double     sisize     = 6.0; 
+	
+	public static boolean failfast = false;
 	
 	public static int mode = 1;
 
@@ -182,6 +183,10 @@ public class ConfigHandler {
 		
 		sisize = config.getInt("Survival Island Size", "Size", 4, 4, 18, "How big survival "
 						+ "islands are.") + 6.0;
+		
+		failfast = config.getBoolean("FailFast", "debugging", false, 
+						"If the game should crash with an exception when failign to read a biome. \n"
+						+ "This is for modpack authors to catch config bugs, not for general use.");
 		
 		
 		config.save();	// Saving it all
