@@ -18,6 +18,7 @@ public class DefReader {
 	private static DefReader vanilla;
 	private static DefReader BoP;
 	private static DefReader traverse;
+	private static DefReader nt;
 	private static DefReader custom;
 	private BiomeParser parser;
 	
@@ -42,6 +43,9 @@ public class DefReader {
 		if(ConfigHandler.useTraverse) {
 			traverse.parser.makeBiomeList(list, filename);
 		}
+		if(ConfigHandler.useTraverse) {
+			nt.parser.makeBiomeList(list, filename);
+		}
 		if(ConfigHandler.useCfg) {
 			custom.parser.makeBiomeList(list, filename);
 		}
@@ -52,6 +56,7 @@ public class DefReader {
 		vanilla = new DefReader(reg, dir, "Minecraft");
 		BoP = new DefReader(reg, dir, "BiomeOPlenty");
 		traverse = new DefReader(reg, dir, "Traverse");
+		nt = new DefReader(reg, dir, "NovamTerram");
 		custom = new DefReader(reg, dir, "custom");
 	}
 	

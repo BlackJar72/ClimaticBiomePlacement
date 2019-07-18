@@ -11,6 +11,7 @@ public class ConfigHandler {
 	
 	public static boolean useBoP = false;
 	public static boolean useTraverse = false;
+	public static boolean useNT = false;
 	public static boolean useVanilla = true;	
 	public static boolean useBoPTable = false;	
 	public static boolean volcanicBoP = false;
@@ -66,6 +67,11 @@ public class ConfigHandler {
 						"If true it will use Traverse biomes in its world type. \n"
 						+ "If Traverse is not installed this does nothing.")
 				 && net.minecraftforge.fml.common.Loader.isModLoaded("traverse");
+		
+		useNT = config.getBoolean("UseNovamTerram", "Compat", true, 
+						"If true it will use Novam Terram biomes in its world type. \n"
+						+ "If Novam Terram is not installed this does nothing.")
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("nt");
 		
 		useVanilla = config.getBoolean("UseMinecraftBiomes", "Compat", true, 
 						"If true it will use vanilla Minecraft biomes in its world type, \n"
