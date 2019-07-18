@@ -2,8 +2,9 @@ package jaredbgreat.climaticbiome.generation.biome;
 
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.registries.IForgeRegistry;
 
-public class LeafBiome implements IBiomeSpecifier {
+public class LeafBiome extends AbstractTerminalSpecifier {
 	private final long biome;
 
 	
@@ -17,6 +18,11 @@ public class LeafBiome implements IBiomeSpecifier {
 	}
 	
 	
+	public LeafBiome(String biome, IForgeRegistry biomeReg) {
+		this.biome = this.getBiomeNumber(biome, biomeReg); 
+	}
+	
+	
 	@Override
 	public long getBiome(ChunkTile tile) {
 		return biome;
@@ -25,7 +31,7 @@ public class LeafBiome implements IBiomeSpecifier {
 
 	@Override
 	public boolean isEmpty() {
-		return false;
+		return (biome < 0);
 	}
 
 }

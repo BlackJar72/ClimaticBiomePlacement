@@ -121,11 +121,11 @@ public class GetOcean implements IBiomeSpecifier {
     					return islands1.getBiome(tile.nextBiomeSeed());
     				}
     			} else if(ConfigHandler.addIslands) {
-    				if(noise > (2 + (seed % 3))) {
+    				if(noise > (seed % 3)) {
     					return islands2.getBiome(tile);
     				}				
     			} else {
-    				return getShallowOcean(tile, temp, iceNoise);
+    				return getForIsland(tile);
     			}    			
     		} else if((tile.getHeight()) < 0.2) {
     			return getDeepOcean(tile, temp, iceNoise);
@@ -214,6 +214,17 @@ public class GetOcean implements IBiomeSpecifier {
 			// Should never be true, but just in case.
 			dfrozen = dcold; 
 		}
+	}
+	
+	/**
+	 * This will get the oceans surrounding islands.
+	 * 
+	 * @param tile
+	 * @return
+	 */
+	public long getForIsland(ChunkTile tile) {
+		tile.nextBiomeSeed();
+		return getShallowOcean(tile, tile.getTemp(), tile.getNoise());
 	}
 	
 	
