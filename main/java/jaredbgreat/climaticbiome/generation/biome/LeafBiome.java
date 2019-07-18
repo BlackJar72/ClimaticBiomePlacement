@@ -19,7 +19,7 @@ public class LeafBiome extends AbstractTerminalSpecifier {
 	
 	
 	public LeafBiome(String biome, IForgeRegistry biomeReg) {
-		this.biome = this.getBiomeNumber(biome, biomeReg); 
+		this.biome = getBiomeNumber(biome, biomeReg); 
 	}
 	
 	

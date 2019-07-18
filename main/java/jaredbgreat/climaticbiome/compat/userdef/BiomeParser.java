@@ -77,12 +77,18 @@ public class BiomeParser {
 					IBiomeSpecifier biomeSpec = commands.get(tag).parse(tokens.nextToken());
 					if(!biomeSpec.isEmpty()) {
 						list.addItem(biomeSpec);
+					} else {
+		            	ClimaticBiomes.logger.error("\nFailed to load biome: \n"
+		            			+ " \t Tag: " + tag + "\n"
+		            			+ " \t Full String: " + line + "\n"
+		            			+ " \t File: " + filename + "\n");						
 					}
 	            } catch (Exception e) {
 	            	ClimaticBiomes.logger.error("\nFailed to load biome: \n"
 	            			+ " \t Tag: " + tag + "\n"
-	            			+ " \t Full String: " + line + "\n");
-	                e.printStackTrace();
+	            			+ " \t Full String: " + line + "\n"
+	            			+ " \t File: " + filename + "\n");						
+	            	e.printStackTrace();
 	                throw e;
 	            }
 			}
@@ -133,7 +139,7 @@ public class BiomeParser {
 	
 	private final class TempParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			Tokenizer tokens = new Tokenizer(in, ", ");		
+			Tokenizer tokens = new Tokenizer(in, ", \t");		
 			return new TempDoubleBiome(tokens.nextToken(), 
 					   Integer.parseInt(tokens.nextToken()), 
 					   tokens.nextToken(), biomeReg);
@@ -162,16 +168,14 @@ public class BiomeParser {
 	
 	private final class LeafParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			Tokenizer tokens = new Tokenizer(in, ":");	
-			return new LeafBiome(tokens.nextToken(), biomeReg);
+			return new LeafBiome(in, biomeReg);
 		}
 	}
 	
 	
 	private final class IslandParse implements ICommand {
-		public IBiomeSpecifier parse(String in) {
-			Tokenizer tokens = new Tokenizer(in, ":");	
-			return new IslandBiome(tokens.nextToken(), biomeReg);
+		public IBiomeSpecifier parse(String in) {	
+			return new IslandBiome(in, biomeReg);
 		}
 	}
 	

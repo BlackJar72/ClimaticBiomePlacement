@@ -18,12 +18,13 @@ public abstract class AbstractTerminalSpecifier implements IBiomeSpecifier {
 			}
 			return Biome.getIdForBiome(biome);
 		} else {
-			Biome biome = (Biome)biomeReg.getValue(new ResourceLocation(bstring));
+			Biome biome = (Biome)biomeReg
+					.getValue(new ResourceLocation(tokens.nextToken() 
+							+ ":" + tokens.nextToken()));
 			if(biome == null) {
 				return -1;
 			}
-			return Biome.getIdForBiome((Biome)biomeReg
-					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))
+			return Biome.getIdForBiome(biome)
 					+ (Long.parseLong(tokens.nextToken()) << 32);
 		}		
 	}
