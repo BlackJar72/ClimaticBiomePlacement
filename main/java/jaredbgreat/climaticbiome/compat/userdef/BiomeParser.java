@@ -1,9 +1,9 @@
 package jaredbgreat.climaticbiome.compat.userdef;
 
 import jaredbgreat.climaticbiome.ClimaticBiomes;
-import jaredbgreat.climaticbiome.Info;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
+import jaredbgreat.climaticbiome.generation.biome.IslandBiome;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.NoiseDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
@@ -18,14 +18,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.logging.Level;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jline.utils.Log;
 
@@ -53,6 +49,7 @@ public class BiomeParser {
 		commands.put("temp", new TempParse());
 		commands.put("taiga", new TaigaParse());
 		commands.put("wetness", new WetParse());
+		commands.put("island", new IslandParse());
 	}
 	
 	
@@ -76,7 +73,11 @@ public class BiomeParser {
 				tokens = new Tokenizer(line, "()");
 				String tag = tokens.nextToken().toLowerCase().trim();
 				try {
-				list.addItem(commands.get(tag).parse(tokens.nextToken()));
+					// First create the specifier, then add it only if its valid
+					IBiomeSpecifier biomeSpec = commands.get(tag).parse(tokens.nextToken());
+					if(!biomeSpec.isEmpty()) {
+						list.addItem(biomeSpec);
+					}
 	            } catch (Exception e) {
 	            	ClimaticBiomes.logger.error("\nFailed to load biome: \n"
 	            			+ " \t Tag: " + tag + "\n"
@@ -161,15 +162,17 @@ public class BiomeParser {
 	
 	private final class LeafParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			Tokenizer tokens = new Tokenizer(in, ":");
-			if(tokens.countTokens() < 3) {
-				return new LeafBiome((Biome)biomeReg.getValue(new ResourceLocation(in)));
-			} else {
-				return new LeafBiome((long)(Biome.getIdForBiome(((Biome)biomeReg.getValue(new 
-						ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken()))))) 
-						+ (Long.parseLong(tokens.nextToken()) << 32));
-			}
+			Tokenizer tokens = new Tokenizer(in, ":");	
+			return new LeafBiome(tokens.nextToken(), biomeReg);
 		}
-	}	
+	}
+	
+	
+	private final class IslandParse implements ICommand {
+		public IBiomeSpecifier parse(String in) {
+			Tokenizer tokens = new Tokenizer(in, ":");	
+			return new IslandBiome(tokens.nextToken(), biomeReg);
+		}
+	}
 	
 }
