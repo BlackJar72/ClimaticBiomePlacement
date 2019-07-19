@@ -27,6 +27,7 @@ public class DefReader {
 	private static DefReader byg;
 	private static DefReader defiled;
 	private static DefReader redwoods;
+	private static DefReader zoestria;
 	private static DefReader special;
 	private static DefReader custom;
 	private BiomeParser parser;
@@ -76,6 +77,9 @@ public class DefReader {
 		if(ConfigHandler.useRWmod) {
 			redwoods.parser.makeBiomeList(list, filename);
 		}
+		if(ConfigHandler.useZoe) {
+			zoestria.parser.makeBiomeList(list, filename);
+		}
 		if(ConfigHandler.useCfg) {
 			custom.parser.makeBiomeList(list, filename);
 		}
@@ -97,6 +101,7 @@ public class DefReader {
 		byg = new DefReader(reg, dir, "BYG");
 		defiled = new DefReader(reg, dir, "DefiledLands");
 		redwoods = new DefReader(reg, dir, "Redwoods");
+		zoestria = new DefReader(reg, dir, "Zoesteria");
 		special = new DefReader(reg, dir, "special");
 		custom = new DefReader(reg, dir, "custom");
 	}

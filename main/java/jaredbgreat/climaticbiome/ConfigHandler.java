@@ -103,10 +103,10 @@ public class ConfigHandler {
 						+ "If Project Vibrant Journey is not installed this does nothing.")
 				 && net.minecraftforge.fml.common.Loader.isModLoaded("pvj");
 		
-//		useZoe = config.getBoolean("UseZoestria", "Compat", true, 
-//						"If true it will use Zoestria biomes in its world type. \n"
-//						+ "If Zoestria is not installed this does nothing.")
-//				 && net.minecraftforge.fml.common.Loader.isModLoaded("valoegheses_be");
+		useZoe = config.getBoolean("UseZoestria", "Compat", true, 
+						"If true it will use Zoestria biomes in its world type. \n"
+						+ "If Zoestria is not installed this does nothing.")
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("valoegheses_be");
 		
 		useBYG = config.getBoolean("UseBiomeYoullGo", "Compat", true, 
 						"If true it will use Biome's You'll Go in its world type. \n"
