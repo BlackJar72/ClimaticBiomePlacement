@@ -17,6 +17,9 @@ public class ConfigHandler {
 	public static boolean useEnvirons = false;
 	public static boolean usePVJ = false;
 	public static boolean useZoe = false;
+	public static boolean useBYG = false;
+	public static boolean useDefiled = false;
+	public static boolean useRWmod = false;
 	public static boolean useSpecial = false;
 	public static boolean useVanilla = true;	
 	public static boolean useBoPTable = false;	
@@ -100,16 +103,30 @@ public class ConfigHandler {
 						+ "If Project Vibrant Journey is not installed this does nothing.")
 				 && net.minecraftforge.fml.common.Loader.isModLoaded("pvj");
 		
-		useZoe = config.getBoolean("UseZoestria", "Compat", true, 
-						"If true it will use Zoestria biomes in its world type. \n"
+//		useZoe = config.getBoolean("UseZoestria", "Compat", true, 
+//						"If true it will use Zoestria biomes in its world type. \n"
+//						+ "If Zoestria is not installed this does nothing.")
+//				 && net.minecraftforge.fml.common.Loader.isModLoaded("valoegheses_be");
+		
+		useBYG = config.getBoolean("UseBiomeYoullGo", "Compat", true, 
+						"If true it will use Biome's You'll Go in its world type. \n"
+						+ "If Biomes You'll Go is not installed this does nothing.")
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("byg");
+		
+		useDefiled = config.getBoolean("UseDefiledLands", "Compat", true, 
+						"If true it will use Defiled Land's biomes in its world type. \n"
 						+ "If Zoestria is not installed this does nothing.")
-				 && net.minecraftforge.fml.common.Loader.isModLoaded("valoegheses_be");
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("defiledlands");
+		
+		useRWmod = config.getBoolean("UseRedwoodsMod", "Compat", true, 
+						"If true it will use biomes from the Redwoods mod in its world type. \n"
+						+ "If Redwoods is not installed this does nothing.")
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("redwoods");
 		
 		useSpecial = config.getBoolean("UseSpecialBiomes", "Compat", true, 
 						"If true it will use special biomes from some non-biome mods \n"
 						+ "in its world type. \n"
-						+ "SET THIS TO FALSE IF USING FAIL-FAST, otherwise leave it as true.")
-				 && net.minecraftforge.fml.common.Loader.isModLoaded("nt");
+						+ "SET THIS TO FALSE IF USING FAIL-FAST, otherwise leave it as true.");
 		
 		useVanilla = config.getBoolean("UseMinecraftBiomes", "Compat", true, 
 						"If true it will use vanilla Minecraft biomes in its world type, \n"

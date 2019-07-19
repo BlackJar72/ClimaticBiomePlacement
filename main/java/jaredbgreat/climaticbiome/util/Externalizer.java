@@ -92,6 +92,9 @@ public class Externalizer {
 		"Environs",
 		"Minecraft",
 		"PVJ",
+		"BYG",
+		"DefiledLands",
+		"Redwoods",
 		"special"
 	};
 	

@@ -24,6 +24,9 @@ public class DefReader {
 	private static DefReader auxiliary;
 	private static DefReader environs;
 	private static DefReader pvj;
+	private static DefReader byg;
+	private static DefReader defiled;
+	private static DefReader redwoods;
 	private static DefReader special;
 	private static DefReader custom;
 	private BiomeParser parser;
@@ -64,6 +67,15 @@ public class DefReader {
 		if(ConfigHandler.usePVJ) {
 			pvj.parser.makeBiomeList(list, filename);
 		}
+		if(ConfigHandler.useBYG) {
+			byg.parser.makeBiomeList(list, filename);
+		}
+		if(ConfigHandler.useDefiled) {
+			defiled.parser.makeBiomeList(list, filename);
+		}
+		if(ConfigHandler.useRWmod) {
+			redwoods.parser.makeBiomeList(list, filename);
+		}
 		if(ConfigHandler.useCfg) {
 			custom.parser.makeBiomeList(list, filename);
 		}
@@ -82,6 +94,9 @@ public class DefReader {
 		auxiliary = new DefReader(reg, dir, "AuxiliaryBiomes");
 		environs = new DefReader(reg, dir, "Environs");
 		pvj = new DefReader(reg, dir, "PVJ");
+		byg = new DefReader(reg, dir, "BYG");
+		defiled = new DefReader(reg, dir, "DefiledLands");
+		redwoods = new DefReader(reg, dir, "Redwoods");
 		special = new DefReader(reg, dir, "special");
 		custom = new DefReader(reg, dir, "custom");
 	}
