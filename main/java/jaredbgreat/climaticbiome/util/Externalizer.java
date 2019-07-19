@@ -86,7 +86,13 @@ public class Externalizer {
 		"Minecraft",
 		"BiomeOPlenty",
 		"Traverse",
-		"custom"
+		"custom",
+		"AbyssalCraft",
+		"AuxiliaryBiomes",
+		"Environs",
+		"Minecraft",
+		"PVJ",
+		"special"
 	};
 	
 	

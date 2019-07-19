@@ -1,5 +1,7 @@
 package jaredbgreat.climaticbiome.generation.biome;
 
+import jaredbgreat.dldungeons.parser.Tokenizer;
+
 import java.util.StringTokenizer;
 
 import net.minecraft.util.ResourceLocation;
@@ -10,7 +12,7 @@ public abstract class AbstractTerminalSpecifier implements IBiomeSpecifier {
 
 
 	public long getBiomeNumber(String bstring, IForgeRegistry biomeReg) {		
-		StringTokenizer tokens = new StringTokenizer(bstring, ":");
+		Tokenizer tokens = new Tokenizer(bstring, ":");
 		if(tokens.countTokens() < 3) {
 			Biome biome = (Biome)biomeReg.getValue(new ResourceLocation(bstring));
 			if(biome == null) {

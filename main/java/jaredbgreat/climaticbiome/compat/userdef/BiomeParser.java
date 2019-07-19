@@ -108,6 +108,58 @@ public class BiomeParser {
 	}
 	
 	
+	public void addSpecialBiomes(BiomeList list, String filename) {
+		File file = new File(fileDir + filename);
+		if(!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return;
+		}
+		String line = null;
+		Tokenizer tokens;		
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(file));
+			while(reader.ready()) {
+				line = reader.readLine().trim();
+				if(line.isEmpty() || line.startsWith("#")) continue;
+				tokens = new Tokenizer(line, "()");
+				String tag = tokens.nextToken().toLowerCase().trim();
+				try {
+					// First create the specifier, then add it only if its valid
+					IBiomeSpecifier biomeSpec = commands.get(tag).parse(tokens.nextToken());
+					if(!biomeSpec.isEmpty()) {
+						list.addItem(biomeSpec);
+					// These are quite typically not there, don't be strict
+					} else if(ConfigHandler.failfast) {
+		            	ClimaticBiomes.logger.error("\nFailed to load biome: \n"
+		            			+ " \t Tag: " + tag + "\n"
+		            			+ " \t Full String: " + line + "\n"
+		            			+ " \t File: " + filename + "\n");
+	            		throw new BiomeReadingException();
+					}
+	            } catch (Exception e) {
+	            	ClimaticBiomes.logger.error("\nFailed to load biome: \n"
+	            			+ " \t Tag: " + tag + "\n"
+	            			+ " \t Full String: " + line + "\n"
+	            			+ " \t File: " + filename + "\n");						
+	            	e.printStackTrace();
+	                throw e;
+	            }
+			}
+			reader.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (RuntimeException e) {
+			reportError(e, file, line);
+		}
+	}
+	
+	
 	private void reportError(RuntimeException ex, File file, String line) {
 		Logger logger = FMLLog.log;
 		Log.error("");

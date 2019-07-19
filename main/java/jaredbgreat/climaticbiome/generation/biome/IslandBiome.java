@@ -10,29 +10,20 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 public class IslandBiome extends AbstractTerminalSpecifier {
 	private final long island;
-	private static GetOcean oceans;
 
 	
 	public IslandBiome(long island) {
-		init(); // This could be called once else where, but is safer here
 		this.island = island;
 	}
 
 	
 	public IslandBiome(Biome island) {
-		init(); // This could be called once else where, but is safer here
 		this.island = Biome.getIdForBiome(island);
 	}
 	
 	
 	public IslandBiome(String island, IForgeRegistry biomeReg) {
-		init(); // This could be called once else where, but is safer here
 		this.island = getBiomeNumber(island, biomeReg);
-	}
-	
-	
-	public final void init() {
-		if(oceans == null) oceans = GetOcean.getOcean();
 	}
 	
 	
@@ -41,7 +32,7 @@ public class IslandBiome extends AbstractTerminalSpecifier {
 		if(tile.getNoise() > (4 + (tile.getBiomeSeed() % 3))) {
 			return island;
 		}
-		return oceans.getForIsland(tile);
+		return GetOcean.getOcean().getForIsland(tile);
 	}
 	
 

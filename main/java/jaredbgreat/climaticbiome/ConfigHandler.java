@@ -12,6 +12,12 @@ public class ConfigHandler {
 	public static boolean useBoP = false;
 	public static boolean useTraverse = false;
 	public static boolean useNT = false;
+	public static boolean useAby = false;
+	public static boolean useAux = false;
+	public static boolean useEnvirons = false;
+	public static boolean usePVJ = false;
+	public static boolean useZoe = false;
+	public static boolean useSpecial = false;
 	public static boolean useVanilla = true;	
 	public static boolean useBoPTable = false;	
 	public static boolean volcanicBoP = false;
@@ -72,6 +78,37 @@ public class ConfigHandler {
 		useNT = config.getBoolean("UseNovamTerram", "Compat", true, 
 						"If true it will use Novam Terram biomes in its world type. \n"
 						+ "If Novam Terram is not installed this does nothing.")
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("nt");
+		
+		useAby = config.getBoolean("UseAbyssalCraft", "Compat", true, 
+						"If true it will use Ayssal Craft overworld biomes in its world type. \n"
+						+ "If Abyssal Craft is not installed this does nothing.")
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("abyssalcraft");
+		
+		useAux = config.getBoolean("UseAuxiliaryBiomes", "Compat", true, 
+						"If true it will use Auxiliary Biomes in its world type. \n"
+						+ "If Auxilary Biomes is not installed this does nothing.")
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("auxbiomes");
+		
+		useEnvirons = config.getBoolean("UseEnvirons++", "Compat", true, 
+						"If true it will use Evirons++ biomes in its world type. \n"
+						+ "If Environs++ is not installed this does nothing.")
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("environs");
+		
+		usePVJ = config.getBoolean("UseVibrantJourney", "Compat", true, 
+						"If true it will use Project Vibrant Journey biomes in its world type. \n"
+						+ "If Project Vibrant Journey is not installed this does nothing.")
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("pvj");
+		
+		useZoe = config.getBoolean("UseZoestria", "Compat", true, 
+						"If true it will use Zoestria biomes in its world type. \n"
+						+ "If Zoestria is not installed this does nothing.")
+				 && net.minecraftforge.fml.common.Loader.isModLoaded("valoegheses_be");
+		
+		useSpecial = config.getBoolean("UseSpecialBiomes", "Compat", true, 
+						"If true it will use special biomes from some non-biome mods \n"
+						+ "in its world type. \n"
+						+ "SET THIS TO FALSE IF USING FAIL-FAST, otherwise leave it as true.")
 				 && net.minecraftforge.fml.common.Loader.isModLoaded("nt");
 		
 		useVanilla = config.getBoolean("UseMinecraftBiomes", "Compat", true, 
