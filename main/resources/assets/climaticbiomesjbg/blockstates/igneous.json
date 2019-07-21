@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "type=0":  { "model": "climaticbiomesjbg:basalt" },
+        "type=1":  { "model": "climaticbiomesjbg:basalt_polished" },
+        "type=2":  { "model": "climaticbiomesjbg:basalt_brick" },
+        "type=3":  { "model": "climaticbiomesjbg:basalt_cbrick" },
+        "type=4":  { "model": "climaticbiomesjbg:black_granite" },
+        "type=5":  { "model": "climaticbiomesjbg:black_granite_polished" },
+        "type=6":  { "model": "climaticbiomesjbg:black_granite_brick" },
+        "type=7":  { "model": "climaticbiomesjbg:black_granite_cbrick" },
+        "type=8":  { "model": "climaticbiomesjbg:brown_granite" },
+        "type=9":  { "model": "climaticbiomesjbg:brown_granite_polished" },
+        "type=10":  { "model": "climaticbiomesjbg:brown_granite_brick" },
+        "type=11":  { "model": "climaticbiomesjbg:brown_granite_cbrick" },
+        "type=12":  { "model": "climaticbiomesjbg:green_granite" },
+        "type=13":  { "model": "climaticbiomesjbg:green_granite_polished" },
+        "type=14":  { "model": "climaticbiomesjbg:green_granite_brick" },
+        "type=15":  { "model": "climaticbiomesjbg:green_granite_cbrick" }
+    }
+}

@@ -2,6 +2,7 @@ package jaredbgreat.climaticbiome.util;
 
 import jaredbgreat.climaticbiome.ClimaticBiomes;
 import jaredbgreat.climaticbiome.Info;
+import jaredbgreat.climaticbiome.blocks.itemblocks.ItemMultiblock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,6 @@ public class ItemRegistrar {
 	private static final List<Item> ITEMS = new ArrayList<>();
 	
 	public static void initItems() {
-		// LASTLY, after any items get reated
 		registerItems();
 	}
 	
@@ -42,6 +42,8 @@ public class ItemRegistrar {
 		for(Item item : ITEMS) {
 			if(item instanceof IHaveModel) {
 				((IHaveModel)item).registerModel();
+			} else if(item instanceof ItemMultiblock){
+				ClimaticBiomes.proxy.registerMultiRender((ItemMultiblock)item);
 			} else {
 				ClimaticBiomes.proxy.registerItemRender(item, 0);
 			}
@@ -52,6 +54,15 @@ public class ItemRegistrar {
 			}
 		}
 		ClimaticBiomes.proxy.fixRenders(BlockRegistrar.blockPineNeedles);
+	}
+	
+	
+	public static void registerMultiModels() {
+		for(Item item : ITEMS) {
+			if(item instanceof ItemMultiblock) {
+				ClimaticBiomes.proxy.registerMultiRender((ItemMultiblock)item);
+			} 
+		}
 	}
 	
 	

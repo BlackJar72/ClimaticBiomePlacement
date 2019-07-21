@@ -10,6 +10,23 @@ tile.climaticbiomesjbg.pine_stairs.name=Pine Stairs
 tile.climaticbiomesjbg.pine_fence.name=Pine Fence
 tile.climaticbiomesjbg.pine_gate.name=Pine Fence Gate
 
+tile.climaticbiomesjbg.igneous0.name=Basalt
+tile.climaticbiomesjbg.igneous1.name=Polished Basalt
+tile.climaticbiomesjbg.igneous2.name=Basalt Bricks
+tile.climaticbiomesjbg.igneous3.name=Cracked Basalt Bricks
+tile.climaticbiomesjbg.igneous4.name=Black Granite
+tile.climaticbiomesjbg.igneous5.name=Polished Black Granite
+tile.climaticbiomesjbg.igneous6.name=Black Granite Bricks
+tile.climaticbiomesjbg.igneous7.name=Cracked Brown Granite Bricks
+tile.climaticbiomesjbg.igneous8.name=Brown Granite
+tile.climaticbiomesjbg.igneous9.name=Polished Brown Granite
+tile.climaticbiomesjbg.igneous10.name=Brown Granite Bricks
+tile.climaticbiomesjbg.igneous11.name=Cracked Brown Granite Bricks
+tile.climaticbiomesjbg.igneous12.name=Green Granite
+tile.climaticbiomesjbg.igneous13.name=Polished Green Granite
+tile.climaticbiomesjbg.igneous14.name=Green Granite Bricks
+tile.climaticbiomesjbg.igneous15.name=Cracked Green Granite Bricks
+
 item.tile.climaticbiomesjbg.pine_door.name=Pine Door
 item.climaticbiomesjbg:pineseed.name=Pine Cone
 
