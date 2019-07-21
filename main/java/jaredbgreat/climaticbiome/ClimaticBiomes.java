@@ -74,7 +74,6 @@ public class ClimaticBiomes {
     @EventHandler
     public void init(FMLInitializationEvent event) {
     	proxy.init();
-    	proxy.modelBakeryRegistrations();
     	ItemRegistrar.addRecipes();
     	makeFiles();
     }

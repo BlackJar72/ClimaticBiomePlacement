@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SS",
+    "SS"
+  ],
+  "key": {
+    "S": {
+      "item": "climaticbiomesjbg:basalt"
+    }
+  },
+  "result": {
+    "item": "climaticbiomesjbg:basalt_polished",
+    "count": 4
+  }
+}

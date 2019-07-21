@@ -14,7 +14,6 @@ public interface IProxy {
 	public void fixRenders(BlockLeaves in);
 	public void registerGateRenders(BlockFenceGate gate);
 	public void registerDoorRenders(BlockDoor door);
-	public void modelBakeryRegistrations();
 	public void preInit();
 	public void init();
 	

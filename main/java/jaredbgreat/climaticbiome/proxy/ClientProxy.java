@@ -94,19 +94,4 @@ public class ClientProxy implements IProxy {
     	}
 	}
 
-	@Override
-	public void modelBakeryRegistrations() {
-		registerModelbakeryMuliItem((ItemMultiblock)ItemBlock
-				.getItemFromBlock(BlockRegistrar.blockIgneous));
-	}
-	
-	
-	private void registerModelbakeryMuliItem(ItemMultiblock item) {
-		ResourceLocation[] reslocs = new ResourceLocation[item.names.length];
-		for(int i = 0; i < item.names.length; i++) {
-			reslocs[i] = new ResourceLocation(item.getRegistryName().toString() + i);
-		}
-		ModelBakery.registerItemVariants(item, reslocs);
-	}
-
 }

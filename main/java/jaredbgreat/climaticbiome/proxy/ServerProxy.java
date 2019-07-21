@@ -50,9 +50,6 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public void registerMultiRender(ItemMultiblock item) {/*Do Nothing*/}
-
-	@Override
-	public void modelBakeryRegistrations() {/*Do Nothing*/}
 	
 
 }

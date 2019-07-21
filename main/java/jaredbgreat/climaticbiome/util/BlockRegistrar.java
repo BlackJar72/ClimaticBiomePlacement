@@ -38,7 +38,8 @@ public class BlockRegistrar {
 	public static BlockPineFence blockPineFence;
 	public static BlockPineGate blockPineGate;
 	public static BlockPineDoor blockPineDoor;
-	public static BlockIgneous blockIgneous;
+	public static BlockIgneous blockBasalt;
+	public static BlockIgneous blockBasaltPolished;
 	
 	
 	public static void initBlocks() {
@@ -53,7 +54,8 @@ public class BlockRegistrar {
 		blockPineFence = new BlockPineFence("pine_fence");
 		blockPineGate = new BlockPineGate("pine_gate");
 		blockPineDoor = new BlockPineDoor("pine_door");
-		blockIgneous = new BlockIgneous();
+		blockBasalt = new BlockIgneous("basalt");
+		blockBasaltPolished = new BlockIgneous("basalt_polished");
 		// LASTLY
 		registerBlocks();
 	}
