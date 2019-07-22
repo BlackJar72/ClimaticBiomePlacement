@@ -16,11 +16,6 @@ public class VolcanoDecorator extends BiomeDecorator {
     public WorldGenerator extraGold;
 
 
-	public VolcanoDecorator() {
-        extraIron = new WorldGenMinable(Blocks.IRON_ORE.getDefaultState(), 
-        		chunkProviderSettings.ironSize);
-        extraGold = new WorldGenMinable(Blocks.GOLD_ORE.getDefaultState(), 
-        		chunkProviderSettings.goldSize);
-	}
+	public VolcanoDecorator() {}
 
 }
