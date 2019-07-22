@@ -12,6 +12,7 @@ tile.climaticbiomesjbg.pine_gate.name=Pine Fence Gate
 
 tile.climaticbiomesjbg.basalt.name=Basalt
 tile.climaticbiomesjbg.basalt_polished.name=Polished Basalt
+tile.climaticbiomesjbg.volcanic_ash.name=Volcanic Ash
 
 item.tile.climaticbiomesjbg.pine_door.name=Pine Door
 item.climaticbiomesjbg:pineseed.name=Pine Cone

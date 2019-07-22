@@ -10,6 +10,7 @@ import jaredbgreat.climaticbiome.blocks.BlockPineNeedles;
 import jaredbgreat.climaticbiome.blocks.BlockPinePlanks;
 import jaredbgreat.climaticbiome.blocks.BlockPineSapling;
 import jaredbgreat.climaticbiome.blocks.BlockPineStairs;
+import jaredbgreat.climaticbiome.blocks.ModBlockFalling;
 import jaredbgreat.climaticbiome.blocks.itemblocks.ItemPineSlab;
 import jaredbgreat.climaticbiome.blocks.slabs.BlockPineDoubleSlab;
 import jaredbgreat.climaticbiome.blocks.slabs.BlockPineSlab;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
+import net.minecraft.block.SoundType;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -40,6 +42,7 @@ public class BlockRegistrar {
 	public static BlockPineDoor blockPineDoor;
 	public static BlockIgneous blockBasalt;
 	public static BlockIgneous blockBasaltPolished;
+	public static ModBlockFalling blockAsh;
 	
 	
 	public static void initBlocks() {
@@ -56,6 +59,7 @@ public class BlockRegistrar {
 		blockPineDoor = new BlockPineDoor("pine_door");
 		blockBasalt = new BlockIgneous("basalt");
 		blockBasaltPolished = new BlockIgneous("basalt_polished");
+		blockAsh = new ModBlockFalling("volcanic_ash", SoundType.SAND);
 		// LASTLY
 		registerBlocks();
 	}

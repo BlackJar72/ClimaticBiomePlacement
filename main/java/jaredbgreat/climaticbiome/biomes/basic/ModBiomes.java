@@ -34,6 +34,7 @@ public class ModBiomes {
 	public static SubtropicalMountains warmMountainTrees;
 	public static TropicalMountains    hotMountain;
 	public static TropicalMountains    hotMountainTrees;
+	public static ActiveVolcano        activeVolcano;
 	
 	// Advanced Rivers
 	public static BiomeRiver coolRiver;
@@ -125,6 +126,13 @@ public class ModBiomes {
 					.setBaseHeight(1.0F)
 					.setHeightVariation(0.5F));
 		makeMoreUsable(hotMountainTrees);
+		makeMoreUsable(pineWoods);
+		activeVolcano 
+				= new ActiveVolcano(new Biome.BiomeProperties("Active Volcano")
+					.setTemperature(3.0F)
+					.setRainfall(0.5F)
+					.setBaseHeight(1.5F)
+					.setHeightVariation(0.5F));
 		// Lastly
 		PseudoBiomes.createBiomes();
 		if(ConfigHandler.rivers) {
@@ -161,6 +169,8 @@ public class ModBiomes {
 				.setRegistryName("hot_mountain"));
 		event.getRegistry().register(hotMountainTrees
 				.setRegistryName("hot_mountain_trees"));
+		event.getRegistry().register(activeVolcano
+				.setRegistryName("active_volcano"));
 		setupBiomeTypes();
 		BiomeDictionary.addTypes(warmForest, Type.FOREST, Type.CONIFEROUS);
 		BiomeDictionary.addTypes(tropicalForest, Type.FOREST, Type.JUNGLE, Type.HOT);
@@ -175,6 +185,7 @@ public class ModBiomes {
 		BiomeDictionary.addTypes(warmMountainTrees, Type.HILLS, Type.MOUNTAIN, Type.FOREST);
 		BiomeDictionary.addTypes(hotMountain, Type.HILLS, Type.MOUNTAIN, Type.HOT);
 		BiomeDictionary.addTypes(hotMountainTrees, Type.HILLS, Type.MOUNTAIN, Type.FOREST, Type.HOT);
+		BiomeDictionary.addTypes(activeVolcano, Type.HILLS, Type.MOUNTAIN, Type.HOT);
 		// Lastly
 		PseudoBiomes.registerBiomes();
 		if(ConfigHandler.rivers) {
