@@ -16,7 +16,6 @@ import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class VolcanoDecorator extends BiomeDecorator {
-	private WorldGenLakes  extraLava;
     private WorldGenerator extraIron;
     private WorldGenerator extraGold;
 	
@@ -27,7 +26,6 @@ public class VolcanoDecorator extends BiomeDecorator {
         		chunkProviderSettings.ironSize);
         extraGold = new WorldGenMinable(Blocks.GOLD_ORE.getDefaultState(), 
         		(int)(chunkProviderSettings.goldSize * 1.5));
-        extraLava = new WorldGenLakes(Blocks.FLOWING_LAVA);
         
     	super.genDecorations(biome, world, random);
     	
@@ -43,13 +41,10 @@ public class VolcanoDecorator extends BiomeDecorator {
                 world.immediateBlockTick(pos, bs, random);
         	}
         }
-    	
-    	{
-            int i1 = random.nextInt(16) + 8;
-            int j1 = random.nextInt(256);
-            int k1 = random.nextInt(16) + 8;
-            (new WorldGenLakes(Blocks.LAVA)).generate(world, random, chunkPos.add(i1, j1, k1));
-        }
+        int x = random.nextInt(16) + 8;
+        int y = random.nextInt(256);
+        int z = random.nextInt(16) + 8;
+        new WorldGenLakes(Blocks.LAVA).generate(world, random, chunkPos.add(x, y, z));
     }
 	
 

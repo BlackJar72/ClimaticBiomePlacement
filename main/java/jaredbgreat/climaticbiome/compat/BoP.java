@@ -9,6 +9,7 @@ import jaredbgreat.climaticbiome.generation.biome.NoiseSpecialBiome;
 import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.TempDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.WetDoubleBiome;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetVolcano;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 import biomesoplenty.api.biome.BOPBiomes;
@@ -81,27 +82,6 @@ public class BoP {
 		forests.addItem(new LeafBiome(BOPBiomes.temperate_rainforest.get()));
 		forests.addItem(new WetDoubleBiome(BOPBiomes.woodland.get(), 
 										   7, BOPBiomes.temperate_rainforest.get()));
-	}
-	
-	
-	public static void addIslands(BiomeList frozen, BiomeList cold, BiomeList cool, 
-								  BiomeList warm, BiomeList hot, BiomeList desert) {
-		//cool.addItem(new NoiseDoubleBiome(BOPBiomes.origin_beach.get(), 
-		//							      3, BOPBiomes.origin_island.get()));
-		//warm.addItem(new LeafBiome(BOPBiomes.flower_island.get()));
-		//hot.addItem(new LeafBiome(BOPBiomes.tropical_island.get()));
-		frozen.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
-				new LeafBiome(Biome.getIdForBiome(BOPBiomes.volcanic_island.get()))));
-		cold.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
-				new LeafBiome(Biome.getIdForBiome(BOPBiomes.volcanic_island.get()))));
-		cool.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
-				new LeafBiome(Biome.getIdForBiome(BOPBiomes.volcanic_island.get()))));
-		hot.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
-				new LeafBiome(Biome.getIdForBiome(BOPBiomes.volcanic_island.get()))));
-		desert.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
-				new LeafBiome(Biome.getIdForBiome(BOPBiomes.volcanic_island.get()))));
-		warm.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
-				new LeafBiome(Biome.getIdForBiome(BOPBiomes.volcanic_island.get()))));
 	}
 	
 	

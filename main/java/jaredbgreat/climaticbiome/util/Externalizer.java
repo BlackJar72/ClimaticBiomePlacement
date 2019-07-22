@@ -54,6 +54,7 @@ public class Externalizer {
 		"ForestCool.cfg",
 		"ForestTropical.cfg",
 		"ForestWarm.cfg",
+		"IslandVolcanoes.cfg",
 		"Jungle.cfg",
 		"OceanCold.cfg",
 		"OceanCool.cfg",

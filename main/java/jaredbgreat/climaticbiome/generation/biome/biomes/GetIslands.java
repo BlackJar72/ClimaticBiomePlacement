@@ -6,6 +6,7 @@ import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
+import jaredbgreat.climaticbiome.generation.biome.NoiseSpecialBiome;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetIslands implements IBiomeSpecifier {
@@ -39,7 +40,7 @@ public class GetIslands implements IBiomeSpecifier {
 		DefReader.readBiomeData(warm,   "SpecialIslandWarm.cfg");
 		DefReader.readBiomeData(hot,    "SpecialIslandTropical.cfg");
 		DefReader.readBiomeData(desert, "SpecialIslandDesert.cfg");
-		if(ConfigHandler.volcanicBoP) BoP.addIslands((BiomeList)frozen, (BiomeList)cold, 
+		if(ConfigHandler.volcanicIslands) addVolcanicIslands((BiomeList)frozen, (BiomeList)cold, 
                                                      (BiomeList)cool, (BiomeList)warm, 
                                                      (BiomeList)hot, (BiomeList)desert);
 	}
@@ -100,6 +101,23 @@ public class GetIslands implements IBiomeSpecifier {
 	@Override
 	public boolean isEmpty() {
 		return false;
+	}
+	
+	
+	public static void addVolcanicIslands(BiomeList frozen, BiomeList cold, BiomeList cool, 
+								  BiomeList warm, BiomeList hot, BiomeList desert) {;
+		frozen.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				GetVolcano.getVolcanoes()));
+		cold.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				GetVolcano.getVolcanoes()));
+		cool.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				GetVolcano.getVolcanoes()));
+		hot.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				GetVolcano.getVolcanoes()));
+		desert.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				GetVolcano.getVolcanoes()));
+		warm.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				GetVolcano.getVolcanoes()));
 	}
 
 }

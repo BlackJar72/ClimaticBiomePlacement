@@ -23,7 +23,7 @@ public class ConfigHandler {
 	public static boolean useSpecial = false;
 	public static boolean useVanilla = true;	
 	public static boolean useBoPTable = false;	
-	public static boolean volcanicBoP = false;
+	public static boolean volcanicIslands = false;
 	public static boolean useCfg = true;
 	public static boolean writeBiomeLists = true;
 	public static boolean writeWTLists = false;
@@ -138,12 +138,8 @@ public class ConfigHandler {
 						+ "BoP is not install or used; you will need to provide biomes for \n"
 						+ "cool forest and cool plains.");	
 		
-		volcanicBoP = config.getBoolean("VolcanicBoPIslands", "Compat", true, 
-						"If true and Biomes O'Plenty is installed it will use create special \n"
-						+ "volvanic islands using BoP's volcanic island biome. If this biome \n"
-						+ "it not available Minecraft will crash.  If BoP is not installed ths \n"
-						+ "does nothing.")
-				 && net.minecraftforge.fml.common.Loader.isModLoaded("biomesoplenty");
+		volcanicIslands = config.getBoolean("VolcanicIslands", "Compat", true, 
+						"If true create volcanic islands.");
 				
 		writeBiomeLists = config.getBoolean("WriteBiomelist", "Compat", true, 
 						"If true a list of all biome resource locations will be saved to a file.");
