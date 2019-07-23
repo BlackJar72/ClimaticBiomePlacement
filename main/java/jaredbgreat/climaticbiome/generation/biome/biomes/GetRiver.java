@@ -2,7 +2,7 @@ package jaredbgreat.climaticbiome.generation.biome.biomes;
 
 import net.minecraft.world.biome.Biome;
 import jaredbgreat.climaticbiome.ConfigHandler;
-import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
+import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.biomes.pseudo.PseudoBiomes;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;

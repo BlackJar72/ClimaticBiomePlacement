@@ -6,6 +6,9 @@ import jaredbgreat.climaticbiome.biomes.feature.ScrubBushFinder;
 
 import java.util.Random;
 
+import net.minecraft.block.BlockDoublePlant;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeSwamp;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenBirchTree;
@@ -15,24 +18,26 @@ public class Wetland extends BiomeSwamp {
     	= new WorldGenBirchTree(false, false);
     protected final IPineFinder SPRUCE;
 	public static enum Type {
-		MARSH (0),
-		BOG (1),
-		CARR (4);
-		
-		public final int numTrees;
-		Type(int numTrees) {
+		MARSH (0, 12),
+		BOG (2, 10),
+		CARR (6, 5);		
+		public final int numTrees;		
+		public final int numGrass;
+		Type(int numTrees, int numGrass) {
 			this.numTrees = numTrees;
+			this.numGrass = numGrass;
 		}
 	}
 	public final Type type;
 	
 	
 	
-	protected Wetland(Type type, BiomeProperties properties) {
+	public Wetland(Type type, BiomeProperties properties) {
 		super(properties);
 		this.type = type;
 		SPRUCE = new SpruceFinder();
 		decorator.treesPerChunk = type.numTrees;
+		decorator.grassPerChunk = type.numGrass;
 	}
 	
 	
@@ -62,12 +67,113 @@ public class Wetland extends BiomeSwamp {
 	
 	
 	private WorldGenAbstractTree getMarshTree(Random rand) {
-		return TREE_FEATURE;
+		if(rand.nextBoolean()) {
+			return SWAMP_FEATURE;
+		} else {
+			return TREE_FEATURE;
+		}
 	}
 	
 	
 	private WorldGenAbstractTree getBogTree(Random rand) {
 		return ScrubBushFinder.finder.getBush(rand);
 	}
-
+	
+	
+	@Override
+	public void decorate(World world, Random rand, BlockPos pos) {
+		super.decorate(world, rand, pos);
+		switch(type) {
+		case BOG:
+			decorateBog(world, rand, pos);
+			break;
+		case CARR:
+			decorateCarr(world, rand, pos);
+			break;
+		case MARSH:
+			decorateMarsh(world, rand, pos);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	
+	private void decorateBog(World world, Random rand, BlockPos pos) {
+		DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.FERN);
+		int n = rand.nextInt(5) + 8;
+		for (int i = 0; i < n; ++i) {
+            int x = rand.nextInt(16) + 8;
+            int z = rand.nextInt(16) + 8;
+            int y;
+            if(rand.nextBoolean()) {
+            	y = rand.nextInt(world.getHeight(pos.add(x, 0, z)).getY() + 32);
+            } else {
+            	y = world.getHeight(pos.add(x, 0, z)).getY();
+            }
+            DOUBLE_PLANT_GENERATOR.generate(world, rand, pos.add(x, y, z));
+        }
+		DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.SYRINGA);
+		n = rand.nextInt(5) - 3;
+		for (int i = 0; i < n; ++i) {
+            int x = rand.nextInt(16) + 8;
+            int z = rand.nextInt(16) + 8;
+            int y;
+            if(rand.nextBoolean()) {
+            	y = rand.nextInt(world.getHeight(pos.add(x, 0, z)).getY() + 32);
+            } else {
+            	y = world.getHeight(pos.add(x, 0, z)).getY();
+            }
+            DOUBLE_PLANT_GENERATOR.generate(world, rand, pos.add(x, y, z));
+        }
+	}
+	
+	
+	private void decorateCarr(World world, Random rand, BlockPos pos) {
+		DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.FERN);
+		int n = rand.nextInt(4) - 1;
+		for (int i = 0; i < n; ++i) {
+            int x = rand.nextInt(16) + 8;
+            int z = rand.nextInt(16) + 8;
+            int y;
+            if(rand.nextBoolean()) {
+            	y = rand.nextInt(world.getHeight(pos.add(x, 0, z)).getY() + 32);
+            } else {
+            	y = world.getHeight(pos.add(x, 0, z)).getY();
+            }
+            DOUBLE_PLANT_GENERATOR.generate(world, rand, pos.add(x, y, z));
+        }
+		DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.SYRINGA);
+		n = rand.nextInt(4) - 2;
+		for (int i = 0; i < n; ++i) {
+            int x = rand.nextInt(16) + 8;
+            int z = rand.nextInt(16) + 8;
+            int y;
+            if(rand.nextBoolean()) {
+            	y = rand.nextInt(world.getHeight(pos.add(x, 0, z)).getY() + 32);
+            } else {
+            	y = world.getHeight(pos.add(x, 0, z)).getY();
+            }
+            DOUBLE_PLANT_GENERATOR.generate(world, rand, pos.add(x, y, z));
+        }
+	
+	}
+	
+	
+	private void decorateMarsh(World world, Random rand, BlockPos pos) {
+		DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.GRASS);
+		int n = rand.nextInt(5) + 8;
+		for (int i = 0; i < n; ++i) {
+            int x = rand.nextInt(16) + 8;
+            int z = rand.nextInt(16) + 8;
+            int y;
+            if(rand.nextBoolean()) {
+            	y = rand.nextInt(world.getHeight(pos.add(x, 0, z)).getY() + 32);
+            } else {
+            	y = world.getHeight(pos.add(x, 0, z)).getY();
+            }
+            DOUBLE_PLANT_GENERATOR.generate(world, rand, pos.add(x, y, z));
+        }
+	}
+	
 }

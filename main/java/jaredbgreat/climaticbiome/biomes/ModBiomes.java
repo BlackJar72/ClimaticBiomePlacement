@@ -1,6 +1,17 @@
-package jaredbgreat.climaticbiome.biomes.basic;
+package jaredbgreat.climaticbiome.biomes;
 
 import jaredbgreat.climaticbiome.ConfigHandler;
+import jaredbgreat.climaticbiome.biomes.basic.ActiveVolcano;
+import jaredbgreat.climaticbiome.biomes.basic.CoolPlains;
+import jaredbgreat.climaticbiome.biomes.basic.MontaneForest;
+import jaredbgreat.climaticbiome.biomes.basic.Pinewoods;
+import jaredbgreat.climaticbiome.biomes.basic.Scrub;
+import jaredbgreat.climaticbiome.biomes.basic.SubtropicalMountains;
+import jaredbgreat.climaticbiome.biomes.basic.TropicalForest;
+import jaredbgreat.climaticbiome.biomes.basic.TropicalMountains;
+import jaredbgreat.climaticbiome.biomes.basic.WarmForest;
+import jaredbgreat.climaticbiome.biomes.basic.Wetland;
+import jaredbgreat.climaticbiome.biomes.basic.WindsweptPlains;
 import jaredbgreat.climaticbiome.biomes.pseudo.PseudoBiomes;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetRiver;
 import net.minecraft.world.biome.Biome;
@@ -33,6 +44,9 @@ public class ModBiomes {
 	public static WindsweptPlains windswept;
 	public static WindsweptPlains coolWindswept;
 	public static CoolPlains      coldPlains;
+	public static Wetland         bog;
+	public static Wetland         carr;
+	public static Wetland         marsh;
 	
 	// Extra Mountains
 	public static SubtropicalMountains warmMountain;
@@ -206,6 +220,27 @@ public class ModBiomes {
 					.setHeightVariation(0.05f));
 		makeMoreUsable(coldPlains);
 		BiomeManager.addVillageBiome(coldPlains, true);
+		bog = new Wetland(Wetland.Type.BOG,
+				new Biome.BiomeProperties("Bog")
+					.setTemperature(0.4F)
+					.setRainfall(0.9F)
+					.setBaseHeight(-0.2F)
+					.setHeightVariation(0.1f));
+		makeMoreUsable(bog);
+		carr = new Wetland(Wetland.Type.CARR,
+				new Biome.BiomeProperties("Carr")
+					.setTemperature(0.6F)
+					.setRainfall(0.9F)
+					.setBaseHeight(-0.2F)
+					.setHeightVariation(0.1f));
+		makeMoreUsable(carr);
+		marsh = new Wetland(Wetland.Type.MARSH,
+				new Biome.BiomeProperties("Marsh")
+					.setTemperature(0.6F)
+					.setRainfall(0.9F)
+					.setBaseHeight(-0.2F)
+					.setHeightVariation(0.1f));
+		makeMoreUsable(marsh);
 		// Lastly
 		PseudoBiomes.createBiomes();
 		if(ConfigHandler.rivers) {
@@ -260,6 +295,12 @@ public class ModBiomes {
 				.setRegistryName("cool_windswept_plains"));
 		event.getRegistry().register(coldPlains
 				.setRegistryName("cold_plains"));
+		event.getRegistry().register(bog
+				.setRegistryName("bog"));
+		event.getRegistry().register(carr
+				.setRegistryName("carr"));
+		event.getRegistry().register(marsh
+				.setRegistryName("marsh"));
 		setupBiomeTypes();
 		BiomeDictionary.addTypes(warmForest, Type.FOREST, Type.CONIFEROUS);
 		BiomeDictionary.addTypes(tropicalForest, Type.FOREST, Type.JUNGLE, Type.HOT);
@@ -283,6 +324,9 @@ public class ModBiomes {
 		BiomeDictionary.addTypes(windswept, Type.PLAINS);
 		BiomeDictionary.addTypes(coolWindswept, Type.PLAINS);
 		BiomeDictionary.addTypes(coldPlains, Type.PLAINS, Type.COLD);
+		BiomeDictionary.addTypes(bog, Type.SWAMP, Type.COLD, Type.WET);
+		BiomeDictionary.addTypes(carr, Type.SWAMP, Type.FOREST, Type.WET);
+		BiomeDictionary.addTypes(marsh, Type.SWAMP, Type.PLAINS, Type.WET);
 		// Lastly
 		PseudoBiomes.registerBiomes();
 		if(ConfigHandler.rivers) {

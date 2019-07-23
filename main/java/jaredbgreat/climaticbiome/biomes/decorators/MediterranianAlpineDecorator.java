@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiome.biomes.decorators;
 
-import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
+import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.biomes.feature.GenNoTree;
 
 import java.util.Random;

@@ -1,7 +1,7 @@
 package jaredbgreat.climaticbiome.compat.dynamictrees;
 
 import jaredbgreat.climaticbiome.ConfigHandler;
-import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
+import jaredbgreat.climaticbiome.biomes.ModBiomes;
 
 import com.ferreusveritas.dynamictrees.api.TreeRegistry;
 import com.ferreusveritas.dynamictrees.api.worldgen.BiomePropertySelectors.EnumChance;
@@ -238,6 +238,35 @@ public class DataBasePop implements IBiomeDataBasePopulator {
 		db.setCancelVanillaTreeGen(ModBiomes.activeVolcano, true);
 		db.setDensitySelector(ModBiomes.activeVolcano, (rnd, nd) -> 0.0, Operation.REPLACE);
 		db.setChanceSelector(ModBiomes.activeVolcano, (rnd, spc, rad) -> EnumChance.CANCEL, Operation.REPLACE);
+		
+		db.setSpeciesSelector(ModBiomes.carr, 
+	  			  new RandomSpeciesSelector().add(spruce, 1)
+	  			  							 .add(birch, 1), 
+											 Operation.REPLACE);
+		db.setForestness(ModBiomes.carr, 0.9f);
+		db.setCancelVanillaTreeGen(ModBiomes.carr, true);
+		db.setDensitySelector(ModBiomes.carr, (rnd, nd) -> nd, Operation.REPLACE);
+		db.setChanceSelector(ModBiomes.carr, (rnd, spc, rad) -> EnumChance.OK, Operation.REPLACE);
+		
+		db.setSpeciesSelector(ModBiomes.marsh, 
+	  			  new RandomSpeciesSelector().add(oak, 1)
+	  			  							 .add(oakswamp, 1), 
+											 Operation.REPLACE);
+		db.setForestness(ModBiomes.marsh, 0.1f);
+		db.setCancelVanillaTreeGen(ModBiomes.marsh, true);
+		db.setDensitySelector(ModBiomes.marsh, (rnd, nd) -> nd * 0.1, Operation.REPLACE);
+		db.setChanceSelector(ModBiomes.marsh, (rnd, spc, rad) -> rnd.nextInt(10) == 0 
+				? EnumChance.OK : EnumChance.CANCEL, Operation.REPLACE);
+		
+		db.setSpeciesSelector(ModBiomes.bog, 
+	  			  new RandomSpeciesSelector().add(oak, 1)
+	  			  							 .add(oakswamp, 1), 
+											 Operation.REPLACE);
+		db.setForestness(ModBiomes.bog, 0.0f);
+		db.setCancelVanillaTreeGen(ModBiomes.bog, false);
+		db.setDensitySelector(ModBiomes.bog, (rnd, nd) -> 0.0, Operation.REPLACE);
+		db.setChanceSelector(ModBiomes.bog, (rnd, spc, rad) -> EnumChance.CANCEL, Operation.REPLACE);
+		
 	}
 
 }
