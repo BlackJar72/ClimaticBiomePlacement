@@ -163,7 +163,7 @@ public class ModBiomes {
 		makeMoreUsable(montaneJungle);
 		mediMontaneForest
 				= new MontaneForest(MontaneForest.Type.MEDITERRANIAN,
-						new Biome.BiomeProperties("Mediterranian Montane Forest")
+						new Biome.BiomeProperties("Dry Montane Forest")
 					.setTemperature(0.7F)
 					.setRainfall(0.5F)
 					.setBaseHeight(1.25F)
@@ -214,7 +214,7 @@ public class ModBiomes {
 		event.getRegistry().register(montaneJungle
 				.setRegistryName("montane_jungle"));
 		event.getRegistry().register(mediMontaneForest
-				.setRegistryName("mediterranian_montane_forest"));
+				.setRegistryName("dry_montane_forest"));
 		setupBiomeTypes();
 		BiomeDictionary.addTypes(warmForest, Type.FOREST, Type.CONIFEROUS);
 		BiomeDictionary.addTypes(tropicalForest, Type.FOREST, Type.JUNGLE, Type.HOT);
@@ -300,15 +300,20 @@ public class ModBiomes {
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmForestHills, 5));
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(tropicalForestHills, 5));
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(pineWoods, 5));
+		
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMountain, 5));
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMountainTrees, 5));
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(hotMountain, 5));
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(hotMountainTrees, 5));
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMontaneForest, 5));
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(montaneJungle, 5));
 
 		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(denseScrub, 5));
 		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(denseScrubHills, 5));
 		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(dryScrub, 5));
 		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(dryScrubHills, 5));
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(mediMontaneForest, 5));
 		
-		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMountain, 5));
-		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMountainTrees, 5));
-		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(hotMountain, 5));
-		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(hotMountainTrees, 5));		
+		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolMontaneForest, 5));
 	}
 }
