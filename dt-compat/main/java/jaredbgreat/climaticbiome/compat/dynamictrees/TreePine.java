@@ -45,7 +45,8 @@ public class TreePine extends TreeFamily {
 		public boolean isBiomePerfect(Biome biome) {
 			return biome == ModBiomes.pineWoods 
 				|| biome == ModBiomes.warmForest
-				|| biome == ModBiomes.warmForestHills;
+				|| biome == ModBiomes.warmForestHills
+				|| biome == ModBiomes.mediMontaneForest;
 		}
 		
 
@@ -59,7 +60,7 @@ public class TreePine extends TreeFamily {
 	
 	
 	public TreePine() {
-		super(new ResourceLocation(Info.ID, "pine"));		
+		super(new ResourceLocation(jaredbgreat.climaticbiome.Info.ID, "pine"));		
 		IBlockState primLog = BlockRegistrar.blockPineLog.getDefaultState();
 		setPrimitiveLog(primLog, new ItemStack(BlockRegistrar.blockPineLog));
 		DynamicTreeHelper.pineLeavesProperties.setTree(this);
