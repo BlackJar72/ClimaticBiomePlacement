@@ -35,7 +35,7 @@ public class DataBasePop implements IBiomeDataBasePopulator {
 		oakswamp = TreeRegistry.findSpeciesSloppy("oakswamp");
 		cactus = TreeRegistry.findSpeciesSloppy("cactus");
 		if(ConfigHandler.addPines) {
-			pine = DynamicTreeHelper.floridaPine;
+			pine = DynamicTreeHelper.pineSpecies;
 		} else {
 			pine = spruce;
 		}
@@ -207,7 +207,8 @@ public class DataBasePop implements IBiomeDataBasePopulator {
 				? EnumChance.OK : EnumChance.CANCEL, Operation.REPLACE);
 		
 		db.setSpeciesSelector(ModBiomes.coldPlains, 
-	  			  new RandomSpeciesSelector().add(oak, 1), 
+	  			  new RandomSpeciesSelector().add(oak, 1)
+	  			                             .add(spruce, 1), 
 											 Operation.REPLACE);
 		db.setForestness(ModBiomes.coldPlains, 0.0f);
 		db.setCancelVanillaTreeGen(ModBiomes.coldPlains, true);

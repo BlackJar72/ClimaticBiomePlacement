@@ -32,7 +32,7 @@ public class ModBiomes {
 	public static BiomePlains     coolPlains;
 	public static WindsweptPlains windswept;
 	public static WindsweptPlains coolWindswept;
-	public static WindsweptPlains coldPlains;
+	public static CoolPlains      coldPlains;
 	
 	// Extra Mountains
 	public static SubtropicalMountains warmMountain;
@@ -174,7 +174,7 @@ public class ModBiomes {
 					.setBaseHeight(1.25F)
 					.setHeightVariation(0.5F));
 		makeMoreUsable(mediMontaneForest);
-		coolPlains = new BiomePlains(false, 
+		coolPlains = new CoolPlains(false, false,
 				new Biome.BiomeProperties("Cool Plains")
 					.setTemperature(0.5F)
 					.setRainfall(0.5F)
@@ -198,7 +198,7 @@ public class ModBiomes {
 					.setHeightVariation(0.0f));
 		makeMoreUsable(coolWindswept);
 		BiomeManager.addVillageBiome(coolWindswept, true);
-		coldPlains = new WindsweptPlains( 
+		coldPlains = new CoolPlains(false, true,
 				new Biome.BiomeProperties("Cold Plains")
 					.setTemperature(0.2F)
 					.setRainfall(0.3F)

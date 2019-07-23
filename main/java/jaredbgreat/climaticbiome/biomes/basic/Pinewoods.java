@@ -53,7 +53,7 @@ public class Pinewoods extends BiomeForest {
     }
 	
 	
-	static interface IPineFinder {
+	public static interface IPineFinder {
 		WorldGenAbstractTree getTree(Random rand);
 	}
 	

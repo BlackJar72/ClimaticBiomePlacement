@@ -35,8 +35,8 @@ import com.ferreusveritas.dynamictrees.trees.TreeFamily;
 
 @Mod.EventBusSubscriber(modid="climaticbiomesdt")
 public class DynamicTreeHelper {
-	public static TreeFamily pineTree;
-	public static Species floridaPine;
+	public static TreePine pineTree;
+	public static Species pineSpecies;
 	
 	public static TreeFamily jungle;
 	public static Species smallJungle;
@@ -67,7 +67,7 @@ public class DynamicTreeHelper {
 	
 	
 	public static void init() {
-		floridaPine = TreeRegistry.findSpecies(
+		pineSpecies = TreeRegistry.findSpecies(
 				new ResourceLocation(jaredbgreat.climaticbiome.Info.ID, "pine"));
 	}
 	
