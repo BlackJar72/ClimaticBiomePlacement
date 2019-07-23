@@ -106,17 +106,17 @@ public class GetIslands implements IBiomeSpecifier {
 	
 	public static void addVolcanicIslands(BiomeList frozen, BiomeList cold, BiomeList cool, 
 								  BiomeList warm, BiomeList hot, BiomeList desert) {;
-		frozen.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+		frozen.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 5, 
 				GetVolcano.getVolcanoes()));
-		cold.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+		cold.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 5, 
 				GetVolcano.getVolcanoes()));
-		cool.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+		cool.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 5, 
 				GetVolcano.getVolcanoes()));
-		hot.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+		hot.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 5, 
 				GetVolcano.getVolcanoes()));
-		desert.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+		desert.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 5, 
 				GetVolcano.getVolcanoes()));
-		warm.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+		warm.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 5, 
 				GetVolcano.getVolcanoes()));
 	}
 

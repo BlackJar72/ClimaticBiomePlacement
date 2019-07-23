@@ -22,7 +22,7 @@ public class ConfigHandler {
 	public static boolean useRWmod = false;
 	public static boolean useSpecial = false;
 	public static boolean useVanilla = true;	
-	public static boolean useBoPTable = false;	
+	public static boolean useBoPTable = true;	
 	public static boolean volcanicIslands = false;
 	public static boolean useCfg = true;
 	public static boolean writeBiomeLists = true;
@@ -133,10 +133,9 @@ public class ConfigHandler {
 						+ "along with its own biomes.  Note: It may do this anyway if no "
 						+ "other biomes are provided for a climate area.");	
 		
-		useBoPTable = config.getBoolean("UseBoPClimateTable", "Compat", false, 
-						"If true the climate table for Biomes O'Plenty will be used even if \n"
-						+ "BoP is not install or used; you will need to provide biomes for \n"
-						+ "cool forest and cool plains.");	
+		useBoPTable = config.getBoolean("ExpandedClimateTable", "Compat", true, 
+						"If true the climate table for with 6 tmeperature zone instead \n"
+						+ "of the original with only 5.");	
 		
 		volcanicIslands = config.getBoolean("VolcanicIslands", "Compat", true, 
 						"If true create volcanic islands.");

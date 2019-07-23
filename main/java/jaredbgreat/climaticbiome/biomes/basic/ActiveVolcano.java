@@ -21,13 +21,12 @@ public class ActiveVolcano extends Biome  {
 
 	public ActiveVolcano(BiomeProperties properties) {
 		super(properties);
-		// TODO Auto-generated constructor stub
+        decorator = new VolcanoDecorator();
         decorator.cactiPerChunk = -999;
 		decorator.treesPerChunk = -999;
         decorator.grassPerChunk = -999;
         spawnableCreatureList.clear();
         spawnableWaterCreatureList.clear();
-        decorator = new VolcanoDecorator();
 	}
 	
 

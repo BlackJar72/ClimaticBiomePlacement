@@ -5,6 +5,7 @@ import jaredbgreat.climaticbiome.biomes.pseudo.PseudoBiomes;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetRiver;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeHills;
+import net.minecraft.world.biome.BiomePlains;
 import net.minecraft.world.biome.BiomeRiver;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -19,15 +20,19 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod.EventBusSubscriber
 public class ModBiomes {
 	
-	public static WarmForest     warmForest;
-	public static TropicalForest tropicalForest;
-	public static WarmForest     warmForestHills;
-	public static TropicalForest tropicalForestHills;
-	public static Pinewoods      pineWoods;
-	public static Scrub          denseScrub;
-	public static Scrub          dryScrub;
-	public static Scrub          denseScrubHills;
-	public static Scrub          dryScrubHills;
+	public static WarmForest      warmForest;
+	public static TropicalForest  tropicalForest;
+	public static WarmForest      warmForestHills;
+	public static TropicalForest  tropicalForestHills;
+	public static Pinewoods       pineWoods;
+	public static Scrub           denseScrub;
+	public static Scrub           dryScrub;
+	public static Scrub           denseScrubHills;
+	public static Scrub           dryScrubHills;
+	public static BiomePlains     coolPlains;
+	public static WindsweptPlains windswept;
+	public static WindsweptPlains coolWindswept;
+	public static WindsweptPlains coldPlains;
 	
 	// Extra Mountains
 	public static SubtropicalMountains warmMountain;
@@ -169,6 +174,38 @@ public class ModBiomes {
 					.setBaseHeight(1.25F)
 					.setHeightVariation(0.5F));
 		makeMoreUsable(mediMontaneForest);
+		coolPlains = new BiomePlains(false, 
+				new Biome.BiomeProperties("Cool Plains")
+					.setTemperature(0.5F)
+					.setRainfall(0.5F)
+					.setBaseHeight(0.125F)
+					.setHeightVariation(0.05f));
+		makeMoreUsable(coolPlains);
+		BiomeManager.addVillageBiome(coolPlains, true);
+		windswept = new WindsweptPlains( 
+				new Biome.BiomeProperties("Windswept Plains")
+					.setTemperature(0.8F)
+					.setRainfall(0.3F)
+					.setBaseHeight(0.125F)
+					.setHeightVariation(0.0f));
+		makeMoreUsable(windswept);
+		BiomeManager.addVillageBiome(windswept, true);
+		coolWindswept = new WindsweptPlains( 
+				new Biome.BiomeProperties("Cool Windswept Plains")
+					.setTemperature(0.5F)
+					.setRainfall(0.3F)
+					.setBaseHeight(0.125F)
+					.setHeightVariation(0.0f));
+		makeMoreUsable(coolWindswept);
+		BiomeManager.addVillageBiome(coolWindswept, true);
+		coldPlains = new WindsweptPlains( 
+				new Biome.BiomeProperties("Cold Plains")
+					.setTemperature(0.2F)
+					.setRainfall(0.3F)
+					.setBaseHeight(0.125F)
+					.setHeightVariation(0.05f));
+		makeMoreUsable(coldPlains);
+		BiomeManager.addVillageBiome(coldPlains, true);
 		// Lastly
 		PseudoBiomes.createBiomes();
 		if(ConfigHandler.rivers) {
@@ -215,6 +252,14 @@ public class ModBiomes {
 				.setRegistryName("montane_jungle"));
 		event.getRegistry().register(mediMontaneForest
 				.setRegistryName("dry_montane_forest"));
+		event.getRegistry().register(coolPlains
+				.setRegistryName("cool_plains"));
+		event.getRegistry().register(windswept
+				.setRegistryName("windswept_plains"));
+		event.getRegistry().register(coolWindswept
+				.setRegistryName("cool_windswept_plains"));
+		event.getRegistry().register(coldPlains
+				.setRegistryName("cold_plains"));
 		setupBiomeTypes();
 		BiomeDictionary.addTypes(warmForest, Type.FOREST, Type.CONIFEROUS);
 		BiomeDictionary.addTypes(tropicalForest, Type.FOREST, Type.JUNGLE, Type.HOT);
@@ -234,6 +279,10 @@ public class ModBiomes {
 		BiomeDictionary.addTypes(warmMontaneForest, Type.HILLS, Type.MOUNTAIN, Type.FOREST);
 		BiomeDictionary.addTypes(montaneJungle, Type.HILLS, Type.MOUNTAIN, Type.JUNGLE, Type.HOT, Type.WET);
 		BiomeDictionary.addTypes(mediMontaneForest, Type.HILLS, Type.MOUNTAIN, Type.FOREST, Type.HOT, Type.DRY);
+		BiomeDictionary.addTypes(coolPlains, Type.PLAINS);
+		BiomeDictionary.addTypes(windswept, Type.PLAINS);
+		BiomeDictionary.addTypes(coolWindswept, Type.PLAINS);
+		BiomeDictionary.addTypes(coldPlains, Type.PLAINS, Type.COLD);
 		// Lastly
 		PseudoBiomes.registerBiomes();
 		if(ConfigHandler.rivers) {
