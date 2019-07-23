@@ -15,6 +15,8 @@ import net.minecraft.block.BlockOldLog;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biome.BiomeProperties;
 import net.minecraft.world.biome.BiomeHills;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenBirchTree;
@@ -22,7 +24,7 @@ import net.minecraft.world.gen.feature.WorldGenSavannaTree;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
-public class MontaneForest extends BiomeHills {
+public class MontaneForest extends Biome {
 	private static final WorldGenSavannaTree SAVANNA_TREE = new WorldGenSavannaTree(false);
 	private static final GenNoTree NOTHING = new GenNoTree();
 	protected static final WorldGenBirchTree BIRCH = new WorldGenBirchTree(false, false);
@@ -48,7 +50,7 @@ public class MontaneForest extends BiomeHills {
 		
 
 	public MontaneForest(Type type, BiomeProperties properties) {
-		super(BiomeHills.Type.NORMAL, properties);
+		super(properties);
 		this.type = type;
 		if(type == Type.MEDITERRANIAN) {
 			decorator = new MediterranianAlpineDecorator();
@@ -63,29 +65,29 @@ public class MontaneForest extends BiomeHills {
         	decorator.treesPerChunk = 20;
         } else if(type == Type.MEDITERRANIAN) {
         	// Trees are handled differently here
-        	decorator.treesPerChunk = 0;        	
+        	decorator.treesPerChunk = -999;        	
+        } else {
+	        decorator.treesPerChunk = 7;
+	        decorator.grassPerChunk = 2;
         }
-        decorator.treesPerChunk = 7;
-        decorator.grassPerChunk = 2;
 	}
 
 	
 	@Override
     public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
-    	int t = rand.nextInt(10);
-    	switch(t) {
-    		case 0:
-    		case 1:
-    			return BIG_TREE_FEATURE;
-    		case 2:
-    		case 3:
-    			return PINE.getTree(rand);
-    		case 4:
-    			return new WorldGenTrees(false, 4 + rand.nextInt(7), JUNGLE_LOG, JUNGLE_LEAF, true);
-    		default:
-    			return TREE_FEATURE;
-    	}
-    }
+		switch(type) {
+		case COOL:
+			return getCoolTrees(rand);
+		case HOT:
+			return getHotTrees(rand);
+		case MEDITERRANIAN:
+			return getMediterranianTrees(rand);
+		case WARM:
+			return getWarmTrees(rand);
+		default:
+			return getWarmTrees(rand);		
+		}
+	}
 	
 	
 	private WorldGenAbstractTree getWarmTrees(Random rand) {
@@ -108,7 +110,7 @@ public class MontaneForest extends BiomeHills {
 			case 1: return SPRUCE.getTree(rand); 
 			case 2: return BIRCH;
 			case 3: return SPRUCE.getTree(rand);
-			case 4: return TREE_FEATURE;
+			case 4: return SPRUCE.getTree(rand);
 			default: return BIRCH;
 		}
 		
@@ -120,9 +122,12 @@ public class MontaneForest extends BiomeHills {
 		switch(kind) {
 			case 0: return BIG_TREE_FEATURE;
 			case 1: return PINE.getTree(rand); 
-			case 2:  
-			case 3: 
-			case 4: return new WorldGenTrees(false, 4 + rand.nextInt(7), JUNGLE_LOG, JUNGLE_LEAF, true);
+			case 2: return new WorldGenTrees(false, 4 + rand.nextInt(7), 
+						JUNGLE_LOG, JUNGLE_LEAF, true); 
+			case 3: return new WorldGenTrees(false, 4 + rand.nextInt(7), 
+						JUNGLE_LOG, JUNGLE_LEAF, true);
+			case 4: return new WorldGenTrees(false, 4 + rand.nextInt(7), 
+						JUNGLE_LOG, JUNGLE_LEAF, true);
 			case 5: return SAVANNA_TREE;
 			default: return new WorldGenShrub(JUNGLE_LOG, OAK_LEAF);
 		}
@@ -134,9 +139,9 @@ public class MontaneForest extends BiomeHills {
 		switch(kind) {
 			case 0: return BIG_TREE_FEATURE;
 			case 1: return PINE.getTree(rand);
-			case 2: 
-			case 3: return BIRCH;
-			case 4: return TREE_FEATURE;
+			case 2: return PINE.getTree(rand);
+			case 3: return PINE.getTree(rand);
+			case 4: return BIRCH;
 			default: return TREE_FEATURE;
 		}
 	

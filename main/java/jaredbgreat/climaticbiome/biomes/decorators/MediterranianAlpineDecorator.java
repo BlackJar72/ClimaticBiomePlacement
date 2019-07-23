@@ -30,7 +30,7 @@ public class MediterranianAlpineDecorator extends BiomeDecorator  {
     		int cutoff = y + random.nextInt(16);
     		WorldGenAbstractTree tree;
     		if(cutoff < 120) {
-	    		if(cutoff < 80) {
+	    		if(cutoff < 96) {
 	    			if(random.nextBoolean()) {
 	    				tree = ModBiomes.denseScrub.getRandomTreeFeature(random);
 	    			} else {
@@ -40,7 +40,7 @@ public class MediterranianAlpineDecorator extends BiomeDecorator  {
 	    			tree = biome.getRandomTreeFeature(random);
 	    		}
 	    		BlockPos pos = new BlockPos(x, y, z);
-	    		tree.generateSaplings(world, random, pos);
+	    		tree.generate(world, random, pos);
     		}
     	}
     }

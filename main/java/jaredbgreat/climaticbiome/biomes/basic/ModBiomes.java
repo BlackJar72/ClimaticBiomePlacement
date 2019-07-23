@@ -35,6 +35,10 @@ public class ModBiomes {
 	public static TropicalMountains    hotMountain;
 	public static TropicalMountains    hotMountainTrees;
 	public static ActiveVolcano        activeVolcano;
+	public static MontaneForest        coolMontaneForest;
+	public static MontaneForest        warmMontaneForest;
+	public static MontaneForest        mediMontaneForest;
+	public static MontaneForest        montaneJungle;
 	
 	// Advanced Rivers
 	public static BiomeRiver coolRiver;
@@ -133,6 +137,38 @@ public class ModBiomes {
 					.setRainfall(0.5F)
 					.setBaseHeight(1.5F)
 					.setHeightVariation(0.5F));
+		coolMontaneForest
+				= new MontaneForest(MontaneForest.Type.COOL,
+						new Biome.BiomeProperties("Warm Montane Forest")
+					.setTemperature(0.2F)
+					.setRainfall(0.7F)
+					.setBaseHeight(1.25F)
+					.setHeightVariation(0.5F));
+		makeMoreUsable(coolMontaneForest);
+		warmMontaneForest
+				= new MontaneForest(MontaneForest.Type.WARM,
+						new Biome.BiomeProperties("Warm Montane Forest")
+					.setTemperature(0.6F)
+					.setRainfall(0.7F)
+					.setBaseHeight(1.25F)
+					.setHeightVariation(0.5F));
+		makeMoreUsable(warmMontaneForest);
+		montaneJungle
+				= new MontaneForest(MontaneForest.Type.HOT,
+						new Biome.BiomeProperties("Montane Jungle")
+					.setTemperature(0.9F)
+					.setRainfall(1.0F)
+					.setBaseHeight(1.25F)
+					.setHeightVariation(0.5F));
+		makeMoreUsable(montaneJungle);
+		mediMontaneForest
+				= new MontaneForest(MontaneForest.Type.MEDITERRANIAN,
+						new Biome.BiomeProperties("Mediterranian Montane Forest")
+					.setTemperature(0.7F)
+					.setRainfall(0.5F)
+					.setBaseHeight(1.25F)
+					.setHeightVariation(0.5F));
+		makeMoreUsable(mediMontaneForest);
 		// Lastly
 		PseudoBiomes.createBiomes();
 		if(ConfigHandler.rivers) {
@@ -171,6 +207,14 @@ public class ModBiomes {
 				.setRegistryName("hot_mountain_trees"));
 		event.getRegistry().register(activeVolcano
 				.setRegistryName("active_volcano"));
+		event.getRegistry().register(coolMontaneForest
+				.setRegistryName("cool_montane_forest"));
+		event.getRegistry().register(warmMontaneForest
+				.setRegistryName("warm_montane_forest"));
+		event.getRegistry().register(montaneJungle
+				.setRegistryName("montane_jungle"));
+		event.getRegistry().register(mediMontaneForest
+				.setRegistryName("mediterranian_montane_forest"));
 		setupBiomeTypes();
 		BiomeDictionary.addTypes(warmForest, Type.FOREST, Type.CONIFEROUS);
 		BiomeDictionary.addTypes(tropicalForest, Type.FOREST, Type.JUNGLE, Type.HOT);
@@ -186,6 +230,10 @@ public class ModBiomes {
 		BiomeDictionary.addTypes(hotMountain, Type.HILLS, Type.MOUNTAIN, Type.HOT);
 		BiomeDictionary.addTypes(hotMountainTrees, Type.HILLS, Type.MOUNTAIN, Type.FOREST, Type.HOT);
 		BiomeDictionary.addTypes(activeVolcano, Type.HILLS, Type.MOUNTAIN, Type.HOT);
+		BiomeDictionary.addTypes(coolMontaneForest, Type.HILLS, Type.MOUNTAIN, Type.COLD, Type.FOREST);
+		BiomeDictionary.addTypes(warmMontaneForest, Type.HILLS, Type.MOUNTAIN, Type.FOREST);
+		BiomeDictionary.addTypes(montaneJungle, Type.HILLS, Type.MOUNTAIN, Type.JUNGLE, Type.HOT, Type.WET);
+		BiomeDictionary.addTypes(mediMontaneForest, Type.HILLS, Type.MOUNTAIN, Type.FOREST, Type.HOT, Type.DRY);
 		// Lastly
 		PseudoBiomes.registerBiomes();
 		if(ConfigHandler.rivers) {
