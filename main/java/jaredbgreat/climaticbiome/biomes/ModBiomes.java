@@ -393,6 +393,8 @@ public class ModBiomes {
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmForestHills, 5));
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(tropicalForestHills, 5));
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(pineWoods, 5));
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(marsh, 5));
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(windswept, 5));
 		
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMountain, 5));
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMountainTrees, 5));
@@ -407,6 +409,12 @@ public class ModBiomes {
 		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(dryScrubHills, 5));
 		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(mediMontaneForest, 5));
 		
-		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolMontaneForest, 5));
+		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolMontaneForest, 10));
+		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(bog, 5));
+		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(carr, 10));
+		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolPlains, 5));
+		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coldPlains, 5));
+		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolWindswept, 5));
+		
 	}
 }
