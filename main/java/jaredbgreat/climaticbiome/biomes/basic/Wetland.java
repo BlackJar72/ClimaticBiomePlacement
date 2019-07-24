@@ -18,14 +18,18 @@ public class Wetland extends BiomeSwamp {
     	= new WorldGenBirchTree(false, false);
     protected final IPineFinder SPRUCE;
 	public static enum Type {
-		MARSH (0, 12),
-		BOG (2, 10),
-		CARR (6, 5);		
+		MARSH (0, 12, 0x25BB3C, 0x38983C),
+		BOG (2, 10, 0x4C763C, 0x6A7039),
+		CARR (6, 5, 0x4C763C, 0x6A7039);		
 		public final int numTrees;		
 		public final int numGrass;
-		Type(int numTrees, int numGrass) {
+		public final int grassA;
+		public final int grassB;
+		Type(int numTrees, int numGrass, int a, int b) {
 			this.numTrees = numTrees;
 			this.numGrass = numGrass;
+			this.grassA = a;
+			this.grassB = b;
 		}
 	}
 	public final Type type;
@@ -175,5 +179,12 @@ public class Wetland extends BiomeSwamp {
             DOUBLE_PLANT_GENERATOR.generate(world, rand, pos.add(x, y, z));
         }
 	}
+	
+	
+    public int getGrassColorAtPos(BlockPos pos) {
+        double d0 = GRASS_COLOR_NOISE.getValue((double)pos.getX() * 0.0225, 
+        		(double)pos.getZ() * 0.0225);
+        return getModdedBiomeGrassColor(d0 < -0.1 ? type.grassA :type.grassB);
+    }
 	
 }

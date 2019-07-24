@@ -122,7 +122,7 @@ public class GetOcean implements IBiomeSpecifier {
     				}
     			} else if(ConfigHandler.addIslands) {
     				if(noise > (seed % 3)) {
-    					return islands2.getBiome(tile);
+    					return islands2.getBiome(tile.nextBiomeSeed());
     				}				
     			} else {
     				return getForIsland(tile);

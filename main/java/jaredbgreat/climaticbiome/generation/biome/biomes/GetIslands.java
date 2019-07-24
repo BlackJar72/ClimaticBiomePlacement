@@ -54,38 +54,38 @@ public class GetIslands implements IBiomeSpecifier {
 		tile.nextBiomeSeed();
 		if(temp < 4) {
 			if(seed % 4 < frozen.size()) {
-				return frozen.getBiome(tile);
-			} else return basic.getBiome(tile);
+				return frozen.getBiome(tile.nextBiomeSeed());
+			} else return basic.getBiome(tile.nextBiomeSeed());
 		}
 		if(temp < 7) {
 			if(seed % 4 < cold.size()) {
-				return cold.getBiome(tile);
-			} else return basic.getBiome(tile);
+				return cold.getBiome(tile.nextBiomeSeed());
+			} else return basic.getBiome(tile.nextBiomeSeed());
 		}
 		if(temp < 13) {
 			if(seed % 4 < cool.size()) {
-				return cool.getBiome(tile);
-			} else return basic.getBiome(tile);
+				return cool.getBiome(tile.nextBiomeSeed());
+			} else return basic.getBiome(tile.nextBiomeSeed());
 		}
 		if(temp <19) {
 			if(tile.getWet() < 4) {
 				if(seed % 4 < desert.size()) {
-					return desert.getBiome(tile);
-				} else return basic.getBiome(tile);
+					return desert.getBiome(tile.nextBiomeSeed());
+				} else return basic.getBiome(tile.nextBiomeSeed());
 			}
 			if(seed % 4 < warm.size()) {
-				return warm.getBiome(tile);
-			} else return basic.getBiome(tile);
+				return warm.getBiome(tile.nextBiomeSeed());
+			} else return basic.getBiome(tile.nextBiomeSeed());
 		
 		}
 		if(tile.getWet() < 2) {
 			if(seed % 4 < desert.size()) {
-				return desert.getBiome(tile);
-			} else return basic.getBiome(tile);
+				return desert.getBiome(tile.nextBiomeSeed());
+			} else return basic.getBiome(tile.nextBiomeSeed());
 		}
 		if(seed % 4 < hot.size()) {
-			return hot.getBiome(tile);
-		} else return basic.getBiome(tile);
+			return hot.getBiome(tile.nextBiomeSeed());
+		} else return basic.getBiome(tile.nextBiomeSeed());
 	
 	}
 	
@@ -106,17 +106,17 @@ public class GetIslands implements IBiomeSpecifier {
 	
 	public static void addVolcanicIslands(BiomeList frozen, BiomeList cold, BiomeList cool, 
 								  BiomeList warm, BiomeList hot, BiomeList desert) {;
-		frozen.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 5, 
+		frozen.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
 				GetVolcano.getVolcanoes()));
-		cold.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 5, 
+		cold.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
 				GetVolcano.getVolcanoes()));
-		cool.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 5, 
+		cool.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
 				GetVolcano.getVolcanoes()));
-		hot.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 5, 
+		hot.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
 				GetVolcano.getVolcanoes()));
-		desert.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 5, 
+		desert.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
 				GetVolcano.getVolcanoes()));
-		warm.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 5, 
+		warm.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
 				GetVolcano.getVolcanoes()));
 	}
 
