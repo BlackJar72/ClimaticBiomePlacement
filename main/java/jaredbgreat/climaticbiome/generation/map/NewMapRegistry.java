@@ -469,11 +469,8 @@ public class NewMapRegistry implements IMapRegistry {
 		} else {
 			out = subbiomes.get(id);
 			if(noFakes || (out == null)) {
-				out = Biome.getBiome((int)id, Biomes.DEFAULT);
+				out = Biome.getBiome((int)(id & 0xffffffffL), Biomes.DEFAULT);
 			}
-			//if(out == Biome.getBiomeForId(127)) {
-			//	System.err.println("Biome Void was returned for ID " + id);
-			//}
 			return out;
 		}
 	}
