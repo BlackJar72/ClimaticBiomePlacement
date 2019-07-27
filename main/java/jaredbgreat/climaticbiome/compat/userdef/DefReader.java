@@ -113,7 +113,8 @@ public class DefReader {
 		try {
 			BufferedWriter fs = new BufferedWriter(new FileWriter(file));
 			for(Biome biome : biomes) {
-				fs.write(biome.getRegistryName().toString());
+				fs.write(biome.getRegistryName().toString() 
+						/*+ " (" + Biome.getIdForBiome(biome) + ")"*/);
 				fs.newLine();
 			}
 			fs.close();
