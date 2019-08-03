@@ -20,7 +20,7 @@ public class SubBiome extends Biome {
 
 	public SubBiome(Biome parent, int sid, BiomeProperties properties) {
 		super(properties);
-		id  = Biome.getIdForBiome(parent) | (sid << 32);
+		id  = (long)Biome.getIdForBiome(parent) | (((long)sid) << 32);
 		this.parent = parent;
         this.topBlock = parent.topBlock;
         this.fillerBlock = parent.fillerBlock;
