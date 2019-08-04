@@ -19,9 +19,9 @@ public class BlockIgneous extends ModBlockBase {
         setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
         setRegistryName(Info.ID, name);
         setUnlocalizedName(Info.ID + "." + name);
-        setHardness(1.5f);
+        setHardness(1.75f);
         setHarvestLevel("pickaxe", 0);
-        setResistance(15f);
+        setResistance(32f);
 		BlockRegistrar.addBlock(this);
 		ItemRegistrar.addItem(new ItemBlock(this).setRegistryName(getRegistryName()));
 	}
