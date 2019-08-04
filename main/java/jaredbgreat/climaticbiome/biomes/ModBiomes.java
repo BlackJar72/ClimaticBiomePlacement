@@ -67,6 +67,29 @@ public class ModBiomes {
     
     
     public static void createBiomes() {
+    	if(ConfigHandler.includeForests) {
+    		createForests();
+    	}
+    	// Scrub cannot be config'ed out because it lacks an good vanilla analog. 
+    	createScrub();
+    	if(ConfigHandler.includeMountains) {
+    		createMountains();
+    	}
+    	if(ConfigHandler.includePlains) {
+    		createPlains();
+    	}
+    	if(ConfigHandler.includeSwamps) {
+    		createSwamps();
+    	}
+		// Lastly
+		PseudoBiomes.createBiomes();
+		if(ConfigHandler.includeRivers) {
+			makeAdvancedRivers();
+		}
+    }
+    
+    
+    private static void createForests() {
 		warmForest = new WarmForest();
 		makeMoreUsable(warmForest);
 		tropicalForest = new TropicalForest();
@@ -87,6 +110,10 @@ public class ModBiomes {
 					.setBaseHeight(0.45F)
 					.setHeightVariation(0.3F));
 		makeMoreUsable(tropicalForestHills);
+    }
+    
+    
+    private static void createScrub() {
 		denseScrub = new Scrub(Scrub.Type.DENSE, 
 				new Biome.BiomeProperties("Dense Scrub")
 					.setTemperature(1.0F)
@@ -117,6 +144,10 @@ public class ModBiomes {
 					.setBaseHeight(0.45F)
 					.setHeightVariation(0.3F));
 		makeMoreUsable(dryScrubHills);
+    }
+    
+    
+    private static void createMountains() {
 		warmMountain  
 				= new SubtropicalMountains(BiomeHills.Type.NORMAL,
 						new Biome.BiomeProperties("Warm Extreme Hills")
@@ -188,6 +219,10 @@ public class ModBiomes {
 					.setBaseHeight(1.25F)
 					.setHeightVariation(0.5F));
 		makeMoreUsable(mediMontaneForest);
+    }
+    
+    
+    private static void createPlains() {
 		coolPlains = new CoolPlains(false, false,
 				new Biome.BiomeProperties("Cool Plains")
 					.setTemperature(0.5F)
@@ -220,6 +255,10 @@ public class ModBiomes {
 					.setHeightVariation(0.05f));
 		makeMoreUsable(coldPlains);
 		BiomeManager.addVillageBiome(coldPlains, true);
+    }
+    
+    
+    private static void createSwamps() {
 		bog = new Wetland(Wetland.Type.BOG,
 				new Biome.BiomeProperties("Bog")
 					.setTemperature(0.4F)
@@ -241,16 +280,34 @@ public class ModBiomes {
 					.setBaseHeight(-0.2F)
 					.setHeightVariation(0.1f));
 		makeMoreUsable(marsh);
-		// Lastly
-		PseudoBiomes.createBiomes();
-		if(ConfigHandler.rivers) {
-			makeAdvancedRivers();
-		}
     }
     
 
 	@SubscribeEvent
 	public static void registerBiomes(RegistryEvent.Register<Biome> event) {
+		if(ConfigHandler.includeForests) {
+			registerForests(event);
+		}
+		// Scrub must exist, it has no vallid vanilla substutite
+		registerScrub(event);
+		if(ConfigHandler.includeMountains) {
+			registerMountains(event);
+		}
+		if(ConfigHandler.includePlains) {
+			registerPlains(event);
+		}
+		if(ConfigHandler.includeSwamps) {
+			registerSwamps(event);
+		}
+		// Lastly
+		PseudoBiomes.registerBiomes();
+		if(ConfigHandler.includeRivers) {
+			registerAdvancedRivers(event);
+		}
+	}
+	
+	
+	private static void registerForests(RegistryEvent.Register<Biome> event) {
 		event.getRegistry().register(warmForest
 				.setRegistryName("subtropical_forest"));
 		event.getRegistry().register(tropicalForest
@@ -261,6 +318,19 @@ public class ModBiomes {
 				.setRegistryName("subtropical_forest_hills"));
 		event.getRegistry().register(tropicalForestHills
 				.setRegistryName("tropical_forest_hills"));
+		BiomeDictionary.addTypes(warmForest, Type.FOREST, Type.CONIFEROUS);
+		BiomeDictionary.addTypes(tropicalForest, Type.FOREST, Type.JUNGLE, 
+				Type.HOT);
+		BiomeDictionary.addTypes(pineWoods, Type.FOREST, Type.WET, Type.HOT, 
+				Type.CONIFEROUS, Type.SWAMP, Type.SAVANNA);
+		BiomeDictionary.addTypes(warmForestHills, Type.FOREST, Type.CONIFEROUS, 
+				Type.HILLS);
+		BiomeDictionary.addTypes(tropicalForestHills, Type.FOREST, Type.JUNGLE, 
+				Type.HOT, Type.HILLS);		
+	}
+	
+	
+	private static void registerScrub(RegistryEvent.Register<Biome> event) {
 		event.getRegistry().register(denseScrub
 				.setRegistryName("dense_scrub"));
 		event.getRegistry().register(dryScrub
@@ -269,6 +339,14 @@ public class ModBiomes {
 				.setRegistryName("dense_scrub_hills"));
 		event.getRegistry().register(dryScrubHills
 				.setRegistryName("dry_scrub_hills"));
+		BiomeDictionary.addTypes(denseScrub, Type.SPARSE, Type.HOT, Type.DRY);
+		BiomeDictionary.addTypes(dryScrub, Type.SPARSE, Type.HOT, Type.DRY, Type.SANDY);
+		BiomeDictionary.addTypes(denseScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS);
+		BiomeDictionary.addTypes(dryScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS, Type.SANDY);		
+	}
+	
+	
+	private static void registerMountains(RegistryEvent.Register<Biome> event) {
 		event.getRegistry().register(warmMountain
 				.setRegistryName("warm_mountain"));
 		event.getRegistry().register(warmMountainTrees
@@ -287,6 +365,27 @@ public class ModBiomes {
 				.setRegistryName("montane_jungle"));
 		event.getRegistry().register(mediMontaneForest
 				.setRegistryName("dry_montane_forest"));
+		BiomeDictionary.addTypes(warmMountain, Type.HILLS, Type.MOUNTAIN);
+		BiomeDictionary.addTypes(warmMountainTrees, Type.HILLS, 
+				Type.MOUNTAIN, Type.FOREST);
+		BiomeDictionary.addTypes(hotMountain, Type.HILLS, Type.MOUNTAIN, 
+				Type.HOT);
+		BiomeDictionary.addTypes(hotMountainTrees, Type.HILLS, Type.MOUNTAIN, 
+				Type.FOREST, Type.HOT);
+		BiomeDictionary.addTypes(activeVolcano, Type.HILLS, Type.MOUNTAIN, 
+				Type.HOT);
+		BiomeDictionary.addTypes(coolMontaneForest, Type.HILLS, Type.MOUNTAIN, 
+				Type.COLD, Type.FOREST);
+		BiomeDictionary.addTypes(warmMontaneForest, Type.HILLS, 
+				Type.MOUNTAIN, Type.FOREST);
+		BiomeDictionary.addTypes(montaneJungle, Type.HILLS, Type.MOUNTAIN, 
+				Type.JUNGLE, Type.HOT, Type.WET);
+		BiomeDictionary.addTypes(mediMontaneForest, Type.HILLS, Type.MOUNTAIN, 
+				Type.FOREST, Type.HOT, Type.DRY);		
+	}
+	
+	
+	private static void registerPlains(RegistryEvent.Register<Biome> event) {
 		event.getRegistry().register(coolPlains
 				.setRegistryName("cool_plains"));
 		event.getRegistry().register(windswept
@@ -295,50 +394,24 @@ public class ModBiomes {
 				.setRegistryName("cool_windswept_plains"));
 		event.getRegistry().register(coldPlains
 				.setRegistryName("cold_plains"));
+		BiomeDictionary.addTypes(coolPlains, Type.PLAINS);
+		BiomeDictionary.addTypes(windswept, Type.PLAINS);
+		BiomeDictionary.addTypes(coolWindswept, Type.PLAINS);
+		BiomeDictionary.addTypes(coldPlains, Type.PLAINS, Type.COLD);
+	}
+	
+	
+	private static void registerSwamps(RegistryEvent.Register<Biome> event) {
 		event.getRegistry().register(bog
 				.setRegistryName("bog"));
 		event.getRegistry().register(carr
 				.setRegistryName("carr"));
 		event.getRegistry().register(marsh
 				.setRegistryName("marsh"));
-		setupBiomeTypes();
-		BiomeDictionary.addTypes(warmForest, Type.FOREST, Type.CONIFEROUS);
-		BiomeDictionary.addTypes(tropicalForest, Type.FOREST, Type.JUNGLE, Type.HOT);
-		BiomeDictionary.addTypes(pineWoods, Type.FOREST, Type.WET, Type.HOT, Type.CONIFEROUS, Type.SWAMP, Type.SAVANNA);
-		BiomeDictionary.addTypes(warmForestHills, Type.FOREST, Type.CONIFEROUS, Type.HILLS);
-		BiomeDictionary.addTypes(tropicalForestHills, Type.FOREST, Type.JUNGLE, Type.HOT, Type.HILLS);
-		BiomeDictionary.addTypes(denseScrub, Type.SPARSE, Type.HOT, Type.DRY);
-		BiomeDictionary.addTypes(dryScrub, Type.SPARSE, Type.HOT, Type.DRY, Type.SANDY);
-		BiomeDictionary.addTypes(denseScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS);
-		BiomeDictionary.addTypes(dryScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS, Type.SANDY);
-		BiomeDictionary.addTypes(warmMountain, Type.HILLS, Type.MOUNTAIN);
-		BiomeDictionary.addTypes(warmMountainTrees, Type.HILLS, Type.MOUNTAIN, Type.FOREST);
-		BiomeDictionary.addTypes(hotMountain, Type.HILLS, Type.MOUNTAIN, Type.HOT);
-		BiomeDictionary.addTypes(hotMountainTrees, Type.HILLS, Type.MOUNTAIN, Type.FOREST, Type.HOT);
-		BiomeDictionary.addTypes(activeVolcano, Type.HILLS, Type.MOUNTAIN, Type.HOT);
-		BiomeDictionary.addTypes(coolMontaneForest, Type.HILLS, Type.MOUNTAIN, Type.COLD, Type.FOREST);
-		BiomeDictionary.addTypes(warmMontaneForest, Type.HILLS, Type.MOUNTAIN, Type.FOREST);
-		BiomeDictionary.addTypes(montaneJungle, Type.HILLS, Type.MOUNTAIN, Type.JUNGLE, Type.HOT, Type.WET);
-		BiomeDictionary.addTypes(mediMontaneForest, Type.HILLS, Type.MOUNTAIN, Type.FOREST, Type.HOT, Type.DRY);
-		BiomeDictionary.addTypes(coolPlains, Type.PLAINS);
-		BiomeDictionary.addTypes(windswept, Type.PLAINS);
-		BiomeDictionary.addTypes(coolWindswept, Type.PLAINS);
-		BiomeDictionary.addTypes(coldPlains, Type.PLAINS, Type.COLD);
 		BiomeDictionary.addTypes(bog, Type.SWAMP, Type.COLD, Type.WET);
 		BiomeDictionary.addTypes(carr, Type.SWAMP, Type.FOREST, Type.WET);
-		BiomeDictionary.addTypes(marsh, Type.SWAMP, Type.PLAINS, Type.WET);
-		// Lastly
-		PseudoBiomes.registerBiomes();
-		if(ConfigHandler.rivers) {
-			registerAdvancedRivers(event);
-		}
+		BiomeDictionary.addTypes(marsh, Type.SWAMP, Type.PLAINS, Type.WET);		
 	}
-	
-	
-	private static void setupBiomeTypes() {/*TODO*/}
-	
-	
-	private static void setupBopTypes() {/*TODO*/}
 	
 	
 	private static void makeMoreUsable(Biome biome) {
@@ -350,7 +423,9 @@ public class ModBiomes {
 	private static void makeMoreUsable(Biome biome, boolean villages) {
 		BiomeManager.addSpawnBiome(biome);
 		BiomeManager.addStrongholdBiome(biome);
-		BiomeManager.addVillageBiome(biome, villages);
+		if(villages) {
+			BiomeManager.addVillageBiome(biome, villages);
+		}
 	}
 	
 	
@@ -388,33 +463,62 @@ public class ModBiomes {
 	
 	
 	public static void addToVanilla() {
+		if(ConfigHandler.includeForests) {
+			addForests2MC();
+		}
+		addScrub2MC();
+		if(ConfigHandler.includeMountains) {
+			addMountains2MC();
+		}
+		if(ConfigHandler.includePlains) {
+			addPlains2MC();
+		}
+		if(ConfigHandler.includeSwamps) {
+			addSwamps2MC();
+		}
+	}
+	
+	
+	private static void addForests2MC() {
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmForest, 5));
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(tropicalForest, 5));
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmForestHills, 5));
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(tropicalForestHills, 5));
-		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(pineWoods, 5));
-		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(marsh, 5));
-		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(windswept, 5));
-		
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(pineWoods, 5));		
+	}
+	
+	
+	private static void addScrub2MC() {
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(denseScrub, 5));
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(denseScrubHills, 5));
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(dryScrub, 5));
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(dryScrubHills, 5));		
+	}
+	
+	
+	private static void addMountains2MC() {		
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMountain, 5));
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMountainTrees, 5));
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(hotMountain, 5));
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(hotMountainTrees, 5));
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMontaneForest, 5));
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(montaneJungle, 5));
-
-		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(denseScrub, 5));
-		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(denseScrubHills, 5));
-		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(dryScrub, 5));
-		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(dryScrubHills, 5));
-		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(mediMontaneForest, 5));
-		
-		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolMontaneForest, 10));
-		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(bog, 5));
-		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(carr, 10));
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(mediMontaneForest, 5));		
+		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolMontaneForest, 10));		
+	}
+	
+	
+	private static void addPlains2MC() {
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(windswept, 5));
 		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolPlains, 5));
 		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coldPlains, 5));
-		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolWindswept, 5));
-		
+		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolWindswept, 5));		
+	}
+	
+	
+	private static void addSwamps2MC() {
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(marsh, 5));		
+		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(bog, 5));
+		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(carr, 10));
 	}
 }

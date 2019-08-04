@@ -13,6 +13,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenLakes;
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 
 public class ActiveVolcano extends Biome  {
     protected static final IBlockState BASALT = BlockRegistrar.blockBasalt.getDefaultState();
@@ -71,5 +72,4 @@ public class ActiveVolcano extends Biome  {
     }
     
     
-
 }

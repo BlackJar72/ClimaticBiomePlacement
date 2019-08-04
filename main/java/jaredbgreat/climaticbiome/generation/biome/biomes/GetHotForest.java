@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
@@ -27,9 +28,13 @@ public class GetHotForest implements IBiomeSpecifier {
 		swamp   = GetSwamp.getSwamp();
 		DefReader.readBiomeData(forests, "ForestTropical.cfg");
 		if(isEmpty()) {
-			forests.addItem(new SeedDoubleBiome(151, 5, 23));
-			forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.tropicalForestHills)));
-			forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.tropicalForest)), 3);
+			if(ConfigHandler.includeForests) {
+				forests.addItem(new SeedDoubleBiome(151, 5, 23));
+				forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.tropicalForestHills)));
+				forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.tropicalForest)), 3);
+			} else {
+				forests.addItem(GetJungle.getJungle());
+			}
 		}
 	}
 

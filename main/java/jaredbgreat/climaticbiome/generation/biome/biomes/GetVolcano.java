@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
@@ -16,7 +17,11 @@ public class GetVolcano extends BiomeList {
 	public void init() {
 		DefReader.readBiomeData(this, "IslandVolcanoes.cfg");
 		if(isEmpty()) {
-			addItem(new LeafBiome(ModBiomes.activeVolcano));
+			if(ConfigHandler.includeMountains) {
+				addItem(new LeafBiome(ModBiomes.activeVolcano));
+			} else {
+				addItem(GetAlpine.getAlpine());
+			}
 		}
 	}
 	

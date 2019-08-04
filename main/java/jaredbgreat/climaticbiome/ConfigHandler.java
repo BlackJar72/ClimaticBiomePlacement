@@ -27,7 +27,6 @@ public class ConfigHandler {
 	public static boolean useCfg = true;
 	public static boolean writeBiomeLists = true;
 	public static boolean writeWTLists = false;
-	public static boolean rivers = true;
 	public static boolean rockyScrub = true;
 	public static boolean hasDT = false;
 	public static boolean useDT = false;
@@ -41,6 +40,12 @@ public class ConfigHandler {
 	public static boolean addToVanilla = false;
 	public static boolean extraBeaches = false;
 	public static String  chunkProvider = "default";
+	
+	public static boolean includeForests = true;
+	public static boolean includeMountains = true;
+	public static boolean includePlains = true;
+	public static boolean includeSwamps = true;
+	public static boolean includeRivers = true;
 	
 	public static int        biomeSize  = 16;
 	public static SizeScale  regionSize = SizeScale.X1;
@@ -151,12 +156,7 @@ public class ConfigHandler {
 		
 		useCfg = config.getBoolean("UseCustomConfigs", "Compat", true, 
 						"If true it read will files from the BiomeConfig/custom folder to extends \n"
-						+ "its worldgen. This is where to add extra biomes not otherwise supported.");	
-		
-		rivers = config.getBoolean("AdvancedRivers", "General", true, 
-						"If true there will be temperature specific rivers, which are good with \n"
-						+ "seasons and weather related mods, but will use a few more ids.  \n"
-						+ "set this to false if you are running out of biome ids.");
+						+ "its worldgen. This is where to add extra biomes not otherwise supported.");
 		
 		extraBeaches = config.getBoolean("ExtraBeaches", "General", false, 
 						"If true there will be more beaches.");
@@ -235,7 +235,19 @@ public class ConfigHandler {
 		
 		failfast = config.getBoolean("FailFast", "debugging", false, 
 						"If the game should crash with an exception when failign to read a biome. \n"
-						+ "This is for modpack authors to catch config bugs, not for general use.");
+						+ "This is for modpack authors to catch config bugs, not for general use.");	
+		
+		includeRivers  = config.getBoolean("RiverVariants", "Biomes", true, 
+						"If true there will be temperature specific rivers.");
+		includeForests = config.getBoolean("ForestVariants", "Biomes", true, 
+						"If true there will be temperature specific forests.");
+		includeMountains = config.getBoolean("ForestVariants", "Biomes", true, 
+						"If true there will be climate specific mountains /n"
+						+ "and montane forests.");
+		includePlains  = config.getBoolean("PlainsVariants", "Biomes", true, 
+						"If true there will be temperature specific plains.");
+		includeSwamps  = config.getBoolean("SwampVariants", "Biomes", true, 
+						"If true there will be temperature specific wetlands.");
 		
 		
 		config.save();	// Saving it all
