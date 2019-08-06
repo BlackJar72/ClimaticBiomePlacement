@@ -26,12 +26,6 @@ public class ModBlockFalling extends BlockFalling /*implements IHaveModel*/ {
         setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
         setRegistryName(Info.ID, name);
         
-        System.out.println();
-        System.out.println("*****************************");
-        System.out.println(getRegistryName());
-        System.out.println("*****************************");
-        System.out.println();
-        
         setUnlocalizedName(Info.ID + "." + name);
         setHardness(0.5f);
         setHarvestLevel("shovel", 0);
