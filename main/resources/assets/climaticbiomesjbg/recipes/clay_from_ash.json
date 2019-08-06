@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:dirt",
+      "data": 0
+    },
+    {
+      "item": "minecraft:dirt",
+      "data": 0
+    },
+    {
+      "item": "minecraft:dirt",
+      "data": 0
+    },
+    {
+      "item": "minecraft:dirt",
+      "data": 0
+    },
+    {
+      "item": "climaticbiomesjbg:volcanic_ash"
+    },
+    {
+      "item": "climaticbiomesjbg:volcanic_ash"
+    },
+    {
+      "item": "climaticbiomesjbg:volcanic_ash"
+    },
+    {
+      "item": "climaticbiomesjbg:volcanic_ash"
+    },
+    {
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "result": {
+    "item": "minecraft:clay",
+    "count": 8
+  }
+}
