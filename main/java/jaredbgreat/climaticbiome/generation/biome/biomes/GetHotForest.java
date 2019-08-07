@@ -27,6 +27,9 @@ public class GetHotForest implements IBiomeSpecifier {
 		alpine  = GetAlpine.getAlpine();
 		swamp   = GetSwamp.getSwamp();
 		DefReader.readBiomeData(forests, "ForestTropical.cfg");
+		if(!ConfigHandler.includeForests) {
+			DefReader.readBiomeData(forests, "Jungle.cfg");			
+		}
 		if(isEmpty()) {
 			if(ConfigHandler.includeForests) {
 				forests.addItem(new SeedDoubleBiome(151, 5, 23));

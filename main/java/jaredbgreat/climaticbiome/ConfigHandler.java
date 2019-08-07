@@ -46,6 +46,7 @@ public class ConfigHandler {
 	public static boolean includePlains = true;
 	public static boolean includeSwamps = true;
 	public static boolean includeRivers = true;
+	public static boolean includeVolcano = true;
 	
 	public static int        biomeSize  = 16;
 	public static SizeScale  regionSize = SizeScale.X1;
@@ -241,13 +242,16 @@ public class ConfigHandler {
 						"If true there will be temperature specific rivers.");
 		includeForests = config.getBoolean("ForestVariants", "Biomes", true, 
 						"If true there will be temperature specific forests.");
-		includeMountains = config.getBoolean("ForestVariants", "Biomes", true, 
+		includeMountains = config.getBoolean("MountainVariants", "Biomes", true, 
 						"If true there will be climate specific mountains /n"
 						+ "and montane forests.");
-		includePlains  = config.getBoolean("PlainsVariants", "Biomes", true, 
+		includePlains   = config.getBoolean("PlainsVariants", "Biomes", true, 
 						"If true there will be temperature specific plains.");
-		includeSwamps  = config.getBoolean("SwampVariants", "Biomes", true, 
+		includeSwamps   = config.getBoolean("SwampVariants", "Biomes", true, 
 						"If true there will be temperature specific wetlands.");
+		includeVolcano  = config.getBoolean("Volcanoes", "Biomes", true, 
+						"If this and MountainVariants are both true there will \n"
+						+ "be volcanoes.");
 		
 		
 		config.save();	// Saving it all

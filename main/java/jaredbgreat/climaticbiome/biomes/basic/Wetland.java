@@ -105,7 +105,7 @@ public class Wetland extends BiomeSwamp {
 	
 	private void decorateBog(World world, Random rand, BlockPos pos) {
 		DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.FERN);
-		int n = rand.nextInt(5) + 8;
+		int n = rand.nextInt(5) + 4;
 		for (int i = 0; i < n; ++i) {
             int x = rand.nextInt(16) + 8;
             int z = rand.nextInt(16) + 8;

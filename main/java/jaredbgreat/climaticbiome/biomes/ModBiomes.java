@@ -181,12 +181,14 @@ public class ModBiomes {
 					.setHeightVariation(0.5F));
 		makeMoreUsable(hotMountainTrees);
 		makeMoreUsable(pineWoods);
-		activeVolcano 
-				= new ActiveVolcano(new Biome.BiomeProperties("Active Volcano")
-					.setTemperature(3.0F)
-					.setRainfall(0.5F)
-					.setBaseHeight(1.5F)
-					.setHeightVariation(0.5F));
+		if(ConfigHandler.includeVolcano) {
+			activeVolcano 
+					= new ActiveVolcano(new Biome.BiomeProperties("Active Volcano")
+						.setTemperature(3.0F)
+						.setRainfall(0.5F)
+						.setBaseHeight(1.5F)
+						.setHeightVariation(0.5F));
+		}
 		coolMontaneForest
 				= new MontaneForest(MontaneForest.Type.COOL,
 						new Biome.BiomeProperties("Warm Montane Forest")
@@ -355,8 +357,10 @@ public class ModBiomes {
 				.setRegistryName("hot_mountain"));
 		event.getRegistry().register(hotMountainTrees
 				.setRegistryName("hot_mountain_trees"));
-		event.getRegistry().register(activeVolcano
-				.setRegistryName("active_volcano"));
+		if(ConfigHandler.includeVolcano) {
+			event.getRegistry().register(activeVolcano
+					.setRegistryName("active_volcano"));
+		}
 		event.getRegistry().register(coolMontaneForest
 				.setRegistryName("cool_montane_forest"));
 		event.getRegistry().register(warmMontaneForest
@@ -372,8 +376,10 @@ public class ModBiomes {
 				Type.HOT);
 		BiomeDictionary.addTypes(hotMountainTrees, Type.HILLS, Type.MOUNTAIN, 
 				Type.FOREST, Type.HOT);
-		BiomeDictionary.addTypes(activeVolcano, Type.HILLS, Type.MOUNTAIN, 
-				Type.HOT);
+		if(ConfigHandler.includeVolcano) {
+			BiomeDictionary.addTypes(activeVolcano, Type.HILLS, Type.MOUNTAIN, 
+					Type.HOT, Type.WASTELAND);
+		}
 		BiomeDictionary.addTypes(coolMontaneForest, Type.HILLS, Type.MOUNTAIN, 
 				Type.COLD, Type.FOREST);
 		BiomeDictionary.addTypes(warmMontaneForest, Type.HILLS, 
@@ -504,7 +510,13 @@ public class ModBiomes {
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMontaneForest, 5));
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(montaneJungle, 5));
 		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(mediMontaneForest, 5));		
-		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolMontaneForest, 10));		
+		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolMontaneForest, 10));
+		if(ConfigHandler.includeVolcano) {	
+			BiomeManager.addBiome(BiomeType.ICY, new BiomeEntry(activeVolcano, 1));	
+			BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(activeVolcano, 1));	
+			BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(activeVolcano, 1));	
+			BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(activeVolcano, 1));
+		}
 	}
 	
 	
