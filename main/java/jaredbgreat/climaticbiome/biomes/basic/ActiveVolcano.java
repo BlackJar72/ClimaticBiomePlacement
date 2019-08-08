@@ -59,17 +59,11 @@ public class ActiveVolcano extends Biome  {
     }
     
     
-    @Override
-    public void decorate(World worldIn, Random rand, BlockPos pos) {    
-    	//System.out.println("BlockPos pos " + pos);
-    	super.decorate(worldIn, rand, pos);
-    }
-    
-    
-    @Override
-    public BiomeDecorator getModdedBiomeDecorator(BiomeDecorator original) {
-    	return super.getModdedBiomeDecorator(original);
-    }
+//    @Override
+//    public void decorate(World worldIn, Random rand, BlockPos pos) {    
+//    	//System.out.println("BlockPos pos " + pos);
+//    	super.decorate(worldIn, rand, pos);
+//    }
     
     
 }

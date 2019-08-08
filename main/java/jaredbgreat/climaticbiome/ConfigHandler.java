@@ -48,6 +48,8 @@ public class ConfigHandler {
 	public static boolean includeRivers = true;
 	public static boolean includeVolcano = true;
 	
+	public static boolean biomeWater = false;
+	
 	public static int        biomeSize  = 16;
 	public static SizeScale  regionSize = SizeScale.X1;
 	public static boolean    forceWhole = false;
@@ -167,6 +169,9 @@ public class ConfigHandler {
 		
 		deepSand = config.getBoolean("DeepSandInScrub", "General", true, 
 						"If true sand in dry scrub will be 3-4 blocks deep, otherwise it will be 1.");
+		
+		biomeWater = config.getBoolean("BiomeWaterColors", "General", false, 
+						"If true some biomes (mostly wetlands) will have special colors for their water.");
 		
 		addIslands = config.getBoolean("AddIslands", "General", true, 
 						"If true extra islands will be generated in the ocean \n "

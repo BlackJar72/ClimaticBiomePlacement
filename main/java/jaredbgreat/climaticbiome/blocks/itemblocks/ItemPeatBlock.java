@@ -4,9 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
-public class ItemPineLog extends ItemBlock {
+public class ItemPeatBlock extends ItemBlock {
 
-	public ItemPineLog(Block block) {
+	public ItemPeatBlock(Block block) {
 		super(block);
         setMaxDamage(0);
         setUnlocalizedName(block.getUnlocalizedName());
@@ -22,7 +22,7 @@ public class ItemPineLog extends ItemBlock {
     
     @Override
 	public int getItemBurnTime(ItemStack stack) {
-		return 300;    	
+		return 2400;    	
     }
 
 }

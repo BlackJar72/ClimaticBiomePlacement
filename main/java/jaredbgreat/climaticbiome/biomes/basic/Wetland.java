@@ -1,35 +1,50 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.IPineFinder;
 import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.SpruceFinder;
 import jaredbgreat.climaticbiome.biomes.feature.ScrubBushFinder;
+import jaredbgreat.climaticbiome.util.BlockRegistrar;
 
 import java.util.Random;
 
 import net.minecraft.block.BlockDoublePlant;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeSwamp;
+import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenBirchTree;
+import net.minecraftforge.event.terraingen.BiomeEvent.GetWaterColor;
 
-public class Wetland extends BiomeSwamp {	
+public class Wetland extends BiomeSwamp {
+	private static Random reusedRand;
+	private int wcolor;
+	private static IBlockState PEAT;
+	private static final IBlockState GRASS = Blocks.GRASS.getDefaultState();
     protected static final WorldGenBirchTree BIRCH_TREE 
     	= new WorldGenBirchTree(false, false);
     protected final IPineFinder SPRUCE;
 	public static enum Type {
-		MARSH (0, 12, 0x25BB3C, 0x38983C),
-		BOG (2, 10, 0x4C763C, 0x6A7039),
-		CARR (6, 5, 0x4C763C, 0x6A7039);		
+		MARSH (0, 12, 0x25BB3C, 0x38983C, 0x6A7039, 0xffffff),
+		BOG (3, 10, 0x4C763C, 0x6A7039, 0x4C863C, 0x281f19),
+		CARR (8, 5, 0x4C763C, 0x6A7039, 0x6A8039, 0x938f52);		
 		public final int numTrees;		
 		public final int numGrass;
 		public final int grassA;
 		public final int grassB;
-		Type(int numTrees, int numGrass, int a, int b) {
+		public final int leaves;
+		public final int wcolor;
+		Type(int numTrees, int numGrass, int a, int b, int l, int w) {
 			this.numTrees = numTrees;
 			this.numGrass = numGrass;
 			this.grassA = a;
 			this.grassB = b;
+			this.leaves = l;
+			this.wcolor = w;
 		}
 	}
 	public final Type type;
@@ -42,6 +57,13 @@ public class Wetland extends BiomeSwamp {
 		SPRUCE = new SpruceFinder();
 		decorator.treesPerChunk = type.numTrees;
 		decorator.grassPerChunk = type.numGrass;
+		PEAT = BlockRegistrar.blockPeat.getDefaultState();
+		if(ConfigHandler.biomeWater) {
+			wcolor = type.wcolor;
+		} else {
+			wcolor = 0xffffff;
+		}
+		reusedRand = new Random();
 	}
 	
 	
@@ -104,6 +126,18 @@ public class Wetland extends BiomeSwamp {
 	
 	
 	private void decorateBog(World world, Random rand, BlockPos pos) {
+		if(rand.nextInt(5) == 0) {
+			for(int i = rand.nextInt(16) + rand.nextInt(16) + rand.nextInt(16) + 32; i > 0; i--) {
+				int x = rand.nextInt(16) + 8;
+				int z = rand.nextInt(16) + 8;
+            	int y = world.getHeight(pos.add(x, 0, z)).getY() - 1;
+            	BlockPos tpos = pos.add(x, y, z);
+            	if(world.getBlockState(tpos).getMaterial() == Material.GRASS) {
+            		System.out.println("GROUND at " + tpos);
+            		world.setBlockState(tpos, PEAT);
+            	}
+			}
+		}
 		DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.FERN);
 		int n = rand.nextInt(5) + 4;
 		for (int i = 0; i < n; ++i) {
@@ -186,5 +220,38 @@ public class Wetland extends BiomeSwamp {
         		(double)pos.getZ() * 0.0225);
         return getModdedBiomeGrassColor(d0 < -0.1 ? type.grassA :type.grassB);
     }
+    
+    
+    @Override
+    public int getFoliageColorAtPos(BlockPos pos) {
+    	return getModdedBiomeFoliageColor(type.leaves);
+    }
+	
+
+    public void genTerrainBlocks(World world, Random rand, ChunkPrimer chunkPrimer, 
+    			int x, int z, double noise) {
+    	if(type == Type.BOG && ((noise > 1.75) || (noise < -1.75))) {
+    		fillerBlock = PEAT;
+    	}
+    	super.genTerrainBlocks(world, rand, chunkPrimer, x, z, noise);
+    }
+    
+    
+    private static int betterRandInt(Random r,  int b) {
+    	return (r.nextInt() ^ reusedRand.nextInt()) % b;
+    }
+    
+    
+    @Override
+    public boolean isHighHumidity() {
+    	return true;
+    }
+    
+    
+    @Override
+    public int getWaterColorMultiplier() {
+    	return wcolor;
+    }
+    
 	
 }

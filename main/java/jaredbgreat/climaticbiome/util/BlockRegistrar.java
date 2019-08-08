@@ -1,7 +1,9 @@
 package jaredbgreat.climaticbiome.util;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.feature.GenPine;
 import jaredbgreat.climaticbiome.blocks.BlockIgneous;
+import jaredbgreat.climaticbiome.blocks.BlockPeat;
 import jaredbgreat.climaticbiome.blocks.BlockPineDoor;
 import jaredbgreat.climaticbiome.blocks.BlockPineFence;
 import jaredbgreat.climaticbiome.blocks.BlockPineGate;
@@ -43,6 +45,7 @@ public class BlockRegistrar {
 	public static BlockIgneous blockBasalt;
 	public static BlockIgneous blockBasaltPolished;
 	public static ModBlockFalling blockAsh;
+	public static BlockPeat blockPeat;
 	
 	
 	public static void initBlocks() {
@@ -57,9 +60,14 @@ public class BlockRegistrar {
 		blockPineFence = new BlockPineFence("pine_fence");
 		blockPineGate = new BlockPineGate("pine_gate");
 		blockPineDoor = new BlockPineDoor("pine_door");
-		blockBasalt = new BlockIgneous("basalt");
-		blockBasaltPolished = new BlockIgneous("basalt_polished");
-		blockAsh = new ModBlockFalling("volcanic_ash", SoundType.SAND);
+		if(ConfigHandler.includeVolcano) {
+			blockBasalt = new BlockIgneous("basalt");
+			blockBasaltPolished = new BlockIgneous("basalt_polished");
+			blockAsh = new ModBlockFalling("volcanic_ash", SoundType.SAND);
+		}
+		if(ConfigHandler.includeSwamps) {
+			blockPeat = new BlockPeat();
+		}
 		// LASTLY
 		registerBlocks();
 	}

@@ -1,6 +1,7 @@
 package jaredbgreat.climaticbiome.util;
 
 import jaredbgreat.climaticbiome.ClimaticBiomes;
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.Info;
 import jaredbgreat.climaticbiome.blocks.itemblocks.ItemMultiblock;
 
@@ -76,7 +77,16 @@ public class ItemRegistrar {
 		OreDictionary.registerOre("plankWood", BlockRegistrar.blockPinePlanks);
 		OreDictionary.registerOre("slabWood", BlockRegistrar.pineHalfSlab);
 		OreDictionary.registerOre("treeLeaves", BlockRegistrar.blockPineNeedles);
-		OreDictionary.registerOre("treeSapling", BlockRegistrar.blockPineSappling);		
+		OreDictionary.registerOre("treeSapling", BlockRegistrar.blockPineSappling);
+		if(ConfigHandler.includeVolcano) {
+			OreDictionary.registerOre("blockBasalt", BlockRegistrar.blockBasalt);
+			OreDictionary.registerOre("blockStone", BlockRegistrar.blockBasalt);
+			OreDictionary.registerOre("blockVolcanicAsh", BlockRegistrar.blockAsh);
+		}
+		if(ConfigHandler.includeSwamps) {
+			OreDictionary.registerOre("blockPeat", BlockRegistrar.blockPeat);
+			OreDictionary.registerOre("brickPeat", BlockRegistrar.blockPeat);
+		}
 	}
 	
 	
