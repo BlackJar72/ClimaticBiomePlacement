@@ -21,7 +21,6 @@ import net.minecraft.world.gen.feature.WorldGenBirchTree;
 import net.minecraftforge.event.terraingen.BiomeEvent.GetWaterColor;
 
 public class Wetland extends BiomeSwamp {
-	private static Random reusedRand;
 	private int wcolor;
 	private static IBlockState PEAT;
 	private static final IBlockState GRASS = Blocks.GRASS.getDefaultState();
@@ -30,7 +29,7 @@ public class Wetland extends BiomeSwamp {
     protected final IPineFinder SPRUCE;
 	public static enum Type {
 		MARSH (0, 12, 0x25BB3C, 0x38983C, 0x6A7039, 0xffffff),
-		BOG (3, 10, 0x4C763C, 0x6A7039, 0x4C863C, 0x281f19),
+		BOG (3, 10, 0x4C763C, 0x6A7039, 0x4C863C, 0x5d5719 /*0x281f19*/),
 		CARR (8, 5, 0x4C763C, 0x6A7039, 0x6A8039, 0x938f52);		
 		public final int numTrees;		
 		public final int numGrass;
@@ -63,7 +62,6 @@ public class Wetland extends BiomeSwamp {
 		} else {
 			wcolor = 0xffffff;
 		}
-		reusedRand = new Random();
 	}
 	
 	
@@ -127,7 +125,7 @@ public class Wetland extends BiomeSwamp {
 	
 	private void decorateBog(World world, Random rand, BlockPos pos) {
 		if(rand.nextInt(5) == 0) {
-			for(int i = rand.nextInt(16) + rand.nextInt(16) + rand.nextInt(16) + 32; i > 0; i--) {
+			for(int i = rand.nextInt(32) + rand.nextInt(32) + 32; i > 0; i--) {
 				int x = rand.nextInt(16) + 8;
 				int z = rand.nextInt(16) + 8;
             	int y = world.getHeight(pos.add(x, 0, z)).getY() - 1;
@@ -234,11 +232,6 @@ public class Wetland extends BiomeSwamp {
     		fillerBlock = PEAT;
     	}
     	super.genTerrainBlocks(world, rand, chunkPrimer, x, z, noise);
-    }
-    
-    
-    private static int betterRandInt(Random r,  int b) {
-    	return (r.nextInt() ^ reusedRand.nextInt()) % b;
     }
     
     
