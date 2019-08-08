@@ -29,7 +29,7 @@ public class Wetland extends BiomeSwamp {
     protected final IPineFinder SPRUCE;
 	public static enum Type {
 		MARSH (0, 12, 0x25BB3C, 0x38983C, 0x6A7039, 0xffffff),
-		BOG (3, 10, 0x4C763C, 0x6A7039, 0x4C863C, 0x5d5719 /*0x281f19*/),
+		BOG (3, 10, 0x4C763C, 0x6A7039, 0x4C863C, 0x5d5719),
 		CARR (8, 5, 0x4C763C, 0x6A7039, 0x6A8039, 0x938f52);		
 		public final int numTrees;		
 		public final int numGrass;
@@ -216,7 +216,7 @@ public class Wetland extends BiomeSwamp {
     public int getGrassColorAtPos(BlockPos pos) {
         double d0 = GRASS_COLOR_NOISE.getValue((double)pos.getX() * 0.0225, 
         		(double)pos.getZ() * 0.0225);
-        return getModdedBiomeGrassColor(d0 < -0.1 ? type.grassA :type.grassB);
+        return getModdedBiomeGrassColor(d0 < -0.1 ? type.grassA : type.grassB);
     }
     
     

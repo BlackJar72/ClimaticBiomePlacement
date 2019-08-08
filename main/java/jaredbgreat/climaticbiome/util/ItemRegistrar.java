@@ -4,6 +4,7 @@ import jaredbgreat.climaticbiome.ClimaticBiomes;
 import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.Info;
 import jaredbgreat.climaticbiome.blocks.itemblocks.ItemMultiblock;
+import jaredbgreat.climaticbiome.items.ItemPeatBrick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,8 @@ import net.minecraftforge.registries.IForgeRegistry;
 @EventBusSubscriber
 public class ItemRegistrar {	
 	private static final List<Item> ITEMS = new ArrayList<>();
+	
+	public static ItemPeatBrick peatbrick;
 	
 	public static void initItems() {
 		registerItems();
@@ -80,7 +83,6 @@ public class ItemRegistrar {
 		OreDictionary.registerOre("treeSapling", BlockRegistrar.blockPineSappling);
 		if(ConfigHandler.includeVolcano) {
 			OreDictionary.registerOre("blockBasalt", BlockRegistrar.blockBasalt);
-			OreDictionary.registerOre("blockStone", BlockRegistrar.blockBasalt);
 			OreDictionary.registerOre("blockVolcanicAsh", BlockRegistrar.blockAsh);
 		}
 		if(ConfigHandler.includeSwamps) {

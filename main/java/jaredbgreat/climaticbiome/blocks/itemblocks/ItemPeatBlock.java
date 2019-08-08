@@ -22,7 +22,10 @@ public class ItemPeatBlock extends ItemBlock {
     
     @Override
 	public int getItemBurnTime(ItemStack stack) {
-		return 2400;    	
+    	// The value, on burning the whole block; still poor compared 
+    	// to a full coal block, but better than coal or charcoal. 
+    	// Makes sense to me!
+		return 3200; // 3200; /*Higher number would be used if peat bricks exited.*/    	
     }
 
 }
