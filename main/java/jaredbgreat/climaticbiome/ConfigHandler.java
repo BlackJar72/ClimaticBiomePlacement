@@ -212,7 +212,7 @@ public class ConfigHandler {
 						"You can use another mods chunk provider here if you like; \n"
 						+ "Warning: This is not guaraunteed to work (could depend "
 						+ "on how the other mod is written, which is out of my control).");
-		ClimaticWorldType.setChunkProviderType(chunkProvider);
+		ClimaticWorldType.setChunkGeneratorType(chunkProvider);
 		
 		biomeSize = config.getInt("BiomeSize", "Size", 16, 4, 64, "The average width of a "
 						+ "biome area in chunks.");

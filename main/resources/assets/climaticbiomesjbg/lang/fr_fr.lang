@@ -1,0 +1,22 @@
+generator.climatic_bp=Climatique
+
+tile.climaticbiomesjbg.pine_log.name=Bois De Pin
+tile.climaticbiomesjbg.pine_leaves.oak.name=Aiguilles De Pin
+tile.climaticbiomesjbg.pine_planks.name=Planches De Bois De Pin
+tile.climaticbiomesjbg.pine_bark.name=Écorce De Pin
+tile.climaticbiomesjbg.pine_sapling.name=Arbre De Pin
+tile.climaticbiomesjbg.pine_slab.name=Dalle De Bois De Pin
+tile.climaticbiomesjbg.pine_stairs.name=Escalier en Pin
+tile.climaticbiomesjbg.pine_fence.name=Clôture De Pin
+tile.climaticbiomesjbg.pine_gate.name=Porte De Clôture De Pin
+
+tile.climaticbiomesjbg.basalt.name=Basalte
+tile.climaticbiomesjbg.basalt_polished.name=Basalte Poli
+tile.climaticbiomesjbg.volcanic_ash.name=Cendre Volcanique
+
+tile.climaticbiomesjbg.peat.name=Tourbe
+
+item.tile.climaticbiomesjbg.pine_door.name=Porte De Pin
+item.climaticbiomesjbg:pineseed.name=Pomme de Pin
+
+
