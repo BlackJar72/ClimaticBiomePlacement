@@ -36,6 +36,8 @@ import net.minecraftforge.common.DimensionManager;
  * @author JaredBGreat
  */
 public class MapRegistry implements IMapRegistry {
+	private static final int HALFMAX = Integer.MAX_VALUE / 2;
+	private final int halfcmax;
 	private final Cache<RegionMap> data;
 	private final SubBiomeRegistry subbiomes;
 	
@@ -63,6 +65,7 @@ public class MapRegistry implements IMapRegistry {
 		dataSize = cWidth * cWidth;
 		cOffset = cWidth / 2;
 		bOffset = bWidth / 2;
+		halfcmax = HALFMAX / cWidth;
 		data = new Cache<>();
 		subbiomes = SubBiomeRegistry.getSubBiomeRegistry();
         Random random = new Random(seed);
@@ -147,21 +150,6 @@ public class MapRegistry implements IMapRegistry {
 	
 	
 	/**
-	 * Returns the map for block coordinates of x,z -- 
-	 * no y coordinate is used at the entire column of
-	 * blocks will be in the same map.
-	 * 
-	 * @param x
-	 * @param z
-	 * @return
-	 */
-	private IRegionMap getMapFromBlockCoord(int x, int z) {
-		return getMap((x + bOffset) / bWidth, 
-				      (z + bOffset) / bWidth);
-	}
-	
-	
-	/**
 	 * Gets the map for the chunk coordinates x,z.
 	 * 
 	 * @param x
@@ -169,8 +157,11 @@ public class MapRegistry implements IMapRegistry {
 	 * @return
 	 */
 	private RegionMap getMapFromChunkCoord(int x, int z) {
-		return getMap((x + cOffset) / cWidth, 
-				      (z + cOffset) / cWidth);
+		//Would this be better (no hidden conditional)?
+		//int mx = ((x + cOffset + HALFMAX) / cWidth) - halfcmax;
+		//int zx = ((z + cOffset + HALFMAX) / cWidth) - halfcmax;
+		return getMap(Math.floorDiv(x + cOffset, cWidth), 
+				      Math.floorDiv(z + cOffset, cWidth));
 	}
 	
 	
@@ -188,7 +179,7 @@ public class MapRegistry implements IMapRegistry {
 	 */
 	@Override
 	public int blockToMap(int c) {
-		return (c + bOffset) / cWidth;
+		return (c + bOffset) / bWidth;
 	}
 	
 	/**

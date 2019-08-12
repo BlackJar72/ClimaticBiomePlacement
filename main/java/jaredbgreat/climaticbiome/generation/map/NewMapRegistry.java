@@ -129,21 +129,6 @@ public class NewMapRegistry implements IMapRegistry {
 	
 	
 	/**
-	 * Returns the map for block coordinates of x,z -- 
-	 * no y coordinate is used at the entire column of
-	 * blocks will be in the same map.
-	 * 
-	 * @param x
-	 * @param z
-	 * @return
-	 */
-	private NewRegionMap getMapFromBlockCoord(int x, int z) {
-		return getMap((x + bOffset) / bWidth, 
-				      (z + bOffset) / bWidth);
-	}
-	
-	
-	/**
 	 * Gets the map for the chunk coordinates x,z.
 	 * 
 	 * @param x
@@ -151,8 +136,11 @@ public class NewMapRegistry implements IMapRegistry {
 	 * @return
 	 */
 	private NewRegionMap getMapFromChunkCoord(int x, int z) {
-		return getMap((x + cOffset) / cWidth, 
-				      (z + cOffset) / cWidth);
+		//Would this be better (no hidden conditional)?
+		//int mx = ((x + cOffset + HALFMAX) / cWidth) - halfcmax;
+		//int zx = ((z + cOffset + HALFMAX) / cWidth) - halfcmax;
+		return getMap(Math.floorDiv(x + cOffset, cWidth), 
+				      Math.floorDiv(z + cOffset, cWidth));
 	}
 	
 	
