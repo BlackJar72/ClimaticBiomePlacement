@@ -26,13 +26,13 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
     File settingsDir  = null;    
     File settingsFile = null;
     boolean perworld  = true;
-    boolean pwtodo    = true;
     
     boolean noFakes;
 	
 	
 	public AbstractMapRegistry(World w) {
         world = w;
+		readSettings();
 	}
 	
 	
@@ -125,7 +125,6 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 						Debug.bigSysout(json);
 					}
 					fs.close();
-					pwtodo = false;
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
@@ -141,7 +140,6 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 				BufferedWriter fs = new BufferedWriter(new FileWriter(settingsFile));
 				fs.append(settings.toJsonString());
 				fs.close();
-				pwtodo = false;
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
