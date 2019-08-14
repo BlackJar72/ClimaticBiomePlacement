@@ -108,9 +108,9 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	 * @return
 	 */
 	private RegionMap getMapFromChunkCoord(int x, int z) {
-		//Would this be better (no hidden conditional)?
-		//int mx = ((x + cOffset + HALFMAX) / cWidth) - halfcmax;
-		//int zx = ((z + cOffset + HALFMAX) / cWidth) - halfcmax;
+		// Don't like that added conditional 
+		// but not sure how else to handle this :-/
+		if(pwtodo) readSettings();
 		return getMap(Math.floorDiv(x + cOffset, cWidth), 
 				      Math.floorDiv(z + cOffset, cWidth));
 	}
@@ -154,9 +154,6 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 			return;
 		}
 		File file = getSaveFile(x, z);
-		if(perworld && pwtodo) {
-			readSettings();
-		}
 		int[] data = map.getData();
 		if(file != null && file.exists()) {
 			try {				

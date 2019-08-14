@@ -1,29 +1,17 @@
 package jaredbgreat.climaticbiome.generation.map;
 
-import static jaredbgreat.climaticbiome.util.ModMath.modRight;
-import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-import jaredbgreat.climaticbiome.generation.cache.Cache;
-import jaredbgreat.climaticbiome.generation.cache.Coords;
-import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
-import jaredbgreat.climaticbiome.generation.generator.MapMaker;
 import jaredbgreat.climaticbiome.util.Debug;
-import jaredbgreat.climaticbiome.util.SpatialNoise;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Random;
 
-import net.minecraft.init.Biomes;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.DimensionManager;
 
 public abstract class AbstractMapRegistry implements IMapRegistry {
