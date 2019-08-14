@@ -1,9 +1,9 @@
 package jaredbgreat.climaticbiome.util;
 
 import jaredbgreat.climaticbiome.ClimaticBiomes;
-import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.Info;
 import jaredbgreat.climaticbiome.blocks.itemblocks.ItemMultiblock;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.items.ItemPeatBrick;
 
 import java.util.ArrayList;

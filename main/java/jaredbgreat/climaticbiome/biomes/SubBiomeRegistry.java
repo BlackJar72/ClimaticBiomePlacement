@@ -2,7 +2,7 @@ package jaredbgreat.climaticbiome.biomes;
 
 import java.util.logging.Logger;
 
-import jaredbgreat.climaticbiome.ConfigHandler;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.ICachable;
 
 public class SubBiomeRegistry {

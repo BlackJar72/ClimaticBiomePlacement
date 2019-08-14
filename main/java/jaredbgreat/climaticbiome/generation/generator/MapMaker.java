@@ -6,7 +6,7 @@
 package jaredbgreat.climaticbiome.generation.generator;
 
 import static jaredbgreat.climaticbiome.util.SpatialNoise.absModulus;
-import jaredbgreat.climaticbiome.ConfigHandler;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.cache.Cache;

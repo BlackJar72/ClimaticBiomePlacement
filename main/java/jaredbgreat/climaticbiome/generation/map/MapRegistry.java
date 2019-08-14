@@ -2,8 +2,8 @@ package jaredbgreat.climaticbiome.generation.map;
 
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
 import jaredbgreat.climaticbiome.ClimaticBiomes;
-import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;

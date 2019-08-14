@@ -7,7 +7,7 @@ package jaredbgreat.climaticbiome.generation.generator;
 
 import static jaredbgreat.climaticbiome.generation.generator.MapMaker.RADIUS;
 import static jaredbgreat.climaticbiome.generation.generator.MapMaker.RSIZE;
-import jaredbgreat.climaticbiome.ConfigHandler;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
