@@ -6,8 +6,7 @@
 package jaredbgreat.climaticbiome.generation.generator;
 
 import static jaredbgreat.climaticbiome.util.SpatialNoise.absModulus;
-import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
@@ -33,7 +32,6 @@ import net.minecraft.world.World;
  */
 public class MapMaker {
 	IBiomeSpecifier specifier;
-	private ClimaticWorldSettings settings;
 	// STATIC VARIABLES USED IN MANY PLACES
     public static final int CSIZE = 16; // chuck size
     public static final int RSIZE = 4096 / CSIZE; // region / "continent" size
@@ -60,18 +58,12 @@ public class MapMaker {
     private ChunkTile[] premap;
     
     
-    public MapMaker(SpatialNoise chunkNoise, 
-    		SpatialNoise regionNoise, SpatialNoise biomeNoise) {
+    public MapMaker(SpatialNoise chunkNoise, SpatialNoise regionNoise, SpatialNoise biomeNoise) {
         this.chunkNoise  = chunkNoise;
         this.regionNoise = regionNoise;
         this.biomeNoise  = biomeNoise;
         scale = ConfigHandler.regionSize;
         specifier = BiomeClimateTable.getClimateTable();
-    }
-    
-    
-    public void setSettings(ClimaticWorldSettings settings) {
-    	this.settings = settings;
     }
     
     /**

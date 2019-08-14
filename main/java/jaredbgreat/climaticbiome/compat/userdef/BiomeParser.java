@@ -1,7 +1,7 @@
 package jaredbgreat.climaticbiome.compat.userdef;
 
 import jaredbgreat.climaticbiome.ClimaticBiomes;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.exception.BiomeReadingException;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;

@@ -1,6 +1,5 @@
-package jaredbgreat.climaticbiome.configuration;
+package jaredbgreat.climaticbiome;
 
-import jaredbgreat.climaticbiome.Info;
 import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
 import jaredbgreat.climaticbiome.generation.generator.SizeScale;
 

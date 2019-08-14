@@ -1,7 +1,7 @@
 package jaredbgreat.climaticbiome.biomes.feature;
 
 import static net.minecraft.util.EnumFacing.UP;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.util.BlockRegistrar;
 
 import java.util.Random;

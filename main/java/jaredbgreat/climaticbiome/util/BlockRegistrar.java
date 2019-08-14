@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.util;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.feature.GenPine;
 import jaredbgreat.climaticbiome.blocks.BlockIgneous;
 import jaredbgreat.climaticbiome.blocks.BlockPeat;
@@ -15,7 +16,6 @@ import jaredbgreat.climaticbiome.blocks.ModBlockFalling;
 import jaredbgreat.climaticbiome.blocks.itemblocks.ItemPineSlab;
 import jaredbgreat.climaticbiome.blocks.slabs.BlockPineDoubleSlab;
 import jaredbgreat.climaticbiome.blocks.slabs.BlockPineSlab;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,9 @@
 package jaredbgreat.climaticbiome.generation.map;
 
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
+import jaredbgreat.climaticbiome.ClimaticBiomes;
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
@@ -17,8 +18,11 @@ import java.io.IOException;
 import java.util.Random;
 
 import net.minecraft.init.Biomes;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.DimensionManager;
 
 
 /**
@@ -31,8 +35,9 @@ import net.minecraft.world.biome.Biome;
  * 
  * @author JaredBGreat
  */
-public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
-	private static final String SETTINGS = "settings";
+public class MapRegistry implements IMapRegistry {
+	private static final int HALFMAX = Integer.MAX_VALUE / 2;
+	private final int halfcmax;
 	private final Cache<RegionMap> data;
 	private final SubBiomeRegistry subbiomes;
 	
@@ -40,22 +45,27 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     private final SpatialNoise regionNoise;
     private final SpatialNoise biomeNoise;
     
-    private int dataSize;
-    private int cWidth;
-    private int bWidth;
-    private int cOffset;
-    private int bOffset;    
+    public final int dataSize;
+    public final int cWidth;
+    public final int bWidth;
+    public final int cOffset;
+    public final int bOffset;    
     
     private final MapMaker maker;
+    private World world;
+    private File savedir =  null;
+    private boolean cansave = true;
+    
+    private boolean noFakes;
 	
 	
 	public MapRegistry(long seed, World w) {
-		super(w);
 		cWidth = MapMaker.RSIZE * ConfigHandler.regionSize.whole;
 		bWidth = cWidth * 16;
 		dataSize = cWidth * cWidth;
 		cOffset = cWidth / 2;
 		bOffset = bWidth / 2;
+		halfcmax = HALFMAX / cWidth;
 		data = new Cache<>();
 		subbiomes = SubBiomeRegistry.getSubBiomeRegistry();
         Random random = new Random(seed);
@@ -63,18 +73,54 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
         regionNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         biomeNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         maker = new MapMaker(chunkNoise, regionNoise, biomeNoise);
+        noFakes = areFakesInvalid();
+        world = w;
 	}
 	
 	
-	private void resetSettings() {
-		cWidth = MapMaker.RSIZE * settings.regionSize.whole;
-		bWidth = cWidth * 16;
-		dataSize = cWidth * cWidth;
-		cOffset = cWidth / 2;
-		bOffset = bWidth / 2;
-        maker.setSettings(settings);
-		
+	protected final boolean areFakesInvalid() {
+		return net.minecraftforge.fml.common.Loader.isModLoaded("lostcities") 
+        		&& ConfigHandler.chunkProvider.equalsIgnoreCase("lostcities");
 	}
+	
+	
+	/* (non-Javadoc)
+	 * @see jaredbgreat.climaticbiome.generation.map.IMapRegistry#findSaveDir()
+	 */
+	@Override
+	public void findSaveDir() {
+		if(world == null || world.getMinecraftServer() == null) {
+			cansave = false;
+			return;
+		}
+		if(world.getMinecraftServer().isDedicatedServer()) {
+			savedir = world.getMinecraftServer().getFile("world" + File.separator + "ClimaticMaps" 
+								   + File.separator + "Dim" + world.provider.getDimension());
+		} else {
+			savedir = new File(DimensionManager.getCurrentSaveRootDirectory().toString() 
+						+ File.separator + "ClimaticMaps" 
+						+ File.separator + "Dim" 
+						+ world.provider.getDimension());
+		}
+		cansave = savedir != null;
+		if(cansave && (!savedir.exists())) {
+			savedir.mkdirs();
+			cansave = savedir.exists() && savedir.isDirectory();
+		}
+	}
+	
+	
+	private File getSaveFile(int x, int z) {
+		if(savedir == null) {
+			findSaveDir();
+		}
+		if(savedir == null) {
+			cansave = false;
+			return null;
+		}
+		return new File(savedir.toString() + File.separator + "X" + x + "Z" + z + ".cbmap");
+	}
+	
 	
 	/**
 	 * Return the map at the given coordinates x and z 
@@ -111,14 +157,9 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	 * @return
 	 */
 	private RegionMap getMapFromChunkCoord(int x, int z) {
-		// Don't like that added conditional,  
-		// much less the convoluted spaghetti, 
-		// but working around vanilla's restrictions
-		// and spaghetti leaves me no choice.
-		if(pwtodo) {
-			readSettings();
-			resetSettings();
-		}
+		//Would this be better (no hidden conditional)?
+		//int mx = ((x + cOffset + HALFMAX) / cWidth) - halfcmax;
+		//int zx = ((z + cOffset + HALFMAX) / cWidth) - halfcmax;
 		return getMap(Math.floorDiv(x + cOffset, cWidth), 
 				      Math.floorDiv(z + cOffset, cWidth));
 	}
@@ -207,6 +248,26 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	
+	/**
+	 * A class for hashing data that is streamed through, 
+	 * purely for debugging.
+	 */
+	private class Hasher {
+    	int hash = 0;
+    	int count = 0;
+    	public void next(int b) {
+	    	hash ^= (b & 0xff) << (8 * count);
+	    	hash ^= hash << 13;
+	    	hash ^= hash >> 5;
+	    	hash ^= hash << 17;
+	    	count = (++count) % 4;
+		}
+    	public int getHash() {
+    		return hash;
+    	}
 	}
 		
 	

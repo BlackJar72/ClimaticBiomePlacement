@@ -1,7 +1,7 @@
 package jaredbgreat.climaticbiome.biomes.feature;
 
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.basic.Scrub.Type;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 
 import java.util.Random;
 

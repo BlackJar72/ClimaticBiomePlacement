@@ -1,8 +1,8 @@
 package jaredbgreat.climaticbiome.generation.map;
 
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
+import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.DimensionManager;
 
-public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry {
+public class NewMapRegistry implements IMapRegistry {
 	private final Cache<NewRegionMap> data;
 	private final SubBiomeRegistry subbiomes;
 	
@@ -30,16 +30,20 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
     private final SpatialNoise regionNoise;
     private final SpatialNoise biomeNoise;
     
-    private int dataSize;
-    private int cWidth;
-    private int bWidth;
-    private int cOffset;
-    private int bOffset;    
+    public final int dataSize;
+    public final int cWidth;
+    public final int bWidth;
+    public final int cOffset;
+    public final int bOffset;    
     
     private final MapMaker maker;
+    private World world;
+    private File savedir =  null;
+    private boolean cansave = true;
+    
+    private boolean noFakes;
 
 	public NewMapRegistry(long seed, World w) {
-		super(w);
 		cWidth = MapMaker.RSIZE * ConfigHandler.regionSize.whole;
 		bWidth = cWidth * 16;
 		dataSize = cWidth * cWidth;
@@ -53,16 +57,47 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
         biomeNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         maker = new MapMaker(chunkNoise, regionNoise, biomeNoise);
         noFakes = areFakesInvalid();
+        world = w;
 	}
 	
 	
-	private void resetSettings() {
-		cWidth = MapMaker.RSIZE * settings.regionSize.whole;
-		bWidth = cWidth * 16;
-		dataSize = cWidth * cWidth;
-		cOffset = cWidth / 2;
-		bOffset = bWidth / 2;
-        maker.setSettings(settings);		
+	private final boolean areFakesInvalid() {
+		return net.minecraftforge.fml.common.Loader.isModLoaded("lostcities") 
+        		&& ConfigHandler.chunkProvider.equalsIgnoreCase("lostcities");
+	}
+	
+	
+	public void findSaveDir() {
+		if(world == null || world.getMinecraftServer() == null) {
+			cansave = false;
+			return;
+		}
+		if(world.getMinecraftServer().isDedicatedServer()) {
+			savedir = world.getMinecraftServer().getFile("world" + File.separator + "ClimaticMaps" 
+								   + File.separator + "Dim" + world.provider.getDimension());
+		} else {
+			savedir = new File(DimensionManager.getCurrentSaveRootDirectory().toString() 
+						+ File.separator + "ClimaticMaps" 
+						+ File.separator + "Dim" 
+						+ world.provider.getDimension());
+		}
+		cansave = savedir != null;
+		if(cansave && (!savedir.exists())) {
+			savedir.mkdirs();
+			cansave = savedir.exists() && savedir.isDirectory();
+		}
+	}
+	
+	
+	private File getSaveFile(int x, int z) {
+		if(savedir == null) {
+			findSaveDir();
+		}
+		if(savedir == null) {
+			cansave = false;
+			return null;
+		}
+		return new File(savedir.toString() + File.separator + "X" + x + "Z" + z + ".cbmap");
 	}
 	
 	
@@ -101,14 +136,9 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 	 * @return
 	 */
 	private NewRegionMap getMapFromChunkCoord(int x, int z) {
-		// Don't like that added conditional 
-		// much less the convoluted spaghetti, 
-		// but working around vanilla's restrictions
-		// and spaghetti leaves me no choice.
-		if(pwtodo) {
-			readSettings();
-			resetSettings();
-		}
+		//Would this be better (no hidden conditional)?
+		//int mx = ((x + cOffset + HALFMAX) / cWidth) - halfcmax;
+		//int zx = ((z + cOffset + HALFMAX) / cWidth) - halfcmax;
 		return getMap(Math.floorDiv(x + cOffset, cWidth), 
 				      Math.floorDiv(z + cOffset, cWidth));
 	}
