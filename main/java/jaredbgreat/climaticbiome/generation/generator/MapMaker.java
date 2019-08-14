@@ -33,7 +33,7 @@ import net.minecraft.world.World;
  */
 public class MapMaker {
 	IBiomeSpecifier specifier;
-	private final ClimaticWorldSettings settings;
+	private ClimaticWorldSettings settings;
 	// STATIC VARIABLES USED IN MANY PLACES
     public static final int CSIZE = 16; // chuck size
     public static final int RSIZE = 4096 / CSIZE; // region / "continent" size
@@ -60,7 +60,7 @@ public class MapMaker {
     private ChunkTile[] premap;
     
     
-    public MapMaker(ClimaticWorldSettings settings, SpatialNoise chunkNoise, 
+    public MapMaker(SpatialNoise chunkNoise, 
     		SpatialNoise regionNoise, SpatialNoise biomeNoise) {
     	this.settings    = settings;
         this.chunkNoise  = chunkNoise;
@@ -68,6 +68,11 @@ public class MapMaker {
         this.biomeNoise  = biomeNoise;
         scale = ConfigHandler.regionSize;
         specifier = BiomeClimateTable.getClimateTable();
+    }
+    
+    
+    public void setSettings(ClimaticWorldSettings settings) {
+    	this.settings = settings;
     }
     
     /**

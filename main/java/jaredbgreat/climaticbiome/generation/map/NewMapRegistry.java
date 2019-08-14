@@ -51,7 +51,7 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
         chunkNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         regionNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         biomeNoise = new SpatialNoise(random.nextLong(), random.nextLong());
-        maker = new MapMaker(settings, chunkNoise, regionNoise, biomeNoise);
+        maker = new MapMaker(chunkNoise, regionNoise, biomeNoise);
         noFakes = areFakesInvalid();
 	}
 	
@@ -91,6 +91,9 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 	 * @return
 	 */
 	private NewRegionMap getMapFromChunkCoord(int x, int z) {
+		// Don't like that added conditional 
+		// but not sure how else to handle this :-/
+		if(pwtodo) readSettings();
 		return getMap(Math.floorDiv(x + cOffset, cWidth), 
 				      Math.floorDiv(z + cOffset, cWidth));
 	}
@@ -126,6 +129,9 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 			return;
 		}
 		File file = getSaveFile(x, z);
+		if(perworld && pwtodo) {
+			readSettings();
+		}
 		long[] data = map.getData();
 		if(file != null && file.exists()) {
 			if(file.length() < (dataSize * 4)) {

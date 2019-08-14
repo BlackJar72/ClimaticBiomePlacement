@@ -1,7 +1,6 @@
 package jaredbgreat.climaticbiome.generation.map;
 
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
-import jaredbgreat.climaticbiome.ClimaticBiomes;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
@@ -18,11 +17,8 @@ import java.io.IOException;
 import java.util.Random;
 
 import net.minecraft.init.Biomes;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.DimensionManager;
 
 
 /**
@@ -36,6 +32,9 @@ import net.minecraftforge.common.DimensionManager;
  * @author JaredBGreat
  */
 public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
+	private static final int HALFMAX = Integer.MAX_VALUE / 2;
+	private static final String SETTINGS = "settings";
+	private final int halfcmax;
 	private final Cache<RegionMap> data;
 	private final SubBiomeRegistry subbiomes;
 	
@@ -54,18 +53,19 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	
 	public MapRegistry(long seed, World w) {
 		super(w);
-		cWidth = MapMaker.RSIZE * settings.regionSize.whole;
+		cWidth = MapMaker.RSIZE * ConfigHandler.regionSize.whole;
 		bWidth = cWidth * 16;
 		dataSize = cWidth * cWidth;
 		cOffset = cWidth / 2;
 		bOffset = bWidth / 2;
+		halfcmax = HALFMAX / cWidth;
 		data = new Cache<>();
 		subbiomes = SubBiomeRegistry.getSubBiomeRegistry();
         Random random = new Random(seed);
         chunkNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         regionNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         biomeNoise = new SpatialNoise(random.nextLong(), random.nextLong());
-        maker = new MapMaker(settings, chunkNoise, regionNoise, biomeNoise);
+        maker = new MapMaker(chunkNoise, regionNoise, biomeNoise);
 	}
 	
 	
@@ -104,6 +104,9 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	 * @return
 	 */
 	private RegionMap getMapFromChunkCoord(int x, int z) {
+		// Don't like that added conditional 
+		// but not sure how else to handle this :-/
+		if(pwtodo) readSettings();
 		return getMap(Math.floorDiv(x + cOffset, cWidth), 
 				      Math.floorDiv(z + cOffset, cWidth));
 	}
