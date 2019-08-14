@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.map;
 
+import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.util.Debug;
 
@@ -16,6 +17,7 @@ import net.minecraftforge.common.DimensionManager;
 
 public abstract class AbstractMapRegistry implements IMapRegistry {
 	static final String SETTINGS = "settings";
+	ClimaticWorldSettings settings;
     World world;
 	
     File savedir =  null;
@@ -84,6 +86,13 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 	}
 	
 	
+	/**
+	 * Find the actual save file to use for saving continental maps.
+	 * 
+	 * @param x
+	 * @param z
+	 * @return
+	 */
 	File getSaveFile(int x, int z) {
 		if(savedir == null) {
 			findSaveDir();
@@ -96,7 +105,12 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 	}
 	
 	
+	/**
+	 * Read in per-world settings if they exist; if not, create 
+	 * some per-world settings. 
+	 */
 	void readSettings() {
+		settings = new ClimaticWorldSettings();
 		if(settingsFile == null) {
 			return;
 		}
@@ -105,7 +119,11 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 				// Read settings
 				try {				
 					BufferedReader fs = new BufferedReader(new FileReader(settingsFile));
-					Debug.bigSysout(fs.readLine());
+					String json = fs.readLine();
+					if(json != null) {
+						settings = settings.fromJsonString(json);
+						Debug.bigSysout(json);
+					}
 					fs.close();
 					pwtodo = false;
 				} catch (FileNotFoundException e) {
@@ -114,12 +132,14 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 					e.printStackTrace();
 				}	
 			} else {
+				// FIXME: I should be logging with a logger!!!
 				System.err.println("Settings file \"" + settingsFile + "\" is not a valid file!");
 			}
 		} else {
+			// If there is not a settings file to read, write a new one!
 			try {				
 				BufferedWriter fs = new BufferedWriter(new FileWriter(settingsFile));
-				fs.append("Writing to the Settings file!");
+				fs.append(settings.toJsonString());
 				fs.close();
 				pwtodo = false;
 			} catch (FileNotFoundException e) {
