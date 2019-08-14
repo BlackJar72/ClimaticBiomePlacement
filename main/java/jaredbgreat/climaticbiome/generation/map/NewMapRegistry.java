@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.DimensionManager;
 
-public class NewMapRegistry implements IMapRegistry {
+public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	private final Cache<NewRegionMap> data;
 	private final SubBiomeRegistry subbiomes;
 	
@@ -37,13 +37,9 @@ public class NewMapRegistry implements IMapRegistry {
     public final int bOffset;    
     
     private final MapMaker maker;
-    private World world;
-    private File savedir =  null;
-    private boolean cansave = true;
-    
-    private boolean noFakes;
 
 	public NewMapRegistry(long seed, World w) {
+		super(w);
 		cWidth = MapMaker.RSIZE * ConfigHandler.regionSize.whole;
 		bWidth = cWidth * 16;
 		dataSize = cWidth * cWidth;
@@ -57,47 +53,6 @@ public class NewMapRegistry implements IMapRegistry {
         biomeNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         maker = new MapMaker(chunkNoise, regionNoise, biomeNoise);
         noFakes = areFakesInvalid();
-        world = w;
-	}
-	
-	
-	private final boolean areFakesInvalid() {
-		return net.minecraftforge.fml.common.Loader.isModLoaded("lostcities") 
-        		&& ConfigHandler.chunkProvider.equalsIgnoreCase("lostcities");
-	}
-	
-	
-	public void findSaveDir() {
-		if(world == null || world.getMinecraftServer() == null) {
-			cansave = false;
-			return;
-		}
-		if(world.getMinecraftServer().isDedicatedServer()) {
-			savedir = world.getMinecraftServer().getFile("world" + File.separator + "ClimaticMaps" 
-								   + File.separator + "Dim" + world.provider.getDimension());
-		} else {
-			savedir = new File(DimensionManager.getCurrentSaveRootDirectory().toString() 
-						+ File.separator + "ClimaticMaps" 
-						+ File.separator + "Dim" 
-						+ world.provider.getDimension());
-		}
-		cansave = savedir != null;
-		if(cansave && (!savedir.exists())) {
-			savedir.mkdirs();
-			cansave = savedir.exists() && savedir.isDirectory();
-		}
-	}
-	
-	
-	private File getSaveFile(int x, int z) {
-		if(savedir == null) {
-			findSaveDir();
-		}
-		if(savedir == null) {
-			cansave = false;
-			return null;
-		}
-		return new File(savedir.toString() + File.separator + "X" + x + "Z" + z + ".cbmap");
 	}
 	
 	
@@ -174,6 +129,9 @@ public class NewMapRegistry implements IMapRegistry {
 			return;
 		}
 		File file = getSaveFile(x, z);
+		if(perworld && pwtodo) {
+			readSettings();
+		}
 		long[] data = map.getData();
 		if(file != null && file.exists()) {
 			if(file.length() < (dataSize * 4)) {
