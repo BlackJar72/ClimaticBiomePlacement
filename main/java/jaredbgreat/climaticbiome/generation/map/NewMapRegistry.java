@@ -30,11 +30,11 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
     private final SpatialNoise regionNoise;
     private final SpatialNoise biomeNoise;
     
-    public final int dataSize;
-    public final int cWidth;
-    public final int bWidth;
-    public final int cOffset;
-    public final int bOffset;    
+    private int dataSize;
+    private int cWidth;
+    private int bWidth;
+    private int cOffset;
+    private int bOffset;    
     
     private final MapMaker maker;
 
@@ -53,6 +53,16 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
         biomeNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         maker = new MapMaker(chunkNoise, regionNoise, biomeNoise);
         noFakes = areFakesInvalid();
+	}
+	
+	
+	private void resetSettings() {
+		cWidth = MapMaker.RSIZE * settings.regionSize.whole;
+		bWidth = cWidth * 16;
+		dataSize = cWidth * cWidth;
+		cOffset = cWidth / 2;
+		bOffset = bWidth / 2;
+        maker.setSettings(settings);		
 	}
 	
 	
@@ -92,8 +102,13 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 	 */
 	private NewRegionMap getMapFromChunkCoord(int x, int z) {
 		// Don't like that added conditional 
-		// but not sure how else to handle this :-/
-		if(pwtodo) readSettings();
+		// much less the convoluted spaghetti, 
+		// but working around vanilla's restrictions
+		// and spaghetti leaves me no choice.
+		if(pwtodo) {
+			readSettings();
+			resetSettings();
+		}
 		return getMap(Math.floorDiv(x + cOffset, cWidth), 
 				      Math.floorDiv(z + cOffset, cWidth));
 	}
@@ -129,9 +144,6 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 			return;
 		}
 		File file = getSaveFile(x, z);
-		if(perworld && pwtodo) {
-			readSettings();
-		}
 		long[] data = map.getData();
 		if(file != null && file.exists()) {
 			if(file.length() < (dataSize * 4)) {

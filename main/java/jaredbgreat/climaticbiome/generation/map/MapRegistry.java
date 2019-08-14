@@ -32,9 +32,7 @@ import net.minecraft.world.biome.Biome;
  * @author JaredBGreat
  */
 public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
-	private static final int HALFMAX = Integer.MAX_VALUE / 2;
 	private static final String SETTINGS = "settings";
-	private final int halfcmax;
 	private final Cache<RegionMap> data;
 	private final SubBiomeRegistry subbiomes;
 	
@@ -42,11 +40,11 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     private final SpatialNoise regionNoise;
     private final SpatialNoise biomeNoise;
     
-    public final int dataSize;
-    public final int cWidth;
-    public final int bWidth;
-    public final int cOffset;
-    public final int bOffset;    
+    private int dataSize;
+    private int cWidth;
+    private int bWidth;
+    private int cOffset;
+    private int bOffset;    
     
     private final MapMaker maker;
 	
@@ -58,7 +56,6 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 		dataSize = cWidth * cWidth;
 		cOffset = cWidth / 2;
 		bOffset = bWidth / 2;
-		halfcmax = HALFMAX / cWidth;
 		data = new Cache<>();
 		subbiomes = SubBiomeRegistry.getSubBiomeRegistry();
         Random random = new Random(seed);
@@ -68,6 +65,16 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
         maker = new MapMaker(chunkNoise, regionNoise, biomeNoise);
 	}
 	
+	
+	private void resetSettings() {
+		cWidth = MapMaker.RSIZE * settings.regionSize.whole;
+		bWidth = cWidth * 16;
+		dataSize = cWidth * cWidth;
+		cOffset = cWidth / 2;
+		bOffset = bWidth / 2;
+        maker.setSettings(settings);
+		
+	}
 	
 	/**
 	 * Return the map at the given coordinates x and z 
@@ -104,9 +111,14 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	 * @return
 	 */
 	private RegionMap getMapFromChunkCoord(int x, int z) {
-		// Don't like that added conditional 
-		// but not sure how else to handle this :-/
-		if(pwtodo) readSettings();
+		// Don't like that added conditional,  
+		// much less the convoluted spaghetti, 
+		// but working around vanilla's restrictions
+		// and spaghetti leaves me no choice.
+		if(pwtodo) {
+			readSettings();
+			resetSettings();
+		}
 		return getMap(Math.floorDiv(x + cOffset, cWidth), 
 				      Math.floorDiv(z + cOffset, cWidth));
 	}

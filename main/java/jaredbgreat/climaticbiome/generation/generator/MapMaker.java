@@ -62,7 +62,6 @@ public class MapMaker {
     
     public MapMaker(SpatialNoise chunkNoise, 
     		SpatialNoise regionNoise, SpatialNoise biomeNoise) {
-    	this.settings    = settings;
         this.chunkNoise  = chunkNoise;
         this.regionNoise = regionNoise;
         this.biomeNoise  = biomeNoise;
