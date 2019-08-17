@@ -17,7 +17,7 @@ import net.minecraft.world.biome.BiomeProvider;
 
 public class ClimaticBiomeProvider extends BiomeProvider {
         private World world;
-        private IMapRegistry finder;
+        private /*static*/ IMapRegistry finder;
         private boolean vanillaCacheValid;
         
         
@@ -25,10 +25,12 @@ public class ClimaticBiomeProvider extends BiomeProvider {
                 super(/*world.getWorldInfo()*/);
                 vanillaCacheValid = true;
                 this.world = world;
-                if(net.minecraftforge.fml.common.Loader.isModLoaded("jeid")) {
-                	finder = new NewMapRegistry(world.getSeed(), world);
-                } else {
-                	finder = new MapRegistry(world.getSeed(), world);
+                /*if(finder == null)*/ {
+	                if(net.minecraftforge.fml.common.Loader.isModLoaded("jeid")) {
+	                	finder = new NewMapRegistry(world.getSeed(), world);
+	                } else {
+	                	finder = new MapRegistry(world.getSeed(), world);
+	                }
                 }
         }
         
