@@ -127,7 +127,7 @@ public class MapMaker {
         
         HeightNoise climateMaker 
                 = new HeightNoise(chunkNoise, RSIZE * scale.whole, 
-                        32 * scale.whole, 1.0, 
+                        32 * scale.whole, 2.0, 
                         coords.getX(), coords.getZ());
         
         double[] doubleNoise;
