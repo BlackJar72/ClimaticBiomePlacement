@@ -121,8 +121,8 @@ public class ClimaticBiomeProvider extends BiomeProvider {
         x = (x - 8) / 16;
         z = (z - 8) / 16;
         int cr = (radius / 16) + 1;
-        for(int i = -cr; i <= cr; i++)
-                for(int j = -cr; j <= cr; j++) {
+        for(int i = -cr + 1; i < cr; i++)
+                for(int j = -cr + 1; j < cr; j++) {
                         if(!allowed.contains(finder.getBiomeChunk(x + i, z + j))) {
                                 return false;
                         }
