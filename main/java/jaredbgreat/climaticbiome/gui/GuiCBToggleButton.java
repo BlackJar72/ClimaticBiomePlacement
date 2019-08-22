@@ -1,16 +1,20 @@
 package jaredbgreat.climaticbiome.gui;
 
+import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.resources.I18n;
 
 public class GuiCBToggleButton extends GuiButton {
+	final ClimaticWorldSettings.BooleanSetter target;
 	private boolean state;
 	private final String onText;
 	private final String offText;
 
-	public GuiCBToggleButton(int buttonId, int x, int y, String buttonText, boolean defaultState) {
+	public GuiCBToggleButton(int buttonId, int x, int y, String buttonText, 
+				boolean defaultState, ClimaticWorldSettings.BooleanSetter target) {
 		super(buttonId, x, y, 150, 20, buttonText);
+		this.target = target;
 		onText = buttonText + ".on";
 		offText = buttonText + ".off";
 		state = defaultState;
@@ -33,7 +37,13 @@ public class GuiCBToggleButton extends GuiButton {
 		if(out) {
 			state = !state;
 			setStateText();
+			target.set(this);
 		}
 		return out;
+	}
+	
+	
+	public boolean getState() {
+		return state;
 	}
 }

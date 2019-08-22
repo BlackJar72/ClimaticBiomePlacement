@@ -23,7 +23,7 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
 	public GuiConfigureWorld(GuiCreateWorld guiCreateWorld,
 			String chunkProviderSettingsJson) {
         parent = (GuiCreateWorld)guiCreateWorld;
-        settings = new ClimaticWorldSettings();
+        settings = ClimaticWorldSettings.getNew();
 	}
 	
 	
@@ -40,22 +40,30 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
         		I18n.format("gui.done")));
         
         buttonList.add(new GuiIntSlider(this, 64, 40, 40, 
-        		I18n.format("createWorld." + Info.ID + ".biomesize"), 4, 64, 16, this));
+        		I18n.format("createWorld." + Info.ID + ".biomesize"), 4, 64, 
+        		settings.biomeSize, this, 
+        		new ClimaticWorldSettings.BiomeSizeSetter(settings)));
         buttonList.add(new GuiScaleSlider(this, 65, width - 190, 40, 
-        		I18n.format("createWorld." + Info.ID + ".genscale")));
+        		settings.regionSize.ordinal(),
+        		I18n.format("createWorld." + Info.ID + ".genscale"),
+				new ClimaticWorldSettings.MapScaleSetter(settings)));
         
         // World type button
         buttonList.add(new GuiWorldTypeButton(305, 40, 65, 1));
         buttonList.add(new GuiIntSlider(this, 64, 40, 90, 
-        		I18n.format("createWorld." + Info.ID + ".sisize"), 4, 18, 4, this));
+        		I18n.format("createWorld." + Info.ID + ".sisize"), 4, 18, 4, this,
+        		new ClimaticWorldSettings.SISizeSetter(settings)));
         
         // Buttons for boolean options
         buttonList.add(new GuiCBToggleButton(305, width - 190, 65,  
-        		"createWorld." + Info.ID + ".forcewhole", false));
+        		"createWorld." + Info.ID + ".forcewhole", settings.forceWhole, 
+        		new ClimaticWorldSettings.ForceWholeSetter(settings)));
         buttonList.add(new GuiCBToggleButton(305, 40, 115,  
-        		"createWorld." + Info.ID + ".addisles", true));
+        		"createWorld." + Info.ID + ".addisles", settings.addIslands, 
+        		new ClimaticWorldSettings.AddIslandsSetter(settings)));
         buttonList.add(new GuiCBToggleButton(305, width - 190, 115,  
-        		"createWorld." + Info.ID + ".addbeach", true));
+        		"createWorld." + Info.ID + ".addbeach", settings.extraBeaches, 
+        		new ClimaticWorldSettings.ExtraBeachSetter(settings)));
         
 		
 	}

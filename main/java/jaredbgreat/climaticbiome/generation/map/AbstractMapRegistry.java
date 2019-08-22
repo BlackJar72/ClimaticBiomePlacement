@@ -112,7 +112,7 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 	 * some per-world settings. 
 	 */
 	void readSettings() {
-		settings = new ClimaticWorldSettings();
+		settings = ClimaticWorldSettings.getQueued();
 		if(settingsFile == null) {
 			return;
 		}

@@ -1,13 +1,16 @@
 package jaredbgreat.climaticbiome.gui;
 
+import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import net.minecraft.client.gui.GuiPageButtonList.GuiResponder;
 import net.minecraft.client.gui.GuiSlider;
 
 public class GuiScaleSlider extends GuiSlider {
+	final ClimaticWorldSettings.MapScaleSetter target;
 
-	public GuiScaleSlider(GuiResponder guiResponder, int idIn, int x, int y,
-			String nameIn) {
-		super(guiResponder, idIn, x, y, nameIn, 0, 3, 0, new ScaleFormatter());
+	public GuiScaleSlider(GuiResponder guiResponder, int idIn, int x, int y, int defaultValue,
+			String nameIn, ClimaticWorldSettings.MapScaleSetter target) {
+		super(guiResponder, idIn, x, y, nameIn, 0, 3, defaultValue, new ScaleFormatter());
+		this.target = target;
 	}
 
 	
@@ -19,7 +22,9 @@ public class GuiScaleSlider extends GuiSlider {
 
     @Override
     public void setSliderValue(float value, boolean notifyResponder) {
-    	super.setSliderValue(Math.round(value), notifyResponder);
+    	float v = Math.round(value);
+    	super.setSliderValue(v, notifyResponder);
+    	target.set(Math.round(v));
     }
 
 	
