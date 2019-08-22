@@ -1,6 +1,7 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
+import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
@@ -10,12 +11,14 @@ import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 
 public class GetOcean implements IBiomeSpecifier {
+	private ClimaticWorldSettings  settings;
 	private static GetOcean oceans;
 	private int nearEdge, farEdge;
-	private GetOcean() {
+	private GetOcean(ClimaticWorldSettings settings) {
 		super();
-		nearEdge = 5 + ConfigHandler.regionSize.whole;
-		farEdge  = (256 * ConfigHandler.regionSize.whole) - 6 - ConfigHandler.regionSize.whole;
+		this.settings = settings;
+		nearEdge = 5 + settings.regionSize.whole;
+		farEdge  = (256 * settings.regionSize.whole) - 6 - settings.regionSize.whole;
 		init();
 	}
 	BiomeList frozen;
@@ -100,7 +103,7 @@ public class GetOcean implements IBiomeSpecifier {
 		int seed = tile.getBiomeSeed();
 		int iceNoise = tile.getNoise();
 		tile.nextBiomeSeed();
-        if(ConfigHandler.addIslands && (tile.getHeight() < 0.5) 
+        if(settings.addIslands && (tile.getHeight() < 0.5) 
         							&& (tile.getVal() < 3) 
         							&& ((seed % 5) == 0) 
         							&& notNearEdge(tile)) {
@@ -116,11 +119,11 @@ public class GetOcean implements IBiomeSpecifier {
     					}
     				}
     				return 0;				
-    			} else if(ConfigHandler.addIslands && ((seed & 1) == 0)) {
+    			} else if(settings.addIslands && ((seed & 1) == 0)) {
     				if(noise > (4 + (seed % 3))) {
     					return islands1.getBiome(tile.nextBiomeSeed());
     				}
-    			} else if(ConfigHandler.addIslands) {
+    			} else if(settings.addIslands) {
     				if(noise > (seed % 3)) {
     					return islands2.getBiome(tile.nextBiomeSeed());
     				}				
@@ -168,10 +171,15 @@ public class GetOcean implements IBiomeSpecifier {
 	}
 	
 	
-	public static GetOcean getOcean() {
+	public static GetOcean getOcean(ClimaticWorldSettings settings) {
 		if(oceans == null) {
-			oceans = new GetOcean();			
+			oceans = new GetOcean(settings);			
 		}
+		return oceans;
+	}
+	
+	
+	public static GetOcean getOceanForIslands() {
 		return oceans;
 	}
 	

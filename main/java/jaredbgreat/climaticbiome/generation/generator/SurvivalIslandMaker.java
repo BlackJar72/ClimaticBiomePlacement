@@ -1,10 +1,9 @@
 package jaredbgreat.climaticbiome.generation.generator;
 
+import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.util.HeightNoise;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 public class SurvivalIslandMaker extends LandmassMaker {
     
@@ -16,7 +15,7 @@ public class SurvivalIslandMaker extends LandmassMaker {
     }
     
     
-    public ChunkTile[] generate() {
+    public ChunkTile[] generate(ClimaticWorldSettings settings) {
     	double beachThreshold = 0.70;
         ChunkTile[] out = new ChunkTile[size * size];
         for(int i = 0; i < size; i++) 
@@ -30,7 +29,7 @@ public class SurvivalIslandMaker extends LandmassMaker {
         for(int i = 0; i < size; i++)
             for(int j = 0; j < size; j++) {
                 out[(i * size) + j].height
-                        = getFromCenter(out[(i * size) + j], scale.inv);
+                        = getFromCenter(out[(i * size) + j], scale.inv, settings);
                 out[(i * size) + j].val = (int)out[(i * size) + j].height;
                 out[(i * size) + j].height /= 10.0;
                 out[(i * size) + j].height = out[(i * size) + j].height 
@@ -41,7 +40,7 @@ public class SurvivalIslandMaker extends LandmassMaker {
             for(int j = 0; j < size; j++) {
                 if(out[(i * size) + j].height > 0.6) {
                     out[(i * size) + j].rlBiome = 1;
-                    if(ConfigHandler.extraBeaches || 
+                    if(settings.extraBeaches || 
                     		out[(i * size) + j].height < beachThreshold) {
                         out[(i * size) + j].beach = true;
                     }
@@ -53,11 +52,12 @@ public class SurvivalIslandMaker extends LandmassMaker {
         return out;
     }
     
-    private double getFromCenter(ChunkTile tile, double inv) {
+    private double getFromCenter(ChunkTile tile, double inv, 
+    			ClimaticWorldSettings settings) {
     	double x = tile.getTX() * inv;
     	double z = tile.getTZ() * inv;
     	double dist = Math.sqrt((x * x) + (z * z));
-    	return Math.max(0.0, ConfigHandler.sisize - dist);    	
+    	return Math.max(0.0, settings.sisize - dist);    	
     }    
     
 }

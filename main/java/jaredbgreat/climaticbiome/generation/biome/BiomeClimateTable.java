@@ -1,12 +1,6 @@
 package jaredbgreat.climaticbiome.generation.biome;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import net.minecraft.init.Biomes;
-import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
+import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetAlpine;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetBeach;
@@ -16,20 +10,27 @@ import jaredbgreat.climaticbiome.generation.biome.biomes.GetCoolForest;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetCoolPark;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetCoolPlains;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetDesert;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetForest;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetHotForest;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetJungle;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetOcean;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetPark;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetPlains;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetRiver;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetSavanna;
-import jaredbgreat.climaticbiome.generation.biome.biomes.GetWarmForest;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetSwamp;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetTaiga;
-import jaredbgreat.climaticbiome.generation.biome.biomes.GetForest;
-import jaredbgreat.climaticbiome.generation.biome.biomes.GetHotForest;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetTundra;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetWarmForest;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetWarmPlains;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class BiomeClimateTable implements IBiomeSpecifier {	
 	private static BiomeClimateTable main;
@@ -100,16 +101,13 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 	}	
 	
 	
-	private BiomeClimateTable() {
-		init();
+	private BiomeClimateTable(ClimaticWorldSettings settings) {
+		init(settings);
 	}
 	
 	
-	public static BiomeClimateTable getClimateTable() {
-		if(main == null) {
-			main = new BiomeClimateTable();			
-		}
-		return main;
+	public static BiomeClimateTable getClimateTable(ClimaticWorldSettings settings) {
+		return main = new BiomeClimateTable(settings);
 	}
 	
 	
@@ -166,9 +164,9 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 	}
 	
 	
-	public void init() {
+	public void init(ClimaticWorldSettings settings) {
 		land = getLandTable();
-		OCEAN = GetOcean.getOcean();
+		OCEAN = GetOcean.getOcean(settings);
 	    SWAMP = GetSwamp.getSwamp();
 	    TUNDRA = GetTundra.getTundra();
 	    CGRASS = GetColdPlains.getPlains();

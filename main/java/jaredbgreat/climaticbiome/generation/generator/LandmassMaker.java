@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.generator;
 
+import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.util.HeightNoise;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
@@ -28,7 +29,7 @@ public class LandmassMaker {
     }
     
     
-    public ChunkTile[] generate() {
+    public ChunkTile[] generate(ClimaticWorldSettings settings) {
     	double beachThreshold = 0.70;
         ChunkTile[] out = new ChunkTile[size * size];
         for(int i = 0; i < size; i++) 
@@ -58,7 +59,7 @@ public class LandmassMaker {
             for(int j = 0; j < size; j++) {
                 if(out[(i * size) + j].height > 0.6) {
                     out[(i * size) + j].rlBiome = 1;
-                    if(ConfigHandler.extraBeaches || 
+                    if(settings.extraBeaches || 
                     		out[(i * size) + j].height < beachThreshold) {
                         out[(i * size) + j].beach = true;
                     }

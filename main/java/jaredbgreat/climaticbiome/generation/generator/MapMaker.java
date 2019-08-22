@@ -65,7 +65,7 @@ public class MapMaker {
         this.biomeNoise  = biomeNoise;
         this.settings    = settings;
         scale = settings.regionSize;
-        specifier = BiomeClimateTable.getClimateTable();
+        specifier = BiomeClimateTable.getClimateTable(settings);
     }
     
     /**
@@ -206,7 +206,7 @@ public class MapMaker {
                 random, basins, scale, RSIZE, xoff, zoff);
         	break;
         }
-        premap = maker.generate();
+        premap = maker.generate(settings);
     }
     
     

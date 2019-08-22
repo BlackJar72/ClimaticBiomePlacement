@@ -23,15 +23,16 @@ public class ConfigHandler {
 	public static boolean useRWmod = false;
 	public static boolean useSpecial = false;
 	public static boolean useVanilla = true;	
-	public static boolean useBoPTable = true;	
 	public static boolean volcanicIslands = false;
 	public static boolean useCfg = true;
+	
 	public static boolean writeBiomeLists = true;
-	public static boolean writeWTLists = false;
+	public static boolean writeWTLists = false;	
 	public static boolean rockyScrub = true;
 	public static boolean hasDT = false;
-	public static boolean useDT = false;
-	public static boolean addIslands = true;
+	public static boolean useDT = false;		
+	public static boolean useBoPTable = true;
+	
 	public static boolean moreMansion = true;
 	public static boolean moddedBlocks = true;
 	public static boolean addPines = true;
@@ -39,7 +40,6 @@ public class ConfigHandler {
 	public static boolean badBiomeSpam = false;
 	public static boolean makeDefault = false;
 	public static boolean addToVanilla = false;
-	public static boolean extraBeaches = false;
 	public static String  chunkProvider = "default";
 	
 	public static boolean includeForests = true;
@@ -50,11 +50,14 @@ public class ConfigHandler {
 	public static boolean includeVolcano = true;
 	
 	public static boolean biomeWater = false;
+
+	static boolean addIslands = true;
+	static boolean extraBeaches = false;
 	
-	public static int        biomeSize  = 16;
-	public static SizeScale  regionSize = SizeScale.X1;
-	public static boolean    forceWhole = false;
-	public static double     sisize     = 6.0; 
+	static int        biomeSize  = 16;
+	static SizeScale  regionSize = SizeScale.X1;
+	static boolean    forceWhole = false;
+	static double     sisize     = 6.0; 
 	
 	public static boolean failfast = false;
 	

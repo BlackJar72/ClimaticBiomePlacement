@@ -12,23 +12,14 @@ public class ClimaticWorldSettings {
 	public static final String DATA_NAME = Info.ID + "GenSettings"; 
 	
 	// Core settings
-	public boolean useBoP;
-	public boolean useTraverse;
-	public boolean useVanilla;	
-	public boolean useBoPTable;	
-	public boolean volcanicIslands;
-	public boolean useCfg;
-	public boolean rockyScrub;
 	public boolean addIslands;
 	public boolean extraBeaches;
-	public boolean moreMansion;
-	public boolean addPines;
-	public boolean deepSand;
 	public boolean forceWhole;
 	
 	public int biomeSize;
 	public SizeScale regionSize;
 	public int mode;
+	public double sisize;
 		
 	
 	/**
@@ -54,20 +45,13 @@ public class ClimaticWorldSettings {
 	 * Populate data using the config (defaults)
 	 */
 	private final void setDataFromConfig() {
-		this.useBoP = ConfigHandler.useBoP;
-		this.useTraverse = ConfigHandler.useTraverse;
-		this.useVanilla = ConfigHandler.useVanilla;	
-		this.useBoPTable = ConfigHandler.useBoPTable;	
-		this.volcanicIslands = ConfigHandler.volcanicIslands;
-		this.useCfg = ConfigHandler.useCfg;
-		this.rockyScrub = ConfigHandler.rockyScrub;
 		this.addIslands = ConfigHandler.addIslands;
 		this.extraBeaches = ConfigHandler.extraBeaches;
-		this.moreMansion = ConfigHandler.moreMansion;
-		this.deepSand = ConfigHandler.deepSand;	
 		this.forceWhole = ConfigHandler.forceWhole;	
 		this.biomeSize = ConfigHandler.biomeSize;
 		this.regionSize = ConfigHandler.regionSize;		
+		this.mode = ConfigHandler.mode;	
+		this.sisize = ConfigHandler.sisize;
 	}
 	
 	
@@ -87,39 +71,12 @@ public class ClimaticWorldSettings {
 	 */
 	public ClimaticWorldSettings fromJson(JsonElement json) {
 		JsonObject jsonObj = json.getAsJsonObject();		
-		{
-			if(JsonUtils.hasField(jsonObj, "useBoP"))
-				useBoP = JsonUtils.getBoolean(jsonObj, "useBoP");
-			
-			if(JsonUtils.hasField(jsonObj, "useTraverse")) 			
-				useTraverse = JsonUtils.getBoolean(jsonObj, "useTraverse");
-			
-			if(JsonUtils.hasField(jsonObj, "useVanilla")) 		
-				useVanilla = JsonUtils.getBoolean(jsonObj, "useVanilla");
-			
-			if(JsonUtils.hasField(jsonObj, "useBoPTable")) 			
-				useBoPTable = JsonUtils.getBoolean(jsonObj, "useBoPTable");
-			
-			if(JsonUtils.hasField(jsonObj, "volcanicBoP")) 			
-				volcanicIslands = JsonUtils.getBoolean(jsonObj, "volcanicIslands");
-			
-			if(JsonUtils.hasField(jsonObj, "useCfg")) 		
-				useCfg = JsonUtils.getBoolean(jsonObj, "useCfg");
-			
-			if(JsonUtils.hasField(jsonObj, "rockyScrub")) 		
-				rockyScrub = JsonUtils.getBoolean(jsonObj, "rockyScrub");
-			
+		{			
 			if(JsonUtils.hasField(jsonObj, "addIslands")) 		
 				addIslands = JsonUtils.getBoolean(jsonObj, "addIslands");
 			
 			if(JsonUtils.hasField(jsonObj, "addBeaches")) 		
 				extraBeaches = JsonUtils.getBoolean(jsonObj, "extraBeaches");
-			
-			if(JsonUtils.hasField(jsonObj, "moreMansion")) 		
-				moreMansion = JsonUtils.getBoolean(jsonObj, "moreMansion");
-			
-			if(JsonUtils.hasField(jsonObj, "deepSand")) 		
-				deepSand = JsonUtils.getBoolean(jsonObj, "deepSand");
 			
 			if(JsonUtils.hasField(jsonObj, "forceWholeBiome")) 		
 				forceWhole = JsonUtils.getBoolean(jsonObj, "forceWholeBiome");
@@ -129,6 +86,12 @@ public class ClimaticWorldSettings {
 			
 			if(JsonUtils.hasField(jsonObj, "regionSize")) 		
 				regionSize = SizeScale.get(JsonUtils.getInt(jsonObj, "regionSize"));
+			
+			if(JsonUtils.hasField(jsonObj, "mapType")) 		
+				mode = JsonUtils.getInt(jsonObj, "mapType");
+			
+			if(JsonUtils.hasField(jsonObj, "SurvivalIslandSize")) 		
+				sisize = JsonUtils.getFloat(jsonObj, "SurvivalIslandSize");
 		}		
 		return this;
 	}
@@ -154,21 +117,14 @@ public class ClimaticWorldSettings {
 	 * @return A JsonElement representation of the settings.
 	 */
 	public JsonElement toJson() {
-		JsonObject jsonObj = new JsonObject();		
-		jsonObj.addProperty("useBoP", useBoP);	
-		jsonObj.addProperty("useTraverse", useTraverse);
-		jsonObj.addProperty("useVanilla", useVanilla);	
-		jsonObj.addProperty("useBoPTable", useBoPTable);
-		jsonObj.addProperty("volcanicIslands", volcanicIslands);
-		jsonObj.addProperty("useCfg", useCfg);
-		jsonObj.addProperty("rockyScrub", rockyScrub);
+		JsonObject jsonObj = new JsonObject();	
 		jsonObj.addProperty("addIslands", addIslands);
 		jsonObj.addProperty("extraBeaches", extraBeaches);	
-		jsonObj.addProperty("moreMansion", moreMansion);
-		jsonObj.addProperty("deepSand", deepSand);
 		jsonObj.addProperty("forceWholeBiome", forceWhole);
 		jsonObj.addProperty("biomeSize", biomeSize);
 		jsonObj.addProperty("regionSize", regionSize.ordinal() + 1);
+		jsonObj.addProperty("mapType", mode);
+		jsonObj.addProperty("SurvivalIslandSize", sisize);
 		return jsonObj;
 	}
 	

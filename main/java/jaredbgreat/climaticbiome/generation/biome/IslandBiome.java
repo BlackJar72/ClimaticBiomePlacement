@@ -32,7 +32,7 @@ public class IslandBiome extends AbstractTerminalSpecifier {
 		if(tile.getNoise() > (4 + (tile.getBiomeSeed() % 3))) {
 			return island;
 		}
-		return GetOcean.getOcean().getForIsland(tile);
+		return GetOcean.getOceanForIslands().getForIsland(tile);
 	}
 	
 
