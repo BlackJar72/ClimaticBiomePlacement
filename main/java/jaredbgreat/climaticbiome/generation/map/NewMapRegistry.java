@@ -1,8 +1,8 @@
 package jaredbgreat.climaticbiome.generation.map;
 
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
-import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.DimensionManager;
 
-public class NewMapRegistry implements IMapRegistry {
+public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	private final Cache<NewRegionMap> data;
 	private final SubBiomeRegistry subbiomes;
 	
@@ -30,21 +30,17 @@ public class NewMapRegistry implements IMapRegistry {
     private final SpatialNoise regionNoise;
     private final SpatialNoise biomeNoise;
     
-    public final int dataSize;
-    public final int cWidth;
-    public final int bWidth;
-    public final int cOffset;
-    public final int bOffset;    
+    private int dataSize;
+    private int cWidth;
+    private int bWidth;
+    private int cOffset;
+    private int bOffset;    
     
     private final MapMaker maker;
-    private World world;
-    private File savedir =  null;
-    private boolean cansave = true;
-    
-    private boolean noFakes;
 
 	public NewMapRegistry(long seed, World w) {
-		cWidth = MapMaker.RSIZE * ConfigHandler.regionSize.whole;
+		super(w);
+		cWidth = MapMaker.RSIZE * settings.regionSize.whole;
 		bWidth = cWidth * 16;
 		dataSize = cWidth * cWidth;
 		cOffset = cWidth / 2;
@@ -55,68 +51,8 @@ public class NewMapRegistry implements IMapRegistry {
         chunkNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         regionNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         biomeNoise = new SpatialNoise(random.nextLong(), random.nextLong());
-        maker = new MapMaker(chunkNoise, regionNoise, biomeNoise);
+        maker = new MapMaker(chunkNoise, regionNoise, biomeNoise, settings);
         noFakes = areFakesInvalid();
-        world = w;
-	}
-	
-	
-	private final boolean areFakesInvalid() {
-		return net.minecraftforge.fml.common.Loader.isModLoaded("lostcities") 
-        		&& ConfigHandler.chunkProvider.equalsIgnoreCase("lostcities");
-	}
-	
-	
-	public void findSaveDir() {
-		if(world == null || world.getMinecraftServer() == null) {
-			cansave = false;
-			return;
-		}
-		if(world.getMinecraftServer().isDedicatedServer()) {
-			savedir = world.getMinecraftServer().getFile("world" + File.separator + "ClimaticMaps" 
-								   + File.separator + "Dim" + world.provider.getDimension());
-		} else {
-			savedir = new File(DimensionManager.getCurrentSaveRootDirectory().toString() 
-						+ File.separator + "ClimaticMaps" 
-						+ File.separator + "Dim" 
-						+ world.provider.getDimension());
-		}
-		cansave = savedir != null;
-		if(cansave && (!savedir.exists())) {
-			savedir.mkdirs();
-			cansave = savedir.exists() && savedir.isDirectory();
-		}
-	}
-	
-	
-	@Override
-	public File findSettingsFile() {
-		File out;
-		if(world == null || world.getMinecraftServer() == null) {
-			return null;
-		}
-		if(world.getMinecraftServer().isDedicatedServer()) {
-			out = world.getMinecraftServer().getFile("world" + File.separator + "ClimaticMaps" 
-								   + File.separator + "settings");
-		} else {
-			out = new File(DimensionManager.getCurrentSaveRootDirectory().toString() 
-						+ File.separator + "ClimaticMaps" 
-						+ File.separator + "settings"
-						+ File.separator + "Dim" + ".json");
-		}
-		return out;
-	}
-	
-	
-	private File getSaveFile(int x, int z) {
-		if(savedir == null) {
-			findSaveDir();
-		}
-		if(savedir == null) {
-			cansave = false;
-			return null;
-		}
-		return new File(savedir.toString() + File.separator + "X" + x + "Z" + z + ".cbmap");
 	}
 	
 	
@@ -148,21 +84,6 @@ public class NewMapRegistry implements IMapRegistry {
 	
 	
 	/**
-	 * Returns the map for block coordinates of x,z -- 
-	 * no y coordinate is used at the entire column of
-	 * blocks will be in the same map.
-	 * 
-	 * @param x
-	 * @param z
-	 * @return
-	 */
-	private NewRegionMap getMapFromBlockCoord(int x, int z) {
-		return getMap((x + bOffset) / bWidth, 
-				      (z + bOffset) / bWidth);
-	}
-	
-	
-	/**
 	 * Gets the map for the chunk coordinates x,z.
 	 * 
 	 * @param x
@@ -170,8 +91,8 @@ public class NewMapRegistry implements IMapRegistry {
 	 * @return
 	 */
 	private NewRegionMap getMapFromChunkCoord(int x, int z) {
-		return getMap((x + cOffset) / cWidth, 
-				      (z + cOffset) / cWidth);
+		return getMap(Math.floorDiv(x + cOffset, cWidth), 
+				      Math.floorDiv(z + cOffset, cWidth));
 	}
 	
 	
@@ -192,7 +113,7 @@ public class NewMapRegistry implements IMapRegistry {
 	 * @param map
 	 */
 	private void initializeMap(NewRegionMap map) {		
-		maker.generate(map);
+		maker.generate(map, world);
 		if(cansave) writeMap(map);
 	}
 	
@@ -488,7 +409,7 @@ public class NewMapRegistry implements IMapRegistry {
 		} else {
 			out = subbiomes.get(id);
 			if(noFakes || (out == null)) {
-				out = Biome.getBiome((int)id, Biomes.DEFAULT);
+				out = Biome.getBiome((int)(id & 0xffffffffL), Biomes.DEFAULT);
 			}
 			return out;
 		}

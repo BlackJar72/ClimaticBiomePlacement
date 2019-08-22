@@ -1,31 +1,24 @@
 package jaredbgreat.climaticbiome.generation.map;
 
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
-import jaredbgreat.climaticbiome.ClimaticWorldSettings;
-import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
 import jaredbgreat.climaticbiome.generation.generator.MapMaker;
-import jaredbgreat.climaticbiome.util.Debug;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.DimensionManager;
 
 
 /**
@@ -38,7 +31,8 @@ import net.minecraftforge.common.DimensionManager;
  * 
  * @author JaredBGreat
  */
-public class MapRegistry implements IMapRegistry {
+public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
+	private static final String SETTINGS = "settings";
 	private final Cache<RegionMap> data;
 	private final SubBiomeRegistry subbiomes;
 	
@@ -46,23 +40,18 @@ public class MapRegistry implements IMapRegistry {
     private final SpatialNoise regionNoise;
     private final SpatialNoise biomeNoise;
     
-    public int dataSize;
-    public int cWidth;
-    public int bWidth;
-    public int cOffset;
-    public int bOffset;    
+    private int dataSize;
+    private int cWidth;
+    private int bWidth;
+    private int cOffset;
+    private int bOffset;    
     
     private final MapMaker maker;
-    private World world;
-    private File savedir =  null;
-    private ClimaticWorldSettings settings;
-    private boolean cansave = true;
-    
-    private boolean noFakes;
 	
 	
 	public MapRegistry(long seed, World w) {
-		cWidth = MapMaker.RSIZE * ConfigHandler.regionSize.whole;
+		super(w);
+		cWidth = MapMaker.RSIZE * settings.regionSize.whole;
 		bWidth = cWidth * 16;
 		dataSize = cWidth * cWidth;
 		cOffset = cWidth / 2;
@@ -73,80 +62,7 @@ public class MapRegistry implements IMapRegistry {
         chunkNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         regionNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         biomeNoise = new SpatialNoise(random.nextLong(), random.nextLong());
-        maker = new MapMaker(chunkNoise, regionNoise, biomeNoise);
-        noFakes = areFakesInvalid();
-        world = w;
-	}
-	
-	private void applySettings(ClimaticWorldSettings settings) {
-		cWidth = MapMaker.RSIZE * settings.regionSize.whole;
-		bWidth = cWidth * 16;
-		dataSize = cWidth * cWidth;
-		cOffset = cWidth / 2;
-		bOffset = bWidth / 2;		
-	}
-	
-	
-	protected final boolean areFakesInvalid() {
-		return net.minecraftforge.fml.common.Loader.isModLoaded("lostcities") 
-        		&& ConfigHandler.chunkProvider.equalsIgnoreCase("lostcities");
-	}
-	
-	
-	/* (non-Javadoc)
-	 * @see jaredbgreat.climaticbiome.generation.map.IMapRegistry#findSaveDir()
-	 */
-	@Override
-	public void findSaveDir() {
-		if(world == null || world.getMinecraftServer() == null) {
-			cansave = false;
-			return;
-		}
-		if(world.getMinecraftServer().isDedicatedServer()) {
-			savedir = world.getMinecraftServer().getFile("world" + File.separator + "ClimaticMaps" 
-								   + File.separator + "Dim" + world.provider.getDimension());
-		} else {
-			savedir = new File(DimensionManager.getCurrentSaveRootDirectory().toString() 
-						+ File.separator + "ClimaticMaps" 
-						+ File.separator + "Dim" 
-						+ world.provider.getDimension());
-		}
-		cansave = savedir != null;
-		if(cansave && (!savedir.exists())) {
-			savedir.mkdirs();
-			cansave = savedir.exists() && savedir.isDirectory();
-		}
-	}
-	
-	
-	@Override
-	public File findSettingsFile() {
-		File out;
-		if(world == null || world.getMinecraftServer() == null) {
-			return null;
-		}
-		if(world.getMinecraftServer().isDedicatedServer()) {
-			out = world.getMinecraftServer().getFile("world" + File.separator + "ClimaticMaps" 
-								   + File.separator + "settings");
-		} else {
-			out = new File(DimensionManager.getCurrentSaveRootDirectory().toString() 
-						+ File.separator + "ClimaticMaps" 
-						+ File.separator + "settings"
-						+ File.separator + "Dim" + ".json");
-		}
-		return out;
-	}
-	
-	
-	private File getSaveFile(int x, int z) {
-		if(savedir == null) {
-			findSaveDir();
-		}
-		if(savedir == null) {
-			cansave = false;
-			return null;
-		}
-		return new File(savedir.toString() + File.separator + "X" + x + "Z" + z + ".cbmap");
+        maker = new MapMaker(chunkNoise, regionNoise, biomeNoise, settings);
 	}
 	
 	
@@ -168,75 +84,12 @@ public class MapRegistry implements IMapRegistry {
 		//System.out.println("{" + x + ", " + z + "}");
 		RegionMap out = data.get(x, z);
 		if(out == null) {
-			if(settings == null) {
-				settings = loadSettings();
-				applySettings(settings);
-			}
-			out = new RegionMap(x, z, cWidth, settings);
+			out = new RegionMap(x, z, cWidth);
 			readMap(out);
 			data.add(out);
 		}
 		//System.out.println("Accessing Map: " + x + ", " + z);
 		return out;
-	}
-	
-	
-	private ClimaticWorldSettings loadSettings() {
-		Debug.bigSysout(settings);
-		ClimaticWorldSettings out = null;
-		File file = findSettingsFile();
-		if(file != null) {
-			if(file.exists() && file.isFile() && file.canRead()) {
-				try {				
-					BufferedReader fs = new BufferedReader(new FileReader(file));
-					StringBuilder b = new StringBuilder();
-					while(fs.ready()) {
-						b.append(fs.readLine());
-					}
-					out = new ClimaticWorldSettings(b.toString());
-					fs.close();
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else {
-				out = new ClimaticWorldSettings();
-				try {
-					if(!file.exists() || (file.isFile() && file.canWrite())) {
-						BufferedWriter fs = new BufferedWriter(new FileWriter(file));
-						fs.write(out.toString());
-						fs.close();
-					}
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-			}
-		}
-		if(out == null) {
-			Debug.bigSysout(" *** FUCK YOU!!! *** ");
-			out = new ClimaticWorldSettings();
-		}
-		Debug.bigSysout(out);
-		return out;
-	}
-	
-	
-	/**
-	 * Returns the map for block coordinates of x,z -- 
-	 * no y coordinate is used at the entire column of
-	 * blocks will be in the same map.
-	 * 
-	 * @param x
-	 * @param z
-	 * @return
-	 */
-	private IRegionMap getMapFromBlockCoord(int x, int z) {
-		return getMap((x + bOffset) / bWidth, 
-				      (z + bOffset) / bWidth);
 	}
 	
 	
@@ -248,8 +101,8 @@ public class MapRegistry implements IMapRegistry {
 	 * @return
 	 */
 	private RegionMap getMapFromChunkCoord(int x, int z) {
-		return getMap((x + cOffset) / cWidth, 
-				      (z + cOffset) / cWidth);
+		return getMap(Math.floorDiv(x + cOffset, cWidth), 
+				      Math.floorDiv(z + cOffset, cWidth));
 	}
 	
 	
@@ -267,7 +120,7 @@ public class MapRegistry implements IMapRegistry {
 	 */
 	@Override
 	public int blockToMap(int c) {
-		return (c + bOffset) / cWidth;
+		return (c + bOffset) / bWidth;
 	}
 	
 	/**
@@ -278,7 +131,7 @@ public class MapRegistry implements IMapRegistry {
 	 * @param map
 	 */
 	private void initializeMap(RegionMap map) {		
-		maker.generate(map);
+		maker.generate(map, world);
 		if(cansave) writeMap(map);
 	}
 	
@@ -336,26 +189,6 @@ public class MapRegistry implements IMapRegistry {
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	
-	/**
-	 * A class for hashing data that is streamed through, 
-	 * purely for debugging.
-	 */
-	private class Hasher {
-    	int hash = 0;
-    	int count = 0;
-    	public void next(int b) {
-	    	hash ^= (b & 0xff) << (8 * count);
-	    	hash ^= hash << 13;
-	    	hash ^= hash >> 5;
-	    	hash ^= hash << 17;
-	    	count = (++count) % 4;
-		}
-    	public int getHash() {
-    		return hash;
-    	}
 	}
 		
 	

@@ -1,4 +1,32 @@
-﻿Using Biome List
+﻿TLDR:
+
+This isn't really hard:
+
+biome(modid:name) 
+...will add that biome to a list
+
+noisenoise(modid:name, n, modid:name)
+...will add the first biome if a noise function is less than n, the second otherwise. This is for things like mesas and plataeus; n is from 0 to 9.
+
+seed(modid:name, n, modid:name)
+...will has a 1 in n chance to add the first biome, otherwise it will add the second.  This is for rare biomes / variations.
+
+temp(modid:name, n, modid:name)
+...will add the first biome if temperature is less than n, otherwise the second.  Temperature is from 0 to 24 (see below if you want details).
+
+taiga(modid:name, modid:name)
+...is like temp but the temperature is determined by the mod.  Usually the first biome is a snowy version and the second is warm version.
+
+wetness(modid:name, n, modid:name)
+...is like temp, but with wetness.  Wetness is 0 to 10.
+
+biome(modid:name) 
+...will add the biome as an island or islands with a shallow ocean around them. Intended to be used to make non-islanding biome into special islands.  Biomes that normally look like islands (include a lot of water around the land) should not use this.
+
+OK, that's the quick and easy explanation.  For more details see below.
+
+
+DETAILED: Using Biome List
 
 Inside the folders you find a variety of files.  The names explain themselves.  These are for adding biomes from other mods, and are not hard to add biome to, though you must becareful as a typo could crash Minecraft.  "Minecraft" folder is vanilla biomes and those from this mod.  Once you have run the mod there should also be file called BiomeList.txt; this is where you can find the full resource location names of all biome installed as of the last time you ran the game.  (Writing this can be turned off if you know you haved added any or don't want to update the config).
 
@@ -22,7 +50,7 @@ The temp tag again looks similar, but here the first biome appear at a lower tem
 
 temp(modid:name, n, modid:name)
 
-The taiga tag is special version of the tmep tag.  I does not take a temperature variable; instead this will be be set based on which climate table you are using.  The first biome is warmer (usually snowy), the second is warmer.
+The taiga tag is special version of the tmep tag.  I does not take a temperature variable; instead this will be be set based on which climate table you are using.  The first biome is colder (usually snowy), the second is warmer.
 
 taiga(modid:name, modid:name)
 

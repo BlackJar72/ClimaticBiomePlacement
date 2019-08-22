@@ -1,11 +1,12 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
-import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.compat.BoP;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
+import jaredbgreat.climaticbiome.generation.biome.NoiseSpecialBiome;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetIslands implements IBiomeSpecifier {
@@ -39,7 +40,7 @@ public class GetIslands implements IBiomeSpecifier {
 		DefReader.readBiomeData(warm,   "SpecialIslandWarm.cfg");
 		DefReader.readBiomeData(hot,    "SpecialIslandTropical.cfg");
 		DefReader.readBiomeData(desert, "SpecialIslandDesert.cfg");
-		if(ConfigHandler.volcanicBoP) BoP.addIslands((BiomeList)frozen, (BiomeList)cold, 
+		if(ConfigHandler.volcanicIslands) addVolcanicIslands((BiomeList)frozen, (BiomeList)cold, 
                                                      (BiomeList)cool, (BiomeList)warm, 
                                                      (BiomeList)hot, (BiomeList)desert);
 	}
@@ -53,38 +54,38 @@ public class GetIslands implements IBiomeSpecifier {
 		tile.nextBiomeSeed();
 		if(temp < 4) {
 			if(seed % 4 < frozen.size()) {
-				return frozen.getBiome(tile);
-			} else return basic.getBiome(tile);
+				return frozen.getBiome(tile.nextBiomeSeed());
+			} else return basic.getBiome(tile.nextBiomeSeed());
 		}
 		if(temp < 7) {
 			if(seed % 4 < cold.size()) {
-				return cold.getBiome(tile);
-			} else return basic.getBiome(tile);
+				return cold.getBiome(tile.nextBiomeSeed());
+			} else return basic.getBiome(tile.nextBiomeSeed());
 		}
 		if(temp < 13) {
 			if(seed % 4 < cool.size()) {
-				return cool.getBiome(tile);
-			} else return basic.getBiome(tile);
+				return cool.getBiome(tile.nextBiomeSeed());
+			} else return basic.getBiome(tile.nextBiomeSeed());
 		}
 		if(temp <19) {
 			if(tile.getWet() < 4) {
 				if(seed % 4 < desert.size()) {
-					return desert.getBiome(tile);
-				} else return basic.getBiome(tile);
+					return desert.getBiome(tile.nextBiomeSeed());
+				} else return basic.getBiome(tile.nextBiomeSeed());
 			}
 			if(seed % 4 < warm.size()) {
-				return warm.getBiome(tile);
-			} else return basic.getBiome(tile);
+				return warm.getBiome(tile.nextBiomeSeed());
+			} else return basic.getBiome(tile.nextBiomeSeed());
 		
 		}
 		if(tile.getWet() < 2) {
 			if(seed % 4 < desert.size()) {
-				return desert.getBiome(tile);
-			} else return basic.getBiome(tile);
+				return desert.getBiome(tile.nextBiomeSeed());
+			} else return basic.getBiome(tile.nextBiomeSeed());
 		}
 		if(seed % 4 < hot.size()) {
-			return hot.getBiome(tile);
-		} else return basic.getBiome(tile);
+			return hot.getBiome(tile.nextBiomeSeed());
+		} else return basic.getBiome(tile.nextBiomeSeed());
 	
 	}
 	
@@ -100,6 +101,23 @@ public class GetIslands implements IBiomeSpecifier {
 	@Override
 	public boolean isEmpty() {
 		return false;
+	}
+	
+	
+	public static void addVolcanicIslands(BiomeList frozen, BiomeList cold, BiomeList cool, 
+								  BiomeList warm, BiomeList hot, BiomeList desert) {;
+		frozen.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				GetVolcano.getVolcanoes()));
+		cold.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				GetVolcano.getVolcanoes()));
+		cool.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				GetVolcano.getVolcanoes()));
+		hot.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				GetVolcano.getVolcanoes()));
+		desert.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				GetVolcano.getVolcanoes()));
+		warm.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+				GetVolcano.getVolcanoes()));
 	}
 
 }

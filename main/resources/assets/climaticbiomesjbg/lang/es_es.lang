@@ -1,0 +1,22 @@
+generator.climatic_bp=Climaticos
+
+tile.climaticbiomesjbg.pine_log.name=Madera de Pino
+tile.climaticbiomesjbg.pine_leaves.oak.name=Agujas de Pino
+tile.climaticbiomesjbg.pine_planks.name=Tablones de Madera de Pino
+tile.climaticbiomesjbg.pine_bark.name=Corteza de Pino
+tile.climaticbiomesjbg.pine_sapling.name=Retoño de Pino
+tile.climaticbiomesjbg.pine_slab.name=Losa de Madera de Pino
+tile.climaticbiomesjbg.pine_stairs.name=Escaleras de Pino
+tile.climaticbiomesjbg.pine_fence.name=Valla de Pino
+tile.climaticbiomesjbg.pine_gate.name=Puerta de Valla de Pino
+
+tile.climaticbiomesjbg.basalt.name=Basalto
+tile.climaticbiomesjbg.basalt_polished.name=Basalto pulido
+tile.climaticbiomesjbg.volcanic_ash.name=Ceniza volcánica
+
+tile.climaticbiomesjbg.peat.name=Turba
+
+item.tile.climaticbiomesjbg.pine_door.name=Puerta de Pino
+item.climaticbiomesjbg:pineseed.name=Cono de Pino
+
+

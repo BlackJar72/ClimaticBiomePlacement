@@ -11,32 +11,29 @@ import javax.annotation.Nullable;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldSettings;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
+import net.minecraft.world.gen.structure.MapGenVillage;
 
 
 public class ClimaticBiomeProvider extends BiomeProvider {
-    private World world;
-    private IMapRegistry finder;
-    private boolean vanillaCacheValid;
-    
-    
-    public ClimaticBiomeProvider(World world) {             
-            super(/*world.getWorldInfo()*/);
-            vanillaCacheValid = true;
-            this.world = world;
-            if(net.minecraftforge.fml.common.Loader.isModLoaded("jeid")) {
-            	finder = new NewMapRegistry(world.getSeed(), world);
-            } else {
-            	finder = new MapRegistry(world.getSeed(), world);
-            }
-    }
-    
-    
-    private void getSettings(World world) {
-    	WorldSettings settings;
-    }
+        private World world;
+        private /*static*/ IMapRegistry finder;
+        private boolean vanillaCacheValid;
+        
+        
+        public ClimaticBiomeProvider(World world) {             
+                super(/*world.getWorldInfo()*/);
+                vanillaCacheValid = true;
+                this.world = world;
+                /*if(finder == null)*/ {
+	                if(net.minecraftforge.fml.common.Loader.isModLoaded("jeid")) {
+	                	finder = new NewMapRegistry(world.getSeed(), world);
+	                } else {
+	                	finder = new MapRegistry(world.getSeed(), world);
+	                }
+                }
+        }
         
 
     @Nullable
@@ -122,16 +119,16 @@ public class ClimaticBiomeProvider extends BiomeProvider {
     
     @Override
     public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed) {
-        x /= 16;
-        z /= 16;
-        int cr = radius / 16;
-        for(int i = -cr; i <= cr; i++)
-                for(int j = -cr; j <= cr; j++) {
+        x = (x - 8) / 16;
+        z = (z - 8) / 16;
+        int cr = (radius / 16) + 1;
+        for(int i = -cr + 1; i < cr; i++)
+                for(int j = -cr + 1; j < cr; j++) {
                         if(!allowed.contains(finder.getBiomeChunk(x + i, z + j))) {
                                 return false;
                         }
                 }
-        return true;
+        return allowed.contains(finder.getBiomeChunk(x, z));
     }
 
     

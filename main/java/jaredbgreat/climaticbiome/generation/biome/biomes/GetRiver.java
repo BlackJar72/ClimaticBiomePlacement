@@ -1,9 +1,9 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
 import net.minecraft.world.biome.Biome;
-import jaredbgreat.climaticbiome.ConfigHandler;
-import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
+import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.biomes.pseudo.PseudoBiomes;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
@@ -19,7 +19,7 @@ public class GetRiver implements IBiomeSpecifier {
 	
 	@Override
 	public long getBiome(ChunkTile tile) {
-		if(ConfigHandler.rivers) {
+		if(ConfigHandler.includeRivers) {
 			int t = tile.getTemp();
 			if(t < 5) {
 				return PseudoBiomes.deepFrozenRiver.getSubId();

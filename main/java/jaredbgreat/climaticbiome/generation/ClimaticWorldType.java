@@ -1,29 +1,25 @@
 package jaredbgreat.climaticbiome.generation;
 
 import jaredbgreat.climaticbiome.gui.GuiConfigureWorld;
-import jaredbgreat.climaticbiome.util.Debug;
 
 import javax.annotation.Nonnull;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiCreateWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldSettings;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkGeneratorOverworld;
 import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.storage.ISaveHandler;
-import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ClimaticWorldType extends WorldType {
 	private static BiomeProvider biomeProvider;
-    public static IChunkProvider chunkProvider;
-    private static WorldType chunkProviderType;
-    private static String chunkProviderName;
+    public static IChunkProvider chunkGenerator;
+    private static WorldType chunkGeneratorType;
+    private static String chunkGeneratorName;
     private static boolean normalChunks;
     
 
@@ -32,17 +28,11 @@ public class ClimaticWorldType extends WorldType {
 	}
 
     public IChunkGenerator getChunkGenerator(World world, String generatorOptions) {
-    	Debug.bigSysout("The Generator Options: \n" + generatorOptions + "\n");
-    	if(generatorOptions.trim().isEmpty()) {
-    		Debug.bigSysout("\"Options\" was empty!");
-    		ISaveHandler savior = world.getSaveHandler();
-    		WorldInfo info = world.getWorldInfo();
-    	}
     	if(normalChunks) {
     		return new ChunkGeneratorOverworld(world, world.getSeed(), 
         		world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
     	} else {
-    		return chunkProviderType.getChunkGenerator(world, generatorOptions);
+    		return chunkGeneratorType.getChunkGenerator(world, generatorOptions);
     	}
     }
 
@@ -52,32 +42,32 @@ public class ClimaticWorldType extends WorldType {
     }
     
     
-    public static void setChunkProviderType(String type) {
+    public static void setChunkGeneratorType(String type) {
     	String theType = type.toLowerCase();
     	normalChunks = (theType.equals("default") 
     			     || theType.equals("climatic_bp")  
     			     || theType.equals("normal")
     			     || type.isEmpty());
-    	chunkProviderName = type;
+    	chunkGeneratorName = type;
     }
     
     
-    public static void initChunkProviderType() {
+    public static void initChunkGeneratorType() {
     	if(normalChunks) {
     		System.out.println("********************************************************");
     		System.out.println("Climatic Biome will use default ChunkProvider");
     		System.out.println("********************************************************");
     		return;
     	}
-    	chunkProviderType = findWorldType(chunkProviderName);
-    	if(chunkProviderType == null) {
+    	chunkGeneratorType = findWorldType(chunkGeneratorName);
+    	if(chunkGeneratorType == null) {
     		System.out.println("********************************************************");
     		System.out.println("Warning: Ivalid WorldType given for ChunkProvider");
     		System.out.println("********************************************************");
     		normalChunks = true;
     	} else {
     		System.out.println("********************************************************");
-    		System.out.println("Climatic Biomes using chunk provider for: " + chunkProviderType.getName());
+    		System.out.println("Climatic Biomes using chunk provider for: " + chunkGeneratorType.getName());
     		System.out.println("********************************************************");
     	}
     }

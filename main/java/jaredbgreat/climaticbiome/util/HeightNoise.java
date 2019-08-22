@@ -1,5 +1,8 @@
 package jaredbgreat.climaticbiome.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 
 /**
  * A gradient noise generator.  This is based on Perlin noise  but 

@@ -1,7 +1,11 @@
 package jaredbgreat.climaticbiome.compat.userdef;
 
+import jaredbgreat.climaticbiome.ClimaticBiomes;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
+import jaredbgreat.climaticbiome.exception.BiomeReadingException;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
+import jaredbgreat.climaticbiome.generation.biome.IslandBiome;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.NoiseDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
@@ -17,8 +21,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.registries.IForgeRegistry;
 
@@ -49,6 +51,7 @@ public class BiomeParser {
 		commands.put("temp", new TempParse());
 		commands.put("taiga", new TaigaParse());
 		commands.put("wetness", new WetParse());
+		commands.put("island", new IslandParse());
 	}
 	
 	
@@ -72,16 +75,79 @@ public class BiomeParser {
 				tokens = new Tokenizer(line, "()");
 				String tag = tokens.nextToken().toLowerCase().trim();
 				try {
-				list.addItem(commands.get(tag).parse(tokens.nextToken()));
-				} catch (Exception e) {
-					System.err.println();
-					System.err.println("******************");
-					System.err.println("Tag: " + tag);
-					System.err.println("******************");
-					System.err.println();
-					e.printStackTrace();
-					throw e;
-				}
+					// First create the specifier, then add it only if its valid
+					IBiomeSpecifier biomeSpec = commands.get(tag).parse(tokens.nextToken());
+					if(!biomeSpec.isEmpty()) {
+						list.addItem(biomeSpec);
+					} else {
+		            	ClimaticBiomes.logger.error("\nFailed to load biome: \n"
+		            			+ " \t Tag: " + tag + "\n"
+		            			+ " \t Full String: " + line + "\n"
+		            			+ " \t File: " + filename + "\n");	
+		            	if(ConfigHandler.failfast) {
+		            		throw new BiomeReadingException();
+		            	}
+					}
+	            } catch (Exception e) {
+	            	ClimaticBiomes.logger.error("\nFailed to load biome: \n"
+	            			+ " \t Tag: " + tag + "\n"
+	            			+ " \t Full String: " + line + "\n"
+	            			+ " \t File: " + filename + "\n");						
+	            	e.printStackTrace();
+	                throw e;
+	            }
+			}
+			reader.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (RuntimeException e) {
+			reportError(e, file, line);
+		}
+	}
+	
+	
+	public void addSpecialBiomes(BiomeList list, String filename) {
+		File file = new File(fileDir + filename);
+		if(!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return;
+		}
+		String line = null;
+		Tokenizer tokens;		
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(file));
+			while(reader.ready()) {
+				line = reader.readLine().trim();
+				if(line.isEmpty() || line.startsWith("#")) continue;
+				tokens = new Tokenizer(line, "()");
+				String tag = tokens.nextToken().toLowerCase().trim();
+				try {
+					// First create the specifier, then add it only if its valid
+					IBiomeSpecifier biomeSpec = commands.get(tag).parse(tokens.nextToken());
+					if(!biomeSpec.isEmpty()) {
+						list.addItem(biomeSpec);
+					// These are quite typically not there, don't be strict
+					} else if(ConfigHandler.failfast) {
+		            	ClimaticBiomes.logger.error("\nFailed to load biome: \n"
+		            			+ " \t Tag: " + tag + "\n"
+		            			+ " \t Full String: " + line + "\n"
+		            			+ " \t File: " + filename + "\n");
+	            		throw new BiomeReadingException();
+					}
+	            } catch (Exception e) {
+	            	ClimaticBiomes.logger.error("\nFailed to load biome: \n"
+	            			+ " \t Tag: " + tag + "\n"
+	            			+ " \t Full String: " + line + "\n"
+	            			+ " \t File: " + filename + "\n");						
+	            	e.printStackTrace();
+	                throw e;
+	            }
 			}
 			reader.close();
 		} catch (FileNotFoundException e) {
@@ -130,7 +196,7 @@ public class BiomeParser {
 	
 	private final class TempParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			Tokenizer tokens = new Tokenizer(in, ", ");		
+			Tokenizer tokens = new Tokenizer(in, ", \t");		
 			return new TempDoubleBiome(tokens.nextToken(), 
 					   Integer.parseInt(tokens.nextToken()), 
 					   tokens.nextToken(), biomeReg);
@@ -159,15 +225,15 @@ public class BiomeParser {
 	
 	private final class LeafParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
-			Tokenizer tokens = new Tokenizer(in, ":");
-			if(tokens.countTokens() < 3) {
-				return new LeafBiome((Biome)biomeReg.getValue(new ResourceLocation(in)));
-			} else {
-				return new LeafBiome(Biome.getIdForBiome(((Biome)biomeReg.getValue(new 
-						ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))) 
-						+ (Integer.parseInt(tokens.nextToken()) << 8));
-			}
+			return new LeafBiome(in, biomeReg);
 		}
-	}	
+	}
+	
+	
+	private final class IslandParse implements ICommand {
+		public IBiomeSpecifier parse(String in) {	
+			return new IslandBiome(in, biomeReg);
+		}
+	}
 	
 }

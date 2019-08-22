@@ -10,6 +10,12 @@ tile.climaticbiomesjbg.pine_stairs.name=Ступеньки из сосны
 tile.climaticbiomesjbg.pine_fence.name=Забор из сосны
 tile.climaticbiomesjbg.pine_gate.name=Калитка из сосны
 
+tile.climaticbiomesjbg.basalt.name=базальт
+tile.climaticbiomesjbg.basalt_polished.name=Полированный базальт
+tile.climaticbiomesjbg.volcanic_ash.name=Вулканический пепел
+
+tile.climaticbiomesjbg.peat.name=торфяной
+
 item.tile.climaticbiomesjbg.pine_door.name=Дверь из сосны
 item.climaticbiomesjbg:pineseed.name=Сосновая шишка
 

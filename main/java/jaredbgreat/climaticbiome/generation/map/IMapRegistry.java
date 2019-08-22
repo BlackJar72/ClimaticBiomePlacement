@@ -1,7 +1,5 @@
 package jaredbgreat.climaticbiome.generation.map;
 
-import java.io.File;
-
 import net.minecraft.world.biome.Biome;
 
 public interface IMapRegistry {
@@ -65,7 +63,5 @@ public interface IMapRegistry {
 	public abstract Biome[] getChunkBiomeGen(int x, int z, Biome[] in);
 
 	public abstract void cleanCaches();
-
-	File findSettingsFile();
 
 }

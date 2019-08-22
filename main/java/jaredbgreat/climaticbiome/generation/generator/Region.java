@@ -7,6 +7,7 @@ package jaredbgreat.climaticbiome.generation.generator;
 
 import static jaredbgreat.climaticbiome.generation.generator.MapMaker.RADIUS;
 import static jaredbgreat.climaticbiome.generation.generator.MapMaker.RSIZE;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
@@ -29,13 +30,22 @@ public final class Region extends AbstractCachable {
         
         cx = (x * RSIZE) - RADIUS;
         cz = (z * RSIZE) - RADIUS;
-        makeBasins(5, 10, 15, random.getRandomAt(x, z, 0));
+        switch(ConfigHandler.mode) {
+	        case 1:
+	        	makeBasins(5, 10, 15, random.getRandomAt(x, z, 0));
+	        	break;
+	        case 2:
+	        case 3:
+	        	int num = random.absModulus(random.intFor(x, z, -1), 5) + 5;;
+	        	makeBasins(0, num, 15, random.getRandomAt(x, z, 0));
+	        	break;
+	        default: 
+	        	makeBasins(5, 10, 15, random.getRandomAt(x, z, 0));
+	        	break;
+        }
         makeTempBasins(10, random.getRandomAt(x, z, 1));
         makeRainBasins(12, random.getRandomAt(x, z, 2));
-        //System.out.println(toDataString());
-        //System.out.println("Basins in Region: " + basins.length);
         n++;
-        //System.out.println("Creating region " + x + ", " + z + "; there are " + n + " regions.");
     }
     
     
@@ -97,11 +107,16 @@ public final class Region extends AbstractCachable {
     
     
     private void makePoles(ClimateNode[] nodes, SpatialNoise.RandomAt random) {
+    	int movex = 0, movez = 0;
+    	if(ConfigHandler.mode == 4) {
+    		movex = random.nextInt(512) - 256;
+    		movez = random.nextInt(512) - 256;
+    	}
         int dist = (RSIZE / 6) 
                 + random.nextInt(RSIZE / 4);
         double angle = random.nextDouble() * 2 * Math.PI;
-        int x = cx + RADIUS + (int)(dist * Math.cos(angle));
-        int y = cz + RADIUS + (int)(dist * Math.sin(angle));
+        int x = cx + RADIUS + (int)(dist * Math.cos(angle)) + movex;
+        int y = cz + RADIUS + (int)(dist * Math.sin(angle)) + movez;
         nodes[0] = new ClimateNode(x, y, 0, 
                 (BasinNode.getLogScaled(-14) / 40) * 1.5, 0);
         dist = (RSIZE / 6) + random.nextInt(RSIZE / 4);

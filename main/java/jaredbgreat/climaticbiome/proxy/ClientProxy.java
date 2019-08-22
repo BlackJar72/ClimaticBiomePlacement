@@ -1,14 +1,19 @@
 package jaredbgreat.climaticbiome.proxy;
 
-import jaredbgreat.climaticbiome.ConfigHandler;
+import jaredbgreat.climaticbiome.blocks.itemblocks.ItemMultiblock;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
+import jaredbgreat.climaticbiome.util.BlockRegistrar;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 
 public class ClientProxy implements IProxy {
@@ -24,6 +29,17 @@ public class ClientProxy implements IProxy {
 		ModelLoader.setCustomModelResourceLocation(item, meta, 
 				new ModelResourceLocation(item.getRegistryName(), id));
 	}
+	
+	
+	@Override
+	public void registerMultiRender(ItemMultiblock item) {
+		for(int i = 0; i < item.names.length; i++) {
+			ModelLoader.setCustomModelResourceLocation(item, i, 
+					new ModelResourceLocation(item.getRegistryName().toString() + i, ""));
+		
+		}
+	}
+		
 
 	@Override
 	public void fixRenders(BlockLeaves in) {

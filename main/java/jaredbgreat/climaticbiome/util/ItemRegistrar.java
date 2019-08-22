@@ -2,6 +2,9 @@ package jaredbgreat.climaticbiome.util;
 
 import jaredbgreat.climaticbiome.ClimaticBiomes;
 import jaredbgreat.climaticbiome.Info;
+import jaredbgreat.climaticbiome.blocks.itemblocks.ItemMultiblock;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
+import jaredbgreat.climaticbiome.items.ItemPeatBrick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +26,9 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class ItemRegistrar {	
 	private static final List<Item> ITEMS = new ArrayList<>();
 	
+	public static ItemPeatBrick peatbrick;
+	
 	public static void initItems() {
-		// LASTLY, after any items get reated
 		registerItems();
 	}
 	
@@ -42,6 +46,8 @@ public class ItemRegistrar {
 		for(Item item : ITEMS) {
 			if(item instanceof IHaveModel) {
 				((IHaveModel)item).registerModel();
+			} else if(item instanceof ItemMultiblock){
+				ClimaticBiomes.proxy.registerMultiRender((ItemMultiblock)item);
 			} else {
 				ClimaticBiomes.proxy.registerItemRender(item, 0);
 			}
@@ -55,6 +61,15 @@ public class ItemRegistrar {
 	}
 	
 	
+	public static void registerMultiModels() {
+		for(Item item : ITEMS) {
+			if(item instanceof ItemMultiblock) {
+				ClimaticBiomes.proxy.registerMultiRender((ItemMultiblock)item);
+			} 
+		}
+	}
+	
+	
 	public static void addItem(Item in) {
 		ITEMS.add(in);
 	}
@@ -65,7 +80,15 @@ public class ItemRegistrar {
 		OreDictionary.registerOre("plankWood", BlockRegistrar.blockPinePlanks);
 		OreDictionary.registerOre("slabWood", BlockRegistrar.pineHalfSlab);
 		OreDictionary.registerOre("treeLeaves", BlockRegistrar.blockPineNeedles);
-		OreDictionary.registerOre("treeSapling", BlockRegistrar.blockPineSappling);		
+		OreDictionary.registerOre("treeSapling", BlockRegistrar.blockPineSappling);
+		if(ConfigHandler.includeVolcano) {
+			OreDictionary.registerOre("blockBasalt", BlockRegistrar.blockBasalt);
+			OreDictionary.registerOre("blockVolcanicAsh", BlockRegistrar.blockAsh);
+		}
+		if(ConfigHandler.includeSwamps) {
+			OreDictionary.registerOre("blockPeat", BlockRegistrar.blockPeat);
+			OreDictionary.registerOre("brickPeat", BlockRegistrar.blockPeat);
+		}
 	}
 	
 	

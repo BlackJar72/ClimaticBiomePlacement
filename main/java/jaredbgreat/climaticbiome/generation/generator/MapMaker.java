@@ -6,20 +6,21 @@
 package jaredbgreat.climaticbiome.generation.generator;
 
 import static jaredbgreat.climaticbiome.util.SpatialNoise.absModulus;
-import jaredbgreat.climaticbiome.ConfigHandler;
+import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.cache.MutableCoords;
 import jaredbgreat.climaticbiome.generation.map.IRegionMap;
-import jaredbgreat.climaticbiome.generation.map.RegionMap;
 import jaredbgreat.climaticbiome.util.HeightNoise;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
 import jaredbgreat.climaticbiome.util.SpatialNoise.RandomAt;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import net.minecraft.world.World;
 
 
 
@@ -34,6 +35,8 @@ public class MapMaker {
     public static final int RSIZE = 4096 / CSIZE; // region / "continent" size
     public static final int RADIUS = RSIZE / 2; // radius for basin effect range
     public static final int SQRADIUS = RADIUS * RADIUS;
+    
+    ClimaticWorldSettings settings;
 
     private final Cache<Region> regionCache = new Cache(32);
     
@@ -55,12 +58,14 @@ public class MapMaker {
     private ChunkTile[] premap;
     
     
-    public MapMaker(SpatialNoise chunkNoise, SpatialNoise regionNoise, SpatialNoise biomeNoise) {
+    public MapMaker(SpatialNoise chunkNoise, SpatialNoise regionNoise, 
+    			SpatialNoise biomeNoise, ClimaticWorldSettings settings) {
         this.chunkNoise  = chunkNoise;
         this.regionNoise = regionNoise;
         this.biomeNoise  = biomeNoise;
-        scale = ConfigHandler.regionSize;
-        specifier = BiomeClimateTable.getClimateTable();
+        this.settings    = settings;
+        scale = settings.regionSize;
+        specifier = BiomeClimateTable.getClimateTable(settings);
     }
     
     /**
@@ -102,13 +107,8 @@ public class MapMaker {
     }
     
     
-    public void generate(IRegionMap datamap) {
+    public void generate(IRegionMap datamap, World world) {
         Coords coords = datamap.getCoords();
-//        System.out.println();
-//        System.out.println("******************************");
-//        System.out.println("Creating Region Map: " + coords);
-//        System.out.println("******************************");
-//        System.out.println();
         xoff = ((coords.getX() * 256) - 128) * scale.whole;
         zoff = ((coords.getZ() * 256) - 128) * scale.whole;
 		Region[] regions = findRegions(coords.getX(), coords.getZ());
@@ -142,7 +142,8 @@ public class MapMaker {
                     climateNoise[i / (RSIZE * scale.whole)]
                             [i % (RSIZE * scale.whole)], 24), 0);
         }
-        
+
+        climateNoise = climateMaker.process(129);
         doubleNoise = averageNoise(premap, makeDoubleNoise(random, 2));
         for(int i = 0; i < premap.length; i++) {
             premap[i].wet = (int)Math.max(Math.min(ClimateNode.summateEffect(wetAr, premap[i], 
@@ -156,11 +157,13 @@ public class MapMaker {
             premap[i].noiseVal = noise[i];
         }
         
-        RiverMaker rm = new RiverMaker(this, random.longFor(coords.getX(), coords.getZ(), 16), 
-                regions[4], coords.getX(), coords.getZ(), scale);
-        rm.build();
+        if((settings.mode < 3)) {
+	        RiverMaker rm = new RiverMaker(this, random.longFor(coords.getX(), coords.getZ(), 16), 
+	                regions[4], coords.getX(), coords.getZ(), scale);
+	        rm.build();
+        }
         
-        if(ConfigHandler.forceWhole) {
+        if(settings.forceWhole) {
         	makeBiomesWhole(premap, random.getRandomAt(coords.getX(), coords.getZ(), 3));
         } else {
         	makeBiomes(premap, random.getRandomAt(coords.getX(), coords.getZ(), 3));
@@ -168,24 +171,42 @@ public class MapMaker {
         int start = (RSIZE * scale.whole * 2) + 2;
         int end = premap.length - start;
         for(int i = start; i < end; i++) {
-                thinBeach(premap[i]);
+        	thinBeach(premap[i]);
         }
         for(int i = start; i < end; i++) {
-                growBeach1(premap[i]);
+        	growBeach1(premap[i]);
         }
         for(int i = start; i < end; i++) {
-                growBeach2(premap[i]);
+        	growBeach2(premap[i]);
         }
         for(int i = 0; i < premap.length; i++) {
-                datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
+        	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
         }
     }
     
     
     private void makeLandmass(BasinNode[] basins, int cx, int cz, SpatialNoise random) {
-        LandmassMaker maker = new LandmassMaker(cx, cz, 
+        LandmassMaker maker;
+        switch(settings.mode) {
+        case 1:
+        case 2:
+        	maker = new LandmassMaker(cx, cz,
                 random, basins, scale, RSIZE, xoff, zoff);
-        premap = maker.generate();
+        	break;
+        case 3:
+        	maker = new WaterworldMaker(cx, cz,
+                random, basins, scale, RSIZE, xoff, zoff);
+        	break;
+        case 4: 
+        	maker = new SurvivalIslandMaker(cx, cz,
+                    random, basins, scale, RSIZE, xoff, zoff);
+            	break;
+        default:
+        	maker = new LandmassMaker(cx, cz,
+                random, basins, scale, RSIZE, xoff, zoff);
+        	break;
+        }
+        premap = maker.generate(settings);
     }
     
     
@@ -286,7 +307,7 @@ public class MapMaker {
     
     
     public void makeBiomes(ChunkTile[] premap, RandomAt random) {
-        int size = ConfigHandler.biomeSize;
+        int size = settings.biomeSize;
         int across = (RSIZE * scale.whole) / size;
         int down = across;
         subbiomes = new BiomeBasin[across][down];
@@ -305,7 +326,7 @@ public class MapMaker {
     
     
     public void makeBiomesWhole(ChunkTile[] premap, RandomAt random) {
-        int size = ConfigHandler.biomeSize;
+        int size = settings.biomeSize;
         int across = (RSIZE * scale.whole) / size;
         int down = across;
         subbiomes = new BiomeBasin[across][down];

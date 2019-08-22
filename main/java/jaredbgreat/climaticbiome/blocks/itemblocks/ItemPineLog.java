@@ -13,7 +13,8 @@ public class ItemPineLog extends ItemBlock {
         setRegistryName(block.getRegistryName());
 	}
 	
-
+	
+	@Override
     public int getMetadata(int damage) { 
         return damage;
     }

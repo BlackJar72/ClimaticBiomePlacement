@@ -28,7 +28,7 @@ public class NoiseSpecialBiome implements IBiomeSpecifier {
 
 	@Override
 	public boolean isEmpty() {
-		return false;
+		return a.isEmpty() || b.isEmpty();
 	}
 
 }

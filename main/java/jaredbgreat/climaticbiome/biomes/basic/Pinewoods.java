@@ -1,7 +1,7 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
-import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.feature.GenPine;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 
 import java.util.Random;
 
@@ -53,7 +53,7 @@ public class Pinewoods extends BiomeForest {
     }
 	
 	
-	static interface IPineFinder {
+	public static interface IPineFinder {
 		WorldGenAbstractTree getTree(Random rand);
 	}
 	

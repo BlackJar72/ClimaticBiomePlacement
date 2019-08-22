@@ -1,7 +1,8 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
-import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
+import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
@@ -27,9 +28,13 @@ public class GetWarmForest implements IBiomeSpecifier {
 		swamp   = GetSwamp.getSwamp();
 		DefReader.readBiomeData(forests, "ForestWarm.cfg");
 		if(forests.isEmpty()) {
-			forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.warmForest)), 5);
-			forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.warmForestHills)), 3);
-			forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.pineWoods)));
+			if(ConfigHandler.includeForests) {
+				forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.warmForest)), 5);
+				forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.warmForestHills)), 3);
+				forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.pineWoods)));
+			} else {
+				forests.addItem(GetForest.getForest());
+			}
 		}
 	}
 	

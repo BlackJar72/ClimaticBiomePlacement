@@ -2,7 +2,7 @@ package jaredbgreat.climaticbiome.biomes;
 
 import java.util.logging.Logger;
 
-import jaredbgreat.climaticbiome.ConfigHandler;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.ICachable;
 
 public class SubBiomeRegistry {
@@ -61,7 +61,7 @@ public class SubBiomeRegistry {
      * @param item the object to be added.
      */
     public void add(SubBiome item) {
-    	System.out.println("Adding Pseudo-Biome with id " + item.getSubId());
+    	//System.out.println("Adding Pseudo-Biome with id " + item.getSubId());
         int bucket = (xorshift(item.getSubId())) % data.length;
         int offset = 0;
         while(offset < data.length) {

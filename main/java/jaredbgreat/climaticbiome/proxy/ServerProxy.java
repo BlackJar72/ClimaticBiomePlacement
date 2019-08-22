@@ -1,5 +1,7 @@
 package jaredbgreat.climaticbiome.proxy;
 
+import jaredbgreat.climaticbiome.blocks.itemblocks.ItemMultiblock;
+
 import java.io.File;
 
 import net.minecraft.block.BlockDoor;
@@ -45,6 +47,9 @@ public class ServerProxy implements IProxy {
 		}
 		
 	}
+
+	@Override
+	public void registerMultiRender(ItemMultiblock item) {/*Do Nothing*/}
 	
 
 }

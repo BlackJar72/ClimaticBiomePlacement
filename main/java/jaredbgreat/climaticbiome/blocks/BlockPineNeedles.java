@@ -27,6 +27,7 @@ import net.minecraft.world.IBlockAccess;
 public class BlockPineNeedles extends BlockLeafBase {
 
 	public BlockPineNeedles() {
+		super();
 		setUnlocalizedName(Info.ID + ".pine_leaves");
 		setRegistryName(Info.ID, "pine_leaves");
 		Blocks.FIRE.setFireInfo(this, 5, 50);

@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "climaticbiomesjbg:blocks/brown_granite_brick"
+    }
+}
+ 

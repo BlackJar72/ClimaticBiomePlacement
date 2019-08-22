@@ -1,6 +1,8 @@
 package jaredbgreat.climaticbiome.util;
 
 import jaredbgreat.climaticbiome.biomes.feature.GenPine;
+import jaredbgreat.climaticbiome.blocks.BlockIgneous;
+import jaredbgreat.climaticbiome.blocks.BlockPeat;
 import jaredbgreat.climaticbiome.blocks.BlockPineDoor;
 import jaredbgreat.climaticbiome.blocks.BlockPineFence;
 import jaredbgreat.climaticbiome.blocks.BlockPineGate;
@@ -9,15 +11,18 @@ import jaredbgreat.climaticbiome.blocks.BlockPineNeedles;
 import jaredbgreat.climaticbiome.blocks.BlockPinePlanks;
 import jaredbgreat.climaticbiome.blocks.BlockPineSapling;
 import jaredbgreat.climaticbiome.blocks.BlockPineStairs;
+import jaredbgreat.climaticbiome.blocks.ModBlockFalling;
 import jaredbgreat.climaticbiome.blocks.itemblocks.ItemPineSlab;
 import jaredbgreat.climaticbiome.blocks.slabs.BlockPineDoubleSlab;
 import jaredbgreat.climaticbiome.blocks.slabs.BlockPineSlab;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
+import net.minecraft.block.SoundType;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -37,6 +42,10 @@ public class BlockRegistrar {
 	public static BlockPineFence blockPineFence;
 	public static BlockPineGate blockPineGate;
 	public static BlockPineDoor blockPineDoor;
+	public static BlockIgneous blockBasalt;
+	public static BlockIgneous blockBasaltPolished;
+	public static ModBlockFalling blockAsh;
+	public static BlockPeat blockPeat;
 	
 	
 	public static void initBlocks() {
@@ -51,6 +60,14 @@ public class BlockRegistrar {
 		blockPineFence = new BlockPineFence("pine_fence");
 		blockPineGate = new BlockPineGate("pine_gate");
 		blockPineDoor = new BlockPineDoor("pine_door");
+		if(ConfigHandler.includeVolcano) {
+			blockBasalt = new BlockIgneous("basalt");
+			blockBasaltPolished = new BlockIgneous("basalt_polished");
+			blockAsh = new ModBlockFalling("volcanic_ash", SoundType.SAND);
+		}
+		if(ConfigHandler.includeSwamps) {
+			blockPeat = new BlockPeat();
+		}
 		// LASTLY
 		registerBlocks();
 	}

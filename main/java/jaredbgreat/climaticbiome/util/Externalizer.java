@@ -54,6 +54,7 @@ public class Externalizer {
 		"ForestCool.cfg",
 		"ForestTropical.cfg",
 		"ForestWarm.cfg",
+		"IslandVolcanoes.cfg",
 		"Jungle.cfg",
 		"OceanCold.cfg",
 		"OceanCool.cfg",
@@ -86,7 +87,17 @@ public class Externalizer {
 		"Minecraft",
 		"BiomeOPlenty",
 		"Traverse",
-		"custom"
+		"custom",
+		"AbyssalCraft",
+		"AuxiliaryBiomes",
+		"Environs",
+		"Minecraft",
+		"PVJ",
+		"BYG",
+		"DefiledLands",
+		"Redwoods",
+		//"Zoesteria",
+		"special"
 	};
 	
 	

@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.IForgeRegistry;
 
-public class NoiseDoubleBiome implements IBiomeSpecifier {
+public class NoiseDoubleBiome extends AbstractTerminalSpecifier {
 	private final long a, b;
 	private final int boundary;
 	
@@ -28,22 +28,8 @@ public class NoiseDoubleBiome implements IBiomeSpecifier {
 	
 	
 	public NoiseDoubleBiome(String a, int boundary, String b, IForgeRegistry biomeReg) {
-		StringTokenizer tokens = new StringTokenizer(a, ":");
-		if(tokens.countTokens() < 3) {
-			this.a = Biome.getIdForBiome((Biome)biomeReg.getValue(new ResourceLocation(a)));
-		} else {
-			this.a = Biome.getIdForBiome((Biome)biomeReg
-					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))
-					+ (Long.parseLong(tokens.nextToken()) << 32);
-		}
-		tokens = new StringTokenizer(b, ":");
-		if(tokens.countTokens() < 3) {
-			this.b = Biome.getIdForBiome((Biome)biomeReg.getValue(new ResourceLocation(b)));
-		} else {
-			this.b = Biome.getIdForBiome((Biome)biomeReg
-					.getValue(new ResourceLocation(tokens.nextToken() + ":" + tokens.nextToken())))
-					+ (Long.parseLong(tokens.nextToken()) << 32);
-		}
+		this.a = getBiomeNumber(a, biomeReg);
+		this.b = getBiomeNumber(b, biomeReg);
 		this.boundary = boundary;
 	}
 	
@@ -60,7 +46,7 @@ public class NoiseDoubleBiome implements IBiomeSpecifier {
 
 	@Override
 	public boolean isEmpty() {
-		return false;
+		return ((a < 0) || (b < 0));
 	}
 
 }

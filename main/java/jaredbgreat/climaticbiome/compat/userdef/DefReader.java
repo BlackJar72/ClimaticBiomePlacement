@@ -1,7 +1,8 @@
 package jaredbgreat.climaticbiome.compat.userdef;
 
-import jaredbgreat.climaticbiome.ConfigHandler;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
+import jaredbgreat.climaticbiome.generation.biome.IslandBiome;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,6 +19,16 @@ public class DefReader {
 	private static DefReader vanilla;
 	private static DefReader BoP;
 	private static DefReader traverse;
+	private static DefReader nt;
+	private static DefReader abyssal;
+	private static DefReader auxiliary;
+	private static DefReader environs;
+	private static DefReader pvj;
+	private static DefReader byg;
+	private static DefReader defiled;
+	private static DefReader redwoods;
+	private static DefReader zoestria;
+	private static DefReader special;
 	private static DefReader custom;
 	private BiomeParser parser;
 	
@@ -42,16 +53,56 @@ public class DefReader {
 		if(ConfigHandler.useTraverse) {
 			traverse.parser.makeBiomeList(list, filename);
 		}
+		if(ConfigHandler.useNT) {
+			nt.parser.makeBiomeList(list, filename);
+		}
+		if(ConfigHandler.useAby) {
+			abyssal.parser.makeBiomeList(list, filename);
+		}
+		if(ConfigHandler.useAux) {
+			auxiliary.parser.makeBiomeList(list, filename);
+		}
+		if(ConfigHandler.useEnvirons) {
+			environs.parser.makeBiomeList(list, filename);
+		}
+		if(ConfigHandler.usePVJ) {
+			pvj.parser.makeBiomeList(list, filename);
+		}
+		if(ConfigHandler.useBYG) {
+			byg.parser.makeBiomeList(list, filename);
+		}
+		if(ConfigHandler.useDefiled) {
+			defiled.parser.makeBiomeList(list, filename);
+		}
+		if(ConfigHandler.useRWmod) {
+			redwoods.parser.makeBiomeList(list, filename);
+		}
+		if(ConfigHandler.useZoe) {
+			zoestria.parser.makeBiomeList(list, filename);
+		}
 		if(ConfigHandler.useCfg) {
 			custom.parser.makeBiomeList(list, filename);
 		}
+		if(ConfigHandler.useSpecial) {
+			special.parser.addSpecialBiomes(list, filename);
+		}
 	}
-	
+
 	
 	public static void init(IForgeRegistry reg, File dir) {
 		vanilla = new DefReader(reg, dir, "Minecraft");
 		BoP = new DefReader(reg, dir, "BiomeOPlenty");
 		traverse = new DefReader(reg, dir, "Traverse");
+		nt = new DefReader(reg, dir, "NovamTerram");
+		abyssal = new DefReader(reg, dir, "AbyssalCraft");
+		auxiliary = new DefReader(reg, dir, "AuxiliaryBiomes");
+		environs = new DefReader(reg, dir, "Environs");
+		pvj = new DefReader(reg, dir, "PVJ");
+		byg = new DefReader(reg, dir, "BYG");
+		defiled = new DefReader(reg, dir, "DefiledLands");
+		redwoods = new DefReader(reg, dir, "Redwoods");
+		zoestria = new DefReader(reg, dir, "Zoesteria");
+		special = new DefReader(reg, dir, "special");
 		custom = new DefReader(reg, dir, "custom");
 	}
 	
@@ -62,7 +113,8 @@ public class DefReader {
 		try {
 			BufferedWriter fs = new BufferedWriter(new FileWriter(file));
 			for(Biome biome : biomes) {
-				fs.write(biome.getRegistryName().toString());
+				fs.write(biome.getRegistryName().toString() 
+						/*+ " (" + Biome.getIdForBiome(biome) + ")"*/);
 				fs.newLine();
 			}
 			fs.close();

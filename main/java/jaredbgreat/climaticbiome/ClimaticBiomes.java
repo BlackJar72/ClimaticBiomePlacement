@@ -1,9 +1,10 @@
 package jaredbgreat.climaticbiome;
 
-import jaredbgreat.climaticbiome.biomes.basic.ModBiomes;
+import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.biomes.feature.GenPine;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.compat.userdef.VariantParser;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetForest;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetPark;
@@ -15,6 +16,8 @@ import jaredbgreat.climaticbiome.util.ItemRegistrar;
 
 import java.io.File;
 import java.util.logging.Logger;
+
+import org.apache.logging.log4j.LogManager;
 
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
@@ -45,9 +48,12 @@ public class ClimaticBiomes {
 			    serverSide = "jaredbgreat.climaticbiome.proxy.ServerProxy")
 	public static IProxy proxy;
 	
+	public static org.apache.logging.log4j.Logger logger;
+	
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+    	logger = event.getModLog();
     	confdir = new File(event.getModConfigurationDirectory().toPath()
     			+ File.separator + Info.DIR);
     	configHandler = new ConfigHandler(confdir.toString());
@@ -67,7 +73,7 @@ public class ClimaticBiomes {
 
 
     @EventHandler
-    public void init(FMLInitializationEvent event) { 
+    public void init(FMLInitializationEvent event) {
     	proxy.init();
     	ItemRegistrar.addRecipes();
     	makeFiles();
@@ -88,7 +94,7 @@ public class ClimaticBiomes {
     	DefReader.init(ForgeRegistries.BIOMES, confdir);
     	VariantParser.parse(confdir);
     	ItemRegistrar.oreDict();
-    	ClimaticWorldType.initChunkProviderType();
+    	ClimaticWorldType.initChunkGeneratorType();
     	try {
 	    	if(ConfigHandler.moreMansion) {
 		    	for(Biome biome : ForgeRegistries.BIOMES.getValues()) {
@@ -102,13 +108,6 @@ public class ClimaticBiomes {
     		log.warning("[Climatic Biomes] Woodland Mansion genaraion cannot be modified!");
     		log.warning("[Climatic Biomes] You might need a different version of Forge or Java (probably Java)");
     	}
-    	if(!(ConfigHandler.useBoP || ConfigHandler.useBoPTable)) {
-    		GetForest.getForest().collapseCool();
-    		GetPlains.getPlains().collapseCool();
-    		GetPark.getPark().collapseCoole();
-    	}
-    	// In production / release versions this should do nothing!
-    	testingOut();
     }
     
     
@@ -121,11 +120,5 @@ public class ClimaticBiomes {
     private void moveWorldTypes() {
     	WorldType.WORLD_TYPES[0] = worldType;
     }
-        
-    
-    /**
-     * In production / release versions this should do nothing!
-     */
-    private void testingOut() {}
     
 }

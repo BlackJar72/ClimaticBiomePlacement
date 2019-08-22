@@ -1,15 +1,13 @@
 package jaredbgreat.climaticbiome.gui;
 
-import jaredbgreat.climaticbiome.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.Info;
+import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiCreateWorld;
-import net.minecraft.client.gui.GuiOptionSlider;
 import net.minecraft.client.gui.GuiPageButtonList;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSlider;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings.Options;
 
 public class GuiConfigureWorld extends GuiScreen 
 implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
