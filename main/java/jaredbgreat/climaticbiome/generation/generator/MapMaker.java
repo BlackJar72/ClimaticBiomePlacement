@@ -6,14 +6,13 @@
 package jaredbgreat.climaticbiome.generation.generator;
 
 import static jaredbgreat.climaticbiome.util.SpatialNoise.absModulus;
-import jaredbgreat.climaticbiome.ConfigHandler;
+import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.cache.MutableCoords;
 import jaredbgreat.climaticbiome.generation.map.IRegionMap;
-import jaredbgreat.climaticbiome.generation.map.RegionMap;
 import jaredbgreat.climaticbiome.util.HeightNoise;
 import jaredbgreat.climaticbiome.util.SpatialNoise;
 import jaredbgreat.climaticbiome.util.SpatialNoise.RandomAt;
@@ -21,7 +20,6 @@ import jaredbgreat.climaticbiome.util.SpatialNoise.RandomAt;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 
@@ -37,6 +35,8 @@ public class MapMaker {
     public static final int RSIZE = 4096 / CSIZE; // region / "continent" size
     public static final int RADIUS = RSIZE / 2; // radius for basin effect range
     public static final int SQRADIUS = RADIUS * RADIUS;
+    
+    ClimaticWorldSettings settings;
 
     private final Cache<Region> regionCache = new Cache(32);
     
@@ -58,11 +58,13 @@ public class MapMaker {
     private ChunkTile[] premap;
     
     
-    public MapMaker(SpatialNoise chunkNoise, SpatialNoise regionNoise, SpatialNoise biomeNoise) {
+    public MapMaker(SpatialNoise chunkNoise, SpatialNoise regionNoise, 
+    			SpatialNoise biomeNoise, ClimaticWorldSettings settings) {
         this.chunkNoise  = chunkNoise;
         this.regionNoise = regionNoise;
         this.biomeNoise  = biomeNoise;
-        scale = ConfigHandler.regionSize;
+        this.settings    = settings;
+        scale = settings.regionSize;
         specifier = BiomeClimateTable.getClimateTable();
     }
     
@@ -155,13 +157,13 @@ public class MapMaker {
             premap[i].noiseVal = noise[i];
         }
         
-        if((ConfigHandler.mode < 3)) {
+        if((settings.mode < 3)) {
 	        RiverMaker rm = new RiverMaker(this, random.longFor(coords.getX(), coords.getZ(), 16), 
 	                regions[4], coords.getX(), coords.getZ(), scale);
 	        rm.build();
         }
         
-        if(ConfigHandler.forceWhole) {
+        if(settings.forceWhole) {
         	makeBiomesWhole(premap, random.getRandomAt(coords.getX(), coords.getZ(), 3));
         } else {
         	makeBiomes(premap, random.getRandomAt(coords.getX(), coords.getZ(), 3));
@@ -185,7 +187,7 @@ public class MapMaker {
     
     private void makeLandmass(BasinNode[] basins, int cx, int cz, SpatialNoise random) {
         LandmassMaker maker;
-        switch(ConfigHandler.mode) {
+        switch(settings.mode) {
         case 1:
         case 2:
         	maker = new LandmassMaker(cx, cz,
@@ -305,7 +307,7 @@ public class MapMaker {
     
     
     public void makeBiomes(ChunkTile[] premap, RandomAt random) {
-        int size = ConfigHandler.biomeSize;
+        int size = settings.biomeSize;
         int across = (RSIZE * scale.whole) / size;
         int down = across;
         subbiomes = new BiomeBasin[across][down];
@@ -324,7 +326,7 @@ public class MapMaker {
     
     
     public void makeBiomesWhole(ChunkTile[] premap, RandomAt random) {
-        int size = ConfigHandler.biomeSize;
+        int size = settings.biomeSize;
         int across = (RSIZE * scale.whole) / size;
         int down = across;
         subbiomes = new BiomeBasin[across][down];

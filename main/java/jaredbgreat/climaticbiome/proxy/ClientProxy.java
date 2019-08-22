@@ -1,7 +1,7 @@
 package jaredbgreat.climaticbiome.proxy;
 
-import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.blocks.itemblocks.ItemMultiblock;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.util.BlockRegistrar;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockFenceGate;

@@ -1,11 +1,11 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
-import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.IPineFinder;
 import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.PineFinder;
 import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.SpruceFinder;
 import jaredbgreat.climaticbiome.biomes.decorators.MediterranianAlpineDecorator;
 import jaredbgreat.climaticbiome.biomes.feature.GenNoTree;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 
 import java.util.Random;
 

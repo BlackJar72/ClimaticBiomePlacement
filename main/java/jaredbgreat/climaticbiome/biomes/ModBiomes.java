@@ -1,6 +1,5 @@
 package jaredbgreat.climaticbiome.biomes;
 
-import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.basic.ActiveVolcano;
 import jaredbgreat.climaticbiome.biomes.basic.CoolPlains;
 import jaredbgreat.climaticbiome.biomes.basic.MontaneForest;
@@ -13,6 +12,7 @@ import jaredbgreat.climaticbiome.biomes.basic.WarmForest;
 import jaredbgreat.climaticbiome.biomes.basic.Wetland;
 import jaredbgreat.climaticbiome.biomes.basic.WindsweptPlains;
 import jaredbgreat.climaticbiome.biomes.pseudo.PseudoBiomes;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetRiver;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeHills;

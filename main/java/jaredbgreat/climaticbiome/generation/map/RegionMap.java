@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiome.generation.map;
 
-import jaredbgreat.climaticbiome.ConfigHandler;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
 import jaredbgreat.climaticbiome.generation.generator.MapMaker;
 

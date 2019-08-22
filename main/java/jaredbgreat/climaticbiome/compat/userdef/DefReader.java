@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiome.compat.userdef;
 
-import jaredbgreat.climaticbiome.ConfigHandler;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IslandBiome;
 

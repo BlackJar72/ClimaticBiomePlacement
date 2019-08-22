@@ -7,7 +7,7 @@ import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import jaredbgreat.climaticbiome.ConfigHandler;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetAlpine;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetBeach;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetChaparral;
