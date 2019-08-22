@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
+import net.minecraft.world.gen.structure.MapGenVillage;
 
 
 public class ClimaticBiomeProvider extends BiomeProvider {
@@ -121,12 +122,14 @@ public class ClimaticBiomeProvider extends BiomeProvider {
         x = (x - 8) / 16;
         z = (z - 8) / 16;
         int cr = (radius / 16) + 1;
+        if(allowed != MapGenVillage.VILLAGE_SPAWN_BIOMES) {
         for(int i = -cr + 1; i < cr; i++)
                 for(int j = -cr + 1; j < cr; j++) {
                         if(!allowed.contains(finder.getBiomeChunk(x + i, z + j))) {
                                 return false;
                         }
                 }
+        }
         return allowed.contains(finder.getBiomeChunk(x, z));
     }
 
