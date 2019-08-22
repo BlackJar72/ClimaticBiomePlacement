@@ -1,6 +1,23 @@
 generator.climatic_bp=Climatic
+
 createWorld.climaticbiomesjbg.biomesize=Biome Size
 createWorld.climaticbiomesjbg.genscale=Map Scale
+createWorld.climaticbiomesjbg.sisize=Survival Island Size
+
+createWorld.climaticbiomesjbg.continents=Continents
+createWorld.climaticbiomesjbg.isles=Large Islands
+createWorld.climaticbiomesjbg.water=Water World
+createWorld.climaticbiomesjbg.sislands=Survival Island
+
+createWorld.climaticbiomesjbg.forcewhole.on=Force Whole Biomes: Yes
+createWorld.climaticbiomesjbg.addbeach.on=Add Extra Beach: Yes
+createWorld.climaticbiomesjbg.addisles.on=Add Extra Islands: Yes
+
+createWorld.climaticbiomesjbg.forcewhole.off=Force Whole Biomes: No
+createWorld.climaticbiomesjbg.addbeach.off=Add Extra Beach: No
+createWorld.climaticbiomesjbg.addisles.off=Add Extra Islands: No
+
+createWorld.climaticbiomesjbg.bopconf=Configure Biomes O'Plenty
 
 tile.climaticbiomesjbg.pine_log.name=Pine Wood
 tile.climaticbiomesjbg.pine_leaves.oak.name=Pine Needles

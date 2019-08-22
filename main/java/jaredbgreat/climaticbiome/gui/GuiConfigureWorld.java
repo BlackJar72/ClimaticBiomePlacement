@@ -31,22 +31,31 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
     public void initGui() {
 		title = I18n.format("options.customizeTitle");
 		buttonList.clear();
-		buttonList.add(new GuiButton(302, 20, 5, 80, 20, I18n.format("createWorld.customize.custom.prev")));
-		buttonList.add(new GuiButton(303, this.width - 100, 5, 80, 20, 
-				I18n.format("createWorld.customize.custom.next")));
+//		buttonList.add(new GuiButton(302, 20, 5, 80, 20, I18n.format("createWorld.customize.custom.prev")));
+//		buttonList.add(new GuiButton(303, this.width - 100, 5, 80, 20, 
+//				I18n.format("createWorld.customize.custom.next")));
         buttonList.add(new GuiButton(304, this.width / 2 - 187, this.height - 27, 90, 20, 
         		I18n.format("createWorld.customize.custom.defaults")));
         buttonList.add(new GuiButton(300, this.width / 2 + 98, this.height - 27, 90, 20, 
         		I18n.format("gui.done")));
         
-        // Sizing sliders -- these will be hidden from release version until / unless 
-        //                   scaling options are implemented in the generator.
         buttonList.add(new GuiIntSlider(this, 64, 40, 40, 
         		I18n.format("createWorld." + Info.ID + ".biomesize"), 4, 64, 16, this));
         buttonList.add(new GuiScaleSlider(this, 65, width - 190, 40, 
         		I18n.format("createWorld." + Info.ID + ".genscale")));
         
+        // World type button
+        buttonList.add(new GuiWorldTypeButton(305, 40, 65, 1));
+        buttonList.add(new GuiIntSlider(this, 64, 40, 90, 
+        		I18n.format("createWorld." + Info.ID + ".sisize"), 4, 18, 4, this));
+        
         // Buttons for boolean options
+        buttonList.add(new GuiCBToggleButton(305, width - 190, 65,  
+        		"createWorld." + Info.ID + ".forcewhole", false));
+        buttonList.add(new GuiCBToggleButton(305, 40, 115,  
+        		"createWorld." + Info.ID + ".addisles", true));
+        buttonList.add(new GuiCBToggleButton(305, width - 190, 115,  
+        		"createWorld." + Info.ID + ".addbeach", true));
         
 		
 	}
@@ -63,12 +72,6 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
         				true, true),
         		new GuiPageButtonList.GuiButtonEntry(
         				64, I18n.format(Info.ID + "createWorld.customize.addbeaches"), 
-        				true, true),
-        		new GuiPageButtonList.GuiButtonEntry(
-        				64, I18n.format(Info.ID + "createWorld.customize.addboulders"), 
-        				true, true),
-        		new GuiPageButtonList.GuiButtonEntry(
-        				64, I18n.format(Info.ID + "createWorld.customize.deepsand"), 
         				true, true),
         		new GuiPageButtonList.GuiButtonEntry(
         				64, I18n.format(Info.ID + "createWorld.customize.addislands"), 
