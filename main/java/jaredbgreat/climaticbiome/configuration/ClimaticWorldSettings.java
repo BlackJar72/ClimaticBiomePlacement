@@ -6,8 +6,10 @@ import jaredbgreat.climaticbiome.gui.GuiCBToggleButton;
 import jaredbgreat.climaticbiome.gui.GuiIntSlider;
 import jaredbgreat.climaticbiome.gui.GuiScaleSlider;
 import jaredbgreat.climaticbiome.gui.GuiWorldTypeButton;
+import jaredbgreat.climaticbiome.util.Debug;
 import net.minecraft.util.JsonUtils;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -133,6 +135,34 @@ public class ClimaticWorldSettings {
 	 */
 	public String toJsonString() {
 		return toJson().toString();
+	}
+	
+	
+	/**
+	 * This is a convenience wrapper around toJson(), allowing 
+	 * a (text-based) json representation to the settings to 
+	 * be obtained ... for saving ... somewhere.
+	 * 
+	 * @return A json (text) representation of the settings.
+	 */
+	public String extendJsonString(String in) {
+		JsonObject jsonObj;
+		if((in != null) && !in.isEmpty()) {
+			Gson gson = new Gson();
+			JsonElement jsonElement = gson.toJsonTree(in);
+			jsonObj = jsonElement.getAsJsonObject();
+		} else {
+			jsonObj = new JsonObject();
+		}
+		jsonObj.addProperty("addIslands", addIslands);
+		jsonObj.addProperty("extraBeaches", extraBeaches);	
+		jsonObj.addProperty("forceWholeBiome", forceWhole);
+		jsonObj.addProperty("biomeSize", biomeSize);
+		jsonObj.addProperty("regionSize", regionSize.ordinal() + 1);
+		jsonObj.addProperty("mapType", mode);
+		jsonObj.addProperty("SurvivalIslandSize", sisize);
+		Debug.bigSysout(jsonObj);
+		return jsonObj.toString();
 	}
 	
 	

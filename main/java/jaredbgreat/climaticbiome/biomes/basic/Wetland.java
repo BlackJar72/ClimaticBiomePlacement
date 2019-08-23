@@ -131,7 +131,6 @@ public class Wetland extends BiomeSwamp {
             	int y = world.getHeight(pos.add(x, 0, z)).getY() - 1;
             	BlockPos tpos = pos.add(x, y, z);
             	if(world.getBlockState(tpos).getMaterial() == Material.GRASS) {
-            		System.out.println("GROUND at " + tpos);
             		world.setBlockState(tpos, PEAT);
             	}
 			}

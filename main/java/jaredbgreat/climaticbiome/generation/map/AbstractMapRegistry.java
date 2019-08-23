@@ -113,7 +113,7 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 	 * some per-world settings. 
 	 */
 	void readSettings() {
-		settings = ClimaticWorldSettings.getQueued();		
+		settings = ClimaticWorldSettings.getQueued();
 		if(settingsFile == null) {
 			return;
 		}
@@ -139,10 +139,6 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 			}
 		} else if(!world.isRemote) {
 			// If there is not a settings file to read, write a new one!
-			String wopts = world.getWorldInfo().getGeneratorOptions();
-			if((wopts != null) && !wopts.isEmpty()) {
-				settings = settings.fromJsonString(wopts);;
-			}
 			try {				
 				BufferedWriter fs = new BufferedWriter(new FileWriter(settingsFile));
 				fs.close();

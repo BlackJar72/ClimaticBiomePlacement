@@ -3,7 +3,6 @@ package jaredbgreat.climaticbiome.gui;
 import jaredbgreat.climaticbiome.Info;
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-import jaredbgreat.climaticbiome.util.Debug;
 
 import java.io.IOException;
 
@@ -13,7 +12,7 @@ import net.minecraft.client.gui.GuiPageButtonList;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSlider;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.world.storage.ISaveFormat;
+import biomesoplenty.client.gui.GuiBOPConfigureWorld;
 
 public class GuiConfigureWorld extends GuiScreen 
 implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
@@ -138,8 +137,9 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
 	@Override
     protected void actionPerformed(GuiButton button) throws IOException {
 		if(button.id == 300) {
-			this.parent.chunkProviderSettingsJson = settings.toJsonString();
-			this.mc.displayGuiScreen(this.parent);
+			//parent.chunkProviderSettingsJson 
+			//	= settings.toJsonString();
+			mc.displayGuiScreen(this.parent);
 		} else if(button.id == 304) {
 			resetDefaults();
 		}
