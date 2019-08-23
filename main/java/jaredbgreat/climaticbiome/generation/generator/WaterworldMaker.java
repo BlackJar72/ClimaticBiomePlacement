@@ -38,6 +38,7 @@ public class WaterworldMaker extends LandmassMaker {
                         + (heights[i][j] / 2.0) + 0.5) 
                         * out[(i * size) + j].height) 
                         + heights[i][j];
+                out[(i * size) + j].rlBiome = 0;
             }
         return out;
     } 

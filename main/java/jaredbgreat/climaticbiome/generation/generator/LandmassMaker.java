@@ -64,7 +64,7 @@ public class LandmassMaker {
                         out[(i * size) + j].beach = true;
                     }
                 } else {
-                    out[(i * size) + j].rlBiome = 0;                    
+                    out[(i * size) + j].rlBiome = 0;             
                 }
             }
         
