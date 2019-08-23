@@ -3,6 +3,7 @@ package jaredbgreat.climaticbiome.generation;
 import jaredbgreat.climaticbiome.generation.map.IMapRegistry;
 import jaredbgreat.climaticbiome.generation.map.MapRegistry;
 import jaredbgreat.climaticbiome.generation.map.NewMapRegistry;
+import jaredbgreat.climaticbiome.util.Debug;
 
 import java.util.List;
 import java.util.Random;
@@ -26,7 +27,7 @@ public class ClimaticBiomeProvider extends BiomeProvider {
                 super(/*world.getWorldInfo()*/);
                 vanillaCacheValid = true;
                 this.world = world;
-                /*if(finder == null)*/ {
+                {
 	                if(net.minecraftforge.fml.common.Loader.isModLoaded("jeid")) {
 	                	finder = new NewMapRegistry(world.getSeed(), world);
 	                } else {

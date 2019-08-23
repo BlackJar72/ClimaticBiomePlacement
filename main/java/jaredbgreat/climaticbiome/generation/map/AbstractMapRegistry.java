@@ -3,6 +3,7 @@ package jaredbgreat.climaticbiome.generation.map;
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.util.Debug;
+import jaredbgreat.climaticbiome.util.Logging;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -112,7 +113,7 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 	 * some per-world settings. 
 	 */
 	void readSettings() {
-		settings = ClimaticWorldSettings.getQueued();
+		settings = ClimaticWorldSettings.getQueued();		
 		if(settingsFile == null) {
 			return;
 		}
@@ -124,7 +125,6 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 					String json = fs.readLine();
 					if(json != null) {
 						settings = settings.fromJsonString(json);
-						Debug.bigSysout(json);
 					}
 					fs.close();
 					pwtodo = false;
@@ -135,13 +135,16 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 				}	
 			} else {
 				// FIXME: I should be logging with a logger!!!
-				System.err.println("Settings file \"" + settingsFile + "\" is not a valid file!");
+				Logging.logError("Settings file \"" + settingsFile + "\" is not a valid file!");
 			}
-		} else {
+		} else if(!world.isRemote) {
 			// If there is not a settings file to read, write a new one!
+			String wopts = world.getWorldInfo().getGeneratorOptions();
+			if((wopts != null) && !wopts.isEmpty()) {
+				settings = settings.fromJsonString(wopts);;
+			}
 			try {				
 				BufferedWriter fs = new BufferedWriter(new FileWriter(settingsFile));
-				fs.append(settings.toJsonString());
 				fs.close();
 				pwtodo = false;
 			} catch (FileNotFoundException e) {

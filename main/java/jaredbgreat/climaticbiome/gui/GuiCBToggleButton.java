@@ -46,4 +46,11 @@ public class GuiCBToggleButton extends GuiButton {
 	public boolean getState() {
 		return state;
 	}
+    
+    
+    public void setValue(boolean value, ClimaticWorldSettings settings) {
+    	state = value;
+    	setStateText();   	
+    	target.setTarget(settings);
+    }
 }

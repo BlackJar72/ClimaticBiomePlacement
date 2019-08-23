@@ -96,7 +96,7 @@ public class MapMaker {
                 out[index] = regionCache.get(regionCoords);
                 if(out[index] == null) {
                 	out[index] = new Region(x + i, z + j, 
-                                regionNoise);
+                                regionNoise, settings);
                         regionCache.add(out[index]);
                 } else {
                         out[index].use();

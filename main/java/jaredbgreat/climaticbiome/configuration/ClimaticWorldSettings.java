@@ -14,7 +14,7 @@ import com.google.gson.JsonParser;
 
 public class ClimaticWorldSettings {
 	public static final String DATA_NAME = Info.ID + "GenSettings";
-	private static ClimaticWorldSettings queued;
+	private static volatile ClimaticWorldSettings queued;
 	
 	// Core settings
 	public boolean addIslands;
@@ -31,17 +31,7 @@ public class ClimaticWorldSettings {
 	 * This default constructor will create a version that matches 
 	 * set in the global config file (treating them as run-time defaults).
 	 */
-	public ClimaticWorldSettings() {
-		setDataFromConfig();
-	}
-	
-	
-	/**
-	 * Required constructor here only becaue required for some reason.
-	 * 
-	 * @param s
-	 */
-	public ClimaticWorldSettings(String s) {
+	private ClimaticWorldSettings() {
 		setDataFromConfig();
 	}
 	
@@ -166,7 +156,9 @@ public class ClimaticWorldSettings {
 	 * @return
 	 */
 	public static ClimaticWorldSettings getNew() {
-		queued = new ClimaticWorldSettings();
+		if(queued == null) {
+			queued = new ClimaticWorldSettings();
+		}
 		return queued;
 	}
 	
@@ -193,19 +185,23 @@ public class ClimaticWorldSettings {
 	public static interface ISetter<T> {
 		public void set(T input);
 		public void set(int input);
+		public void setTarget(ClimaticWorldSettings target);
 	}
 	
 	
 	public static abstract class BooleanSetter implements ISetter<GuiCBToggleButton> {
-		final ClimaticWorldSettings target;
+		ClimaticWorldSettings target;
 		public BooleanSetter(ClimaticWorldSettings target) {
+			this.target = target;
+		}
+		public void setTarget(ClimaticWorldSettings target) {
 			this.target = target;
 		}
 	}
 	
 	
 	public static class BiomeSizeSetter implements ISetter<GuiIntSlider> {
-		final ClimaticWorldSettings target;
+		ClimaticWorldSettings target;
 		public BiomeSizeSetter(ClimaticWorldSettings target) {
 			this.target = target;
 		}
@@ -217,12 +213,15 @@ public class ClimaticWorldSettings {
 		public void set(int input) {
 			target.biomeSize = input;			
 		}
+		public void setTarget(ClimaticWorldSettings target) {
+			this.target = target;
+		}
 	}
 	// TODO Auto-generated m
 	
 	
 	public static class SISizeSetter implements ISetter<GuiIntSlider> {
-		final ClimaticWorldSettings target;
+		ClimaticWorldSettings target;
 		public SISizeSetter(ClimaticWorldSettings target) {
 			this.target = target;
 		}
@@ -234,21 +233,27 @@ public class ClimaticWorldSettings {
 		public void set(int input) {
 			target.sisize = input;			
 		}
+		public void setTarget(ClimaticWorldSettings target) {
+			this.target = target;
+		}
 	}
 	
 	
 	public static class MapScaleSetter implements ISetter<GuiScaleSlider> {
-		final ClimaticWorldSettings target;
+		ClimaticWorldSettings target;
 		public MapScaleSetter(ClimaticWorldSettings target) {
 			this.target = target;
 		}
 		@Override
 		public void set(GuiScaleSlider input) {
-			target.regionSize = SizeScale.get((int)input.getSliderValue());
+			target.regionSize = SizeScale.get((int)input.getSliderValue() + 1);
 		}
 		@Override
 		public void set(int input) {
 			target.regionSize = SizeScale.get(input);			
+		}
+		public void setTarget(ClimaticWorldSettings target) {
+			this.target = target;
 		}
 	}
 	
@@ -300,17 +305,20 @@ public class ClimaticWorldSettings {
 	
 	
 	public static class ModeSetter implements ISetter<GuiWorldTypeButton> {
-		final ClimaticWorldSettings target;
+		ClimaticWorldSettings target;
 		public ModeSetter(ClimaticWorldSettings target) {
 			this.target = target;
 		}
 		@Override
 		public void set(GuiWorldTypeButton input) {
-			target.mode = input.getState();			
+			target.mode = input.getState() + 1;			
 		}
 		@Override
 		public void set(int input) {
-			target.mode = input;
+			target.mode = input + 1;
+		}
+		public void setTarget(ClimaticWorldSettings target) {
+			this.target = target;
 		}		
 	}
 
