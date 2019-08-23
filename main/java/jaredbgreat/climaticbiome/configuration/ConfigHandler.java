@@ -58,10 +58,13 @@ public class ConfigHandler {
 	static SizeScale  regionSize = SizeScale.X1;
 	static boolean    forceWhole = false;
 	static double     sisize     = 6.0; 
+	static int        mode       = 1;
 	
 	public static boolean failfast = false;
 	
-	public static int mode = 1;
+	
+	public static  int     modes     = 3;
+	public static  boolean includeSI = false;
 
 	private static File dir;
 	private static File file;
@@ -240,12 +243,23 @@ public class ConfigHandler {
 				+ " \t 3: Water-World (only ADDED islands)\n"
 				+ " \t 4: Survival Island (Experimental; may put you in water)");
 		
+		includeSI = config.getBoolean("FailFast", "debugging", false, 
+						"If the game should crash with an exception when failign to read a biome. \n"
+						+ "This is for modpack authors to catch config bugs, not for general use.");
+		
+		if(includeSI) {
+			modes = 4;
+		} else {
+			modes = 3;
+		}
+		
 		sisize = config.getInt("Survival Island Size", "Size", 4, 4, 18, "How big survival "
 						+ "islands are.") + 6.0;
 		
-		failfast = config.getBoolean("FailFast", "debugging", false, 
-						"If the game should crash with an exception when failign to read a biome. \n"
-						+ "This is for modpack authors to catch config bugs, not for general use.");	
+		failfast = config.getBoolean("Survival Island in GUI", "general", false, 
+						"If true survival island world type will be available in the GUI; "
+						+ " If survival island (4) is set as map type here it will also appear")
+						|| (mode == 4);	
 		
 		includeRivers  = config.getBoolean("RiverVariants", "Biomes", true, 
 						"If true there will be temperature specific rivers.");

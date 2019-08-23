@@ -7,6 +7,7 @@ package jaredbgreat.climaticbiome.generation.generator;
 
 import static jaredbgreat.climaticbiome.generation.generator.MapMaker.RADIUS;
 import static jaredbgreat.climaticbiome.generation.generator.MapMaker.RSIZE;
+import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
@@ -25,12 +26,12 @@ public final class Region extends AbstractCachable {
     static int n = 0;
     
      
-    public Region(int x, int z, SpatialNoise random) {
+    public Region(int x, int z, SpatialNoise random, ClimaticWorldSettings settings) {
         super(x, z);
         
         cx = (x * RSIZE) - RADIUS;
         cz = (z * RSIZE) - RADIUS;
-        switch(ConfigHandler.mode) {
+        switch(settings.mode) {
 	        case 1:
 	        	makeBasins(5, 10, 15, random.getRandomAt(x, z, 0));
 	        	break;
@@ -43,7 +44,7 @@ public final class Region extends AbstractCachable {
 	        	makeBasins(5, 10, 15, random.getRandomAt(x, z, 0));
 	        	break;
         }
-        makeTempBasins(10, random.getRandomAt(x, z, 1));
+        makeTempBasins(10, random.getRandomAt(x, z, 1), settings);
         makeRainBasins(12, random.getRandomAt(x, z, 2));
         n++;
     }
@@ -57,11 +58,11 @@ public final class Region extends AbstractCachable {
     
     
     
-    public Region init(int x, int z, SpatialNoise random) {
+    public Region init(int x, int z, SpatialNoise random, ClimaticWorldSettings settings) {
         cx = (x * RSIZE) - RADIUS;
         cz = (z * RSIZE) - RADIUS;
         makeBasins(5, 10, 15, random.getRandomAt(x, z, 0));
-        makeTempBasins(10, random.getRandomAt(x, z, 1));
+        makeTempBasins(10, random.getRandomAt(x, z, 1), settings);
         makeRainBasins(12, random.getRandomAt(x, z, 2));
         return this;
     }
@@ -106,9 +107,10 @@ public final class Region extends AbstractCachable {
     }
     
     
-    private void makePoles(ClimateNode[] nodes, SpatialNoise.RandomAt random) {
+    private void makePoles(ClimateNode[] nodes, SpatialNoise.RandomAt random, 
+    		ClimaticWorldSettings settings) {
     	int movex = 0, movez = 0;
-    	if(ConfigHandler.mode == 4) {
+    	if(settings.mode == 4) {
     		movex = random.nextInt(512) - 256;
     		movez = random.nextInt(512) - 256;
     	}
@@ -129,9 +131,9 @@ public final class Region extends AbstractCachable {
     }
     
     
-    public void makeTempBasins(int n, SpatialNoise.RandomAt random) {
+    public void makeTempBasins(int n, SpatialNoise.RandomAt random, ClimaticWorldSettings settings) {
         temp = new ClimateNode[n + 2];
-        makePoles(temp, random);
+        makePoles(temp, random, settings);
         for(int i = 2; i < temp.length; i++) {
             temp[i] = new ClimateNode(
                 cx + random.nextInt(RSIZE), 
