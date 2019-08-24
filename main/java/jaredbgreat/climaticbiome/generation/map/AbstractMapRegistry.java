@@ -141,6 +141,7 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 			// If there is not a settings file to read, write a new one!
 			try {				
 				BufferedWriter fs = new BufferedWriter(new FileWriter(settingsFile));
+				fs.append(settings.toJsonString());
 				fs.close();
 				pwtodo = false;
 			} catch (FileNotFoundException e) {
