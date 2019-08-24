@@ -27,6 +27,9 @@ import net.minecraft.world.gen.feature.WorldGenShrub;
 public class Scrub extends Biome {
 	private static final WorldGenBlockBlob ROCK_PILES 
 				= new WorldGenBlockBlob(Blocks.COBBLESTONE, 0);
+	private static boolean deepSand = true;
+	private static boolean makeRocks = true;
+	
 	
 	private final Type type;
 	
@@ -79,7 +82,7 @@ public class Scrub extends Biome {
 
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, 
     		int x, int z, double noise) {
-    	if(ConfigHandler.deepSand && (type == Type.DRY) && (noise > 1.25)) {
+    	if(deepSand && (type == Type.DRY) && (noise > 1.25)) {
     		fillerBlock = type.altTop;
     	} else {
     		fillerBlock = Blocks.DIRT.getDefaultState();
@@ -94,7 +97,7 @@ public class Scrub extends Biome {
 
     
     public void decorate(World worldIn, Random random, BlockPos pos) {
-    	if(ConfigHandler.rockyScrub) {
+    	if(makeRocks) {
 	        int n;
 	    	if(type == Type.DRY) {
 	    		n = random.nextInt(4);
@@ -107,6 +110,16 @@ public class Scrub extends Biome {
 	        }
     	}
         super.decorate(worldIn, random, pos);
+    }
+    
+    
+    public static void setDeepSand(boolean in) {
+    	deepSand = in;
+    }
+    
+    
+    public static void setMakeRocks(boolean in) {
+    	makeRocks = in;
     }
 
 }

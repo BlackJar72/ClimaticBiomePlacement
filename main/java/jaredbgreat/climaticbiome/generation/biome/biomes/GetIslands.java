@@ -11,6 +11,7 @@ import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
 
 public class GetIslands implements IBiomeSpecifier {
 	private static GetIslands islands;
+	private static boolean volcanicIslands = true;
 	private GetIslands() {
 		super();
 		init();
@@ -40,7 +41,7 @@ public class GetIslands implements IBiomeSpecifier {
 		DefReader.readBiomeData(warm,   "SpecialIslandWarm.cfg");
 		DefReader.readBiomeData(hot,    "SpecialIslandTropical.cfg");
 		DefReader.readBiomeData(desert, "SpecialIslandDesert.cfg");
-		if(ConfigHandler.volcanicIslands) addVolcanicIslands((BiomeList)frozen, (BiomeList)cold, 
+		if(volcanicIslands) addVolcanicIslands((BiomeList)frozen, (BiomeList)cold, 
                                                      (BiomeList)cool, (BiomeList)warm, 
                                                      (BiomeList)hot, (BiomeList)desert);
 	}
@@ -118,6 +119,11 @@ public class GetIslands implements IBiomeSpecifier {
 				GetVolcano.getVolcanoes()));
 		warm.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
 				GetVolcano.getVolcanoes()));
+	}
+	
+	
+	public static void setVolcanicIslands(boolean in) {
+		volcanicIslands = in;
 	}
 
 }

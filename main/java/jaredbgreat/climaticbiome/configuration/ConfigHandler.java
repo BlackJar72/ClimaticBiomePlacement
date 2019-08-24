@@ -22,13 +22,11 @@ public class ConfigHandler {
 	public static boolean useDefiled = false;
 	public static boolean useRWmod = false;
 	public static boolean useSpecial = false;
-	public static boolean useVanilla = true;	
-	public static boolean volcanicIslands = false;
+	public static boolean useVanilla = true;
 	public static boolean useCfg = true;
 	
 	public static boolean writeBiomeLists = true;
 	public static boolean writeWTLists = false;	
-	public static boolean rockyScrub = true;
 	public static boolean hasDT = false;
 	public static boolean useDT = false;		
 	public static boolean useBoPTable = true;
@@ -36,7 +34,6 @@ public class ConfigHandler {
 	public static boolean moreMansion = true;
 	public static boolean moddedBlocks = true;
 	public static boolean addPines = true;
-	public static boolean deepSand = true;
 	public static boolean badBiomeSpam = false;
 	public static boolean makeDefault = false;
 	public static boolean addToVanilla = false;
@@ -52,7 +49,11 @@ public class ConfigHandler {
 	public static boolean biomeWater = false;
 
 	static boolean addIslands = true;
-	static boolean extraBeaches = false;
+	static boolean extraBeaches = true;	
+	static boolean volcanicIslands = false;
+	static boolean deepSand = true;
+	static boolean rockyScrub = true;
+	static boolean hasRivers = true;
 	
 	static int        biomeSize  = 16;
 	static SizeScale  regionSize = SizeScale.X1;
@@ -152,7 +153,7 @@ public class ConfigHandler {
 						"If true the climate table for with 6 tmeperature zone instead \n"
 						+ "of the original with only 5.");	
 		
-		volcanicIslands = config.getBoolean("VolcanicIslands", "Compat", true, 
+		volcanicIslands = config.getBoolean("VolcanicIslands", "General", true, 
 						"If true create volcanic islands.");
 				
 		writeBiomeLists = config.getBoolean("WriteBiomelist", "Compat", true, 
@@ -168,7 +169,7 @@ public class ConfigHandler {
 						"If true it read will files from the BiomeConfig/custom folder to extends \n"
 						+ "its worldgen. This is where to add extra biomes not otherwise supported.");
 		
-		extraBeaches = config.getBoolean("ExtraBeaches", "General", false, 
+		extraBeaches = config.getBoolean("ExtraBeaches", "General", true, 
 						"If true there will be more beaches.");
 		
 		rockyScrub = config.getBoolean("RockyScrub", "General", true, 
@@ -214,6 +215,9 @@ public class ConfigHandler {
 		
 		addToVanilla = config.getBoolean("AddToVanilla", "General", false, 
 						"If true the biomes from this mod will appear in vanilla world types.");
+		
+		hasRivers = config.getBoolean("MakeRivers", "General", true, 
+						"If true rivers will be generated.");
 		
 		chunkProvider = config.getString("ChunkProvider", "General", "default", 
 						"You can use another mods chunk provider here if you like; \n"

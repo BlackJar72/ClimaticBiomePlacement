@@ -157,7 +157,7 @@ public class MapMaker {
             premap[i].noiseVal = noise[i];
         }
         
-        if((settings.mode < 3)) {
+        if(settings.hasRivers && (settings.mode < 3)) {
 	        RiverMaker rm = new RiverMaker(this, random.longFor(coords.getX(), coords.getZ(), 16), 
 	                regions[4], coords.getX(), coords.getZ(), scale);
 	        rm.build();
@@ -173,11 +173,13 @@ public class MapMaker {
         for(int i = start; i < end; i++) {
         	thinBeach(premap[i]);
         }
-        for(int i = start; i < end; i++) {
-        	growBeach1(premap[i]);
-        }
-        for(int i = start; i < end; i++) {
-        	growBeach2(premap[i]);
+        if(settings.extraBeaches) {
+	        for(int i = start; i < end; i++) {
+	        	growBeach1(premap[i]);
+	        }
+	        for(int i = start; i < end; i++) {
+	        	growBeach2(premap[i]);
+	        }
         }
         for(int i = 0; i < premap.length; i++) {
         	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);

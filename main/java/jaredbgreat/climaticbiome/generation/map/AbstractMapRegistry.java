@@ -149,6 +149,7 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 				e.printStackTrace();
 			}	
 		}
+		settings.applySettings();
 	}
 	
 	

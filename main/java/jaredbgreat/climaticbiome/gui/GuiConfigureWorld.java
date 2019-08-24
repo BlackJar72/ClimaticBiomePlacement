@@ -33,6 +33,10 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
     private GuiCBToggleButton forceWholeButton;
     private GuiCBToggleButton addIslandsButton;
     private GuiCBToggleButton extraBeachButton;
+    private GuiCBToggleButton rockyScrubButton;
+    private GuiCBToggleButton deepSandButton;
+    private GuiCBToggleButton volcanicIslandsButton;
+    private GuiCBToggleButton hasRiversButton;
     
 
 	public GuiConfigureWorld(GuiCreateWorld guiCreateWorld,
@@ -53,6 +57,8 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
         		I18n.format("createWorld.customize.custom.defaults")));
         buttonList.add(resetButton = new GuiButton(300, this.width / 2 + 98, this.height - 27, 90, 20, 
         		I18n.format("gui.done")));
+//        buttonList.add(resetButton = new GuiButton(305, this.width / 2 - 44, this.height - 27, 90, 20, 
+//        		I18n.format("BoP")));
         
         buttonList.add(biomeSizeSlider = new GuiIntSlider(this, 64, 40, 40, 
         		I18n.format("createWorld." + Info.ID + ".biomesize"), 4, 64, 
@@ -82,51 +88,36 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
         		new ClimaticWorldSettings.AddIslandsSetter(settings)));
         buttonList.add(extraBeachButton = new GuiCBToggleButton(70, width - 190, 115,  
         		"createWorld." + Info.ID + ".addbeach", settings.extraBeaches, 
-        		new ClimaticWorldSettings.ExtraBeachSetter(settings)));       
+        		new ClimaticWorldSettings.ExtraBeachSetter(settings)));  
+        buttonList.add(rockyScrubButton = new GuiCBToggleButton(71, 40, 140,  
+        		"createWorld." + Info.ID + ".rockyscrub", settings.rockyScrub, 
+        		new ClimaticWorldSettings.RockyScrubSetter(settings)));
+        buttonList.add(deepSandButton = new GuiCBToggleButton(72, width - 190, 140,  
+        		"createWorld." + Info.ID + ".deepsand", settings.deepSand, 
+        		new ClimaticWorldSettings.DeepSandSetter(settings)));  
+        buttonList.add(volcanicIslandsButton = new GuiCBToggleButton(72, 40, 165,  
+        		"createWorld." + Info.ID + ".volcanicislses", settings.volcanicIslands, 
+        		new ClimaticWorldSettings.VolcanicIslandsSetter(settings)));   
+        buttonList.add(hasRiversButton = new GuiCBToggleButton(72, width - 190, 165,  
+        		"createWorld." + Info.ID + ".hasrivers", settings.hasRivers, 
+        		new ClimaticWorldSettings.HasRiversSetter(settings)));      
 		
 	}
-	
-
-
-    private void createPagedList() {
-        GuiPageButtonList.GuiListEntry[] options1 = {
-        		new GuiPageButtonList.GuiSlideEntry(160, 
-        				I18n.format(Info.ID + "createWorld.customize.biomesize"), 
-        				true, this, 8f, 64f, (float)16),
-        		new GuiPageButtonList.GuiButtonEntry(
-        				64, I18n.format(Info.ID + "createWorld.customize.addrivers"), 
-        				true, true),
-        		new GuiPageButtonList.GuiButtonEntry(
-        				64, I18n.format(Info.ID + "createWorld.customize.addbeaches"), 
-        				true, true),
-        		new GuiPageButtonList.GuiButtonEntry(
-        				64, I18n.format(Info.ID + "createWorld.customize.addislands"), 
-        				true, true),
-        		
-        };
-        
-        list = new GuiPageButtonList(mc, this.width, this.height, 32, this.height - 32, 25, 
-        		this, new GuiPageButtonList.GuiListEntry[][]{options1, options1, options1, options1});
-    }
 	
 
 	@Override
 	public void setEntryValue(int id, boolean value) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
-
 	@Override
 	public void setEntryValue(int id, float value) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
-
 	@Override
 	public void setEntryValue(int id, String value) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
+	
 
 	@Override
 	public String getText(int id, String name, float value) {
@@ -137,12 +128,13 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
 	@Override
     protected void actionPerformed(GuiButton button) throws IOException {
 		if(button.id == 300) {
-			//parent.chunkProviderSettingsJson 
-			//	= settings.toJsonString();
 			mc.displayGuiScreen(this.parent);
 		} else if(button.id == 304) {
 			resetDefaults();
-		}
+		} /*else if(button.id == 305) {
+			mc.displayGuiScreen(new GuiBOPConfigureWorld(parent, 
+					parent.chunkProviderSettingsJson));
+		}*/
 	}
 	
 	
@@ -155,6 +147,10 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
 	    forceWholeButton.setValue(settings.forceWhole, settings);
 	    addIslandsButton.setValue(settings.addIslands, settings);
 	    extraBeachButton.setValue(settings.extraBeaches, settings);
+	    rockyScrubButton.setValue(settings.rockyScrub, settings);
+	    deepSandButton.setValue(settings.deepSand, settings);
+	    volcanicIslandsButton.setValue(settings.volcanicIslands, settings);
+	    hasRiversButton.setValue(settings.hasRivers, settings);
 	}
 	
 

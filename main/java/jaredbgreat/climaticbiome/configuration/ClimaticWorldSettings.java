@@ -1,6 +1,8 @@
 package jaredbgreat.climaticbiome.configuration;
 
 import jaredbgreat.climaticbiome.Info;
+import jaredbgreat.climaticbiome.biomes.basic.Scrub;
+import jaredbgreat.climaticbiome.generation.biome.biomes.GetIslands;
 import jaredbgreat.climaticbiome.generation.generator.SizeScale;
 import jaredbgreat.climaticbiome.gui.GuiCBToggleButton;
 import jaredbgreat.climaticbiome.gui.GuiIntSlider;
@@ -22,6 +24,10 @@ public class ClimaticWorldSettings {
 	public boolean addIslands;
 	public boolean extraBeaches;
 	public boolean forceWhole;
+	public boolean rockyScrub;
+	public boolean deepSand;
+	public boolean volcanicIslands;
+	public boolean hasRivers;
 	
 	public int biomeSize;
 	public SizeScale regionSize;
@@ -44,6 +50,10 @@ public class ClimaticWorldSettings {
 	private final void setDataFromConfig() {
 		this.addIslands = ConfigHandler.addIslands;
 		this.extraBeaches = ConfigHandler.extraBeaches;
+		this.rockyScrub = ConfigHandler.rockyScrub;
+		this.deepSand = ConfigHandler.deepSand;
+		this.volcanicIslands = ConfigHandler.volcanicIslands;
+		this.hasRivers = ConfigHandler.hasRivers;
 		this.forceWhole = ConfigHandler.forceWhole;	
 		this.biomeSize = ConfigHandler.biomeSize;
 		this.regionSize = ConfigHandler.regionSize;		
@@ -74,6 +84,18 @@ public class ClimaticWorldSettings {
 			
 			if(JsonUtils.hasField(jsonObj, "addBeaches")) 		
 				extraBeaches = JsonUtils.getBoolean(jsonObj, "extraBeaches");
+			
+			if(JsonUtils.hasField(jsonObj, "rockyScrub")) 		
+				rockyScrub = JsonUtils.getBoolean(jsonObj, "rockyScrub");		
+			
+			if(JsonUtils.hasField(jsonObj, "deepSand")) 		
+				deepSand = JsonUtils.getBoolean(jsonObj, "deepSand");		
+			
+			if(JsonUtils.hasField(jsonObj, "volcanicIslands")) 		
+				volcanicIslands = JsonUtils.getBoolean(jsonObj, "volcanicIslands");		
+			
+			if(JsonUtils.hasField(jsonObj, "hasRivers")) 		
+				hasRivers = JsonUtils.getBoolean(jsonObj, "hasRivers");
 			
 			if(JsonUtils.hasField(jsonObj, "forceWholeBiome")) 		
 				forceWhole = JsonUtils.getBoolean(jsonObj, "forceWholeBiome");
@@ -116,7 +138,11 @@ public class ClimaticWorldSettings {
 	public JsonElement toJson() {
 		JsonObject jsonObj = new JsonObject();	
 		jsonObj.addProperty("addIslands", addIslands);
-		jsonObj.addProperty("extraBeaches", extraBeaches);	
+		jsonObj.addProperty("extraBeaches", extraBeaches);
+		jsonObj.addProperty("rockyScrub", rockyScrub);
+		jsonObj.addProperty("deepSand", deepSand);		
+		jsonObj.addProperty("volcanicIslands", volcanicIslands);	
+		jsonObj.addProperty("hasRivers", hasRivers);	
 		jsonObj.addProperty("forceWholeBiome", forceWhole);
 		jsonObj.addProperty("biomeSize", biomeSize);
 		jsonObj.addProperty("regionSize", regionSize.ordinal() + 1);
@@ -160,7 +186,7 @@ public class ClimaticWorldSettings {
 		jsonObj.addProperty("biomeSize", biomeSize);
 		jsonObj.addProperty("regionSize", regionSize.ordinal() + 1);
 		jsonObj.addProperty("mapType", mode);
-		jsonObj.addProperty("SurvivalIslandSize", sisize);
+		jsonObj.addProperty("SurvivalIslandSideepSandze", sisize);
 		Debug.bigSysout(jsonObj);
 		return jsonObj.toString();
 	}
@@ -168,6 +194,13 @@ public class ClimaticWorldSettings {
 	
 	public String toString() {
 		return super.toString() + " " + toJsonString();
+	}
+	
+	
+	public void applySettings() {
+		Scrub.setDeepSand(deepSand);
+		Scrub.setMakeRocks(rockyScrub);
+		GetIslands.setVolcanicIslands(volcanicIslands);
 	}
 	
 
@@ -302,7 +335,6 @@ public class ClimaticWorldSettings {
 		}		
 	}
 
-	// TODO Auto-generated m
 	
 	public static class ExtraBeachSetter extends BooleanSetter {
 		public ExtraBeachSetter(ClimaticWorldSettings target) {
@@ -330,6 +362,66 @@ public class ClimaticWorldSettings {
 		@Override
 		public void set(int input) {
 			target.forceWhole = input != 0;			
+		}		
+	}
+	
+	
+	public static class RockyScrubSetter extends BooleanSetter {
+		public RockyScrubSetter(ClimaticWorldSettings target) {
+			super(target);
+		}		
+		@Override
+		public void set(GuiCBToggleButton input) {
+			target.rockyScrub = input.getState();
+		}
+		@Override
+		public void set(int input) {
+			target.rockyScrub = input != 0;			
+		}		
+	}
+	
+	
+	public static class DeepSandSetter extends BooleanSetter {
+		public DeepSandSetter(ClimaticWorldSettings target) {
+			super(target);
+		}		
+		@Override
+		public void set(GuiCBToggleButton input) {
+			target.deepSand = input.getState();
+		}
+		@Override
+		public void set(int input) {
+			target.deepSand = input != 0;			
+		}		
+	}
+	
+	
+	public static class VolcanicIslandsSetter extends BooleanSetter {
+		public VolcanicIslandsSetter(ClimaticWorldSettings target) {
+			super(target);
+		}		
+		@Override
+		public void set(GuiCBToggleButton input) {
+			target.volcanicIslands = input.getState();
+		}
+		@Override
+		public void set(int input) {
+			target.volcanicIslands = input != 0;			
+		}		
+	}
+	
+	
+	public static class HasRiversSetter extends BooleanSetter {
+		public HasRiversSetter(ClimaticWorldSettings target) {
+			super(target);
+		}		
+		@Override
+		public void set(GuiCBToggleButton input) {
+			target.hasRivers = input.getState();
+		}
+		@Override
+		public void set(int input) {
+			target.hasRivers = input != 0;			
 		}		
 	}
 	

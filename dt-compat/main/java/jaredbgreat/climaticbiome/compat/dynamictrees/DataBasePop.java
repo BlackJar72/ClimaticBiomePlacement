@@ -1,7 +1,7 @@
 package jaredbgreat.climaticbiome.compat.dynamictrees;
 
-import jaredbgreat.climaticbiome.ConfigHandler;
 import jaredbgreat.climaticbiome.biomes.ModBiomes;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 
 import com.ferreusveritas.dynamictrees.api.TreeRegistry;
 import com.ferreusveritas.dynamictrees.api.worldgen.BiomePropertySelectors.EnumChance;
@@ -39,7 +39,66 @@ public class DataBasePop implements IBiomeDataBasePopulator {
 		} else {
 			pine = spruce;
 		}
+		if(ConfigHandler.includeForests) {
+			populateForests(db);
+		}
+		populateScrub(db);
+		if(ConfigHandler.includeMountains) {
+			populateMountains(db);
+		}
+		if(ConfigHandler.includePlains) {
+			populatePlains(db);
+		}
+		if(ConfigHandler.includeSwamps) {
+			populateSwamps(db);
+		}
+	}
+	
+
+	private void populateScrub(BiomeDataBase db) {
+		db.setSpeciesSelector(ModBiomes.denseScrub, 
+	  			  new RandomSpeciesSelector().add(oak, 1), Operation.REPLACE);
+		db.setDensitySelector(ModBiomes.denseScrub, (rnd, nd) -> 0.0f, Operation.REPLACE);
+		db.setChanceSelector(ModBiomes.denseScrub, (rnd, spc, rad) -> rnd.nextInt(10) == 0 
+				? EnumChance.OK : EnumChance.CANCEL, Operation.REPLACE);
+		db.setCancelVanillaTreeGen(ModBiomes.denseScrub, false);
+		db.setForestness(ModBiomes.denseScrub, 0.1f);
+
+		db.setSpeciesSelector(ModBiomes.denseScrubHills, 
+	  			  new RandomSpeciesSelector().add(oak, 1), Operation.REPLACE);
+		db.setDensitySelector(ModBiomes.denseScrubHills, (rnd, nd) -> 0.0f, Operation.REPLACE);
+		db.setChanceSelector(ModBiomes.denseScrubHills, (rnd, spc, rad) -> rnd.nextInt(10) == 0 
+				? EnumChance.OK : EnumChance.CANCEL, Operation.REPLACE);
+		db.setCancelVanillaTreeGen(ModBiomes.denseScrubHills, false);
+		db.setForestness(ModBiomes.denseScrubHills, 0.1f);
 		
+		db.setSpeciesSelector(ModBiomes.dryScrub, 
+	  			  new RandomSpeciesSelector().add(cactus, 1), Operation.REPLACE);
+		db.setDensitySelector(ModBiomes.dryScrub, (rnd, nd) -> 0.0f, Operation.REPLACE);
+		db.setChanceSelector(ModBiomes.dryScrub, (rnd, spc, rad) -> rnd.nextInt(10) == 0 
+				? EnumChance.OK : EnumChance.CANCEL, Operation.REPLACE);
+		db.setCancelVanillaTreeGen(ModBiomes.dryScrub, false);
+		db.setForestness(ModBiomes.dryScrub, 0.0f);
+
+		db.setSpeciesSelector(ModBiomes.dryScrubHills, 
+	  			  new RandomSpeciesSelector().add(cactus, 1), Operation.REPLACE);
+		db.setDensitySelector(ModBiomes.dryScrubHills, (rnd, nd) -> 0.0f, Operation.REPLACE);
+		db.setChanceSelector(ModBiomes.dryScrubHills, (rnd, spc, rad) -> rnd.nextInt(10) == 0 
+				? EnumChance.OK : EnumChance.CANCEL, Operation.REPLACE);
+		db.setCancelVanillaTreeGen(ModBiomes.dryScrubHills, false);
+		db.setForestness(ModBiomes.dryScrubHills, 0.0f);
+		db.setSpeciesSelector(ModBiomes.coolPlains, 
+	  			  new RandomSpeciesSelector().add(oak, 1), 
+											 Operation.REPLACE);
+	}
+	
+
+	/**
+	 * Add forest date to dynamic trees.
+	 * 
+	 * @param db
+	 */
+	private void populateForests(BiomeDataBase db) {		
 		db.setSpeciesSelector(ModBiomes.warmForest, 
 				              new RandomSpeciesSelector().add(oak, 4)
 				              .add(pine, 1), 
@@ -81,39 +140,15 @@ public class DataBasePop implements IBiomeDataBasePopulator {
 		db.setCancelVanillaTreeGen(ModBiomes.pineWoods, true);
 		db.setDensitySelector(ModBiomes.pineWoods, (rnd, nd) -> nd * 1.0f, Operation.REPLACE);
 		db.setChanceSelector(ModBiomes.pineWoods, (rnd, spc, rad) -> EnumChance.OK, Operation.REPLACE);
-		
-		db.setSpeciesSelector(ModBiomes.denseScrub, 
-	  			  new RandomSpeciesSelector().add(oak, 1), Operation.REPLACE);
-		db.setDensitySelector(ModBiomes.denseScrub, (rnd, nd) -> 0.0f, Operation.REPLACE);
-		db.setChanceSelector(ModBiomes.denseScrub, (rnd, spc, rad) -> rnd.nextInt(10) == 0 
-				? EnumChance.OK : EnumChance.CANCEL, Operation.REPLACE);
-		db.setCancelVanillaTreeGen(ModBiomes.denseScrub, false);
-		db.setForestness(ModBiomes.denseScrub, 0.1f);
+	}
+	
 
-		db.setSpeciesSelector(ModBiomes.denseScrubHills, 
-	  			  new RandomSpeciesSelector().add(oak, 1), Operation.REPLACE);
-		db.setDensitySelector(ModBiomes.denseScrubHills, (rnd, nd) -> 0.0f, Operation.REPLACE);
-		db.setChanceSelector(ModBiomes.denseScrubHills, (rnd, spc, rad) -> rnd.nextInt(10) == 0 
-				? EnumChance.OK : EnumChance.CANCEL, Operation.REPLACE);
-		db.setCancelVanillaTreeGen(ModBiomes.denseScrubHills, false);
-		db.setForestness(ModBiomes.denseScrubHills, 0.1f);
-		
-		db.setSpeciesSelector(ModBiomes.dryScrub, 
-	  			  new RandomSpeciesSelector().add(cactus, 1), Operation.REPLACE);
-		db.setDensitySelector(ModBiomes.dryScrub, (rnd, nd) -> 0.0f, Operation.REPLACE);
-		db.setChanceSelector(ModBiomes.dryScrub, (rnd, spc, rad) -> rnd.nextInt(10) == 0 
-				? EnumChance.OK : EnumChance.CANCEL, Operation.REPLACE);
-		db.setCancelVanillaTreeGen(ModBiomes.dryScrub, false);
-		db.setForestness(ModBiomes.dryScrub, 0.0f);
-
-		db.setSpeciesSelector(ModBiomes.dryScrubHills, 
-	  			  new RandomSpeciesSelector().add(cactus, 1), Operation.REPLACE);
-		db.setDensitySelector(ModBiomes.dryScrubHills, (rnd, nd) -> 0.0f, Operation.REPLACE);
-		db.setChanceSelector(ModBiomes.dryScrubHills, (rnd, spc, rad) -> rnd.nextInt(10) == 0 
-				? EnumChance.OK : EnumChance.CANCEL, Operation.REPLACE);
-		db.setCancelVanillaTreeGen(ModBiomes.dryScrubHills, false);
-		db.setForestness(ModBiomes.dryScrubHills, 0.0f);
-		
+	/**
+	 * Add mountains data to dynamic trees.
+	 * 
+	 * @param db
+	 */
+	private void populateMountains(BiomeDataBase db) {		
 		db.setSpeciesSelector(ModBiomes.warmMountain, 
 	  			  new RandomSpeciesSelector().add(oak, 7)
 	  			  							 .add(birch, 2)
@@ -197,9 +232,24 @@ public class DataBasePop implements IBiomeDataBasePopulator {
 		db.setDensitySelector(ModBiomes.montaneJungle, (rnd, nd) -> nd * 1.0f, Operation.REPLACE);
 		db.setChanceSelector(ModBiomes.montaneJungle, (rnd, spc, rad) -> EnumChance.OK, Operation.REPLACE);
 		
-		db.setSpeciesSelector(ModBiomes.coolPlains, 
-	  			  new RandomSpeciesSelector().add(oak, 1), 
-											 Operation.REPLACE);
+		if(ConfigHandler.includeVolcano) {			
+			db.setSpeciesSelector(ModBiomes.activeVolcano, 
+		  			  new RandomSpeciesSelector().add(oak, 1), 
+												 Operation.REPLACE);
+			db.setForestness(ModBiomes.activeVolcano, 0.0f);
+			db.setCancelVanillaTreeGen(ModBiomes.activeVolcano, true);
+			db.setDensitySelector(ModBiomes.activeVolcano, (rnd, nd) -> 0.0, Operation.REPLACE);
+			db.setChanceSelector(ModBiomes.activeVolcano, (rnd, spc, rad) -> EnumChance.CANCEL, Operation.REPLACE);			
+		}
+	}
+	
+
+	/**
+	 * Add plains data to dynamic trees.
+	 * 
+	 * @param db
+	 */
+	private void populatePlains(BiomeDataBase db) {
 		db.setForestness(ModBiomes.coolPlains, 0.1f);
 		db.setCancelVanillaTreeGen(ModBiomes.coolPlains, true);
 		db.setDensitySelector(ModBiomes.coolPlains, (rnd, nd) -> nd * 0.1, Operation.REPLACE);
@@ -229,16 +279,16 @@ public class DataBasePop implements IBiomeDataBasePopulator {
 		db.setForestness(ModBiomes.coolWindswept, 0.0f);
 		db.setCancelVanillaTreeGen(ModBiomes.coolWindswept, true);
 		db.setDensitySelector(ModBiomes.coolWindswept, (rnd, nd) -> 0.0, Operation.REPLACE);
-		db.setChanceSelector(ModBiomes.coolWindswept, (rnd, spc, rad) -> EnumChance.CANCEL, Operation.REPLACE);
-		
-		db.setSpeciesSelector(ModBiomes.activeVolcano, 
-	  			  new RandomSpeciesSelector().add(oak, 1), 
-											 Operation.REPLACE);
-		db.setForestness(ModBiomes.activeVolcano, 0.0f);
-		db.setCancelVanillaTreeGen(ModBiomes.activeVolcano, true);
-		db.setDensitySelector(ModBiomes.activeVolcano, (rnd, nd) -> 0.0, Operation.REPLACE);
-		db.setChanceSelector(ModBiomes.activeVolcano, (rnd, spc, rad) -> EnumChance.CANCEL, Operation.REPLACE);
-		
+		db.setChanceSelector(ModBiomes.coolWindswept, (rnd, spc, rad) -> EnumChance.CANCEL, Operation.REPLACE);		
+	}
+	
+
+	/**
+	 * Add wetlands data to dynamic trees.
+	 * 
+	 * @param db
+	 */
+	private void populateSwamps(BiomeDataBase db) {
 		db.setSpeciesSelector(ModBiomes.carr, 
 	  			  new RandomSpeciesSelector().add(spruce, 1)
 	  			  							 .add(birch, 1), 
@@ -265,8 +315,7 @@ public class DataBasePop implements IBiomeDataBasePopulator {
 		db.setForestness(ModBiomes.bog, 0.0f);
 		db.setCancelVanillaTreeGen(ModBiomes.bog, false);
 		db.setDensitySelector(ModBiomes.bog, (rnd, nd) -> 0.0, Operation.REPLACE);
-		db.setChanceSelector(ModBiomes.bog, (rnd, spc, rad) -> EnumChance.CANCEL, Operation.REPLACE);
-		
+		db.setChanceSelector(ModBiomes.bog, (rnd, spc, rad) -> EnumChance.CANCEL, Operation.REPLACE);		
 	}
 
 }
