@@ -49,7 +49,7 @@ public class ConfigHandler {
 	public static boolean biomeWater = false;
 
 	static boolean addIslands = true;
-	static boolean extraBeaches = true;	
+	static boolean extraBeaches = false;	
 	static boolean volcanicIslands = false;
 	static boolean deepSand = true;
 	static boolean rockyScrub = true;
@@ -169,7 +169,7 @@ public class ConfigHandler {
 						"If true it read will files from the BiomeConfig/custom folder to extends \n"
 						+ "its worldgen. This is where to add extra biomes not otherwise supported.");
 		
-		extraBeaches = config.getBoolean("ExtraBeaches", "General", true, 
+		extraBeaches = config.getBoolean("ExtraBeaches", "General", false, 
 						"If true there will be more beaches.");
 		
 		rockyScrub = config.getBoolean("RockyScrub", "General", true, 
