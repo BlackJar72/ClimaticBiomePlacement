@@ -195,13 +195,12 @@ public class ConfigHandler {
 		addPines = config.getBoolean("AddPines", "Pines", true, 
 						"If true modded pine trees will appear in warmer climate. \n"
 						+ "If false spruce will be added instead.  \n"
-						+ "This does not effect if pine blocks technically exist. \n"
-						+ "Disabling pine while using dynamic trees will crash the game!!");
+						+ "This does not effect if pine blocks technically exist. \n");
 		
 		moddedBlocks = config.getBoolean("ModdedBlocks", "Pines", true, 
 						"If pine blocks exist and pines will be made from them. \n"
 						+ "If false these blocks don't exist and pines are made from spruce blocks. \n"
-						+ "If dynamic trees compatibility is ues this will do nothing!");
+						+ "Disabling pine while using dynamic trees will crash the game!!");
 		
 		badBiomeSpam = config.getBoolean("ErrorsForBadBiomeID", "Debugging", false, 
 						"If true an error message will be printed to the console whenever a \n"
