@@ -1,12 +1,6 @@
 package jaredbgreat.climaticbiome.proxy;
 
-import jaredbgreat.climaticbiome.blocks.itemblocks.ItemMultiblock;
-import net.minecraft.block.BlockDoor;
-import net.minecraft.block.BlockFenceGate;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.item.Item;
-
-public interface IProxy {
+public interface IProxy {/*
 
 	public void registerItemRender(Item item, int meta, String id);
 	public void registerItemRender(Item item, int meta);
@@ -22,4 +16,4 @@ public interface IProxy {
 	
 	
 	
-}
+*/}

@@ -1,30 +1,6 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
-import jaredbgreat.climaticbiome.biomes.feature.ScrubBushFinder;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-
-import java.util.Random;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirt;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockOldLeaf;
-import net.minecraft.block.BlockOldLog;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.passive.EntityRabbit;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeForest;
-import net.minecraft.world.biome.BiomeTaiga;
-import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenBlockBlob;
-import net.minecraft.world.gen.feature.WorldGenShrub;
-
-public class Scrub extends Biome {
+public class Scrub /*extends Biome*/ {/*
 	private static final WorldGenBlockBlob ROCK_PILES 
 				= new WorldGenBlockBlob(Blocks.COBBLESTONE, 0);
 	private static boolean deepSand = true;
@@ -122,4 +98,4 @@ public class Scrub extends Biome {
     	makeRocks = in;
     }
 
-}
+*/}

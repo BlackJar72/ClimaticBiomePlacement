@@ -1,22 +1,6 @@
 package jaredbgreat.climaticbiome.proxy;
 
-import jaredbgreat.climaticbiome.blocks.itemblocks.ItemMultiblock;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-import jaredbgreat.climaticbiome.util.BlockRegistrar;
-import net.minecraft.block.BlockDoor;
-import net.minecraft.block.BlockFenceGate;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoader;
-
-public class ClientProxy implements IProxy {
+public class ClientProxy implements IProxy {/*
 
 	@Override
 	public void registerItemRender(Item item, int meta) {
@@ -94,4 +78,4 @@ public class ClientProxy implements IProxy {
     	}
 	}
 
-}
+*/}

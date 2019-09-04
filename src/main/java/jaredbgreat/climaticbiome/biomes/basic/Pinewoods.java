@@ -1,18 +1,5 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
-import jaredbgreat.climaticbiome.biomes.feature.GenPine;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-
-import java.util.Random;
-
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeForest;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenTaiga1;
-import net.minecraft.world.gen.feature.WorldGenTaiga2;
-
 /**
  * A warm, subtropical biome based loosely on parts of northern Florida, 
  * where I lived as a child.  (Basically a hot, semi-swampy forest of 
@@ -21,7 +8,7 @@ import net.minecraft.world.gen.feature.WorldGenTaiga2;
  * 
  * @author Jared Blackburn
  */
-public class Pinewoods extends BiomeForest {
+public class Pinewoods /*extends BiomeForest*/ {/*
 	private final IPineFinder PINE;
 	private static final IBlockState WATER_LILY = Blocks.WATERLILY.getDefaultState();
 
@@ -76,4 +63,4 @@ public class Pinewoods extends BiomeForest {
 		}		
 	}
 
-}
+*/}

@@ -1,10 +1,6 @@
 package jaredbgreat.climaticbiome.blocks.itemblocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-
-public class ItemPeatBlock extends ItemBlock {
+public class ItemPeatBlock /*extends ItemBlock*/ {/*
 
 	public ItemPeatBlock(Block block) {
 		super(block);
@@ -25,7 +21,7 @@ public class ItemPeatBlock extends ItemBlock {
     	// The value, on burning the whole block; still poor compared 
     	// to a full coal block, but better than coal or charcoal. 
     	// Makes sense to me!
-		return 3200; // 3200; /*Higher number would be used if peat bricks exited.*/    	
+		return 3200;    	
     }
 
-}
+*/}

@@ -1,17 +1,6 @@
 package jaredbgreat.climaticbiome.blocks;
 
-import jaredbgreat.climaticbiome.Info;
-import jaredbgreat.climaticbiome.blocks.itemblocks.ItemPeatBlock;
-import jaredbgreat.climaticbiome.util.BlockRegistrar;
-import jaredbgreat.climaticbiome.util.ItemRegistrar;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-
-public class BlockPeat extends ModBlockBase {
+public class BlockPeat /*extends ModBlockBase*/ {/*
 	private static final String NAME = "peat";
 
 	public BlockPeat() {
@@ -28,4 +17,4 @@ public class BlockPeat extends ModBlockBase {
 		ItemRegistrar.addItem(new ItemPeatBlock(this));	
 	}
 
-}
+*/}

@@ -1,24 +1,12 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
-import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.IPineFinder;
-import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.PineFinder;
-import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.SpruceFinder;
-import jaredbgreat.climaticbiome.biomes.feature.GenPine;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-
-import java.util.Random;
-
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeForest;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-
 /**
  * We don't have birches here in the humid subtropical zone, they prefer cooler 
  * weather -- but we do have plenty of pines.
  * 
  * @author Jared Blackburn
  */
-public class WarmForest extends BiomeForest {
+public class WarmForest /*extends BiomeForest*/ {/*
 	private final IPineFinder PINE;
 
 	public WarmForest() {
@@ -57,4 +45,4 @@ public class WarmForest extends BiomeForest {
     	}
     }
 
-}
+*/}

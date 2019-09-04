@@ -1,20 +1,6 @@
 package jaredbgreat.climaticbiome.biomes.feature;
 
-import jaredbgreat.climaticbiome.biomes.basic.Scrub.Type;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-
-import java.util.Random;
-
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockOldLeaf;
-import net.minecraft.block.BlockOldLog;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenShrub;
-
-public class ScrubBushFinder {
+public class ScrubBushFinder {/*
 	public static final ScrubBushFinder finder = new ScrubBushFinder();
 	private static final IBlockState SPRUCE_LOG = Blocks.LOG.getDefaultState()
 			.withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE);    
@@ -42,4 +28,4 @@ public class ScrubBushFinder {
 		return new WorldGenShrub(a, b);
     }
 
-}
+*/}

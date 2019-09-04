@@ -1,14 +1,6 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
-import java.util.Random;
-
-import net.minecraft.world.biome.BiomeForest;
-import net.minecraft.world.biome.BiomeHills;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenBirchTree;
-import net.minecraft.world.gen.feature.WorldGenTaiga2;
-
-public class SubtropicalMountains extends BiomeHills {
+public class SubtropicalMountains /*extends BiomeHills*/ {/*
 	private static final WorldGenTaiga2 SPRUCE = new WorldGenTaiga2(false);
 	protected static final WorldGenBirchTree BIRCH = new WorldGenBirchTree(false, false);
 
@@ -29,4 +21,4 @@ public class SubtropicalMountains extends BiomeHills {
 		}
     }
 
-}
+*/}

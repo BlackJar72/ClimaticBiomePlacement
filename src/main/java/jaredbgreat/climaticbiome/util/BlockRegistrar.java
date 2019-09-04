@@ -1,34 +1,9 @@
 package jaredbgreat.climaticbiome.util;
 
-import jaredbgreat.climaticbiome.biomes.feature.GenPine;
-import jaredbgreat.climaticbiome.blocks.BlockIgneous;
-import jaredbgreat.climaticbiome.blocks.BlockPeat;
-import jaredbgreat.climaticbiome.blocks.BlockPineDoor;
-import jaredbgreat.climaticbiome.blocks.BlockPineFence;
-import jaredbgreat.climaticbiome.blocks.BlockPineGate;
-import jaredbgreat.climaticbiome.blocks.BlockPineLog;
-import jaredbgreat.climaticbiome.blocks.BlockPineNeedles;
-import jaredbgreat.climaticbiome.blocks.BlockPinePlanks;
-import jaredbgreat.climaticbiome.blocks.BlockPineSapling;
-import jaredbgreat.climaticbiome.blocks.BlockPineStairs;
-import jaredbgreat.climaticbiome.blocks.ModBlockFalling;
-import jaredbgreat.climaticbiome.blocks.itemblocks.ItemPineSlab;
-import jaredbgreat.climaticbiome.blocks.slabs.BlockPineDoubleSlab;
-import jaredbgreat.climaticbiome.blocks.slabs.BlockPineSlab;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockLog;
-import net.minecraft.block.SoundType;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.IForgeRegistry;
 
 @EventBusSubscriber
-public class BlockRegistrar {	
+public class BlockRegistrar {/*	
 	private static final List<Block> BLOCKS = new ArrayList<>();
 	
 	//public static Block blockDaub;
@@ -90,4 +65,4 @@ public class BlockRegistrar {
 		return BLOCKS;
 	}
 
-}
+*/}

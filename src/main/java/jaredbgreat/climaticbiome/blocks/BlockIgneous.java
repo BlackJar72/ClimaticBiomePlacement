@@ -1,16 +1,6 @@
 package jaredbgreat.climaticbiome.blocks;
 
-import jaredbgreat.climaticbiome.Info;
-import jaredbgreat.climaticbiome.util.BlockRegistrar;
-import jaredbgreat.climaticbiome.util.ItemRegistrar;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-
-public class BlockIgneous extends ModBlockBase {
+public class BlockIgneous /*extends ModBlockBase*/ {/*
 	private  String name;
 
 	public BlockIgneous(String name) {
@@ -26,4 +16,4 @@ public class BlockIgneous extends ModBlockBase {
 		ItemRegistrar.addItem(new ItemBlock(this).setRegistryName(getRegistryName()));
 	}
 	
-}
+*/}

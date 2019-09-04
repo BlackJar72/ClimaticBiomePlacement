@@ -1,20 +1,6 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
-import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.IPineFinder;
-import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.SpruceFinder;
-
-import java.util.Random;
-
-import net.minecraft.block.BlockOldLeaf;
-import net.minecraft.block.BlockOldLog;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomePlains;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenShrub;
-
-public class CoolPlains extends BiomePlains {
+public class CoolPlains /*extends BiomePlains*/ {/*
 	private static final IBlockState SPRUCE_LOG = Blocks.LOG.getDefaultState()
 			.withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE);    
 	private static final IBlockState SPRUCE_LEAF = Blocks.LEAVES.getDefaultState()
@@ -41,4 +27,4 @@ public class CoolPlains extends BiomePlains {
 	}
 	
 
-}
+*/}

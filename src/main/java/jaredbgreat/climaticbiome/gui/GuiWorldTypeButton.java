@@ -1,13 +1,6 @@
 package jaredbgreat.climaticbiome.gui;
 
-import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-import jaredbgreat.climaticbiome.generation.generator.SizeScale;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.resources.I18n;
-
-public class GuiWorldTypeButton extends GuiButton {
+public class GuiWorldTypeButton /*extends GuiButton*/ {/*
 	private int state;
 	private ClimaticWorldSettings.ModeSetter target;
 	private static final String[] texts = new String[]{
@@ -54,4 +47,4 @@ public class GuiWorldTypeButton extends GuiButton {
 	public int getState() {
 		return state + 1;
 	}
-}
+*/}

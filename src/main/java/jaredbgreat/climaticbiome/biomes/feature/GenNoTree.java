@@ -1,12 +1,13 @@
 package jaredbgreat.climaticbiome.biomes.feature;
 
-import java.util.Random;
-
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-
-public class GenNoTree extends WorldGenAbstractTree {
+/**
+ * This was actually a silly idea that should that substitutes 
+ * a pointless class for a simple continue statement.
+ * 
+ * @author jared
+ *
+ */
+public class GenNoTree /*extends WorldGenAbstractTree*/ {/*
 
 	public GenNoTree() {
 		super(false);
@@ -18,4 +19,4 @@ public class GenNoTree extends WorldGenAbstractTree {
 		return false;
 	}
 
-}
+*/}

@@ -1,11 +1,6 @@
 package jaredbgreat.climaticbiome.biomes;
 
-import java.util.logging.Logger;
-
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-import jaredbgreat.climaticbiome.generation.cache.ICachable;
-
-public class SubBiomeRegistry {
+public class SubBiomeRegistry {/*
 	private static SubBiomeRegistry subreg;
     private SubBiome[] data;
     private final int minSize;
@@ -16,7 +11,7 @@ public class SubBiomeRegistry {
     
     /**
      * Creates a cache with a default starting size of 16 elements.
-     */
+     *//*
     private SubBiomeRegistry() {
         data = new SubBiome[384];
         minSize = 384;
@@ -59,7 +54,7 @@ public class SubBiomeRegistry {
      * At a new element to the cache.
      * 
      * @param item the object to be added.
-     */
+     *//*
     public void add(SubBiome item) {
     	//System.out.println("Adding Pseudo-Biome with id " + item.getSubId());
         int bucket = (xorshift(item.getSubId())) % data.length;
@@ -128,7 +123,7 @@ public class SubBiomeRegistry {
      * 
      * @param coords
      * @return 
-     */
+     *//*
     public boolean contains(int id) {
         int bucket = (xorshift(id)) % data.length;
         int offset = 0;
@@ -148,7 +143,7 @@ public class SubBiomeRegistry {
     
     /**
      * This will grow the data size when needed.
-     */
+     *//*
     private void grow() {
         SubBiome[] old = data;
         SubBiome[] data = new SubBiome[(old.length * 3) / 2];
@@ -164,7 +159,7 @@ public class SubBiomeRegistry {
     
     /**
      * This will shrink the data size when needed.
-     */
+     *//*
     private void shrink() {
         SubBiome[] old = data;
         SubBiome[] data = new SubBiome[old.length / 2];
@@ -191,4 +186,4 @@ public class SubBiomeRegistry {
             }
         }
     } 
-}
+*/}

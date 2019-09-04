@@ -1,12 +1,9 @@
 package jaredbgreat.climaticbiome.configuration;
 
-import jaredbgreat.climaticbiome.Info;
-import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
-import jaredbgreat.climaticbiome.generation.generator.SizeScale;
-
 import java.io.File;
 
-import net.minecraftforge.common.config.Configuration;
+import jaredbgreat.climaticbiome.Info;
+import jaredbgreat.climaticbiome.generation.generator.SizeScale;
 
 public class ConfigHandler {
 	
@@ -76,6 +73,8 @@ public class ConfigHandler {
 				+ File.separatorChar + Info.DIR + ".cfg");
 		
 	}
+	
+	/*
 	
 	
 	public void load() {

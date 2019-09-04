@@ -1,17 +1,7 @@
 package jaredbgreat.climaticbiome.blocks;
 
-import jaredbgreat.climaticbiome.Info;
-import jaredbgreat.climaticbiome.blocks.itemblocks.ItemPineLog;
-import jaredbgreat.climaticbiome.util.BlockRegistrar;
-import jaredbgreat.climaticbiome.util.ItemRegistrar;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-
 //For reasons I don't understand I can't instantiate the vanilla class, but can do this!?
-public class BlockPineLog extends BlockLogClimatic {
+public class BlockPineLog /*extends BlockLogClimatic*/ {/*
 	
     public BlockPineLog() {
         setUnlocalizedName(Info.ID + ".pine_log");
@@ -64,4 +54,4 @@ public class BlockPineLog extends BlockLogClimatic {
         return new BlockStateContainer(this, new IProperty[] {LOG_AXIS});
     }
 	
-}
+*/}

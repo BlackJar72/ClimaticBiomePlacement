@@ -1,26 +1,6 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
-import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.IPineFinder;
-import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.SpruceFinder;
-import jaredbgreat.climaticbiome.biomes.feature.ScrubBushFinder;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-import jaredbgreat.climaticbiome.util.BlockRegistrar;
-
-import java.util.Random;
-
-import net.minecraft.block.BlockDoublePlant;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeSwamp;
-import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenBirchTree;
-import net.minecraftforge.event.terraingen.BiomeEvent.GetWaterColor;
-
-public class Wetland extends BiomeSwamp {
+public class Wetland /*extends BiomeSwamp*/ {/*
 	private int wcolor;
 	private static IBlockState PEAT;
 	private static final IBlockState GRASS = Blocks.GRASS.getDefaultState();
@@ -94,7 +74,8 @@ public class Wetland extends BiomeSwamp {
 		if(rand.nextBoolean()) {
 			return SWAMP_FEATURE;
 		} else {
-			return TREE_FEATURE;
+		extends BiomeSwamp {
+	private int wcolor	return TREE_FEATURE;
 		}
 	}
 	
@@ -246,4 +227,4 @@ public class Wetland extends BiomeSwamp {
     }
     
 	
-}
+*/}

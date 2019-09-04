@@ -1,16 +1,6 @@
 package jaredbgreat.climaticbiome.compat;
 
-import jaredbgreat.climaticbiome.biomes.ModBiomes;
-import jaredbgreat.climaticbiome.generation.biome.BiomeList;
-import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
-import jaredbgreat.climaticbiome.generation.biome.NoiseDoubleBiome;
-import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
-import jaredbgreat.climaticbiome.generation.biome.TempDoubleBiome;
-import jaredbgreat.climaticbiome.generation.biome.WetDoubleBiome;
-import net.minecraft.init.Biomes;
-import biomesoplenty.api.biome.BOPBiomes;
-
-public class BoP {
+public class BoP {/*
 	
 	public static void addAlpine(BiomeList wet, BiomeList dry) {
 		wet.addItem(new LeafBiome(BOPBiomes.highland.get()));
@@ -158,4 +148,4 @@ public class BoP {
 	
 	
 
-}
+*/}

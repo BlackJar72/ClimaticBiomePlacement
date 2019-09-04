@@ -1,18 +1,16 @@
 package jaredbgreat.climaticbiome.compat.userdef;
 
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-import jaredbgreat.climaticbiome.generation.biome.BiomeList;
-import jaredbgreat.climaticbiome.generation.biome.IslandBiome;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
+import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class DefReader {
@@ -109,7 +107,7 @@ public class DefReader {
 	
 	public static void writeList(File confdir) {
 		File file = new File(confdir.toString() + File.separator + "BiomeList.txt");
-		List<Biome> biomes = ForgeRegistries.BIOMES.getValues();
+		List<Biome> biomes = (List<Biome>)ForgeRegistries.BIOMES.getValues();
 		try {
 			BufferedWriter fs = new BufferedWriter(new FileWriter(file));
 			for(Biome biome : biomes) {

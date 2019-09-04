@@ -1,35 +1,10 @@
 package jaredbgreat.climaticbiome.biomes;
 
-import jaredbgreat.climaticbiome.biomes.basic.ActiveVolcano;
-import jaredbgreat.climaticbiome.biomes.basic.CoolPlains;
-import jaredbgreat.climaticbiome.biomes.basic.MontaneForest;
-import jaredbgreat.climaticbiome.biomes.basic.Pinewoods;
-import jaredbgreat.climaticbiome.biomes.basic.Scrub;
-import jaredbgreat.climaticbiome.biomes.basic.SubtropicalMountains;
-import jaredbgreat.climaticbiome.biomes.basic.TropicalForest;
-import jaredbgreat.climaticbiome.biomes.basic.TropicalMountains;
-import jaredbgreat.climaticbiome.biomes.basic.WarmForest;
-import jaredbgreat.climaticbiome.biomes.basic.Wetland;
-import jaredbgreat.climaticbiome.biomes.basic.WindsweptPlains;
-import jaredbgreat.climaticbiome.biomes.pseudo.PseudoBiomes;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-import jaredbgreat.climaticbiome.generation.biome.biomes.GetRiver;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeHills;
-import net.minecraft.world.biome.BiomePlains;
-import net.minecraft.world.biome.BiomeRiver;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.common.BiomeManager;
-import net.minecraftforge.common.BiomeManager.BiomeEntry;
-import net.minecraftforge.common.BiomeManager.BiomeType;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 
 @Mod.EventBusSubscriber
-public class ModBiomes {
+public class ModBiomes {/*
 	
 	public static WarmForest      warmForest;
 	public static TropicalForest  tropicalForest;
@@ -533,4 +508,4 @@ public class ModBiomes {
 		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(bog, 5));
 		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(carr, 10));
 	}
-}
+*/}

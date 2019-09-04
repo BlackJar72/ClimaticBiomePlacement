@@ -1,30 +1,6 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
-import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.IPineFinder;
-import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.PineFinder;
-import jaredbgreat.climaticbiome.biomes.basic.Pinewoods.SpruceFinder;
-import jaredbgreat.climaticbiome.biomes.decorators.MediterranianAlpineDecorator;
-import jaredbgreat.climaticbiome.biomes.feature.GenNoTree;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-
-import java.util.Random;
-
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockOldLeaf;
-import net.minecraft.block.BlockOldLog;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biome.BiomeProperties;
-import net.minecraft.world.biome.BiomeHills;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenBirchTree;
-import net.minecraft.world.gen.feature.WorldGenSavannaTree;
-import net.minecraft.world.gen.feature.WorldGenShrub;
-import net.minecraft.world.gen.feature.WorldGenTrees;
-
-public class MontaneForest extends Biome {
+public class MontaneForest /*extends Biome*/ {/*
 	private static final WorldGenSavannaTree SAVANNA_TREE = new WorldGenSavannaTree(false);
 	private static final GenNoTree NOTHING = new GenNoTree();
 	protected static final WorldGenBirchTree BIRCH = new WorldGenBirchTree(false, false);
@@ -147,4 +123,4 @@ public class MontaneForest extends Biome {
 	
 	}
 
-}
+*/}

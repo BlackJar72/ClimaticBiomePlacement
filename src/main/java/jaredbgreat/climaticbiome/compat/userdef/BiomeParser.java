@@ -1,5 +1,15 @@
 package jaredbgreat.climaticbiome.compat.userdef;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+
+import org.apache.logging.log4j.Logger;
+import org.jline.utils.Log;
+
 import jaredbgreat.climaticbiome.ClimaticBiomes;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.exception.BiomeReadingException;
@@ -12,20 +22,9 @@ import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.TempDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.WetDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetTaiga.TaigaDoubleBiome;
+import jaredbgreat.climaticbiome.util.Logging;
 import jaredbgreat.dldungeons.parser.Tokenizer;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
-
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.registries.IForgeRegistry;
-
-import org.apache.logging.log4j.Logger;
-import org.jline.utils.Log;
 
 public class BiomeParser {
 	private IForgeRegistry biomeReg;
@@ -161,14 +160,11 @@ public class BiomeParser {
 	
 	
 	private void reportError(RuntimeException ex, File file, String line) {
-		Logger logger = FMLLog.log;
-		Log.error("");
-		Log.error("*****************************");
-		Log.error("   Error in file: " + file);
-		Log.error("   " + line);
-		Log.error("   Caused excpetion: " + ex);		
-		Log.error("*****************************");
-		Log.error("");
+		Logging.logError("\n*****************************"
+					   + "\n   Error in file: " + file
+					   + "\n   " + line
+					   + "\n   Caused excpetion: " + ex
+					   + "\n*****************************\n");
 		throw ex;
 	}
 	

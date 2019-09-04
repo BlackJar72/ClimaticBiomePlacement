@@ -1,23 +1,6 @@
 package jaredbgreat.climaticbiome.biomes.feature;
 
-import static net.minecraft.util.EnumFacing.UP;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-import jaredbgreat.climaticbiome.util.BlockRegistrar;
-
-import java.util.Random;
-
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockOldLeaf;
-import net.minecraft.block.BlockOldLog;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraftforge.common.IPlantable;
-
-public class GenPine extends WorldGenAbstractTree {
+public class GenPine /*extends WorldGenAbstractTree*/ {/*
 	
     private static IBlockState TRUNK;
     private static IBlockState LEAF;
@@ -71,7 +54,8 @@ public class GenPine extends WorldGenAbstractTree {
 			int bonus = rand.nextInt(2);
 			int j1b = pos.getY() + j1 + 1;
 			for(int j4 = pos.getY() + j2; j4 < j1b; j4++) {
-				w = 1 + ((j4 + bonus) % 2);
+		extends BiomeSwamp {
+	private int wcolor		w = 1 + ((j4 + bonus) % 2);
 				for(int i2 = x - w; i2 <= (x + w); i2++) 
 					for(int k2 = z - w; k2 <= (z + w); k2++) {
 						BlockPos place = new BlockPos(i2, j4, k2);
@@ -106,4 +90,4 @@ public class GenPine extends WorldGenAbstractTree {
 		}
 		return true;
 	}
-}
+*/}

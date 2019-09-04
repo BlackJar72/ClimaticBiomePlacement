@@ -1,19 +1,12 @@
 package jaredbgreat.climaticbiome.generation;
 
-import jaredbgreat.climaticbiome.gui.GuiConfigureWorld;
-
 import javax.annotation.Nonnull;
 
+import jaredbgreat.climaticbiome.gui.GuiConfigureWorld;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiCreateWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
-import net.minecraft.world.biome.BiomeProvider;
-import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.ChunkGeneratorOverworld;
-import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.world.biome.provider.BiomeProvider;
 
 public class ClimaticWorldType extends WorldType {
 	private static BiomeProvider biomeProvider;
@@ -81,19 +74,6 @@ public class ClimaticWorldType extends WorldType {
 			}
 		}
 		return null;    	
-    }
-    
-    
-    @Override
-    public boolean isCustomizable() {
-        return true;
-    }
-    
-    
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void onCustomizeButton(Minecraft mc, GuiCreateWorld guiCreateWorld) {
-        mc.displayGuiScreen(new GuiConfigureWorld(guiCreateWorld, guiCreateWorld.chunkProviderSettingsJson));
     }
 
 

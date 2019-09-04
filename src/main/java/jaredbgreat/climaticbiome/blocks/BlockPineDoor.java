@@ -1,30 +1,6 @@
 package jaredbgreat.climaticbiome.blocks;
 
-import jaredbgreat.climaticbiome.ClimaticBiomes;
-import jaredbgreat.climaticbiome.Info;
-import jaredbgreat.climaticbiome.util.BlockRegistrar;
-import jaredbgreat.climaticbiome.util.IHaveModel;
-import jaredbgreat.climaticbiome.util.ItemRegistrar;
-
-import java.util.Random;
-
-import net.minecraft.block.BlockDoor;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.MapColor;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemDoor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-
-public class BlockPineDoor extends BlockDoor implements IHaveModel {
+public class BlockPineDoor /*extends BlockDoor implements IHaveModel*/ {/*
 	private final Item item;
 
 	public BlockPineDoor(String name) {
@@ -72,4 +48,4 @@ public class BlockPineDoor extends BlockDoor implements IHaveModel {
 		ClimaticBiomes.proxy.registerDoorRenders(this);
 	}
 
-}
+*/}

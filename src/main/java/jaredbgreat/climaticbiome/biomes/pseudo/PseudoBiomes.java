@@ -1,12 +1,6 @@
 package jaredbgreat.climaticbiome.biomes.pseudo;
 
-import jaredbgreat.climaticbiome.biomes.SubBiome;
-import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biome;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-
-public class PseudoBiomes {
+public class PseudoBiomes {/*
 	public static BiomeDeepRiver deepRiver;	
 	public static BiomeDeepRiver deepFrozenRiver;
 	public static SubBiome lowRockBeach;
@@ -42,4 +36,4 @@ public class PseudoBiomes {
 	}
 	
 
-}
+*/}

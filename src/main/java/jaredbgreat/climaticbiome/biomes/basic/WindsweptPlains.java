@@ -1,10 +1,6 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
-import net.minecraft.entity.passive.EntityDonkey;
-import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.world.biome.Biome;
-
-public class WindsweptPlains extends Biome {
+public class WindsweptPlains /*extends Biome*/ {/*
 
 	public WindsweptPlains(BiomeProperties properties) {
 		super(properties);
@@ -18,4 +14,4 @@ public class WindsweptPlains extends Biome {
         this.decorator.grassPerChunk = 10;
 	}
 
-}
+*/}

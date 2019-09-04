@@ -1,21 +1,6 @@
 package jaredbgreat.climaticbiome.blocks;
 
-import jaredbgreat.climaticbiome.ClimaticBiomes;
-import jaredbgreat.climaticbiome.Info;
-import jaredbgreat.climaticbiome.blocks.itemblocks.ItemPineLog;
-import jaredbgreat.climaticbiome.util.BlockRegistrar;
-import jaredbgreat.climaticbiome.util.IHaveModel;
-import jaredbgreat.climaticbiome.util.ItemRegistrar;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockStairs;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
-public class BlockPineStairs extends BlockStairs implements IHaveModel {
+public class BlockPineStairs /*extends BlockStairs implements IHaveModel*/ {/*
 
 	public BlockPineStairs(IBlockState modelState, String name) {
 		super(modelState);
@@ -38,4 +23,4 @@ public class BlockPineStairs extends BlockStairs implements IHaveModel {
 				.getItemFromBlock(this), 0, "inventory");
 	}
 
-}
+*/}

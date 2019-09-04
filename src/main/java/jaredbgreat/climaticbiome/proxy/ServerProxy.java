@@ -1,38 +1,27 @@
 package jaredbgreat.climaticbiome.proxy;
 
-import jaredbgreat.climaticbiome.blocks.itemblocks.ItemMultiblock;
-
-import java.io.File;
-
-import net.minecraft.block.BlockDoor;
-import net.minecraft.block.BlockFenceGate;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.item.Item;
-import net.minecraft.world.World;
-import net.minecraftforge.common.DimensionManager;
-
-public class ServerProxy implements IProxy {
+public class ServerProxy implements IProxy {/*
 
 	@Override
-	public void registerItemRender(Item item, int meta, String id) {/*Do Nothing*/}
+	public void registerItemRender(Item item, int meta, String id) {}
 
 	@Override
-	public void registerItemRender(Item item, int meta) {/*Do Nothing*/}
+	public void registerItemRender(Item item, int meta) {}
 
 	@Override
-	public void fixRenders(BlockLeaves in) {/*Do Nothing*/}
+	public void fixRenders(BlockLeaves in) {}
 
 	@Override
-	public void registerGateRenders(BlockFenceGate gate) {/*Do Nothing*/}
+	public void registerGateRenders(BlockFenceGate gate) {}
 
 	@Override
-	public void registerDoorRenders(BlockDoor door) {/*Do Nothing*/}
+	public void registerDoorRenders(BlockDoor door) {}
 
 	@Override
-	public void preInit() {/*Do Nothing*/}
+	public void preInit() {}
 
 	@Override
-	public void init() {/*Do Nothing*/}
+	public void init() {}
 	
 	
 	@Override
@@ -49,7 +38,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	@Override
-	public void registerMultiRender(ItemMultiblock item) {/*Do Nothing*/}
+	public void registerMultiRender(ItemMultiblock item) {}
 	
 
-}
+*/}

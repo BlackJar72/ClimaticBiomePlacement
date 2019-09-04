@@ -1,10 +1,6 @@
 package jaredbgreat.climaticbiome.blocks.itemblocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-
-public class ItemPineLog extends ItemBlock {
+public class ItemPineLog /*extends ItemBlock*/ {/*
 
 	public ItemPineLog(Block block) {
 		super(block);
@@ -25,4 +21,4 @@ public class ItemPineLog extends ItemBlock {
 		return 300;    	
     }
 
-}
+*/}

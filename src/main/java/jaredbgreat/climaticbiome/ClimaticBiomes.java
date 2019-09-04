@@ -1,24 +1,18 @@
 package jaredbgreat.climaticbiome;
 
+import java.io.File;
+import java.util.logging.Logger;
+
 import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.biomes.feature.GenPine;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.compat.userdef.VariantParser;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
-import jaredbgreat.climaticbiome.generation.biome.biomes.GetForest;
-import jaredbgreat.climaticbiome.generation.biome.biomes.GetPark;
-import jaredbgreat.climaticbiome.generation.biome.biomes.GetPlains;
 import jaredbgreat.climaticbiome.proxy.IProxy;
 import jaredbgreat.climaticbiome.util.BlockRegistrar;
 import jaredbgreat.climaticbiome.util.Externalizer;
 import jaredbgreat.climaticbiome.util.ItemRegistrar;
-
-import java.io.File;
-import java.util.logging.Logger;
-
-import org.apache.logging.log4j.LogManager;
-
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.WoodlandMansion;
@@ -31,7 +25,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
 
 
 @Mod(modid=Info.ID, name=Info.NAME, version=Info.VERSION,

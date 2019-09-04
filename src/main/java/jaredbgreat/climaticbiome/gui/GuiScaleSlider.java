@@ -1,11 +1,6 @@
 package jaredbgreat.climaticbiome.gui;
 
-import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiPageButtonList.GuiResponder;
-import net.minecraft.client.gui.GuiSlider;
-
-public class GuiScaleSlider extends GuiSlider {
+public class GuiScaleSlider /*extends GuiSlider*/ {/*
 	final ClimaticWorldSettings.MapScaleSetter target;
 
 	public GuiScaleSlider(GuiResponder guiResponder, int idIn, int x, int y, int defaultValue,
@@ -50,4 +45,4 @@ public class GuiScaleSlider extends GuiSlider {
 		}
 	}
 
-}
+*/}

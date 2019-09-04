@@ -1,32 +1,6 @@
 package jaredbgreat.climaticbiome.blocks.slabs;
 
-import jaredbgreat.climaticbiome.Info;
-import jaredbgreat.climaticbiome.util.BlockRegistrar;
-
-import java.util.ArrayList;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockSlab;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-public class BlockPineDoubleSlab extends BlockSlabBase {
+public class BlockPineDoubleSlab /*extends BlockSlabBase*/ {/*
 	private Block slab;
 
 	public BlockPineDoubleSlab(String name, BlockPineSlab single) {
@@ -122,4 +96,4 @@ public class BlockPineDoubleSlab extends BlockSlabBase {
 	}
 
 
-}
+*/}

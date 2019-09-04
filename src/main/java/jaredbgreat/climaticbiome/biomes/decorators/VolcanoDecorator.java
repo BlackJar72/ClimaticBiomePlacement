@@ -1,21 +1,6 @@
 package jaredbgreat.climaticbiome.biomes.decorators;
 
-import java.util.Random;
-
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.gen.feature.WorldGenLakes;
-import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraftforge.event.terraingen.OreGenEvent;
-import net.minecraftforge.event.terraingen.TerrainGen;
-
-public class VolcanoDecorator extends BiomeDecorator {
+public class VolcanoDecorator /*extends BiomeDecorator*/ {/*
     private WorldGenerator extraIron;
     private WorldGenerator extraGold;
 	
@@ -65,4 +50,4 @@ public class VolcanoDecorator extends BiomeDecorator {
         
     }
 
-}
+*/}

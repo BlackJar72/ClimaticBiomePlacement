@@ -1,22 +1,6 @@
 package jaredbgreat.climaticbiome.blocks;
 
-import jaredbgreat.climaticbiome.Info;
-import jaredbgreat.climaticbiome.blocks.itemblocks.ItemPineLog;
-import jaredbgreat.climaticbiome.util.BlockRegistrar;
-import jaredbgreat.climaticbiome.util.IHaveModel;
-import jaredbgreat.climaticbiome.util.ItemRegistrar;
-import net.minecraft.block.BlockFalling;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.MapColor;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-public class ModBlockFalling extends BlockFalling /*implements IHaveModel*/ {
+public class ModBlockFalling /*extends BlockFalling /*implements IHaveModel*/ {/*
 	public final String name;
 	
 	
@@ -45,4 +29,4 @@ public class ModBlockFalling extends BlockFalling /*implements IHaveModel*/ {
         return -8356741;
     }
 
-}
+*/}

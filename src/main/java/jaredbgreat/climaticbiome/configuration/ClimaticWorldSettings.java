@@ -1,20 +1,7 @@
 package jaredbgreat.climaticbiome.configuration;
 
 import jaredbgreat.climaticbiome.Info;
-import jaredbgreat.climaticbiome.biomes.basic.Scrub;
-import jaredbgreat.climaticbiome.generation.biome.biomes.GetIslands;
 import jaredbgreat.climaticbiome.generation.generator.SizeScale;
-import jaredbgreat.climaticbiome.gui.GuiCBToggleButton;
-import jaredbgreat.climaticbiome.gui.GuiIntSlider;
-import jaredbgreat.climaticbiome.gui.GuiScaleSlider;
-import jaredbgreat.climaticbiome.gui.GuiWorldTypeButton;
-import jaredbgreat.climaticbiome.util.Debug;
-import net.minecraft.util.JsonUtils;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class ClimaticWorldSettings {
 	public static final String DATA_NAME = Info.ID + "GenSettings";
@@ -75,7 +62,7 @@ public class ClimaticWorldSettings {
 	 * @param json
 	 * @return this 
 	 * 
-	 */
+	 *//*
 	public ClimaticWorldSettings fromJson(JsonElement json) {
 		JsonObject jsonObj = json.getAsJsonObject();		
 		{			
@@ -122,8 +109,7 @@ public class ClimaticWorldSettings {
 	 * 
 	 * @param json
 	 * @return this
-	 */
-	public ClimaticWorldSettings fromJsonString(String json) {
+	 *//*ClimaticWorldSettings fromJsonString(String json) {
 		JsonParser parser = new JsonParser();
 		return fromJson(parser.parse(json));
 	}
@@ -134,7 +120,7 @@ public class ClimaticWorldSettings {
 	 * saving ... somewhere.
 	 * 
 	 * @return A JsonElement representation of the settings.
-	 */
+	 *//*
 	public JsonElement toJson() {
 		JsonObject jsonObj = new JsonObject();	
 		jsonObj.addProperty("addIslands", addIslands);
@@ -158,7 +144,7 @@ public class ClimaticWorldSettings {
 	 * be obtained ... for saving ... somewhere.
 	 * 
 	 * @return A json (text) representation of the settings.
-	 */
+	 *//*
 	public String toJsonString() {
 		return toJson().toString();
 	}
@@ -170,7 +156,7 @@ public class ClimaticWorldSettings {
 	 * be obtained ... for saving ... somewhere.
 	 * 
 	 * @return A json (text) representation of the settings.
-	 */
+	 *//*
 	public String extendJsonString(String in) {
 		JsonObject jsonObj;
 		if((in != null) && !in.isEmpty()) {
@@ -217,7 +203,7 @@ public class ClimaticWorldSettings {
 	 * that will later be retrieved by map registry.
 	 * 
 	 * @return
-	 */
+	 *//*
 	public static ClimaticWorldSettings getNew() {
 		if(queued == null) {
 			queued = new ClimaticWorldSettings();
@@ -233,7 +219,7 @@ public class ClimaticWorldSettings {
 	 * use.
 	 * 
 	 * @return
-	 */
+	 *//*
 	public static ClimaticWorldSettings getQueued() {
 		if(queued == null) {
 			return new ClimaticWorldSettings();
@@ -444,4 +430,4 @@ public class ClimaticWorldSettings {
 		}		
 	}
 
-}
+*/}

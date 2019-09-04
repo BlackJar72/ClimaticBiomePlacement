@@ -1,24 +1,6 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
-import java.util.Random;
-
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockOldLeaf;
-import net.minecraft.block.BlockOldLog;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biome.BiomeProperties;
-import net.minecraft.world.biome.BiomeForest;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenMegaJungle;
-import net.minecraft.world.gen.feature.WorldGenSavannaTree;
-import net.minecraft.world.gen.feature.WorldGenShrub;
-import net.minecraft.world.gen.feature.WorldGenTaiga1;
-import net.minecraft.world.gen.feature.WorldGenTrees;
-
-public class TropicalForest extends BiomeForest {
+public class TropicalForest /*extends BiomeForest*/ {/*
 	private static final WorldGenSavannaTree SAVANNA_TREE = new WorldGenSavannaTree(false);
     private static final IBlockState JUNGLE_LOG = Blocks.LOG.getDefaultState()
     		.withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE);
@@ -52,4 +34,4 @@ public class TropicalForest extends BiomeForest {
     	}
     }
     
-}
+*/}

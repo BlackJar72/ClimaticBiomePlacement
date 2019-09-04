@@ -2,7 +2,7 @@ package jaredbgreat.climaticbiome.generation;
 
 import jaredbgreat.climaticbiome.generation.map.IMapRegistry;
 import jaredbgreat.climaticbiome.generation.map.MapRegistry;
-import jaredbgreat.climaticbiome.generation.map.NewMapRegistry;
+import jaredbgreat.climaticbiome.generation.map.MapRegistry;
 import jaredbgreat.climaticbiome.util.Debug;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class ClimaticBiomeProvider extends BiomeProvider {
                 this.world = world;
                 {
 	                if(net.minecraftforge.fml.common.Loader.isModLoaded("jeid")) {
-	                	finder = new NewMapRegistry(world.getSeed(), world);
+	                	finder = new MapRegistry(world.getSeed(), world);
 	                } else {
 	                	finder = new MapRegistry(world.getSeed(), world);
 	                }

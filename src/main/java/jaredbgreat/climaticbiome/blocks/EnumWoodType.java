@@ -1,10 +1,6 @@
 package jaredbgreat.climaticbiome.blocks;
 
-import net.minecraft.block.BlockPlanks.EnumType;
-import net.minecraft.block.material.MapColor;
-import net.minecraft.util.IStringSerializable;
-
-public enum EnumWoodType implements IStringSerializable {
+public enum EnumWoodType /*implements IStringSerializable*/ {/*
 	PINE(0, "pine", MapColor.WOOD);
 
     private static final int SIZE = values().length;
@@ -79,4 +75,4 @@ public enum EnumWoodType implements IStringSerializable {
     	return TYPES[in.ordinal()];
     }
     
-}
+*/}

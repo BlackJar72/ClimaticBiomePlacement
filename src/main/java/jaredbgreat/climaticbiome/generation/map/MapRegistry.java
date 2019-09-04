@@ -1,13 +1,6 @@
 package jaredbgreat.climaticbiome.generation.map;
 
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
-import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-import jaredbgreat.climaticbiome.generation.cache.Cache;
-import jaredbgreat.climaticbiome.generation.cache.Coords;
-import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
-import jaredbgreat.climaticbiome.generation.generator.MapMaker;
-import jaredbgreat.climaticbiome.util.SpatialNoise;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,25 +9,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
 
-import net.minecraft.init.Biomes;
+import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
+import jaredbgreat.climaticbiome.generation.cache.Cache;
+import jaredbgreat.climaticbiome.generation.cache.Coords;
+import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
+import jaredbgreat.climaticbiome.generation.generator.MapMaker;
+import jaredbgreat.climaticbiome.util.SpatialNoise;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 
-
-/**
- * This is a class for storing and handling biome maps.  It 
- * has nothing to do with Forge registries, its just the 
- * best name I came up with.  Essentially, its acts more as 
- * a manager that handle a a cache of maps in use while 
- * coordinating the generation of new maps and the loading of 
- * stored maps. 
- * 
- * @author JaredBGreat
- */
 public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
-	private static final String SETTINGS = "settings";
 	private final Cache<RegionMap> data;
-	private final SubBiomeRegistry subbiomes;
+	//private final SubBiomeRegistry subbiomes;
 	
     private final SpatialNoise chunkNoise;
     private final SpatialNoise regionNoise;
@@ -47,8 +34,7 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     private int bOffset;    
     
     private final MapMaker maker;
-	
-	
+
 	public MapRegistry(long seed, World w) {
 		super(w);
 		cWidth = MapMaker.RSIZE * settings.regionSize.whole;
@@ -57,12 +43,13 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 		cOffset = cWidth / 2;
 		bOffset = bWidth / 2;
 		data = new Cache<>();
-		subbiomes = SubBiomeRegistry.getSubBiomeRegistry();
+		//subbiomes = SubBiomeRegistry.getSubBiomeRegistry();
         Random random = new Random(seed);
         chunkNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         regionNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         biomeNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         maker = new MapMaker(chunkNoise, regionNoise, biomeNoise, settings);
+        noFakes = areFakesInvalid();
 	}
 	
 	
@@ -106,21 +93,13 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	}
 	
 	
-	/* (non-Javadoc)
-	 * @see jaredbgreat.climaticbiome.generation.map.IMapRegistry#chunkToMap(int)
-	 */
-	@Override
 	public int chunkToMap(int c) {
 		return (c + cOffset) / cWidth;
 	}
 	
 	
-	/* (non-Javadoc)
-	 * @see jaredbgreat.climaticbiome.generation.map.IMapRegistry#blockToMap(int)
-	 */
-	@Override
 	public int blockToMap(int c) {
-		return (c + bOffset) / bWidth;
+		return (c + bOffset) / cWidth;
 	}
 	
 	/**
@@ -136,7 +115,7 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	}
 	
 	
-	private void readMap(RegionMap map) {
+	private void readMap(RegionMap map) {		
 		Coords coords = map.getCoords();
 		int x = coords.getX();
 		int z = coords.getZ();
@@ -144,13 +123,18 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 			return;
 		}
 		File file = getSaveFile(x, z);
-		int[] data = map.getData();
+		long[] data = map.getData();
 		if(file != null && file.exists()) {
-			try {				
+			if(file.length() < (dataSize * 4)) {
+				convertMap(map, file);
+			} else try {				
 				FileInputStream fs = new FileInputStream(file);
 				for(int i = 0; i < dataSize; i++) {
 						data[i] = (short)fs.read();
 						data[i] |= (fs.read() << 8);
+						data[i] |= (fs.read() << 16);
+						data[i] |= (fs.read() << 24);
+						data[i] |= (fs.read() << 32);
 					}
 				fs.close();
 			} catch (FileNotFoundException e) {
@@ -164,22 +148,61 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	}
 	
 	
+	private void convertMap(RegionMap map, File file) {
+		Coords coords = map.getCoords();
+		int x = coords.getX();
+		int z = coords.getZ();
+		long[] data = map.getData();
+		// Load old format map with modifications
+		try {				
+			FileInputStream fs = new FileInputStream(file);
+			for(int i = 0; i < dataSize; i++) {
+					data[i] = (short)fs.read();
+					data[i] |= (fs.read() << 32);
+				}
+			fs.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// Re-save in new format
+		try {
+			FileOutputStream fs = new FileOutputStream(file);
+			for(int i = 0; i < dataSize; i++) {
+					fs.write((int)(data[i]  & 0xffL));
+					fs.write((int)((data[i] & 0xff00L) >> 8));
+					fs.write((int)((data[i] & 0xff0000L) >> 16));
+					fs.write((int)((data[i] & 0xff000000L) >> 24));
+					fs.write((int)((data[i] & 0xff00000000L) >> 32));
+				}
+			//System.out.println("Wrote Data: " + hasher.getHash());
+			fs.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	private void writeMap(RegionMap map) {
 		Coords coords = map.getCoords();
 		int x = coords.getX();
 		int z = coords.getZ();
 		File file = getSaveFile(x, z);
 		if(file != null && !file.exists()) { 
-			int[] data = map.getData();
-			//System.out.println("Writing Data: " + RegionMap.otherHash(data));
+			long[] data = map.getData();
+			//System.out.println("Writing Data: " + NewRegionMap.otherHash(data));
 			//Hasher hasher = new Hasher();
 			try {
 				FileOutputStream fs = new FileOutputStream(file);
 				for(int i = 0; i < dataSize; i++) {
-						fs.write(data[i] & 0xff);
-						//hasher.next(data[i] & 0xff);
-						fs.write((data[i] & 0xff00) >> 8);
-						//hasher.next((data[i] & 0xff00) >> 8);
+						fs.write((int)(data[i]  & 0xffL));
+						fs.write((int)((data[i] & 0xff00L) >> 8));
+						fs.write((int)((data[i] & 0xff0000L) >> 16));
+						fs.write((int)((data[i] & 0xff000000L) >> 24));
+						fs.write((int)((data[i] & 0xff00000000L) >> 32));
 					}
 				//System.out.println("Wrote Data: " + hasher.getHash());
 				fs.close();
@@ -190,6 +213,26 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 			}
 		}
 	}
+	
+	
+	/**
+	 * A class for hashing data that is streamed through, 
+	 * purely for debugging.
+	 */
+	private class Hasher {
+    	int hash = 0;
+    	int count = 0;
+    	public void next(int b) {
+	    	hash ^= (b & 0xff) << (8 * count);
+	    	hash ^= hash << 13;
+	    	hash ^= hash >> 5;
+	    	hash ^= hash << 17;
+	    	count = (++count) % 4;
+		}
+    	public int getHash() {
+    		return hash;
+    	}
+	}
 		
 	
 	/**
@@ -199,7 +242,7 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	 * @param z
 	 * @return
 	 */
-	private int getBiomeIDChunk(int x, int z) {
+	private long getBiomeIDChunk(int x, int z) {
 		return getMapFromChunkCoord(x, z)
 				.getBiome(modRight(x + cOffset, cWidth), 
 						  modRight(z + cOffset, cWidth));
@@ -213,21 +256,24 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	 * @param z
 	 * @return
 	 */
-	private int getGenIDChunk(int x, int z) {
+	private long getGenIDChunk(int x, int z) {
 		return getMapFromChunkCoord(x, z)
 				.getFullBiome(modRight(x + cOffset, cWidth), 
 						        modRight(z + cOffset, cWidth));
 	}
 		
 	
-	/* (non-Javadoc)
-	 * @see jaredbgreat.climaticbiome.generation.map.IMapRegistry#getBiomeChunk(int, int)
+	/**
+	 * Return the biome for the the given x,z block coordinates.
+	 * 
+	 * @param x
+	 * @param z
+	 * @return
 	 */
-	@Override
 	public Biome getBiomeChunk(int x, int z) {
-		return Biome.getBiome(getMapFromChunkCoord(x, z)
+		return Biome.getBiome((int)getMapFromChunkCoord(x, z)
 				.getBiome(modRight(x + cOffset, cWidth), 
-						  modRight(z + cOffset, cWidth) & 0xff));
+						  modRight(z + cOffset, cWidth)));
 	}
     
 	
@@ -236,12 +282,18 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
  *--------------------------------------------------------------------------------------*/
     
     
-	/* (non-Javadoc)
-	 * @see jaredbgreat.climaticbiome.generation.map.IMapRegistry#getChunkBiomeGrid(int, int, net.minecraft.world.biome.Biome[])
+	/**
+	 * Returns a biome array for the chunk at chunk 
+	 * coordinates x,z.
+	 * 
+	 * @param x
+	 * @param z
+	 * @param h
+	 * @param w
+	 * @return
 	 */
-    @Override
-	public Biome[] getChunkBiomeGrid(int x, int z, Biome[] in) {
-    	int[] tiles = new int[9];
+    public Biome[] getChunkBiomeGrid(int x, int z, Biome[] in) {
+    	long[] tiles = new long[9];
     	//System.out.println("[" + x + ", " + z + "]");
     	BiomeBasin[][] basins = new BiomeBasin[3][3];
     	for(int i = 0; i < tiles.length; i++) {
@@ -253,11 +305,12 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     		basins[i / 3][i % 3] = new BiomeBasin(
     				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
     				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
-    				tiles[i], 1.0 + chunkNoise.doubleFor(x2, z2, 12));    				
+    				i, 1.0 + chunkNoise.doubleFor(x2, z2, 12));    				
     	}
     	for(int i = 0; i < 16; i++)
     		for(int j = 0; j < 16; j++) {
-    			in[(j * 16) + i] = Biome.getBiome(BiomeBasin.summateEffect(basins, 16 + i, 16 + j),
+    			in[(j * 16) + i] = Biome.getBiome((int)tiles[BiomeBasin
+    			                        .summateEffect(basins, 16 + i, 16 + j)],
     					Biomes.DEFAULT);
     		}
     	return in;
@@ -285,7 +338,7 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     	int numc = ch * cw;
     	Biome[] out = new Biome[h * w];
     	
-    	int[] tiles = new int[numc];
+    	long[] tiles = new long[numc];
     	BiomeBasin[][] basins = new BiomeBasin[ch][cw];
     	for(int i = 0; i < tiles.length; i++) {
     		int x1 = (i / cw);
@@ -296,23 +349,35 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     		basins[x1][z1] = new BiomeBasin(
     				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
     				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
-    				tiles[i], 1.0 + chunkNoise.doubleFor(x2, z2, 12));    				
+    				i, 1.0 + chunkNoise.doubleFor(x2, z2, 12));    				
     	}
     	for(int i = 0; i < w; i++)
     		for(int j = 0; j < h; j++) {
-    			out[(j * w) + i] = Biome.getBiome(BiomeBasin
-    						.summateEffect(basins, 16 + i, 16 + j),
+    			out[(j * w) + i] = Biome.getBiome((int)tiles[BiomeBasin
+    						.summateEffect(basins, 16 + i, 16 + j)],
     					Biomes.DEFAULT);
     		}
     	return out;
     }
     
     
-    /* (non-Javadoc)
-	 * @see jaredbgreat.climaticbiome.generation.map.IMapRegistry#getUnalignedBiomeGrid(int, int, int, int, net.minecraft.world.biome.Biome[])
-	 */
-    @Override
-	public Biome[] getUnalignedBiomeGrid(int x, int z, int h, int w, Biome[] in) {
+    /**
+     * This will return a biome array for an area starting at 
+     * an arbitrary block coordinates of x,z (y not being 
+     * important).  This is the preferred method when not generating 
+     * the initial array for a new chunk, as it does not assume 
+     * anything that could skew the results in either dimension. 
+     * 
+     * For generating the array for a new chunk getChunkBiomeArray() 
+     * should be used as it is more optimized.
+     * 
+     * @param x
+     * @param z
+     * @param h
+     * @param w
+     * @return
+     */
+    public Biome[] getUnalignedBiomeGrid(int x, int z, int h, int w, Biome[] in) {
     	int hOff = modRight(x, 16);
     	int wOff = modRight(z, 16);
     	int h1 = h + hOff;
@@ -327,9 +392,6 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     		}    	
     	return in;
     }
-	
-	// TODO: Methods that can be used to gain pseudo-biome arrays 
-    //       and/or accurate block pseudo-biome.
     
 	
 /*--------------------------------------------------------------------------------------*
@@ -337,27 +399,32 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
  *--------------------------------------------------------------------------------------*/
 	
 	
-	private Biome getFullBiome(int id) {
-		//System.err.println("Biome ID: " + id);
+	private Biome getFullBiome(long id) {
 		Biome out;
-		if(id < 256) {
-			return Biome.getBiome(id, Biomes.DEFAULT);
+		if(id < 0xffffffffL) {
+			return Biome.getBiome((int)id, Biomes.DEFAULT);
 		} else {
 			out = subbiomes.get(id);
 			if(noFakes || (out == null)) {
-				out = Biome.getBiome(id & 0xff, Biomes.DEFAULT);
+				out = Biome.getBiome((int)(id & 0xffffffffL), Biomes.DEFAULT);
 			}
 			return out;
 		}
 	}
     
     
-	/* (non-Javadoc)
-	 * @see jaredbgreat.climaticbiome.generation.map.IMapRegistry#getChunkBiomeGen(int, int, net.minecraft.world.biome.Biome[])
+	/**
+	 * Returns a biome array for the chunk at chunk 
+	 * coordinates x,z.
+	 * 
+	 * @param x
+	 * @param z
+	 * @param h
+	 * @param w
+	 * @return
 	 */
-    @Override
-	public Biome[] getChunkBiomeGen(int x, int z, Biome[] in) {
-    	int[] tiles = new int[9];
+    public Biome[] getChunkBiomeGen(int x, int z, Biome[] in) {
+    	long[] tiles = new long[9];
     	BiomeBasin[][] basins = new BiomeBasin[3][3];
     	for(int i = 0; i < tiles.length; i++) {
     		int x1 = (i / 3);
@@ -368,11 +435,12 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     		basins[i / 3][i % 3] = new BiomeBasin(
     				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
     				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
-    				tiles[i], 1.0 + chunkNoise.doubleFor(x2, z2, 12));    				
+    				i, 1.0 + chunkNoise.doubleFor(x2, z2, 12));    				
     	}
     	for(int i = 0; i < 16; i++)
     		for(int j = 0; j < 16; j++) {
-    			in[(j * 16) + i] = getFullBiome(BiomeBasin.summateEffect(basins, 16 + i, 16 + j));
+    			in[(j * 16) + i] = getFullBiome(tiles[BiomeBasin
+    					.summateEffect(basins, 16 + i, 16 + j)]);
     		}
     	return in;
     }
@@ -399,7 +467,7 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     	int numc = ch * cw;
     	Biome[] out = new Biome[h * w];
     	
-    	int[] tiles = new int[numc];
+    	long[] tiles = new long[numc];
     	BiomeBasin[][] basins = new BiomeBasin[ch][cw];
     	for(int i = 0; i < tiles.length; i++) {
     		int x1 = (i / cw);
@@ -410,24 +478,19 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     		basins[x1][z1] = new BiomeBasin(
     				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
     				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
-    				tiles[i], 1.0 + chunkNoise.doubleFor(x2, z2, 12));    				
+    				i, 1.0 + chunkNoise.doubleFor(x2, z2, 12));    				
     	}
     	for(int i = 0; i < w; i++)
     		for(int j = 0; j < h; j++) {
-    			out[(j * w) + i] = getFullBiome(BiomeBasin
-    						.summateEffect(basins, 16 + i, 16 + j));
+    			out[(j * w) + i] = getFullBiome(tiles[BiomeBasin
+    						.summateEffect(basins, 16 + i, 16 + j)]);
     		}
     	return out;
     }
 
 
-	/* (non-Javadoc)
-	 * @see jaredbgreat.climaticbiome.generation.map.IMapRegistry#cleanCaches()
-	 */
-	@Override
 	public void cleanCaches() {
 		data.cleanup();		
 	}
-	
 
 }

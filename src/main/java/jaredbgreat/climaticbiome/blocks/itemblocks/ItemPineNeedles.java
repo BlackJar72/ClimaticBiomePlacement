@@ -1,10 +1,6 @@
 package jaredbgreat.climaticbiome.blocks.itemblocks;
 
-import jaredbgreat.climaticbiome.blocks.BlockLeafBase;
-import net.minecraft.item.ItemLeaves;
-import net.minecraft.item.ItemStack;
-
-public class ItemPineNeedles extends ItemLeaves {
+public class ItemPineNeedles /*extends ItemLeaves*/ {/*
 
 	public ItemPineNeedles(BlockLeafBase block) {
 		super(block);
@@ -25,4 +21,4 @@ public class ItemPineNeedles extends ItemLeaves {
 		return 100;    	
     }
 
-}
+*/}
