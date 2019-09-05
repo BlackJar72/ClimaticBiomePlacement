@@ -32,26 +32,11 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
-public class BiomeClimateTable implements IBiomeSpecifier {	
-	private static BiomeClimateTable main;
-	private static LandBiomeTable land;
+public class BiomeClimateTable implements IBiomeSpecifier {
+	private static BiomeClimateTable main;	
+	private static SpecifierTable land;
+	private SpecifierGroup specifiers;
 	private IBiomeSpecifier[] table;
-	
-	public static class LandBiomeTable implements IBiomeSpecifier {
-		private IBiomeSpecifier[] table;
-		LandBiomeTable() {}
-		void init(IBiomeSpecifier[] t) {
-			table = t;
-		}
-		@Override
-		public long getBiome(ChunkTile tile) {
-			return table[(tile.getTemp() * 10) + tile.getWet()].getBiome(tile);
-		}
-		@Override
-		public boolean isEmpty() {
-			return table == null;
-		}
-	}
 	
     IBiomeSpecifier OCEAN;
     IBiomeSpecifier SWAMP;
@@ -111,9 +96,9 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 	}
 	
 	
-	public static LandBiomeTable getLandTable() {
+	public static SpecifierTable getLandTable() {
 		if(land == null) {
-			land = new LandBiomeTable();
+			land = new SpecifierTable();
 		}
 		return land;
 	}
