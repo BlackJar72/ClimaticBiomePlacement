@@ -10,6 +10,8 @@ public final class Info {
 	public static final String CHANNEL =  "climaticbiomejbg";
 	
 	// Dependencies, for simplicity elsewhere
-	public static final String DEPSTR = "after:biomesoplenty; after:dynamictrees; after:jeid";
+	public static final String DEPSTR = "after:biomesoplenty; "
+			                          + "after:dynamictrees; "
+			                          + "after:jeid";
 
 }
