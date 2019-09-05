@@ -274,7 +274,7 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 	 * @return
 	 */
 	public Biome getBiomeChunk(int x, int z) {
-		return Biome.getBiome((int)getMapFromChunkCoord(x, z)
+		return getFullBiome(getMapFromChunkCoord(x, z)
 				.getBiome(modRight(x + cOffset, cWidth), 
 						  modRight(z + cOffset, cWidth)));
 	}

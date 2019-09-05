@@ -121,4 +121,5 @@ public class ClimaticBiomes {
     	WorldType.WORLD_TYPES[0] = worldType;
     }
     
+
 }

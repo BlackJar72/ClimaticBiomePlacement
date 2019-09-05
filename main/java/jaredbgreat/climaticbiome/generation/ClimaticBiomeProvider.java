@@ -148,6 +148,19 @@ public class ClimaticBiomeProvider extends BiomeProvider {
         }
         finder.cleanCaches();
     }
+    
+    
+    
+/*---------------------------------------------------------------------------------------------------------------*/
+/*                       NEW STUFF THAT MAY BE USED BY THE EXPERIMENTAL CHUNK GENERATOR                          */
+/*---------------------------------------------------------------------------------------------------------------*/
+    
+    
+    private Biome findBiomeAtChunk(int x, int z) {
+    	return finder.getBiomeChunk(x, z);
+    }
+
+    
 
 
 }
