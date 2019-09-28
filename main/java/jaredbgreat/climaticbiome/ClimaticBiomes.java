@@ -1,6 +1,7 @@
 package jaredbgreat.climaticbiome;
 
 import jaredbgreat.climaticbiome.biomes.ModBiomes;
+import jaredbgreat.climaticbiome.biomes.basic.ActiveVolcano;
 import jaredbgreat.climaticbiome.biomes.feature.GenPine;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.compat.userdef.VariantParser;
@@ -73,6 +74,7 @@ public class ClimaticBiomes {
     @EventHandler
     public void init(FMLInitializationEvent event) {
     	proxy.init();
+    	ActiveVolcano.init();
     	ItemRegistrar.addRecipes();
     	makeFiles();
     }

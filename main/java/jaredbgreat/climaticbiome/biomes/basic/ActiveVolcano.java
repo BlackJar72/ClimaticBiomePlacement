@@ -5,6 +5,7 @@ import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.util.BlockRegistrar;
 
 import java.util.Random;
+import java.util.StringTokenizer;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -37,13 +38,27 @@ public class ActiveVolcano extends Biome  {
 		if((a == null) || (a.equals("default")) || (a.equals(ConfigHandler.ASH_BLOCK))) {
 		    ASH = BlockRegistrar.blockAsh.getDefaultState();
 		} else {
-		    ASH = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(a)).getDefaultState();
+		    ASH = getBlockState(a);
 		}
 		if((b == null) || (b.equals("default")) || (b.equals(ConfigHandler.BASALT_BLOCK))) {
 		    BASALT = BlockRegistrar.blockBasalt.getDefaultState();
 		} else {
-		    BASALT = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(b)).getDefaultState();
+		    BASALT = getBlockState(b);
 		}		
+	}
+	
+	
+	private static IBlockState getBlockState(String s) {
+		StringTokenizer tokens = new StringTokenizer(s, "()");
+		String str = tokens.nextToken();
+		if(tokens.hasMoreTokens()) {
+			int meta = Integer.parseInt(tokens.nextToken());
+		    return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(str))
+		    		.getStateFromMeta(meta);
+		} else {
+		    return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(str))
+		    		.getDefaultState();
+		}
 	}
 	
 
