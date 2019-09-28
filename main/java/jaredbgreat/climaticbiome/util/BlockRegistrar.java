@@ -49,17 +49,19 @@ public class BlockRegistrar {
 	
 	
 	public static void initBlocks() {
-		blockPineLog = new BlockPineLog();
-		blockPineNeedles = new BlockPineNeedles();
-		blockPineSappling = new BlockPineSapling("pine_sapling", new GenPine());
-		pineHalfSlab = new BlockPineSlab("pine_slab");
-		pineDoubleSlab = new BlockPineDoubleSlab("pine_doubleslab", pineHalfSlab);
-		ItemRegistrar.addItem(new ItemPineSlab(pineHalfSlab, pineDoubleSlab, pineDoubleSlab));
-		blockPinePlanks = new BlockPinePlanks("pine_planks");
-		blockPineStairs = new BlockPineStairs(blockPinePlanks.getDefaultState(), "pine_stairs");
-		blockPineFence = new BlockPineFence("pine_fence");
-		blockPineGate = new BlockPineGate("pine_gate");
-		blockPineDoor = new BlockPineDoor("pine_door");
+    	if(ConfigHandler.moddedBlocks) {
+    		blockPineLog = new BlockPineLog();
+    		blockPineNeedles = new BlockPineNeedles();
+    		blockPineSappling = new BlockPineSapling("pine_sapling", new GenPine());
+    		pineHalfSlab = new BlockPineSlab("pine_slab");
+    		pineDoubleSlab = new BlockPineDoubleSlab("pine_doubleslab", pineHalfSlab);
+    		ItemRegistrar.addItem(new ItemPineSlab(pineHalfSlab, pineDoubleSlab, pineDoubleSlab));
+    		blockPinePlanks = new BlockPinePlanks("pine_planks");
+    		blockPineStairs = new BlockPineStairs(blockPinePlanks.getDefaultState(), "pine_stairs");
+    		blockPineFence = new BlockPineFence("pine_fence");
+    		blockPineGate = new BlockPineGate("pine_gate");
+    		blockPineDoor = new BlockPineDoor("pine_door");
+    	}
 		if(ConfigHandler.includeVolcano) {
 			blockBasalt = new BlockIgneous("basalt");
 			blockBasaltPolished = new BlockIgneous("basalt_polished");

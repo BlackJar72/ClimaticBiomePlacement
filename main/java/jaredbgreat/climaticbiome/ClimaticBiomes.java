@@ -58,10 +58,8 @@ public class ClimaticBiomes {
     			+ File.separator + Info.DIR);
     	configHandler = new ConfigHandler(confdir.toString());
     	configHandler.load();
-    	if(ConfigHandler.moddedBlocks) {
-	    	BlockRegistrar.initBlocks();
-	    	ItemRegistrar.initItems();
-    	}
+    	BlockRegistrar.initBlocks();
+    	ItemRegistrar.initItems();
     	GenPine.init();
     	worldType = new ClimaticWorldType();
     	ModBiomes.createBiomes();
