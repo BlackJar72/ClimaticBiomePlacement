@@ -47,6 +47,12 @@ public class ConfigHandler {
 	public static boolean includeVolcano = true;
 	
 	public static boolean biomeWater = false;
+	
+	public static final String BASALT_BLOCK = Info.ID + ":basalt";
+	public static final String ASH_BLOCK = Info.ID + ":volcanic_ash";
+	
+	public static String basaltBlock = BASALT_BLOCK;
+	public static String ashBlock = ASH_BLOCK;
 
 	static boolean addIslands = true;
 	static boolean extraBeaches = true;	
@@ -192,15 +198,21 @@ public class ConfigHandler {
 						+ " will effect all world types (even vanilla); depending on Forge / \n"
 						+ " Java / OS / unknown factors it might not work.");
 				
-		addPines = config.getBoolean("AddPines", "Pines", true, 
+		addPines = config.getBoolean("AddPines", "ModdedBlocks", true, 
 						"If true modded pine trees will appear in warmer climate. \n"
 						+ "If false spruce will be added instead.  \n"
 						+ "This does not effect if pine blocks technically exist. \n");
 		
-		moddedBlocks = config.getBoolean("ModdedBlocks", "Pines", true, 
+		moddedBlocks = config.getBoolean("PineBlocks", "ModdedBlocks", true, 
 						"If pine blocks exist and pines will be made from them. \n"
 						+ "If false these blocks don't exist and pines are made from spruce blocks. \n"
 						+ "Disabling pine while using dynamic trees will crash the game!!");
+		
+		basaltBlock = config.getString("BasaltBlocks", "ModdedBlocks", BASALT_BLOCK, 
+						"The resource location of the block to use for basalt");
+		
+		ashBlock = config.getString("AshBlocks", "ModdedBlocks", ASH_BLOCK, 
+						"The resource location of the block to use for volcanic ash");
 		
 		badBiomeSpam = config.getBoolean("ErrorsForBadBiomeID", "Debugging", false, 
 						"If true an error message will be printed to the console whenever a \n"
