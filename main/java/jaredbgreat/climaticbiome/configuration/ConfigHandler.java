@@ -32,7 +32,8 @@ public class ConfigHandler {
 	public static boolean useBoPTable = true;
 	
 	public static boolean moreMansion = true;
-	public static boolean moddedBlocks = true;
+	public static boolean pineBlocks = true;
+	public static boolean peatBlocks = true;
 	public static boolean addPines = true;
 	public static boolean badBiomeSpam = false;
 	public static boolean makeDefault = false;
@@ -203,10 +204,13 @@ public class ConfigHandler {
 						+ "If false spruce will be added instead.  \n"
 						+ "This does not effect if pine blocks technically exist. \n");
 		
-		moddedBlocks = config.getBoolean("PineBlocks", "ModdedBlocks", true, 
+		pineBlocks = config.getBoolean("PineBlocks", "ModdedBlocks", true, 
 						"If pine blocks exist and pines will be made from them. \n"
 						+ "If false these blocks don't exist and pines are made from spruce blocks. \n"
 						+ "Disabling pine while using dynamic trees will crash the game!!");
+		
+		peatBlocks = config.getBoolean("PeatBlocks", "ModdedBlocks", true, 
+						"If peat blocks exist; if so they will be the filler block in bogs!!");
 		
 		basaltBlock = config.getString("BasaltBlocks", "ModdedBlocks", BASALT_BLOCK, 
 						"The resource location of the block to use for basalt");

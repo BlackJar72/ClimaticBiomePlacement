@@ -56,7 +56,11 @@ public class Wetland extends BiomeSwamp {
 		SPRUCE = new SpruceFinder();
 		decorator.treesPerChunk = type.numTrees;
 		decorator.grassPerChunk = type.numGrass;
-		PEAT = BlockRegistrar.blockPeat.getDefaultState();
+		if(ConfigHandler.peatBlocks) {
+			PEAT = BlockRegistrar.blockPeat.getDefaultState();
+		} else {
+			PEAT = Blocks.DIRT.getDefaultState();			
+		}
 		if(ConfigHandler.biomeWater) {
 			wcolor = type.wcolor;
 		} else {

@@ -49,7 +49,7 @@ public class BlockRegistrar {
 	
 	
 	public static void initBlocks() {
-    	if(ConfigHandler.moddedBlocks) {
+    	if(ConfigHandler.pineBlocks) {
     		blockPineLog = new BlockPineLog();
     		blockPineNeedles = new BlockPineNeedles();
     		blockPineSappling = new BlockPineSapling("pine_sapling", new GenPine());
@@ -67,7 +67,7 @@ public class BlockRegistrar {
 			blockBasaltPolished = new BlockIgneous("basalt_polished");
 			blockAsh = new ModBlockFalling("volcanic_ash", SoundType.SAND);
 		}
-		if(ConfigHandler.includeSwamps) {
+		if(ConfigHandler.includeSwamps && ConfigHandler.peatBlocks) {
 			blockPeat = new BlockPeat();
 		}
 		// LASTLY

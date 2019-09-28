@@ -24,7 +24,7 @@ public class GenPine extends WorldGenAbstractTree {
     
     
     public static void init() {
-    	if(ConfigHandler.moddedBlocks) {    		
+    	if(ConfigHandler.pineBlocks) {    		
     	    TRUNK = BlockRegistrar.blockPineLog.getDefaultState();
     	    LEAF = BlockRegistrar.blockPineNeedles.getDefaultState()
     	    		.withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
