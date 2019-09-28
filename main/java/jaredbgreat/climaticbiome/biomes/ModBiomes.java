@@ -436,17 +436,17 @@ public class ModBiomes {
 	
 	
 	private static void makeAdvancedRivers() {
-		river = new BiomeRiver(new Biome.BiomeProperties("River").setBaseHeight(-0.8f)
+		river = new BiomeRiver(new Biome.BiomeProperties("Temporate River").setBaseHeight(-0.8f)
 											            .setHeightVariation(0.0f)
 												        .setTemperature(0.7F)
 												        .setRainfall(0.5F)
 												        .setSnowEnabled());
-		warmRiver = new BiomeRiver(new Biome.BiomeProperties("River").setBaseHeight(-0.8f)
+		warmRiver = new BiomeRiver(new Biome.BiomeProperties("Subtropical River").setBaseHeight(-0.8f)
 											            .setHeightVariation(0.0f)
 												        .setTemperature(0.8F)
 												        .setRainfall(0.5F)
 												        .setSnowEnabled());
-		hotRiver = new BiomeRiver(new Biome.BiomeProperties("River").setBaseHeight(-0.8f)
+		hotRiver = new BiomeRiver(new Biome.BiomeProperties("Tropical River").setBaseHeight(-0.8f)
 											            .setHeightVariation(0.0f)
 												        .setTemperature(1.0F)
 												        .setRainfall(0.5F)
