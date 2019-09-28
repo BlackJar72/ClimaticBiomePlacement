@@ -191,7 +191,7 @@ public class ModBiomes {
 		}
 		coolMontaneForest
 				= new MontaneForest(MontaneForest.Type.COOL,
-						new Biome.BiomeProperties("Warm Montane Forest")
+						new Biome.BiomeProperties("Cool Montane Forest")
 					.setTemperature(0.2F)
 					.setRainfall(0.7F)
 					.setBaseHeight(1.25F)
