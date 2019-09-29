@@ -74,7 +74,6 @@ public class ClimaticBiomes {
     @EventHandler
     public void init(FMLInitializationEvent event) {
     	proxy.init();
-    	ActiveVolcano.init();
     	ItemRegistrar.addRecipes();
     	makeFiles();
     }
@@ -82,6 +81,7 @@ public class ClimaticBiomes {
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+        ActiveVolcano.init();
     	if(ConfigHandler.makeDefault) {
     		moveWorldTypes();
     	}

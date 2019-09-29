@@ -17,8 +17,8 @@ import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class ActiveVolcano extends Biome  {
-    protected static IBlockState BASALT = BlockRegistrar.blockBasalt.getDefaultState();
-    protected static IBlockState ASH = BlockRegistrar.blockAsh.getDefaultState();
+    protected static IBlockState BASALT;
+    protected static IBlockState ASH;
     protected static WorldGenLakes LAVA = new WorldGenLakes(Blocks.LAVA);
 
 	public ActiveVolcano(BiomeProperties properties) {
@@ -39,11 +39,17 @@ public class ActiveVolcano extends Biome  {
 		    ASH = BlockRegistrar.blockAsh.getDefaultState();
 		} else {
 		    ASH = getBlockState(a);
+		    if(ASH == null) {
+                        ASH = BlockRegistrar.blockAsh.getDefaultState();
+		    }
 		}
 		if((b == null) || (b.equals("default")) || (b.equals(ConfigHandler.BASALT_BLOCK))) {
 		    BASALT = BlockRegistrar.blockBasalt.getDefaultState();
 		} else {
 		    BASALT = getBlockState(b);
+                    if(BASALT == null) {
+                        BASALT = BlockRegistrar.blockBasalt.getDefaultState();
+                    }
 		}		
 	}
 	
