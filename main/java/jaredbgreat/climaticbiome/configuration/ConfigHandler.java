@@ -34,6 +34,7 @@ public class ConfigHandler {
 	public static boolean moreMansion = true;
 	public static boolean pineBlocks = true;
 	public static boolean peatBlocks = true;
+	public static boolean volcanicBlocks = true;
 	public static boolean addPines = true;
 	public static boolean badBiomeSpam = false;
 	public static boolean makeDefault = false;
@@ -211,6 +212,9 @@ public class ConfigHandler {
 		
 		peatBlocks = config.getBoolean("PeatBlocks", "ModdedBlocks", true, 
 						"If peat blocks exist; if so they will be the filler block in bogs!!");
+		
+		volcanicBlocks = config.getBoolean("VolcanicBlocks", "ModdedBlocks", true, 
+						"If basalt and volcanic ash exist; if false a vanilla substitute will be used!!");
 		
 		basaltBlock = config.getString("BasaltBlocks", "ModdedBlocks", BASALT_BLOCK, 
 						"The resource location of the block to use for basalt");

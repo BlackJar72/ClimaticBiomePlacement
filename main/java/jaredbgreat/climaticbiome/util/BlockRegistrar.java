@@ -23,6 +23,8 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -62,11 +64,11 @@ public class BlockRegistrar {
     		blockPineGate = new BlockPineGate("pine_gate");
     		blockPineDoor = new BlockPineDoor("pine_door");
     	}
-		if(ConfigHandler.includeVolcano) {
+		if(ConfigHandler.volcanicBlocks) {
 			blockBasalt = new BlockIgneous("basalt");
 			blockBasaltPolished = new BlockIgneous("basalt_polished");
 			blockAsh = new ModBlockFalling("volcanic_ash", SoundType.SAND);
-		}
+		} 
 		if(ConfigHandler.includeSwamps && ConfigHandler.peatBlocks) {
 			blockPeat = new BlockPeat();
 		}
@@ -90,6 +92,24 @@ public class BlockRegistrar {
 	
 	public static List<Block> getBlocks() {
 		return BLOCKS;
+	}
+	
+	
+	public static IBlockState getAshBlock() {
+		if(blockAsh != null) {
+			return blockAsh.getDefaultState();
+		} else {
+			return Blocks.GRAVEL.getDefaultState();
+		}
+	}
+	
+	
+	public static IBlockState getBasaltBlock() {
+		if(blockAsh != null) {
+			return blockBasalt.getDefaultState();
+		} else {
+			return Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(15);
+		}
 	}
 
 }

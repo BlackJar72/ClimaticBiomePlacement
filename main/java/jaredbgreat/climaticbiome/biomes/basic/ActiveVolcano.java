@@ -36,20 +36,20 @@ public class ActiveVolcano extends Biome  {
 		String a = ConfigHandler.ashBlock;
 		String b = ConfigHandler.basaltBlock;
 		if((a == null) || (a.equals("default")) || (a.equals(ConfigHandler.ASH_BLOCK))) {
-		    ASH = BlockRegistrar.blockAsh.getDefaultState();
+		    ASH = BlockRegistrar.getAshBlock();
 		} else {
 		    ASH = getBlockState(a);
 		    if(ASH == null) {
-                        ASH = BlockRegistrar.blockAsh.getDefaultState();
+		    	ASH = BlockRegistrar.getAshBlock();
 		    }
 		}
 		if((b == null) || (b.equals("default")) || (b.equals(ConfigHandler.BASALT_BLOCK))) {
-		    BASALT = BlockRegistrar.blockBasalt.getDefaultState();
+		    BASALT = BlockRegistrar.getBasaltBlock();
 		} else {
 		    BASALT = getBlockState(b);
-                    if(BASALT == null) {
-                        BASALT = BlockRegistrar.blockBasalt.getDefaultState();
-                    }
+            if(BASALT == null) {
+            	BASALT = BlockRegistrar.getBasaltBlock();
+            }
 		}		
 	}
 	
@@ -68,9 +68,9 @@ public class ActiveVolcano extends Biome  {
 	}
 	
 
-    public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, 
+    public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer cpi, 
     			int x, int z, double noise) {
-		if(noise > 1.95) {
+		if(noise > 2.5) {
 			fillerBlock = ASH;
 		} else {
 			fillerBlock = BASALT;
@@ -83,14 +83,14 @@ public class ActiveVolcano extends Biome  {
         	topBlock = BASALT;
     	}
         
-        generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noise);
+        generateBiomeTerrain(worldIn, rand, cpi, x, z, noise);
         
         int k1 = x & 15;
         int l1 = z & 15;
         int ty = 64 + (int)(noise * 4);
         for (int j1 = 255; j1 >= ty; --j1) {
-        	if((chunkPrimerIn.getBlockState(l1, j1, k1).getBlock() == Blocks.STONE)) {
-        		chunkPrimerIn.setBlockState(l1, j1, k1, BASALT);
+        	if((cpi.getBlockState(l1, j1, k1).getBlock() == Blocks.STONE)) {
+        		cpi.setBlockState(l1, j1, k1, BASALT);
         	}
         }
     }
