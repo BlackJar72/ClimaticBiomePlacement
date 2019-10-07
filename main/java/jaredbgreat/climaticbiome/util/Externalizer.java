@@ -96,7 +96,7 @@ public class Externalizer {
 		"BYG",
 		"DefiledLands",
 		"Redwoods",
-		//"Zoesteria",
+		"NovamTerram",
 		"special"
 	};
 	
