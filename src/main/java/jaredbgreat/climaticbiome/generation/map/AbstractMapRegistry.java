@@ -1,10 +1,5 @@
 package jaredbgreat.climaticbiome.generation.map;
 
-import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-import jaredbgreat.climaticbiome.util.Debug;
-import jaredbgreat.climaticbiome.util.Logging;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,8 +8,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
+import jaredbgreat.climaticbiome.util.Logging;
 import net.minecraft.world.World;
-import net.minecraftforge.common.DimensionManager;
 
 public abstract class AbstractMapRegistry implements IMapRegistry {
 	static final String SETTINGS = "settings";

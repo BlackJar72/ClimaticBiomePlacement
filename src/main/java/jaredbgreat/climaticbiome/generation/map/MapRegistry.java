@@ -9,7 +9,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
 
-import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
@@ -18,6 +17,7 @@ import jaredbgreat.climaticbiome.util.SpatialNoise;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	private final Cache<RegionMap> data;
@@ -270,7 +270,7 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	 * @param z
 	 * @return
 	 */
-	public Biome getBiomeChunk(int x, int z) {
+	public int getBiomeChunk(int x, int z) {		
 		return Biome.getBiome((int)getMapFromChunkCoord(x, z)
 				.getBiome(modRight(x + cOffset, cWidth), 
 						  modRight(z + cOffset, cWidth)));

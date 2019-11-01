@@ -1,20 +1,19 @@
 package jaredbgreat.climaticbiome.generation;
 
-import jaredbgreat.climaticbiome.generation.map.IMapRegistry;
-import jaredbgreat.climaticbiome.generation.map.MapRegistry;
-import jaredbgreat.climaticbiome.generation.map.MapRegistry;
-import jaredbgreat.climaticbiome.util.Debug;
-
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import javax.annotation.Nullable;
 
+import jaredbgreat.climaticbiome.generation.map.IMapRegistry;
+import jaredbgreat.climaticbiome.generation.map.MapRegistry;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeProvider;
-import net.minecraft.world.gen.structure.MapGenVillage;
+import net.minecraft.world.biome.provider.BiomeProvider;
+import net.minecraft.world.gen.feature.structure.Structure;
 
 
 public class ClimaticBiomeProvider extends BiomeProvider {
@@ -27,14 +26,55 @@ public class ClimaticBiomeProvider extends BiomeProvider {
                 super(/*world.getWorldInfo()*/);
                 vanillaCacheValid = true;
                 this.world = world;
-                {
-	                if(net.minecraftforge.fml.common.Loader.isModLoaded("jeid")) {
-	                	finder = new MapRegistry(world.getSeed(), world);
-	                } else {
-	                	finder = new MapRegistry(world.getSeed(), world);
-	                }
-                }
+	            finder = new MapRegistry(world.getSeed(), world);
         }
+        
+        
+        
+/*-------------------------------------------------------------------------------------------------*/
+/*                              NEW METHOD FOR THE CURRENT API                                     */
+/*-------------------------------------------------------------------------------------------------*/
+        
+
+    	@Override
+    	public Biome getBiome(int x, int y) {
+    		// TODO Auto-generated method stub
+    		return null;
+    	}
+
+
+    	@Override
+    	public Biome[] getBiomes(int x, int z, int width, int length, boolean cacheFlag) {
+    		// TODO Auto-generated method stub
+    		return null;
+    	}
+
+
+    	@Override
+    	public Set<Biome> getBiomesInSquare(int centerX, int centerZ, int sideLength) {
+    		// TODO Auto-generated method stub
+    		return null;
+    	}
+
+
+    	@Override
+    	public boolean hasStructure(Structure<?> structureIn) {
+    		// TODO Auto-generated method stub
+    		return false;
+    	}
+
+
+    	@Override
+    	public Set<BlockState> getSurfaceBlocks() {
+    		// TODO Auto-generated method stub
+    		return null;
+    	}
+        
+        
+        
+/*-------------------------------------------------------------------------------------------------*/
+/*                            OLD PIECES FROM THE 1.12.2 VERSION                                   */
+/*-------------------------------------------------------------------------------------------------*/
         
 
     @Nullable
