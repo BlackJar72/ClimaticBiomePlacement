@@ -12,6 +12,7 @@ import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.util.Logging;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.ModList;
 
 public abstract class AbstractMapRegistry implements IMapRegistry {
 	static final String SETTINGS = "settings";
@@ -37,7 +38,7 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 	
 	
 	final boolean areFakesInvalid() {
-		return net.minecraftforge.fml.common.Loader.isModLoaded("lostcities") 
+		return ModList.get().isLoaded("lostcities") 
         		&& ConfigHandler.chunkProvider.equalsIgnoreCase("lostcities");
 	}
 	
@@ -47,23 +48,24 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 	 */
 	@Override
 	public void findSaveDir() {
-		if(world == null || world.getMinecraftServer() == null) {
+		if(world == null || world.getServer() == null) {
 			cansave = false;
 			return;
 		}
-		if(world.getMinecraftServer().isDedicatedServer()) {
-			savedir      = world.getMinecraftServer().getFile("world" + File.separator + "ClimaticMaps" 
-								   + File.separator + "Dim" + world.provider.getDimension());
-			settingsDir  = world.getMinecraftServer().getFile("world" + File.separator + "ClimaticMaps" 
+		// FIXME?: This may or may not work!
+		if(true/*world.getServer().isDedicatedServer()*/) {
+			savedir      = world.getServer().getFile("world" + File.separator + "ClimaticMaps" 
+								   + File.separator + "Dim" + world.getDimension());
+			settingsDir  = world.getServer().getFile("world" + File.separator + "ClimaticMaps" 
 					   			   + File.separator + SETTINGS);
-			settingsFile = world.getMinecraftServer().getFile("world" + File.separator + "ClimaticMaps" 
+			settingsFile = world.getServer().getFile("world" + File.separator + "ClimaticMaps" 
 		   			   			   + File.separator + SETTINGS + File.separator 
-		   			   			   + "dim" + world.provider.getDimension() + ".json");
-		} else {
-			savedir = new File(world.getSaveHandler().getWorldDirectory().toString() 
+		   			   			   + "dim" + world.getDimension() + ".json");
+		} else {/*
+			savedir = new File(world.getServer().getSaveHandler().getWorldDirectory().toString() 
 							+ File.separator + "ClimaticMaps" 
 							+ File.separator + "Dim" 
-							+ world.provider.getDimension());
+							+ world.getDimension());
 			settingsDir = new File(world.getSaveHandler().getWorldDirectory().toString() 
 							+ File.separator + "ClimaticMaps" 
 							+ File.separator + SETTINGS);
@@ -71,8 +73,8 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 							+ File.separator + "ClimaticMaps" 
 							+ File.separator + SETTINGS
 							+ File.separator + "dim" 
-							+ world.provider.getDimension() + ".json");
-		}
+							+ world.getDimension() + ".json");
+		*/}
 		cansave  = savedir != null;
 		perworld = (settingsDir != null) && (settingsFile != null);
 		if(cansave && (!savedir.exists())) {

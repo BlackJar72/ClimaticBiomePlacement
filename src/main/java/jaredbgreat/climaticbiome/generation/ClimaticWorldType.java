@@ -2,15 +2,16 @@ package jaredbgreat.climaticbiome.generation;
 
 import javax.annotation.Nonnull;
 
-import jaredbgreat.climaticbiome.gui.GuiConfigureWorld;
-import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.provider.BiomeProvider;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.OverworldChunkGenerator;
+import net.minecraft.world.gen.OverworldGenSettings;
 
 public class ClimaticWorldType extends WorldType {
 	private static BiomeProvider biomeProvider;
-    public static IChunkProvider chunkGenerator;
+    //public static IChunkProvider chunkGenerator;
     private static WorldType chunkGeneratorType;
     private static String chunkGeneratorName;
     private static boolean normalChunks;
@@ -19,17 +20,17 @@ public class ClimaticWorldType extends WorldType {
     public ClimaticWorldType() {
 		super("climatic_bp");		
 	}
-
-    public IChunkGenerator getChunkGenerator(World world, String generatorOptions) {
-    	if(normalChunks) {
-    		return new ChunkGeneratorOverworld(world, world.getSeed(), 
-        		world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
-    	} else {
-    		return chunkGeneratorType.getChunkGenerator(world, generatorOptions);
-    	}
+    
+    
+    @Override
+    public ChunkGenerator<?> createChunkGenerator(World world) {
+    	return new OverworldChunkGenerator(world, 
+    			getBiomeProvider(world), 
+    			new OverworldGenSettings());
     }
+    
 
-    @Override @Nonnull
+    @Nonnull
     public BiomeProvider getBiomeProvider(@Nonnull World world) { 
         return new ClimaticBiomeProvider(world);
     }

@@ -29,12 +29,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 
 @Mod(modid=Info.ID, name=Info.NAME, version=Info.VERSION,
-acceptableRemoteVersions=Info.VERSION, dependencies=Info.DEPSTR)
+acceptableRemoteVersions=Info.VERSION, dependencies=Info.DEPSTR, value = "")
 public class ClimaticBiomes {
 	
 	@Instance
 	public static ClimaticBiomes instance;
-	public static ClimaticWorldType worldType;
+	
+	public static final ClimaticWorldType CLIMATIC_WORLD_TYPE;	
 	public ConfigHandler configHandler;
 	File confdir;
 
@@ -57,7 +58,7 @@ public class ClimaticBiomes {
 	    	ItemRegistrar.initItems();
     	}
     	GenPine.init();
-    	worldType = new ClimaticWorldType();
+    	CLIMATIC_WORLD_TYPE = new ClimaticWorldType();
     	ModBiomes.createBiomes();
     	if(ConfigHandler.addToVanilla) {
     		ModBiomes.addToVanilla();
@@ -112,7 +113,7 @@ public class ClimaticBiomes {
     
     
     private void moveWorldTypes() {
-    	WorldType.WORLD_TYPES[0] = worldType;
+    	WorldType.WORLD_TYPES[0] = CLIMATIC_WORLD_TYPE;
     }
     
 }

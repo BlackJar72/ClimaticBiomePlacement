@@ -1,7 +1,17 @@
 package jaredbgreat.climaticbiome.configuration;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import jaredbgreat.climaticbiome.Info;
 import jaredbgreat.climaticbiome.generation.generator.SizeScale;
+import jaredbgreat.climaticbiome.gui.GuiCBToggleButton;
+import jaredbgreat.climaticbiome.gui.GuiIntSlider;
+import jaredbgreat.climaticbiome.gui.GuiScaleSlider;
+import jaredbgreat.climaticbiome.gui.GuiWorldTypeButton;
+import jaredbgreat.climaticbiome.util.Debug;
 
 public class ClimaticWorldSettings {
 	public static final String DATA_NAME = Info.ID + "GenSettings";
@@ -62,42 +72,41 @@ public class ClimaticWorldSettings {
 	 * @param json
 	 * @return this 
 	 * 
-	 *//*
-	public ClimaticWorldSettings fromJson(JsonElement json) {
-		JsonObject jsonObj = json.getAsJsonObject();		
+	 */
+	public ClimaticWorldSettings fromJson(JsonObject json) {
 		{			
-			if(JsonUtils.hasField(jsonObj, "addIslands")) 		
-				addIslands = JsonUtils.getBoolean(jsonObj, "addIslands");
+			if(json.has("addIslands"))
+				addIslands = json.get("addIslands").getAsBoolean();
 			
-			if(JsonUtils.hasField(jsonObj, "addBeaches")) 		
-				extraBeaches = JsonUtils.getBoolean(jsonObj, "extraBeaches");
+			if(json.has("addBeaches")) 		
+				extraBeaches = json.get("extraBeaches").getAsBoolean();
 			
-			if(JsonUtils.hasField(jsonObj, "rockyScrub")) 		
-				rockyScrub = JsonUtils.getBoolean(jsonObj, "rockyScrub");		
+			if(json.has("rockyScrub")) 		
+				rockyScrub = json.get("rockyScrub").getAsBoolean();		
 			
-			if(JsonUtils.hasField(jsonObj, "deepSand")) 		
-				deepSand = JsonUtils.getBoolean(jsonObj, "deepSand");		
+			if(json.has("deepSand")) 		
+				deepSand = json.get("deepSand").getAsBoolean();		
 			
-			if(JsonUtils.hasField(jsonObj, "volcanicIslands")) 		
-				volcanicIslands = JsonUtils.getBoolean(jsonObj, "volcanicIslands");		
+			if(json.has("volcanicIslands")) 		
+				volcanicIslands = json.get("volcanicIslands").getAsBoolean();		
 			
-			if(JsonUtils.hasField(jsonObj, "hasRivers")) 		
-				hasRivers = JsonUtils.getBoolean(jsonObj, "hasRivers");
+			if(json.has("hasRivers")) 		
+				hasRivers = json.get("hasRivers").getAsBoolean();
 			
-			if(JsonUtils.hasField(jsonObj, "forceWholeBiome")) 		
-				forceWhole = JsonUtils.getBoolean(jsonObj, "forceWholeBiome");
+			if(json.has("forceWholeBiome")) 		
+				forceWhole = json.get("forceWholeBiome").getAsBoolean();
 			
-			if(JsonUtils.hasField(jsonObj, "biomeSize")) 		
-				biomeSize = JsonUtils.getInt(jsonObj, "biomeSize");
+			if(json.has("biomeSize")) 		
+				biomeSize = json.get("biomeSize").getAsInt();
 			
-			if(JsonUtils.hasField(jsonObj, "regionSize")) 		
-				regionSize = SizeScale.get(JsonUtils.getInt(jsonObj, "regionSize"));
+			if(json.has("regionSize")) 		
+				regionSize = SizeScale.get(json.get("regionSize").getAsInt());
 			
-			if(JsonUtils.hasField(jsonObj, "mapType")) 		
-				mode = JsonUtils.getInt(jsonObj, "mapType");
+			if(json.has("mapType")) 		
+				mode = json.get("mapType").getAsInt();
 			
-			if(JsonUtils.hasField(jsonObj, "SurvivalIslandSize")) 		
-				sisize = JsonUtils.getFloat(jsonObj, "SurvivalIslandSize");
+			if(json.has("SurvivalIslandSize")) 		
+				sisize = json.get("SurvivalIslandSize").getAsInt();
 		}		
 		return this;
 	}
@@ -109,9 +118,10 @@ public class ClimaticWorldSettings {
 	 * 
 	 * @param json
 	 * @return this
-	 *//*ClimaticWorldSettings fromJsonString(String json) {
+	 */
+	public ClimaticWorldSettings fromJsonString(String json) {
 		JsonParser parser = new JsonParser();
-		return fromJson(parser.parse(json));
+		return fromJson(parser.parse(json).getAsJsonObject());
 	}
 	
 	
@@ -120,8 +130,8 @@ public class ClimaticWorldSettings {
 	 * saving ... somewhere.
 	 * 
 	 * @return A JsonElement representation of the settings.
-	 *//*
-	public JsonElement toJson() {
+	 */
+	public JsonObject toJson() {
 		JsonObject jsonObj = new JsonObject();	
 		jsonObj.addProperty("addIslands", addIslands);
 		jsonObj.addProperty("extraBeaches", extraBeaches);
@@ -144,7 +154,7 @@ public class ClimaticWorldSettings {
 	 * be obtained ... for saving ... somewhere.
 	 * 
 	 * @return A json (text) representation of the settings.
-	 *//*
+	 */
 	public String toJsonString() {
 		return toJson().toString();
 	}
@@ -156,7 +166,7 @@ public class ClimaticWorldSettings {
 	 * be obtained ... for saving ... somewhere.
 	 * 
 	 * @return A json (text) representation of the settings.
-	 *//*
+	 */
 	public String extendJsonString(String in) {
 		JsonObject jsonObj;
 		if((in != null) && !in.isEmpty()) {
@@ -182,13 +192,12 @@ public class ClimaticWorldSettings {
 		return super.toString() + " " + toJsonString();
 	}
 	
-	
-	public void applySettings() {
+	//FIXME / TODO: Re-implement called methods uncomment contents
+	public void applySettings() {/*
 		Scrub.setDeepSand(deepSand);
 		Scrub.setMakeRocks(rockyScrub);
 		GetIslands.setVolcanicIslands(volcanicIslands);
-	}
-	
+	*/}
 
 	/*------------------------------------------------------------------------*/
 	/*               Inner Classes / Interfaces / Factories                   */
@@ -203,7 +212,7 @@ public class ClimaticWorldSettings {
 	 * that will later be retrieved by map registry.
 	 * 
 	 * @return
-	 *//*
+	 */
 	public static ClimaticWorldSettings getNew() {
 		if(queued == null) {
 			queued = new ClimaticWorldSettings();
@@ -219,7 +228,7 @@ public class ClimaticWorldSettings {
 	 * use.
 	 * 
 	 * @return
-	 *//*
+	 */
 	public static ClimaticWorldSettings getQueued() {
 		if(queued == null) {
 			return new ClimaticWorldSettings();
@@ -248,7 +257,7 @@ public class ClimaticWorldSettings {
 		}
 	}
 	
-	
+	/*
 	public static class BiomeSizeSetter implements ISetter<GuiIntSlider> {
 		ClimaticWorldSettings target;
 		public BiomeSizeSetter(ClimaticWorldSettings target) {

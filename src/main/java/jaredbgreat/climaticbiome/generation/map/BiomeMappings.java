@@ -50,6 +50,28 @@ public class BiomeMappings {
 	}
 	
 	/**
+	 * Returns the biome for the pseudo-ID index, or 
+	 * the supplied default if the pseudo-ID is 
+	 * invalid (i.e., the result is null).
+	 * 
+	 * @param index
+	 * @param aDefault
+	 * @return the biome for the pseudo-ID index
+	 */
+	public Biome get(int index, Biome aDefault) {
+		Biome out;
+		try {
+			out = registry[index];
+			if(out == null) {
+				out = aDefault;
+			}
+		} catch(ArrayIndexOutOfBoundsException ex) {
+			out = aDefault;
+		}
+		return out;
+	}
+	
+	/**
 	 * Returns the biome for the resource location String.
 	 * 
 	 * @param rl

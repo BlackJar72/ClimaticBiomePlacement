@@ -21,7 +21,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	private final Cache<RegionMap> data;
-	//private final SubBiomeRegistry subbiomes;
+	private final BiomeMappings biomeRegistry;
+	
 	
     private final SpatialNoise chunkNoise;
     private final SpatialNoise regionNoise;
@@ -43,7 +44,7 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 		cOffset = cWidth / 2;
 		bOffset = bWidth / 2;
 		data = new Cache<>();
-		//subbiomes = SubBiomeRegistry.getSubBiomeRegistry();
+		biomeRegistry = new BiomeMappings();
         Random random = new Random(seed);
         chunkNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         regionNoise = new SpatialNoise(random.nextLong(), random.nextLong());
@@ -270,8 +271,8 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	 * @param z
 	 * @return
 	 */
-	public int getBiomeChunk(int x, int z) {		
-		return Biome.getBiome((int)getMapFromChunkCoord(x, z)
+	public Biome getBiomeChunk(int x, int z) {		
+		return biomeRegistry.get((int)getMapFromChunkCoord(x, z)
 				.getBiome(modRight(x + cOffset, cWidth), 
 						  modRight(z + cOffset, cWidth)));
 	}
@@ -309,7 +310,7 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     	}
     	for(int i = 0; i < 16; i++)
     		for(int j = 0; j < 16; j++) {
-    			in[(j * 16) + i] = Biome.getBiome((int)tiles[BiomeBasin
+    			in[(j * 16) + i] = biomeRegistry.get((int)tiles[BiomeBasin
     			                        .summateEffect(basins, 16 + i, 16 + j)],
     					Biomes.DEFAULT);
     		}
@@ -353,7 +354,7 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     	}
     	for(int i = 0; i < w; i++)
     		for(int j = 0; j < h; j++) {
-    			out[(j * w) + i] = Biome.getBiome((int)tiles[BiomeBasin
+    			out[(j * w) + i] = biomeRegistry.get((int)tiles[BiomeBasin
     						.summateEffect(basins, 16 + i, 16 + j)],
     					Biomes.DEFAULT);
     		}
@@ -400,16 +401,7 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	
 	
 	private Biome getFullBiome(long id) {
-		Biome out;
-		if(id < 0xffffffffL) {
-			return Biome.getBiome((int)id, Biomes.DEFAULT);
-		} else {
-			out = subbiomes.get(id);
-			if(noFakes || (out == null)) {
-				out = Biome.getBiome((int)(id & 0xffffffffL), Biomes.DEFAULT);
-			}
-			return out;
-		}
+		return biomeRegistry.get((int)(id & 0xffffffffL), Biomes.DEFAULT);
 	}
     
     

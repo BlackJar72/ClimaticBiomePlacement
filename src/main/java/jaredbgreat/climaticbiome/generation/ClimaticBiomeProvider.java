@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -37,28 +38,37 @@ public class ClimaticBiomeProvider extends BiomeProvider {
         
 
     	@Override
-    	public Biome getBiome(int x, int y) {
-    		// TODO Auto-generated method stub
-    		return null;
+    	public Biome getBiome(int x, int z) {    		
+            //Biome[] biomes = new Biome[1];
+            //finder.getUnalignedBiomeGrid(x, z, 1, 1, biomes);
+            //return biomes[0];
+    		return finder.getBiomeChunk(x / 16, z / 16);
     	}
 
 
     	@Override
     	public Biome[] getBiomes(int x, int z, int width, int length, boolean cacheFlag) {
-    		// TODO Auto-generated method stub
-    		return null;
+            Biome[] biomes = new Biome[width * length];
+            finder.getUnalignedBiomeGrid(x, z, width, length, biomes);
+            return biomes;
     	}
 
 
     	@Override
-    	public Set<Biome> getBiomesInSquare(int centerX, int centerZ, int sideLength) {
-    		// TODO Auto-generated method stub
-    		return null;
+    	public Set<Biome> getBiomesInSquare(int centerX, int centerZ, int side) {
+    		Set<Biome> out = new HashSet<Biome>();
+    		int r = side / 2;
+            Biome[] biomes = getBiomes(centerX - r, centerZ - r, side, side, false);
+            for(int i = 0; i < biomes.length; i++) {
+            	out.add(biomes[i]);
+            }
+    		return out;
     	}
 
 
     	@Override
     	public boolean hasStructure(Structure<?> structureIn) {
+    		Break this!
     		// TODO Auto-generated method stub
     		return false;
     	}
@@ -66,6 +76,7 @@ public class ClimaticBiomeProvider extends BiomeProvider {
 
     	@Override
     	public Set<BlockState> getSurfaceBlocks() {
+    		Break this!
     		// TODO Auto-generated method stub
     		return null;
     	}
@@ -88,7 +99,7 @@ public class ClimaticBiomeProvider extends BiomeProvider {
         int i1 = k - i + 1;
         int j1 = l - j + 1;
         Biome[] barr = new Biome[i1 * j1];
-        barr = this.getBiomes(barr, i, j, i1, j1);
+        barr = this.getBiomes(i, j, i1, j1, false);
         BlockPos blockpos = null;
         int k1 = 0;
 
@@ -106,14 +117,12 @@ public class ClimaticBiomeProvider extends BiomeProvider {
     }
 
 
-    @Override
     public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height) {
         if(biomes == null || biomes.length < width * height) {
             biomes = new Biome[width * height];
         }
         for(int i = 0; i < width; i++) 
                 for(int j = 0; j < height; j++) {
-                        //System.err.println(findBiomeAt((x + i) * 4, (z + j) * 4));
                         biomes[(j * width) + i] = findBiomeAt((x + i) * 4, (z + j) * 4);
                 }
         return biomes;
@@ -124,27 +133,6 @@ public class ClimaticBiomeProvider extends BiomeProvider {
         Biome[] chunk = new Biome[256];
         finder.getChunkBiomeGen(x / 16, z / 16, chunk);
         return chunk[(chunkModulus(z) * 16) + chunkModulus(x)];
-    }
-    
-
-    @Override
-    public Biome[] getBiomes(@Nullable Biome[] in, int x, int z, int width, int depth, boolean cacheFlag) {
-        //IntCache.resetIntCache();
-        if((in == null) || (in.length < (width * depth))) {
-            in = new Biome[width * depth];
-        }
-        // FIXME?? This should probably check more strictly if its an exact whole chunk...?
-        if(in.length == 256) {
-                finder.getChunkBiomeGrid(x / 16, z / 16, in);
-        } else {
-                finder.getUnalignedBiomeGrid(x, z, width, depth, in);
-        }
-        return in;
-    }
-    
-    
-    private int getIDForCoords(int x, int z) {
-        return Biome.getIdForBiome(getBiome(new BlockPos(x * 4, 64, z * 4)));
     }
     
     
@@ -158,7 +146,6 @@ public class ClimaticBiomeProvider extends BiomeProvider {
     }
 
     
-    @Override
     public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed) {
         x = (x - 8) / 16;
         z = (z - 8) / 16;
@@ -174,18 +161,6 @@ public class ClimaticBiomeProvider extends BiomeProvider {
 
     
     public void cleanupCache() {
-        if(vanillaCacheValid) try {
-                super.cleanupCache();
-        } catch (Exception e) {
-                // This is hacky and only testing will tell
-                // if I needed to call the super class method;
-                // i.e., if not doing so will cause memory
-                // problems due to Minecraft creating such data
-                // on its own.
-                vanillaCacheValid = false;
-                System.err.println("Error cleaning up vanilla biome cache; "
-                                + "should I be trying to do that?!"); 
-        }
         finder.cleanCaches();
     }
 
