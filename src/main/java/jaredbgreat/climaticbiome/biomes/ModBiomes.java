@@ -1,20 +1,36 @@
 package jaredbgreat.climaticbiome.biomes;
 
+import jaredbgreat.climaticbiome.biomes.basic.Scrub;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.DefaultBiomeFeatures;
+import net.minecraft.world.biome.Biome.RainType;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.structure.MineshaftConfig;
+import net.minecraft.world.gen.feature.structure.MineshaftStructure;
+import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.fml.common.Mod;
 
 
 @Mod.EventBusSubscriber
-public class ModBiomes {/*
-	
+public class ModBiomes {
+	/*
 	public static WarmForest      warmForest;
 	public static TropicalForest  tropicalForest;
 	public static WarmForest      warmForestHills;
-	public static TropicalForest  tropicalForestHills;
+	public static TropicalForest  tropicalForestHills;	
 	public static Pinewoods       pineWoods;
+	*/
 	public static Scrub           denseScrub;
 	public static Scrub           dryScrub;
 	public static Scrub           denseScrubHills;
 	public static Scrub           dryScrubHills;
+	/*
 	public static BiomePlains     coolPlains;
 	public static WindsweptPlains windswept;
 	public static WindsweptPlains coolWindswept;
@@ -40,13 +56,14 @@ public class ModBiomes {/*
 	public static BiomeRiver warmRiver;
 	public static BiomeRiver hotRiver;
     
-    
-    public static void createBiomes() {
+    */
+    public static void createBiomes() {/*
     	if(ConfigHandler.includeForests) {
     		createForests();
     	}
-    	// Scrub cannot be config'ed out because it lacks an good vanilla analog. 
-    	createScrub();
+    	// Scrub cannot be config'ed out because it lacks an good vanilla analog.
+    	*/  
+    	createScrub();/*
     	if(ConfigHandler.includeMountains) {
     		createMountains();
     	}
@@ -61,8 +78,8 @@ public class ModBiomes {/*
 		if(ConfigHandler.includeRivers) {
 			makeAdvancedRivers();
 		}
-    }
-    
+    */}
+     /*
     
     private static void createForests() {
 		warmForest = new WarmForest();
@@ -86,42 +103,80 @@ public class ModBiomes {/*
 					.setHeightVariation(0.3F));
 		makeMoreUsable(tropicalForestHills);
     }
-    
+    */
     
     private static void createScrub() {
-		denseScrub = new Scrub(Scrub.Type.DENSE, 
-				new Biome.BiomeProperties("Dense Scrub")
-					.setTemperature(1.0F)
-					.setRainfall(0.1F)
-					.setBaseHeight(0.125F)
-					.setHeightVariation(0.05F));
+		denseScrub = new Scrub(Scrub.ScrubType.DENSE,
+				new Biome.Builder()
+					.surfaceBuilder(new ConfiguredSurfaceBuilder<SurfaceBuilderConfig>
+						(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)) 
+								/*new SurfaceBuilderConfig(Blocks.GRASS_BLOCK.getDefaultState(), 
+										Blocks.DIRT.getDefaultState(), Blocks.CLAY.getDefaultState()*/
+					.category(Biome.Category.DESERT)
+					.parent(null)
+					.precipitation(RainType.RAIN)
+					.depth(0.1125f)
+					.scale(0.05f)
+					.temperature(1.0F)
+					.downfall(0.2F)
+					.waterColor(4159204)
+					.waterFogColor(329011)
+				);
 		makeMoreUsable(denseScrub, true);
-		dryScrub = new Scrub(Scrub.Type.DRY, 
-				new Biome.BiomeProperties("Dry Scrub")
-					.setTemperature(1.25F)
-					.setRainfall(0.05F)
-					.setRainDisabled()
-					.setBaseHeight(0.125F)
-					.setHeightVariation(0.05F));
+		addCommonFeatures(denseScrub);
+		addCommonMobs(denseScrub);
+		dryScrub = new Scrub(Scrub.ScrubType.DRY,
+				new Biome.Builder()
+				.surfaceBuilder(new ConfiguredSurfaceBuilder<SurfaceBuilderConfig>
+					(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG))
+				.category(Biome.Category.DESERT)
+				.parent(null)
+				.precipitation(RainType.NONE)
+				.depth(0.125f)
+				.scale(0.05f)
+				.temperature(1.0F)
+				.downfall(0.05F)
+				.waterColor(4159204)
+				.waterFogColor(329011)
+			); 
 		makeMoreUsable(dryScrub);
-		denseScrubHills = new Scrub(Scrub.Type.DENSE, 
-				new Biome.BiomeProperties("Dense Scrub Hills")
-					.setTemperature(1.0F)
-					.setRainfall(0.1F)
-					.setBaseHeight(0.45F)
-					.setHeightVariation(0.3F));
+		addCommonFeatures(dryScrub);
+		addCommonMobs(dryScrub);
+		denseScrubHills = new Scrub(Scrub.ScrubType.DENSE,
+				new Biome.Builder()
+					.surfaceBuilder(new ConfiguredSurfaceBuilder<SurfaceBuilderConfig>
+						(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG))
+					.category(Biome.Category.DESERT)
+					.parent(null)
+					.precipitation(RainType.RAIN)
+					.depth(0.45f)
+					.scale(0.3f)
+					.temperature(1.0F)
+					.downfall(0.2F)
+					.waterColor(4159204)
+					.waterFogColor(329011)
+				);
 		makeMoreUsable(denseScrubHills);
-		dryScrubHills = new Scrub(Scrub.Type.DRY, 
-				new Biome.BiomeProperties("Dry Scrub Hills")
-					.setTemperature(1.25F)
-					.setRainfall(0.0F)
-					.setRainDisabled()
-					.setBaseHeight(0.45F)
-					.setHeightVariation(0.3F));
-		makeMoreUsable(dryScrubHills);
+		addCommonFeatures(denseScrubHills);
+		addCommonMobs(denseScrubHills);
+		dryScrubHills = new Scrub(Scrub.ScrubType.DRY,
+				new Biome.Builder()
+				.surfaceBuilder(new ConfiguredSurfaceBuilder<SurfaceBuilderConfig>
+					(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG))
+				.category(Biome.Category.DESERT)
+				.parent(null)
+				.precipitation(RainType.NONE)
+				.depth(0.45f)
+				.scale(0.3f)
+				.temperature(1.0F)
+				.downfall(0.05F)
+				.waterColor(4159204)
+				.waterFogColor(329011)
+				
+			); 
     }
     
-    
+    /*
     private static void createMountains() {
 		warmMountain  
 				= new SubtropicalMountains(BiomeHills.Type.NORMAL,
@@ -395,21 +450,6 @@ public class ModBiomes {/*
 	}
 	
 	
-	private static void makeMoreUsable(Biome biome) {
-		BiomeManager.addSpawnBiome(biome);
-		BiomeManager.addStrongholdBiome(biome);
-	}
-	
-	
-	private static void makeMoreUsable(Biome biome, boolean villages) {
-		BiomeManager.addSpawnBiome(biome);
-		BiomeManager.addStrongholdBiome(biome);
-		if(villages) {
-			BiomeManager.addVillageBiome(biome, villages);
-		}
-	}
-	
-	
 	private static void makeAdvancedRivers() {
 		river = new BiomeRiver(new Biome.BiomeProperties("River").setBaseHeight(-0.8f)
 											            .setHeightVariation(0.0f)
@@ -508,4 +548,58 @@ public class ModBiomes {/*
 		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(bog, 5));
 		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(carr, 10));
 	}
-*/}
+*/
+	
+	
+	private static void makeMoreUsable(Biome biome) {/*
+		BiomeManager.addSpawnBiome(biome);
+		BiomeManager.addStrongholdBiome(biome);
+	*/}
+	
+	
+	private static void makeMoreUsable(Biome biome, boolean villages) {/*
+		BiomeManager.addSpawnBiome(biome);
+		BiomeManager.addStrongholdBiome(biome);
+		if(villages) {
+			BiomeManager.addVillageBiome(biome, villages);
+		}
+	*/}
+	
+	public static void addCommonFeatures(Biome biome) {
+	      biome.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
+	      biome.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+	      biome.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+	      DefaultBiomeFeatures.addCarvers(biome);
+	      DefaultBiomeFeatures.addStructures(biome);
+	      DefaultBiomeFeatures.addLakes(biome);
+	      DefaultBiomeFeatures.addMonsterRooms(biome);
+	      DefaultBiomeFeatures.addDoubleFlowers(biome);
+	      DefaultBiomeFeatures.addStoneVariants(biome);
+	      DefaultBiomeFeatures.addOres(biome);
+	      DefaultBiomeFeatures.addSedimentDisks(biome);
+	      DefaultBiomeFeatures.addForestTrees(biome);
+	      DefaultBiomeFeatures.addDefaultFlowers(biome);
+	      DefaultBiomeFeatures.addGrass(biome);
+	      DefaultBiomeFeatures.addMushrooms(biome);
+	      DefaultBiomeFeatures.addReedsAndPumpkins(biome);
+	      DefaultBiomeFeatures.addSprings(biome);
+	      DefaultBiomeFeatures.addFreezeTopLayer(biome);
+	}
+
+	public static void addCommonMobs(Biome biome) {/*	
+	      biome.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(EntityType.SHEEP, 12, 4, 4));
+	      biome.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(EntityType.PIG, 10, 4, 4));
+	      biome.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(EntityType.CHICKEN, 10, 4, 4));
+	      biome.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(EntityType.COW, 8, 4, 4));;
+	      biome.addSpawn(EntityClassification.AMBIENT, new Biome.SpawnListEntry(EntityType.BAT, 10, 8, 8));
+	      biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.SPIDER, 100, 4, 4));
+	      biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.ZOMBIE, 95, 4, 4));
+	      biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.ZOMBIE_VILLAGER, 5, 1, 1));
+	      biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.SKELETON, 100, 4, 4));
+	      biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.CREEPER, 100, 4, 4));
+	      biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.SLIME, 100, 4, 4));
+	      biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.ENDERMAN, 10, 1, 4));
+	      biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.WITCH, 5, 1, 1));		
+	*/}
+
+}

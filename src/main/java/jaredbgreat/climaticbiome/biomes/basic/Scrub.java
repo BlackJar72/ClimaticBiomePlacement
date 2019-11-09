@@ -1,25 +1,25 @@
 package jaredbgreat.climaticbiome.biomes.basic;
 
-public class Scrub /*extends Biome*/ {/*
-	private static final WorldGenBlockBlob ROCK_PILES 
-				= new WorldGenBlockBlob(Blocks.COBBLESTONE, 0);
-	private static boolean deepSand = true;
-	private static boolean makeRocks = true;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.extensions.IForgeBlockState;
+
+public class Scrub extends Biome {	
+	//private static final WorldGenBlockBlob ROCK_PILES 
+	//			= new WorldGenBlockBlob(Blocks.COBBLESTONE, 0);
+	//private static boolean deepSand = true;
+	//private static boolean makeRocks = true;	
 	
+	private final ScrubType type;
 	
-	private final Type type;
-	
-	public static enum Type {
-		DENSE (Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, 
-				BlockDirt.DirtType.COARSE_DIRT)),
-		DRY (Blocks.SAND.getDefaultState());
-		public final IBlockState altTop;
-		Type(IBlockState block) {
-			altTop = block;
-		}
+	public static enum ScrubType {
+		DENSE,
+		DRY;
 	}
 
-	public Scrub(Type type, BiomeProperties properties) {
+	public Scrub(ScrubType type, Biome.Builder builder) {
+		super(builder);
+		this.type = type;
+		/*
 		super(properties);
 		this.type = type;
 		decorator.deadBushPerChunk = 5;
@@ -29,8 +29,10 @@ public class Scrub /*extends Biome*/ {/*
 		} else {
 			setupDense();
 		}
+		*/
 	}
 	
+	/*
 	
 	private void setupDense() {
 		decorator.treesPerChunk = 3;
