@@ -1,17 +1,16 @@
 package jaredbgreat.climaticbiome.biomes;
 
 import jaredbgreat.climaticbiome.biomes.basic.Scrub;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
+import jaredbgreat.climaticbiome.biomes.surface.ScrubSurfaceBuilder;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.biome.Biome.RainType;
+import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.GiantTreeTaigaSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.fml.common.Mod;
@@ -57,6 +56,15 @@ public class ModBiomes {
 	public static BiomeRiver hotRiver;
     
     */
+	
+	public static final ScrubSurfaceBuilder denceScrubTop 
+		= new ScrubSurfaceBuilder(SurfaceBuilderConfig::deserialize)
+			.setScrubType(Scrub.ScrubType.DENSE);
+	public static final ScrubSurfaceBuilder dryScrubTop 
+		= new ScrubSurfaceBuilder(SurfaceBuilderConfig::deserialize)
+			.setScrubType(Scrub.ScrubType.DRY);
+	
+	
     public static void createBiomes() {/*
     	if(ConfigHandler.includeForests) {
     		createForests();
@@ -109,7 +117,7 @@ public class ModBiomes {
 		denseScrub = new Scrub(Scrub.ScrubType.DENSE,
 				new Biome.Builder()
 					.surfaceBuilder(new ConfiguredSurfaceBuilder<SurfaceBuilderConfig>
-						(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)) 
+						(denceScrubTop, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)) 
 								/*new SurfaceBuilderConfig(Blocks.GRASS_BLOCK.getDefaultState(), 
 										Blocks.DIRT.getDefaultState(), Blocks.CLAY.getDefaultState()*/
 					.category(Biome.Category.DESERT)
@@ -128,7 +136,7 @@ public class ModBiomes {
 		dryScrub = new Scrub(Scrub.ScrubType.DRY,
 				new Biome.Builder()
 				.surfaceBuilder(new ConfiguredSurfaceBuilder<SurfaceBuilderConfig>
-					(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG))
+					(dryScrubTop, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG))
 				.category(Biome.Category.DESERT)
 				.parent(null)
 				.precipitation(RainType.NONE)
@@ -145,7 +153,7 @@ public class ModBiomes {
 		denseScrubHills = new Scrub(Scrub.ScrubType.DENSE,
 				new Biome.Builder()
 					.surfaceBuilder(new ConfiguredSurfaceBuilder<SurfaceBuilderConfig>
-						(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG))
+						(denceScrubTop, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG))
 					.category(Biome.Category.DESERT)
 					.parent(null)
 					.precipitation(RainType.RAIN)
@@ -162,7 +170,7 @@ public class ModBiomes {
 		dryScrubHills = new Scrub(Scrub.ScrubType.DRY,
 				new Biome.Builder()
 				.surfaceBuilder(new ConfiguredSurfaceBuilder<SurfaceBuilderConfig>
-					(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG))
+					(dryScrubTop, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG))
 				.category(Biome.Category.DESERT)
 				.parent(null)
 				.precipitation(RainType.NONE)
@@ -174,6 +182,9 @@ public class ModBiomes {
 				.waterFogColor(329011)
 				
 			); 
+		makeMoreUsable(dryScrubHills);
+		addCommonFeatures(dryScrubHills);
+		addCommonMobs(dryScrubHills);
     }
     
     /*
