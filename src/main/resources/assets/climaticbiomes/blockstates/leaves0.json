@@ -1,0 +1,19 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "tree": {
+            "0": {
+                "model": "climaticbiomes:pine_leaves"
+            },
+            "1": {
+                "model": "minecraft:jungle_leaves"
+            }
+        },
+        "hydro": {
+            "1": {},
+            "2": {},
+            "3": {},
+            "4": {}
+        }
+    }
+}

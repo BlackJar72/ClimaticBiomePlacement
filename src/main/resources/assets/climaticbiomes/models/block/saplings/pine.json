@@ -1,0 +1,7 @@
+{   "parent": "dynamictrees:block/sapling",
+    "textures": {
+        "particle": "climaticbiomes:blocks/pineleaves2",
+        "log": "climaticbiomes:blocks/pinebark",
+        "leaves": "climaticbiomes:blocks/pineleaves2"
+    }
+}

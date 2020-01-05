@@ -1,0 +1,50 @@
+{
+  "generator.climatic_bp": "Climatic",
+
+  "createWorld.climaticbiomes.biomesize": "Biome Size",
+  "createWorld.climaticbiomes.genscale": "Map Scale",
+  "createWorld.climaticbiomes.sisize": "Survival Island Size",
+
+  "createWorld.climaticbiomes.continents": "Continents",
+  "createWorld.climaticbiomes.isles": "Large Islands",
+  "createWorld.climaticbiomes.water": "Water World",
+  "createWorld.climaticbiomes.sislands": "Survival Island",
+
+  "createWorld.climaticbiomes.forcewhole.on": "Force Whole Biomes: Yes",
+  "createWorld.climaticbiomes.addbeach.on": "Add Extra Beach: Yes",
+  "createWorld.climaticbiomes.addisles.on": "Add Extra Islands: Yes",
+  "createWorld.climaticbiomes.rockyscrub.on": "Rocky Scrub: Yes",
+  "createWorld.climaticbiomes.deepsand.on": "Deep Sand in Scrub: Yes",
+  "createWorld.climaticbiomes.volcanicislses.on": "Volcanic Islands: Yes",
+  "createWorld.climaticbiomes.hasrivers.on": "Make Rivers: Yes",
+
+  "createWorld.climaticbiomes.forcewhole.off": "Force Whole Biomes: No",
+  "createWorld.climaticbiomes.addbeach.off": "Add Extra Beach: No",
+  "createWorld.climaticbiomes.addisles.off": "Add Extra Islands: No",
+  "createWorld.climaticbiomes.rockyscrub.off": "Rocky Scrub: No",
+  "createWorld.climaticbiomes.deepsand.off": "Deep Sand in Scrub: No",
+  "createWorld.climaticbiomes.volcanicislses.off": "Volcanic Islands: No",
+  "createWorld.climaticbiomes.hasrivers.off": "Make Rivers: No",
+
+
+  "createWorld.climaticbiomes.bopconf": "Configure Biomes O'Plenty",
+
+  "block.climaticbiomes.pine_log": "Pine Wood",
+  "block.climaticbiomes.pine_leaves.oak": "Pine Needles",
+  "block.climaticbiomes.pine_planks": "Pine Wood Planks",
+  "block.climaticbiomes.pine_bark": "Pine Bark",
+  "block.climaticbiomes.pine_sapling": "Pine Sapling",
+  "block.climaticbiomes.pine_slab": "Pine Wood Slab",
+  "block.climaticbiomes.pine_stairs": "Pine Stairs",
+  "block.climaticbiomes.pine_fence": "Pine Fence",
+  "block.climaticbiomes.pine_gate": "Pine Fence Gate",
+  "block.climaticbiomes.block_basalt": "Basalt",
+  "block.climaticbiomes.basalt_polished": "Polished Basalt",
+  "block.climaticbiomes.volcanic_ash": "Volcanic Ash",
+
+  "block.climaticbiomes.peat": "Peat",
+
+  "item.block.climaticbiomes.pine_door": "Pine Door",
+  "item.climaticbiomes:pineseed": "Pine Cone"
+}
+

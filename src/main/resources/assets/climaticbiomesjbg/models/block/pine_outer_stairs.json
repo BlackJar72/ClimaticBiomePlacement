@@ -1,8 +1,0 @@
-{
-    "parent": "block/outer_stairs",
-    "textures": {
-        "bottom": "climaticbiomesjbg:blocks/pineplanks",
-        "top": "climaticbiomesjbg:blocks/pineplanks",
-        "side": "climaticbiomesjbg:blocks/pineplanks"
-    }
-}
