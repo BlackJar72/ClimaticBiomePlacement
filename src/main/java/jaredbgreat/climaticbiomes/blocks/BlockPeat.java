@@ -19,12 +19,6 @@ public class BlockPeat extends Block {
     }
 
 
-    @Override
-    public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return true;
-    }
-
-
     private static Block.Properties makeProperties() {
         Block.Properties out = Block.Properties.create(Material.EARTH, MaterialColor.DIRT);
         out.hardnessAndResistance(0.8f); // Dense and waterlogged (not in the MC sense)
