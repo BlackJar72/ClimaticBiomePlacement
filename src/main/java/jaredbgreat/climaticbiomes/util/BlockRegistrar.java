@@ -7,6 +7,7 @@ import jaredbgreat.climaticbiomes.blocks.BlockPeat;
 import jaredbgreat.climaticbiomes.blocks.BlockPlanks;
 import jaredbgreat.climaticbiomes.blocks.ItemBlocks.ItemFuelBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.SlabBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
 
@@ -30,6 +31,18 @@ public final class BlockRegistrar {
     // Misc Blocks
     static BlockAsh blockVolcanicAsh;
     static BlockPeat blockPeat;
+
+    // Slabs
+    static SlabBlock slabBasalt;
+    static SlabBlock slabPolishedBasalt;
+    static SlabBlock slabBasaltBricks;
+    static SlabBlock slabBasaltBricksCracked;
+    static SlabBlock slabGraniteBricks;
+    static SlabBlock slabGraniteBricksCracked;
+    static SlabBlock slabAndesiteBricks;
+    static SlabBlock slabAndesiteBricksCracked;
+    static SlabBlock slabDioriteBricks;
+    static SlabBlock slabDioriteBricksCracked;
 
 
 
@@ -69,6 +82,7 @@ public final class BlockRegistrar {
         // Misc Blocks
         ItemRegistrar.addItemBlock(blockVolcanicAsh = new BlockAsh("volcanic_ash"), ItemGroup.BUILDING_BLOCKS);
         ItemRegistrar.addItem(new ItemFuelBlock(blockPeat = new BlockPeat("peat"), 3200));
+
     }
 
 
@@ -87,6 +101,14 @@ public final class BlockRegistrar {
         event.getRegistry().register(blockVolcanicAsh);
         event.getRegistry().register(blockPinePlanks);
         event.getRegistry().register(blockPeat);
+    }
+
+
+    private static SlabBlock makeSlabe(Block whole) {
+        SlabBlock out = new SlabBlock(Block.Properties.from(whole));
+        out.setRegistryName(whole.getRegistryName() + "_slab");
+        ItemRegistrar.addItemBlock(out, ItemGroup.BUILDING_BLOCKS);
+        return out;
     }
 
 
