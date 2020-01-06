@@ -30,7 +30,6 @@ public final class ItemRegistrar {
         public BlockItem makeItem() {
             BlockItem out = new BlockItem(block, new Item.Properties().group(group));
             out.setRegistryName(block.getRegistryName());
-            //buttFuck(out.getRegistryName().toString());
             return out;
         }
     }
@@ -50,19 +49,6 @@ public final class ItemRegistrar {
 
     static void addItemBlock(Block block, ItemGroup group) {
         blocks.add(new BlockStore(block, group));
-    }
-
-
-
-    private static void buttFuck(String fucked) {
-        String msg = "Fucking " + fucked + "!!!";
-        Logger fucker = ClimaticBiomes.getLogger();
-        for(int i = 0; i < 1000; i++) {
-            fucker.info(msg);
-        }
-        for(int i = 0; i < 1000; i++) {
-            System.err.println(msg);
-        }
     }
 
 
