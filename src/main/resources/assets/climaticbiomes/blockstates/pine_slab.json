@@ -1,7 +1,9 @@
 {
     
     "variants": {
-        "half=bottom": { "model": "climaticbiomes:half_slab_pine" },
-        "half=top": { "model": "climaticbiomes:upper_slab_pine" }
+        "type=bottom": { "model": "climaticbiomes:block/pine_slab_lower" },
+        "type=top":    { "model": "climaticbiomes:block/pine_slab_upper" },
+        "type=double": { "model": "climaticbiomes:block/pine_planks" }
     }
 }
+

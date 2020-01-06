@@ -1,6 +1,7 @@
 package jaredbgreat.climaticbiomes.util;
 
 import jaredbgreat.climaticbiomes.ClimaticBiomes;
+import jaredbgreat.climaticbiomes.Info;
 import jaredbgreat.climaticbiomes.blocks.BlockAsh;
 import jaredbgreat.climaticbiomes.blocks.BlockIgneus;
 import jaredbgreat.climaticbiomes.blocks.BlockPeat;
@@ -27,6 +28,7 @@ public final class BlockRegistrar {
 
     //Pine Blocks
     static BlockPlanks blockPinePlanks;
+    static SlabBlock slabPine;
 
     // Misc Blocks
     static BlockAsh blockVolcanicAsh;
@@ -78,6 +80,7 @@ public final class BlockRegistrar {
                 ItemGroup.BUILDING_BLOCKS);
         // Pine related blocks
         ItemRegistrar.addItem(new ItemFuelBlock(blockPinePlanks = new BlockPlanks("pine_planks"), 300));
+        ItemRegistrar.addItem(new ItemFuelBlock(slabPine = makeSlab(blockPinePlanks, "pine_slab"), 300));
 
         // Misc Blocks
         ItemRegistrar.addItemBlock(blockVolcanicAsh = new BlockAsh("volcanic_ash"), ItemGroup.BUILDING_BLOCKS);
@@ -100,14 +103,21 @@ public final class BlockRegistrar {
         event.getRegistry().register(blockDioriteBricksCracked);
         event.getRegistry().register(blockVolcanicAsh);
         event.getRegistry().register(blockPinePlanks);
+        event.getRegistry().register(slabPine);
         event.getRegistry().register(blockPeat);
     }
 
 
-    private static SlabBlock makeSlabe(Block whole) {
+    private static SlabBlock makeSlab(Block whole) {
         SlabBlock out = new SlabBlock(Block.Properties.from(whole));
         out.setRegistryName(whole.getRegistryName() + "_slab");
-        ItemRegistrar.addItemBlock(out, ItemGroup.BUILDING_BLOCKS);
+        return out;
+    }
+
+
+    private static SlabBlock makeSlab(Block whole, String name) {
+        SlabBlock out = new SlabBlock(Block.Properties.from(whole));
+        out.setRegistryName(Info.ID, name);
         return out;
     }
 

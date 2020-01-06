@@ -1,8 +1,0 @@
-{
-    "parent": "block/half_slab",
-    "textures": {
-        "bottom": "climaticbiomes:blocks/pineplanks",
-        "top": "climaticbiomes:blocks/pineplanks",
-        "side": "climaticbiomes:blocks/pineplanks"
-    }
-}
