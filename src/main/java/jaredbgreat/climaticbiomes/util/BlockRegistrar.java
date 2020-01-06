@@ -3,15 +3,16 @@ package jaredbgreat.climaticbiomes.util;
 import jaredbgreat.climaticbiomes.ClimaticBiomes;
 import jaredbgreat.climaticbiomes.blocks.BlockAsh;
 import jaredbgreat.climaticbiomes.blocks.BlockIgneus;
+import jaredbgreat.climaticbiomes.blocks.BlockPeat;
 import jaredbgreat.climaticbiomes.blocks.BlockPlanks;
-import jaredbgreat.climaticbiomes.blocks.ItemBlocks.ItemPlanks;
+import jaredbgreat.climaticbiomes.blocks.ItemBlocks.ItemFuelBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
 
 public final class BlockRegistrar {
 
-    // List of Blocks
+    // Stony Blocks
     static BlockIgneus blockBasalt;
     static BlockIgneus blockPolishedBasalt;
     static BlockIgneus blockBasaltBricks;
@@ -23,10 +24,12 @@ public final class BlockRegistrar {
     static BlockIgneus blockDioriteBricks;
     static BlockIgneus blockDioriteBricksCracked;
 
-    static BlockAsh blockVolcanicAsh;
-
     //Pine Blocks
     static BlockPlanks blockPinePlanks;
+
+    // Misc Blocks
+    static BlockAsh blockVolcanicAsh;
+    static BlockPeat blockPeat;
 
 
 
@@ -60,9 +63,12 @@ public final class BlockRegistrar {
                 ItemGroup.BUILDING_BLOCKS);
         ItemRegistrar.addItemBlock(blockDioriteBricksCracked = new BlockIgneus("diorite_bricks_cracked"),
                 ItemGroup.BUILDING_BLOCKS);
-        ItemRegistrar.addItemBlock(blockVolcanicAsh = new BlockAsh("volcanic_ash"), ItemGroup.BUILDING_BLOCKS);
         // Pine related blocks
-        ItemRegistrar.addItem(new ItemPlanks(blockPinePlanks = new BlockPlanks("pine_planks")));
+        ItemRegistrar.addItem(new ItemFuelBlock(blockPinePlanks = new BlockPlanks("pine_planks"), 300));
+
+        // Misc Blocks
+        ItemRegistrar.addItemBlock(blockVolcanicAsh = new BlockAsh("volcanic_ash"), ItemGroup.BUILDING_BLOCKS);
+        ItemRegistrar.addItem(new ItemFuelBlock(blockPeat = new BlockPeat("peat"), 3200));
     }
 
 
@@ -80,6 +86,7 @@ public final class BlockRegistrar {
         event.getRegistry().register(blockDioriteBricksCracked);
         event.getRegistry().register(blockVolcanicAsh);
         event.getRegistry().register(blockPinePlanks);
+        event.getRegistry().register(blockPeat);
     }
 
 

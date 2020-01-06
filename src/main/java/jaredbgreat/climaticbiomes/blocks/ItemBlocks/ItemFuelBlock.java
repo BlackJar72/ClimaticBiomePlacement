@@ -7,17 +7,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
-public class ItemPlanks extends BlockItem {
+public class ItemFuelBlock extends BlockItem {
+    private final int burnTime;
 
-    public ItemPlanks(Block block) {
+    public ItemFuelBlock(Block block, int burnTime) {
         super(block, makeProperties(block));
         this.setRegistryName(block.getRegistryName());
+        this.burnTime = burnTime;
     }
 
 
     @Override
     public int getBurnTime(ItemStack stack) {
-        return 300;
+        return burnTime;
     }
 
 

@@ -6,11 +6,11 @@
   ],
   "key": {
     "#": {
-      "item": "climaticbiomesjbg:pine_planks"
+      "item": "climaticbiomes:pine_planks"
     }
   },
   "result": {
-    "item": "climaticbiomesjbg:pine_slab",
+    "item": "climaticbiomes:pine_slab",
     "data": 0,
     "count": 6
   }

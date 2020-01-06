@@ -1,20 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "minecraft:wooden_fence",
+  "group": "minecraft:wooden_fence_gate",
   "pattern": [
-    "W#W",
-    "W#W"
+    "#W#",
+    "#W#"
   ],
   "key": {
     "#": {
       "item": "minecraft:stick"
     },
     "W": {
-      "item": "climaticbiomesjbg:pine_planks"
+      "item": "climaticbiomes:pine_planks"
     }
   },
   "result": {
-    "item": "climaticbiomesjbg:pine_fence",
-    "count": 3
+    "item": "climaticbiomes:pine_gate"
   }
 }

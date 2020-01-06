@@ -6,11 +6,11 @@
   ],
   "key": {
     "S": {
-      "item": "climaticbiomesjbg:basalt"
+      "item": "climaticbiomes:block_basalt"
     }
   },
   "result": {
-    "item": "climaticbiomesjbg:basalt_polished",
+    "item": "climaticbiomes:basalt_polished",
     "count": 4
   }
 }

@@ -6,11 +6,11 @@
   ],
   "key": {
     "#": {
-      "item": "climaticbiomesjbg:pine_log"
+      "item": "climaticbiomes:pine_log"
     }
   },
   "result": {
-    "item": "climaticbiomesjbg:pine_planks",
+    "item": "climaticbiomes:pine_planks",
     "count": 4
   }
 }

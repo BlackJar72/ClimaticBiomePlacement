@@ -21,7 +21,7 @@ public class BlockAsh extends FallingBlock {
 
     private static Block.Properties makeProperties() {
         Block.Properties out = Block.Properties.create(Material.SAND, MaterialColor.STONE);
-        out.hardnessAndResistance(0.7f);
+        out.hardnessAndResistance(0.6f);
         out.harvestLevel(0);
         out.harvestTool(ToolType.SHOVEL);
         out.sound(SoundType.SAND);
