@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "climaticbiomes:blocks/pineplanks"
+        "all": "climaticbiomes:blocks/pine_planks"
     }
 }

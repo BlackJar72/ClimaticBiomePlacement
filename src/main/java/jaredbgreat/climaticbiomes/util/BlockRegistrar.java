@@ -1,7 +1,10 @@
 package jaredbgreat.climaticbiomes.util;
 
 import jaredbgreat.climaticbiomes.ClimaticBiomes;
-import jaredbgreat.climaticbiomes.blocks.BlockBasalt;
+import jaredbgreat.climaticbiomes.blocks.BlockAsh;
+import jaredbgreat.climaticbiomes.blocks.BlockIgneus;
+import jaredbgreat.climaticbiomes.blocks.BlockPlanks;
+import jaredbgreat.climaticbiomes.blocks.ItemBlocks.ItemPlanks;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
@@ -9,11 +12,21 @@ import net.minecraftforge.event.RegistryEvent;
 public final class BlockRegistrar {
 
     // List of Blocks
-    static BlockBasalt blockBasalt;
-    static BlockBasalt blockPolishedBasalt;
-    static BlockBasalt blockBasaltBricks;
-    static BlockBasalt blockBasaltBricksCracked;
+    static BlockIgneus blockBasalt;
+    static BlockIgneus blockPolishedBasalt;
+    static BlockIgneus blockBasaltBricks;
+    static BlockIgneus blockBasaltBricksCracked;
+    static BlockIgneus blockGraniteBricks;
+    static BlockIgneus blockGraniteBricksCracked;
+    static BlockIgneus blockAndesiteBricks;
+    static BlockIgneus blockAndesiteBricksCracked;
+    static BlockIgneus blockDioriteBricks;
+    static BlockIgneus blockDioriteBricksCracked;
 
+    static BlockAsh blockVolcanicAsh;
+
+    //Pine Blocks
+    static BlockPlanks blockPinePlanks;
 
 
 
@@ -26,14 +39,30 @@ public final class BlockRegistrar {
 
     private static void makeBlocks() {
         ClimaticBiomes.getLogger().info("Creating Blocks for Climatic Biomes");
-        ItemRegistrar.addItemBlock(blockBasalt = new BlockBasalt("block_basalt"),
+        // Basalt, plus variants on vanilla igneus intrusive blocks
+        ItemRegistrar.addItemBlock(blockBasalt = new BlockIgneus("block_basalt"),
                 ItemGroup.BUILDING_BLOCKS);
-        ItemRegistrar.addItemBlock(blockPolishedBasalt = new BlockBasalt("basalt_polished"),
+        ItemRegistrar.addItemBlock(blockPolishedBasalt = new BlockIgneus("basalt_polished"),
                 ItemGroup.BUILDING_BLOCKS);
-        ItemRegistrar.addItemBlock(blockBasaltBricks = new BlockBasalt("basalt_bricks"),
+        ItemRegistrar.addItemBlock(blockBasaltBricks = new BlockIgneus("basalt_bricks"),
                 ItemGroup.BUILDING_BLOCKS);
-        ItemRegistrar.addItemBlock(blockBasaltBricksCracked = new BlockBasalt("basalt_bricks_cracked"),
+        ItemRegistrar.addItemBlock(blockBasaltBricksCracked = new BlockIgneus("basalt_bricks_cracked"),
                 ItemGroup.BUILDING_BLOCKS);
+        ItemRegistrar.addItemBlock(blockGraniteBricks = new BlockIgneus("granite_bricks"),
+                ItemGroup.BUILDING_BLOCKS);
+        ItemRegistrar.addItemBlock(blockGraniteBricksCracked = new BlockIgneus("granite_bricks_cracked"),
+                ItemGroup.BUILDING_BLOCKS);
+        ItemRegistrar.addItemBlock(blockAndesiteBricks = new BlockIgneus("andesite_bricks"),
+                ItemGroup.BUILDING_BLOCKS);
+        ItemRegistrar.addItemBlock(blockAndesiteBricksCracked = new BlockIgneus("andesite_bricks_cracked"),
+                ItemGroup.BUILDING_BLOCKS);
+        ItemRegistrar.addItemBlock(blockDioriteBricks = new BlockIgneus("diorite_bricks"),
+                ItemGroup.BUILDING_BLOCKS);
+        ItemRegistrar.addItemBlock(blockDioriteBricksCracked = new BlockIgneus("diorite_bricks_cracked"),
+                ItemGroup.BUILDING_BLOCKS);
+        ItemRegistrar.addItemBlock(blockVolcanicAsh = new BlockAsh("volcanic_ash"), ItemGroup.BUILDING_BLOCKS);
+        // Pine related blocks
+        ItemRegistrar.addItem(new ItemPlanks(blockPinePlanks = new BlockPlanks("pine_planks")));
     }
 
 
@@ -43,8 +72,15 @@ public final class BlockRegistrar {
         event.getRegistry().register(blockPolishedBasalt);
         event.getRegistry().register(blockBasaltBricks);
         event.getRegistry().register(blockBasaltBricksCracked);
-
+        event.getRegistry().register(blockGraniteBricks);
+        event.getRegistry().register(blockGraniteBricksCracked);
+        event.getRegistry().register(blockAndesiteBricks);
+        event.getRegistry().register(blockAndesiteBricksCracked);
+        event.getRegistry().register(blockDioriteBricks);
+        event.getRegistry().register(blockDioriteBricksCracked);
+        event.getRegistry().register(blockVolcanicAsh);
+        event.getRegistry().register(blockPinePlanks);
     }
 
-    
+
 }

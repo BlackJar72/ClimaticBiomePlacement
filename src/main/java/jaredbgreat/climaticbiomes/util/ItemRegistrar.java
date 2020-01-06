@@ -17,7 +17,7 @@ import static net.minecraft.item.ItemGroup.BUILDING_BLOCKS;
 
 public final class ItemRegistrar {
     private static List<BlockStore> blocks = new ArrayList<>();
-    private static Map<String, Item> items = new HashMap<>();
+    private static List<Item> items = new ArrayList<>();
 
 
     private static final class BlockStore {
@@ -40,8 +40,9 @@ public final class ItemRegistrar {
     public static void registerItems(final RegistryEvent.Register<Item> event) {
         ClimaticBiomes.getLogger().info("Registering Items for Climatic Biomes");
         for(BlockStore block : blocks) {
-            Item item = block.makeItem();
-            items.put(block.block.getRegistryName().toString(), item);
+            items.add(block.makeItem());
+        }
+        for(Item item : items) {
             event.getRegistry().register(item);
         }
     }
@@ -50,6 +51,9 @@ public final class ItemRegistrar {
     static void addItemBlock(Block block, ItemGroup group) {
         blocks.add(new BlockStore(block, group));
     }
+
+
+    static void addItem(Item item) { items.add(item); }
 
 
 }

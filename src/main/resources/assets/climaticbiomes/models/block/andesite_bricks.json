@@ -1,7 +1,7 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "climaticbiomes:blocks/black_granite_polished"
+        "all": "climaticbiomes:blocks/andesite_bricks"
     }
 }
  
