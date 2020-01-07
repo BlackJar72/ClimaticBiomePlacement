@@ -29,8 +29,8 @@
 
   "createWorld.climaticbiomes.bopconf": "Configure Biomes O'Plenty",
 
-  "block.climaticbiomes.pine_log": "Pine Wood",
-  "block.climaticbiomes.pine_leaves.oak": "Pine Needles",
+  "block.climaticbiomes.pine_log": "Pine Log",
+  "block.climaticbiomes.pine_leaves": "Pine Needles",
   "block.climaticbiomes.pine_planks": "Pine Wood Planks",
   "block.climaticbiomes.pine_bark": "Pine Bark",
   "block.climaticbiomes.pine_sapling": "Pine Sapling",

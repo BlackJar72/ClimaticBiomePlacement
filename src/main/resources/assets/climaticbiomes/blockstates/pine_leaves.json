@@ -1,9 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "climaticbiomes:pine_leaves" },
-        "check_decay=false,decayable=false": { "model": "climaticbiomes:pine_leaves" },
-        "check_decay=true,decayable=false": { "model": "climaticbiomes:pine_leaves" },
-        "check_decay=true,decayable=true": { "model": "climaticbiomes:pine_leaves" },
-        "check_decay=false,decayable=true": { "model": "climaticbiomes:pine_leaves" }
+        "": { "model": "climaticbiomes:block/pine_leaves" }
     }
 }

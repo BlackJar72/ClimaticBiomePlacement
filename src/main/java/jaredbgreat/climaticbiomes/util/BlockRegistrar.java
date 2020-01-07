@@ -2,10 +2,7 @@ package jaredbgreat.climaticbiomes.util;
 
 import jaredbgreat.climaticbiomes.ClimaticBiomes;
 import jaredbgreat.climaticbiomes.Info;
-import jaredbgreat.climaticbiomes.blocks.BlockAsh;
-import jaredbgreat.climaticbiomes.blocks.BlockIgneus;
-import jaredbgreat.climaticbiomes.blocks.BlockPeat;
-import jaredbgreat.climaticbiomes.blocks.BlockPlanks;
+import jaredbgreat.climaticbiomes.blocks.*;
 import jaredbgreat.climaticbiomes.blocks.ItemBlocks.ItemFuelBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SlabBlock;
@@ -27,6 +24,8 @@ public final class BlockRegistrar {
     static BlockIgneus blockDioriteBricksCracked;
 
     //Pine Blocks
+    static BlockLog pineLog;
+    static BlockLeaves pineNeedles;
     static BlockPlanks blockPinePlanks;
     static SlabBlock slabPine;
 
@@ -78,7 +77,10 @@ public final class BlockRegistrar {
                 ItemGroup.BUILDING_BLOCKS);
         ItemRegistrar.addItemBlock(blockDioriteBricksCracked = new BlockIgneus("diorite_bricks_cracked"),
                 ItemGroup.BUILDING_BLOCKS);
+
         // Pine related blocks
+        ItemRegistrar.addItem(new ItemFuelBlock(pineLog = new BlockLog("pine_log"), 300));
+        ItemRegistrar.addItem(new ItemFuelBlock(pineNeedles = new BlockLeaves("pine_leaves"), 100));
         ItemRegistrar.addItem(new ItemFuelBlock(blockPinePlanks = new BlockPlanks("pine_planks"), 300));
         ItemRegistrar.addItem(new ItemFuelBlock(slabPine = makeSlab(blockPinePlanks, "pine_slab"), 300));
 
@@ -91,6 +93,7 @@ public final class BlockRegistrar {
 
     private static void registerBlocks(final RegistryEvent.Register<Block> event) {
         ClimaticBiomes.getLogger().info("Registering Blocks for Climatic Biomes");
+        // Volcano and Stone
         event.getRegistry().register(blockBasalt);
         event.getRegistry().register(blockPolishedBasalt);
         event.getRegistry().register(blockBasaltBricks);
@@ -102,8 +105,12 @@ public final class BlockRegistrar {
         event.getRegistry().register(blockDioriteBricks);
         event.getRegistry().register(blockDioriteBricksCracked);
         event.getRegistry().register(blockVolcanicAsh);
+        // Pine
+        event.getRegistry().register(pineLog);
+        event.getRegistry().register(pineNeedles);
         event.getRegistry().register(blockPinePlanks);
         event.getRegistry().register(slabPine);
+        // Misc
         event.getRegistry().register(blockPeat);
     }
 
