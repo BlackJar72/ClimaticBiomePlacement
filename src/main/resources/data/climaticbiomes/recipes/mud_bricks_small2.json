@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S S",
+    "   ",
+    "S S"
+  ],
+  "key": {
+    "S": {
+      "item": "climaticbiomes:cob"
+    }
+  },
+  "result": {
+    "item": "climaticbiomes:mud_bricks_small",
+    "count": 4
+  }
+}

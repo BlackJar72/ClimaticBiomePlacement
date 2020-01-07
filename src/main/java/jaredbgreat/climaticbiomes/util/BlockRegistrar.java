@@ -27,11 +27,15 @@ public final class BlockRegistrar {
     static BlockLog pineLog;
     static BlockLeaves pineNeedles;
     static BlockPlanks blockPinePlanks;
+    static BlockPlanks blockPinePlanksLong;
     static SlabBlock slabPine;
 
     // Misc Blocks
     static BlockAsh blockVolcanicAsh;
     static BlockPeat blockPeat;
+    static BlockCob blockCob;
+    static BlockCob blockMudBrickL;
+    static BlockCob blockMudBrickS;
 
     // Slabs
     static SlabBlock slabBasalt;
@@ -87,6 +91,9 @@ public final class BlockRegistrar {
         // Misc Blocks
         ItemRegistrar.addItemBlock(blockVolcanicAsh = new BlockAsh("volcanic_ash"), ItemGroup.BUILDING_BLOCKS);
         ItemRegistrar.addItem(new ItemFuelBlock(blockPeat = new BlockPeat("peat"), 3200));
+        ItemRegistrar.addItemBlock(blockCob = new BlockCob("cob"), ItemGroup.BUILDING_BLOCKS);
+        ItemRegistrar.addItemBlock(blockMudBrickL = new BlockCob("mud_bricks_large"), ItemGroup.BUILDING_BLOCKS);
+        ItemRegistrar.addItemBlock(blockMudBrickS = new BlockCob("mud_bricks_small"), ItemGroup.BUILDING_BLOCKS);
 
     }
 
@@ -112,6 +119,9 @@ public final class BlockRegistrar {
         event.getRegistry().register(slabPine);
         // Misc
         event.getRegistry().register(blockPeat);
+        event.getRegistry().register(blockCob);
+        event.getRegistry().register(blockMudBrickL);
+        event.getRegistry().register(blockMudBrickS);
     }
 
 

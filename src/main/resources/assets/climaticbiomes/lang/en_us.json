@@ -52,6 +52,10 @@
   "block.climaticbiomes.diorite_bricks": "Diorite Bricks",
   "block.climaticbiomes.diorite_bricks_cracked": "Cracked Diorite Bricks",
 
+  "block.climaticbiomes.cob": "Mud Cobb",
+  "block.climaticbiomes.mud_bricks_large": "Large Mud Bricks",
+  "block.climaticbiomes.mud_bricks_small": "Small Mud Bricksandesite_bricks.json",
+
   "block.climaticbiomes.peat": "Peat",
 
   "item.block.climaticbiomes.pine_door": "Pine Door",
