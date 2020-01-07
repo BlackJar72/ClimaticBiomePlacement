@@ -4,8 +4,7 @@ import jaredbgreat.climaticbiomes.ClimaticBiomes;
 import jaredbgreat.climaticbiomes.Info;
 import jaredbgreat.climaticbiomes.blocks.*;
 import jaredbgreat.climaticbiomes.blocks.ItemBlocks.ItemFuelBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.SlabBlock;
+import net.minecraft.block.*;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
 
@@ -25,10 +24,23 @@ public final class BlockRegistrar {
 
     //Pine Blocks
     static BlockLog pineLog;
+    static BlockLog pineLogStripped;
     static BlockLeaves pineNeedles;
     static BlockPlanks blockPinePlanks;
     static BlockPlanks blockPinePlanksLong;
     static SlabBlock slabPine;
+    static StairsBlock stairPine;
+    static FenceBlock pineFence;
+    static FenceGateBlock pineGate;
+    static DoorBlock pineDoor;
+    static StandingSignBlock pineSign;
+    static WallSignBlock pineWallSign;
+    static PressurePlateBlock pinePPlate;
+    static TrapDoorBlock pineTDoor;
+    static WoodButtonBlock pineNutton;
+    static RotatedPillarBlock barkPine;
+    static RotatedPillarBlock woodPine;
+    static FlowerPotBlock pinePotted;
 
     // Misc Blocks
     static BlockAsh blockVolcanicAsh;
@@ -48,6 +60,40 @@ public final class BlockRegistrar {
     static SlabBlock slabAndesiteBricksCracked;
     static SlabBlock slabDioriteBricks;
     static SlabBlock slabDioriteBricksCracked;
+    static SlabBlock slabCob;
+    static SlabBlock slabMudBrickL;
+    static SlabBlock slabMudBrickS;
+
+    // Stairs
+    static StairsBlock stairBasalt;
+    static StairsBlock stairPolishedBasalt;
+    static StairsBlock stairBasaltBricks;
+    static StairsBlock stairBasaltBricksCracked;
+    static StairsBlock stairGraniteBricks;
+    static StairsBlock stairGraniteBricksCracked;
+    static StairsBlock stairAndesiteBricks;
+    static StairsBlock stairAndesiteBricksCracked;
+    static StairsBlock stairDioriteBricks;
+    static StairsBlock stairDioriteBricksCracked;
+    static StairsBlock stairCob;
+    static StairsBlock stairMudBrickL;
+    static StairsBlock stairMudBrickS;
+
+    // Fence Walls
+    static WallBlock wallBasalt;
+    static WallBlock wallPolishedBasalt;
+    static WallBlock wallBasaltBricks;
+    static WallBlock wallBasaltBricksCracked;
+    static WallBlock wallGraniteBricks;
+    static WallBlock wallGraniteBricksCracked;
+    static WallBlock wallAndesiteBricks;
+    static WallBlock wallAndesiteBricksCracked;
+    static WallBlock wallDioriteBricks;
+    static WallBlock wallDioriteBricksCracked;
+    static WallBlock wallCob;
+    static WallBlock wallMudBrickL;
+    static WallBlock wallMudBrickS;
+
 
 
 
