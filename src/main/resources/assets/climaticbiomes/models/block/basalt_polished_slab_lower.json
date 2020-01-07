@@ -1,0 +1,8 @@
+{
+    "parent": "block/slab",
+    "textures": {
+        "bottom": "climaticbiomes:blocks/basalt_polished",
+        "top":    "climaticbiomes:blocks/basalt_polished",
+        "side":   "climaticbiomes:blocks/basalt_polished"
+    }
+}

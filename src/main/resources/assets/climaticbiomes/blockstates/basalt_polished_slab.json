@@ -1,0 +1,9 @@
+{
+    
+    "variants": {
+        "type=bottom": { "model": "climaticbiomes:block/basalt_polished_slab_lower" },
+        "type=top":    { "model": "climaticbiomes:block/basalt_polished_slab_upper" },
+        "type=double": { "model": "climaticbiomes:block/basalt_polished" }
+    }
+}
+

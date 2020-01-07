@@ -14,13 +14,13 @@ public final class BlockRegistrar {
     static BlockIgneus blockBasalt;
     static BlockIgneus blockPolishedBasalt;
     static BlockIgneus blockBasaltBricks;
-    static BlockIgneus blockBasaltBricksCracked;
-    static BlockIgneus blockGraniteBricks;
-    static BlockIgneus blockGraniteBricksCracked;
-    static BlockIgneus blockAndesiteBricks;
-    static BlockIgneus blockAndesiteBricksCracked;
-    static BlockIgneus blockDioriteBricks;
-    static BlockIgneus blockDioriteBricksCracked;
+//    static BlockIgneus blockBasaltBricksCracked;
+//    static BlockIgneus blockGraniteBricks;
+//    static BlockIgneus blockGraniteBricksCracked;
+//    static BlockIgneus blockAndesiteBricks;
+//    static BlockIgneus blockAndesiteBricksCracked;
+//    static BlockIgneus blockDioriteBricks;
+//    static BlockIgneus blockDioriteBricksCracked;
 
     //Pine Blocks
     static BlockLog pineLog;
@@ -45,54 +45,54 @@ public final class BlockRegistrar {
     // Misc Blocks
     static BlockAsh blockVolcanicAsh;
     static BlockPeat blockPeat;
-    static BlockCob blockCob;
-    static BlockCob blockMudBrickL;
-    static BlockCob blockMudBrickS;
+//    static BlockCob blockCob;
+//    static BlockCob blockMudBrickL;
+//    static BlockCob blockMudBrickS;
 
     // Slabs
     static SlabBlock slabBasalt;
     static SlabBlock slabPolishedBasalt;
     static SlabBlock slabBasaltBricks;
-    static SlabBlock slabBasaltBricksCracked;
-    static SlabBlock slabGraniteBricks;
-    static SlabBlock slabGraniteBricksCracked;
-    static SlabBlock slabAndesiteBricks;
-    static SlabBlock slabAndesiteBricksCracked;
-    static SlabBlock slabDioriteBricks;
-    static SlabBlock slabDioriteBricksCracked;
-    static SlabBlock slabCob;
-    static SlabBlock slabMudBrickL;
-    static SlabBlock slabMudBrickS;
+//    static SlabBlock slabBasaltBricksCracked;
+//    static SlabBlock slabGraniteBricks;
+//    static SlabBlock slabGraniteBricksCracked;
+//    static SlabBlock slabAndesiteBricks;
+//    static SlabBlock slabAndesiteBricksCracked;
+//    static SlabBlock slabDioriteBricks;
+//    static SlabBlock slabDioriteBricksCracked;
+//    static SlabBlock slabCob;
+//    static SlabBlock slabMudBrickL;
+//    static SlabBlock slabMudBrickS;
 
     // Stairs
     static StairsBlock stairBasalt;
     static StairsBlock stairPolishedBasalt;
     static StairsBlock stairBasaltBricks;
-    static StairsBlock stairBasaltBricksCracked;
-    static StairsBlock stairGraniteBricks;
-    static StairsBlock stairGraniteBricksCracked;
-    static StairsBlock stairAndesiteBricks;
-    static StairsBlock stairAndesiteBricksCracked;
-    static StairsBlock stairDioriteBricks;
-    static StairsBlock stairDioriteBricksCracked;
-    static StairsBlock stairCob;
-    static StairsBlock stairMudBrickL;
-    static StairsBlock stairMudBrickS;
+//    static StairsBlock stairBasaltBricksCracked;
+//    static StairsBlock stairGraniteBricks;
+//    static StairsBlock stairGraniteBricksCracked;
+//    static StairsBlock stairAndesiteBricks;
+//    static StairsBlock stairAndesiteBricksCracked;
+//    static StairsBlock stairDioriteBricks;
+//    static StairsBlock stairDioriteBricksCracked;
+//    static StairsBlock stairCob;
+//    static StairsBlock stairMudBrickL;
+//    static StairsBlock stairMudBrickS;
 
     // Fence Walls
     static WallBlock wallBasalt;
     static WallBlock wallPolishedBasalt;
     static WallBlock wallBasaltBricks;
-    static WallBlock wallBasaltBricksCracked;
-    static WallBlock wallGraniteBricks;
-    static WallBlock wallGraniteBricksCracked;
-    static WallBlock wallAndesiteBricks;
-    static WallBlock wallAndesiteBricksCracked;
-    static WallBlock wallDioriteBricks;
-    static WallBlock wallDioriteBricksCracked;
-    static WallBlock wallCob;
-    static WallBlock wallMudBrickL;
-    static WallBlock wallMudBrickS;
+//    static WallBlock wallBasaltBricksCracked;
+//    static WallBlock wallGraniteBricks;
+//    static WallBlock wallGraniteBricksCracked;
+//    static WallBlock wallAndesiteBricks;
+//    static WallBlock wallAndesiteBricksCracked;
+//    static WallBlock wallDioriteBricks;
+//    static WallBlock wallDioriteBricksCracked;
+//    static WallBlock wallCob;
+//    static WallBlock wallMudBrickL;
+//    static WallBlock wallMudBrickS;
 
 
 
@@ -113,20 +113,23 @@ public final class BlockRegistrar {
                 ItemGroup.BUILDING_BLOCKS);
         ItemRegistrar.addItemBlock(blockBasaltBricks = new BlockIgneus("basalt_bricks"),
                 ItemGroup.BUILDING_BLOCKS);
-        ItemRegistrar.addItemBlock(blockBasaltBricksCracked = new BlockIgneus("basalt_bricks_cracked"),
-                ItemGroup.BUILDING_BLOCKS);
-        ItemRegistrar.addItemBlock(blockGraniteBricks = new BlockIgneus("granite_bricks"),
-                ItemGroup.BUILDING_BLOCKS);
-        ItemRegistrar.addItemBlock(blockGraniteBricksCracked = new BlockIgneus("granite_bricks_cracked"),
-                ItemGroup.BUILDING_BLOCKS);
-        ItemRegistrar.addItemBlock(blockAndesiteBricks = new BlockIgneus("andesite_bricks"),
-                ItemGroup.BUILDING_BLOCKS);
-        ItemRegistrar.addItemBlock(blockAndesiteBricksCracked = new BlockIgneus("andesite_bricks_cracked"),
-                ItemGroup.BUILDING_BLOCKS);
-        ItemRegistrar.addItemBlock(blockDioriteBricks = new BlockIgneus("diorite_bricks"),
-                ItemGroup.BUILDING_BLOCKS);
-        ItemRegistrar.addItemBlock(blockDioriteBricksCracked = new BlockIgneus("diorite_bricks_cracked"),
-                ItemGroup.BUILDING_BLOCKS);
+        slabBasalt = makeSlab(blockBasalt);
+        slabPolishedBasalt = makeSlab(blockPolishedBasalt);
+        slabBasaltBricks = makeSlab(blockBasaltBricks);
+//        ItemRegistrar.addItemBlock(blockBasaltBricksCracked = new BlockIgneus("basalt_bricks_cracked"),
+//                ItemGroup.BUILDING_BLOCKS);
+//        ItemRegistrar.addItemBlock(blockGraniteBricks = new BlockIgneus("granite_bricks"),
+//                ItemGroup.BUILDING_BLOCKS);
+//        ItemRegistrar.addItemBlock(blockGraniteBricksCracked = new BlockIgneus("granite_bricks_cracked"),
+//                ItemGroup.BUILDING_BLOCKS);
+//        ItemRegistrar.addItemBlock(blockAndesiteBricks = new BlockIgneus("andesite_bricks"),
+//                ItemGroup.BUILDING_BLOCKS);
+//        ItemRegistrar.addItemBlock(blockAndesiteBricksCracked = new BlockIgneus("andesite_bricks_cracked"),
+//                ItemGroup.BUILDING_BLOCKS);
+//        ItemRegistrar.addItemBlock(blockDioriteBricks = new BlockIgneus("diorite_bricks"),
+//                ItemGroup.BUILDING_BLOCKS);
+//        ItemRegistrar.addItemBlock(blockDioriteBricksCracked = new BlockIgneus("diorite_bricks_cracked"),
+//                ItemGroup.BUILDING_BLOCKS);
 
         // Pine related blocks
         ItemRegistrar.addItem(new ItemFuelBlock(pineLog = new BlockLog("pine_log"), 300));
@@ -137,9 +140,9 @@ public final class BlockRegistrar {
         // Misc Blocks
         ItemRegistrar.addItemBlock(blockVolcanicAsh = new BlockAsh("volcanic_ash"), ItemGroup.BUILDING_BLOCKS);
         ItemRegistrar.addItem(new ItemFuelBlock(blockPeat = new BlockPeat("peat"), 3200));
-        ItemRegistrar.addItemBlock(blockCob = new BlockCob("cob"), ItemGroup.BUILDING_BLOCKS);
-        ItemRegistrar.addItemBlock(blockMudBrickL = new BlockCob("mud_bricks_large"), ItemGroup.BUILDING_BLOCKS);
-        ItemRegistrar.addItemBlock(blockMudBrickS = new BlockCob("mud_bricks_small"), ItemGroup.BUILDING_BLOCKS);
+//        ItemRegistrar.addItemBlock(blockCob = new BlockCob("cob"), ItemGroup.BUILDING_BLOCKS);
+//        ItemRegistrar.addItemBlock(blockMudBrickL = new BlockCob("mud_bricks_large"), ItemGroup.BUILDING_BLOCKS);
+//        ItemRegistrar.addItemBlock(blockMudBrickS = new BlockCob("mud_bricks_small"), ItemGroup.BUILDING_BLOCKS);
 
     }
 
@@ -150,13 +153,16 @@ public final class BlockRegistrar {
         event.getRegistry().register(blockBasalt);
         event.getRegistry().register(blockPolishedBasalt);
         event.getRegistry().register(blockBasaltBricks);
-        event.getRegistry().register(blockBasaltBricksCracked);
-        event.getRegistry().register(blockGraniteBricks);
-        event.getRegistry().register(blockGraniteBricksCracked);
-        event.getRegistry().register(blockAndesiteBricks);
-        event.getRegistry().register(blockAndesiteBricksCracked);
-        event.getRegistry().register(blockDioriteBricks);
-        event.getRegistry().register(blockDioriteBricksCracked);
+        event.getRegistry().register(slabBasalt);
+        event.getRegistry().register(slabPolishedBasalt);
+        event.getRegistry().register(slabBasaltBricks);
+//        event.getRegistry().register(blockBasaltBricksCracked);
+//        event.getRegistry().register(blockGraniteBricks);
+//        event.getRegistry().register(blockGraniteBricksCracked);
+//        event.getRegistry().register(blockAndesiteBricks);
+//        event.getRegistry().register(blockAndesiteBricksCracked);
+//        event.getRegistry().register(blockDioriteBricks);
+//        event.getRegistry().register(blockDioriteBricksCracked);
         event.getRegistry().register(blockVolcanicAsh);
         // Pine
         event.getRegistry().register(pineLog);
@@ -165,15 +171,17 @@ public final class BlockRegistrar {
         event.getRegistry().register(slabPine);
         // Misc
         event.getRegistry().register(blockPeat);
-        event.getRegistry().register(blockCob);
-        event.getRegistry().register(blockMudBrickL);
-        event.getRegistry().register(blockMudBrickS);
+//        event.getRegistry().register(blockCob);
+//        event.getRegistry().register(blockMudBrickL);
+//        event.getRegistry().register(blockMudBrickS);
+
     }
 
 
     private static SlabBlock makeSlab(Block whole) {
         SlabBlock out = new SlabBlock(Block.Properties.from(whole));
         out.setRegistryName(whole.getRegistryName() + "_slab");
+        ItemRegistrar.addItemBlock(out, ItemGroup.BUILDING_BLOCKS);
         return out;
     }
 
