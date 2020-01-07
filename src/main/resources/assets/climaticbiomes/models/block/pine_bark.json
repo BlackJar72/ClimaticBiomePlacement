@@ -1,6 +1,7 @@
 {
-    "parent": "block/cube_all",
+    "parent": "block/cube_column",
     "textures": {
-        "all": "climaticbiomes:blocks/pinebark"
+        "end": "climaticbiomes:blocks/pinebark",
+        "side": "climaticbiomes:blocks/pinebark"
     }
 }

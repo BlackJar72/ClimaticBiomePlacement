@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "axis=y":  { "model": "climaticbiomes:block/pine_bark" },
+        "axis=z":   { "model": "climaticbiomes:block/pine_bark", "x": 90 },
+        "axis=x":   { "model": "climaticbiomes:block/pine_bark", "x": 90, "y": 90 }
+    }
+}

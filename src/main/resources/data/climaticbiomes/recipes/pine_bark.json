@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bark",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "climaticbiomes:pine_log"
+    }
+  },
+  "result": {
+    "item": "climaticbiomes:pine_bark",
+    "count": 3
+  }
+}

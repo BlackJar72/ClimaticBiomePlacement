@@ -8,6 +8,8 @@ import net.minecraft.block.*;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
 
+import java.util.function.Supplier;
+
 public final class BlockRegistrar {
 
     // Stony Blocks
@@ -29,7 +31,7 @@ public final class BlockRegistrar {
     static BlockPlanks blockPinePlanks;
     static BlockPlanks blockPinePlanksLong;
     static SlabBlock slabPine;
-    static StairsBlock stairPine;
+    static StairsBlock pineStairs;
     static FenceBlock pineFence;
     static FenceGateBlock pineGate;
     static DoorBlock pineDoor;
@@ -132,10 +134,26 @@ public final class BlockRegistrar {
 //                ItemGroup.BUILDING_BLOCKS);
 
         // Pine related blocks
-        ItemRegistrar.addItem(new ItemFuelBlock(pineLog = new BlockLog("pine_log"), 300));
-        ItemRegistrar.addItem(new ItemFuelBlock(pineNeedles = new BlockLeaves("pine_leaves"), 100));
-        ItemRegistrar.addItem(new ItemFuelBlock(blockPinePlanks = new BlockPlanks("pine_planks"), 300));
-        ItemRegistrar.addItem(new ItemFuelBlock(slabPine = makeSlab(blockPinePlanks, "pine_slab"), 300));
+        ItemRegistrar.addItem(new ItemFuelBlock(pineLog
+                = new BlockLog("pine_log"), 300));
+        ItemRegistrar.addItem(new ItemFuelBlock(pineLogStripped
+                = new BlockLog("pine_log_stripped"), 300));
+        ItemRegistrar.addItem(new ItemFuelBlock(barkPine
+                = makePillar(pineLog, "pine_bark"), 300));
+        ItemRegistrar.addItem(new ItemFuelBlock(woodPine
+                = makePillar(pineLogStripped, "pine_wood"), 300));
+        ItemRegistrar.addItem(new ItemFuelBlock(pineNeedles
+                = new BlockLeaves("pine_leaves"), 100));
+        ItemRegistrar.addItem(new ItemFuelBlock(blockPinePlanks
+                = new BlockPlanks("pine_planks"), 300));
+        ItemRegistrar.addItem(new ItemFuelBlock(slabPine
+                = makeSlab(blockPinePlanks, "pine_slab"), 300));
+        ItemRegistrar.addItem(new ItemFuelBlock(pineStairs
+                = makeStairs(blockPinePlanks, "pine_stairs"), 300));
+        ItemRegistrar.addItem(new ItemFuelBlock(pineFence =
+                makeWoodenFence(blockPinePlanks, "pine_fence"), 200, ItemGroup.DECORATIONS));
+        ItemRegistrar.addItem(new ItemFuelBlock(pineGate =
+                makeWoodenGate(blockPinePlanks, "pine_gate"), 300, ItemGroup.REDSTONE));
 
         // Misc Blocks
         ItemRegistrar.addItemBlock(blockVolcanicAsh = new BlockAsh("volcanic_ash"), ItemGroup.BUILDING_BLOCKS);
@@ -166,9 +184,16 @@ public final class BlockRegistrar {
         event.getRegistry().register(blockVolcanicAsh);
         // Pine
         event.getRegistry().register(pineLog);
+        event.getRegistry().register(pineLogStripped);
+        event.getRegistry().register(barkPine);
+        event.getRegistry().register(woodPine);
         event.getRegistry().register(pineNeedles);
         event.getRegistry().register(blockPinePlanks);
         event.getRegistry().register(slabPine);
+        event.getRegistry().register(pineStairs);
+        event.getRegistry().register(pineFence);
+        event.getRegistry().register(pineGate);
+
         // Misc
         event.getRegistry().register(blockPeat);
 //        event.getRegistry().register(blockCob);
@@ -188,6 +213,36 @@ public final class BlockRegistrar {
 
     private static SlabBlock makeSlab(Block whole, String name) {
         SlabBlock out = new SlabBlock(Block.Properties.from(whole));
+        out.setRegistryName(Info.ID, name);
+        return out;
+    }
+
+
+    private static RotatedPillarBlock makePillar(Block whole, String name) {
+        RotatedPillarBlock out = new RotatedPillarBlock(Block.Properties.from(whole));
+        out.setRegistryName(Info.ID, name);
+        return out;
+    }
+
+
+    private static StairsBlock makeStairs(Block whole, String name) {
+        BlockStairs out = new BlockStairs(whole.getDefaultState(), Block.Properties.from(whole));
+        out.setRegistryName(Info.ID, name);
+        return out;
+    }
+
+
+    private static FenceBlock makeWoodenFence(Block whole, String name) {
+        FenceBlock out = new FenceBlock(Block.Properties.from(whole)
+                .hardnessAndResistance(2.0f, 3.0f));
+        out.setRegistryName(Info.ID, name);
+        return out;
+    }
+
+
+    private static FenceGateBlock makeWoodenGate(Block whole, String name) {
+        FenceGateBlock out = new FenceGateBlock(Block.Properties.from(whole)
+                .hardnessAndResistance(2.0f, 3.0f));
         out.setRegistryName(Info.ID, name);
         return out;
     }

@@ -1,5 +1,5 @@
 {
-    "parent": "block/stairs",
+    "parent": "block/outer_stairs",
     "textures": {
         "bottom": "climaticbiomes:blocks/pine_planks",
         "top": "climaticbiomes:blocks/pine_planks",

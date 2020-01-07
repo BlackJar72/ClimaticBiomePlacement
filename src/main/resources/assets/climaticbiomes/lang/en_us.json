@@ -30,9 +30,11 @@
   "createWorld.climaticbiomes.bopconf": "Configure Biomes O'Plenty",
 
   "block.climaticbiomes.pine_log": "Pine Log",
+  "block.climaticbiomes.pine_log_stripped": "Stripped Pine Log",
   "block.climaticbiomes.pine_leaves": "Pine Needles",
-  "block.climaticbiomes.pine_planks": "Pine Wood Planks",
-  "block.climaticbiomes.pine_bark": "Pine Bark",
+  "block.climaticbiomes.pine_planks": "Pine Planks",
+  "block.climaticbiomes.pine_bark": "Pine Wood",
+  "block.climaticbiomes.pine_bark": "Stripped Pine Wood",
   "block.climaticbiomes.pine_sapling": "Pine Sapling",
   "block.climaticbiomes.pine_slab": "Pine Wood Slab",
   "block.climaticbiomes.pine_stairs": "Pine Stairs",

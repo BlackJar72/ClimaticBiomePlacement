@@ -16,6 +16,12 @@ public class ItemFuelBlock extends BlockItem {
         this.burnTime = burnTime;
     }
 
+    public ItemFuelBlock(Block block, int burnTime, ItemGroup group) {
+        super(block, makeProperties(block, group));
+        this.setRegistryName(block.getRegistryName());
+        this.burnTime = burnTime;
+    }
+
 
     @Override
     public int getBurnTime(ItemStack stack) {
@@ -26,6 +32,13 @@ public class ItemFuelBlock extends BlockItem {
     private static Item.Properties makeProperties(Block block) {
         Item.Properties out = new Item.Properties();
         out.group(ItemGroup.BUILDING_BLOCKS);
+        return out;
+    }
+
+
+    private static Item.Properties makeProperties(Block block, ItemGroup group) {
+        Item.Properties out = new Item.Properties();
+        out.group(group);
         return out;
     }
 }

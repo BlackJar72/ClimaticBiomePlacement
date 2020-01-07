@@ -1,6 +1,6 @@
 {
-    "parent": "block/wall_gate_open",
+    "parent": "block/template_fence_gate_wall_open",
     "textures": {
-        "texture": "climaticbiomes:blocks/pineplanks"
+        "texture": "climaticbiomes:blocks/pine_planks"
     }
 }
