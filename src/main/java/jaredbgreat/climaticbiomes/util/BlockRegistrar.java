@@ -4,6 +4,7 @@ import jaredbgreat.climaticbiomes.ClimaticBiomes;
 import jaredbgreat.climaticbiomes.Info;
 import jaredbgreat.climaticbiomes.blocks.*;
 import jaredbgreat.climaticbiomes.blocks.ItemBlocks.ItemFuelBlock;
+import jaredbgreat.climaticbiomes.features.PineTree;
 import net.minecraft.block.*;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
@@ -13,88 +14,89 @@ import java.util.function.Supplier;
 public final class BlockRegistrar {
 
     // Stony Blocks
-    static BlockIgneus blockBasalt;
-    static BlockIgneus blockPolishedBasalt;
-    static BlockIgneus blockBasaltBricks;
-//    static BlockIgneus blockBasaltBricksCracked;
-//    static BlockIgneus blockGraniteBricks;
-//    static BlockIgneus blockGraniteBricksCracked;
-//    static BlockIgneus blockAndesiteBricks;
-//    static BlockIgneus blockAndesiteBricksCracked;
-//    static BlockIgneus blockDioriteBricks;
-//    static BlockIgneus blockDioriteBricksCracked;
+    public static BlockIgneus blockBasalt;
+    public static BlockIgneus blockPolishedBasalt;
+    public static BlockIgneus blockBasaltBricks;
+//    public static BlockIgneus blockBasaltBricksCracked;
+//    public static BlockIgneus blockGraniteBricks;
+//    public static BlockIgneus blockGraniteBricksCracked;
+//    public static BlockIgneus blockAndesiteBricks;
+//    public static BlockIgneus blockAndesiteBricksCracked;
+//    public static BlockIgneus blockDioriteBricks;
+//    public static BlockIgneus blockDioriteBricksCracked;
 
     //Pine Blocks
-    static BlockLog pineLog;
-    static BlockLog pineLogStripped;
-    static BlockLeaves pineNeedles;
-    static BlockPlanks blockPinePlanks;
-    static BlockPlanks blockPinePlanksLong;
-    static SlabBlock slabPine;
-    static StairsBlock pineStairs;
-    static FenceBlock pineFence;
-    static FenceGateBlock pineGate;
-    static DoorBlock pineDoor;
-    static StandingSignBlock pineSign;
-    static WallSignBlock pineWallSign;
-    static PressurePlateBlock pinePPlate;
-    static TrapDoorBlock pineTDoor;
-    static WoodButtonBlock pineButton;
-    static RotatedPillarBlock barkPine;
-    static RotatedPillarBlock woodPine;
-    static FlowerPotBlock pinePotted;
+    public static BlockLog pineLog;
+    public static BlockLog pineLogStripped;
+    public static BlockLeaves pineNeedles;
+    public static BlockSapling pineSapling;
+    public static BlockPlanks blockPinePlanks;
+    public static BlockPlanks blockPinePlanksLong;
+    public static SlabBlock slabPine;
+    public static StairsBlock pineStairs;
+    public static FenceBlock pineFence;
+    public static FenceGateBlock pineGate;
+    public static DoorBlock pineDoor;
+    public static StandingSignBlock pineSign;
+    public static WallSignBlock pineWallSign;
+    public static PressurePlateBlock pinePPlate;
+    public static TrapDoorBlock pineTDoor;
+    public static WoodButtonBlock pineButton;
+    public static RotatedPillarBlock barkPine;
+    public static RotatedPillarBlock woodPine;
+    public static FlowerPotBlock pinePotted;
 
     // Misc Blocks
-    static BlockAsh blockVolcanicAsh;
-    static BlockPeat blockPeat;
-//    static BlockCob blockCob;
-//    static BlockCob blockMudBrickL;
-//    static BlockCob blockMudBrickS;
+    public static BlockAsh blockVolcanicAsh;
+    public static BlockPeat blockPeat;
+//    public static BlockCob blockCob;
+//    public static BlockCob blockMudBrickL;
+//    public static BlockCob blockMudBrickS;
 
     // Slabs
-    static SlabBlock slabBasalt;
-    static SlabBlock slabPolishedBasalt;
-    static SlabBlock slabBasaltBricks;
-//    static SlabBlock slabBasaltBricksCracked;
-//    static SlabBlock slabGraniteBricks;
-//    static SlabBlock slabGraniteBricksCracked;
-//    static SlabBlock slabAndesiteBricks;
-//    static SlabBlock slabAndesiteBricksCracked;
-//    static SlabBlock slabDioriteBricks;
-//    static SlabBlock slabDioriteBricksCracked;
-//    static SlabBlock slabCob;
-//    static SlabBlock slabMudBrickL;
-//    static SlabBlock slabMudBrickS;
+    public static SlabBlock slabBasalt;
+    public static SlabBlock slabPolishedBasalt;
+    public static SlabBlock slabBasaltBricks;
+//    public static SlabBlock slabBasaltBricksCracked;
+//    public static SlabBlock slabGraniteBricks;
+//    public static SlabBlock slabGraniteBricksCracked;
+//    public static SlabBlock slabAndesiteBricks;
+//    public static SlabBlock slabAndesiteBricksCracked;
+//    public static SlabBlock slabDioriteBricks;
+//    public static SlabBlock slabDioriteBricksCracked;
+//    public static SlabBlock slabCob;
+//    public static SlabBlock slabMudBrickL;
+//    public static SlabBlock slabMudBrickS;
 
     // Stairs
-    static StairsBlock stairBasalt;
-    static StairsBlock stairPolishedBasalt;
-    static StairsBlock stairBasaltBricks;
-//    static StairsBlock stairBasaltBricksCracked;
-//    static StairsBlock stairGraniteBricks;
-//    static StairsBlock stairGraniteBricksCracked;
-//    static StairsBlock stairAndesiteBricks;
-//    static StairsBlock stairAndesiteBricksCracked;
-//    static StairsBlock stairDioriteBricks;
-//    static StairsBlock stairDioriteBricksCracked;
-//    static StairsBlock stairCob;
-//    static StairsBlock stairMudBrickL;
-//    static StairsBlock stairMudBrickS;
+    public static StairsBlock stairBasalt;
+    public static StairsBlock stairPolishedBasalt;
+    public static StairsBlock stairBasaltBricks;
+//    public static StairsBlock stairBasaltBricksCracked;
+//    public static StairsBlock stairGraniteBricks;
+//    public static StairsBlock stairGraniteBricksCracked;
+//    public static StairsBlock stairAndesiteBricks;
+//    public static StairsBlock stairAndesiteBricksCracked;
+//    public static StairsBlock stairDioriteBricks;
+//    public static StairsBlock stairDioriteBricksCracked;
+//    public static StairsBlock stairCob;
+//    public static StairsBlock stairMudBrickL;
+//    public static StairsBlock stairMudBrickS;
 
     // Fence Walls
-    static WallBlock wallBasalt;
-    static WallBlock wallPolishedBasalt;
-    static WallBlock wallBasaltBricks;
-//    static WallBlock wallBasaltBricksCracked;
-//    static WallBlock wallGraniteBricks;
-//    static WallBlock wallGraniteBricksCracked;
-//    static WallBlock wallAndesiteBricks;
-//    static WallBlock wallAndesiteBricksCracked;
-//    static WallBlock wallDioriteBricks;
-//    static WallBlock wallDioriteBricksCracked;
-//    static WallBlock wallCob;
-//    static WallBlock wallMudBrickL;
-//    static WallBlock wallMudBrickS;
+    public static WallBlock wallBasalt;
+    public static WallBlock wallPolishedBasalt;
+    public static WallBlock wallBasaltBricks;
+//    public static WallBlock wallBasaltBricksCracked;
+//    public static WallBlock wallGraniteBricks;
+//    public static WallBlock wallGraniteBricksCracked;
+//    public static WallBlock wallAndesiteBricks;
+//    public static WallBlock wallAndesiteBricksCracked;
+//    public static WallBlock wallDioriteBricks;
+//    public static WallBlock wallDioriteBricksCracked;
+//    public static WallBlock wallCob;
+//    public static WallBlock wallMudBrickL;
+//    public static WallBlock wallMudBrickS;
 
 
 
@@ -163,6 +165,9 @@ public final class BlockRegistrar {
                 300, ItemGroup.REDSTONE));
         ItemRegistrar.addItem(new ItemFuelBlock(pineButton =
                 new BlockWoodenButton("pine_button"), 100, ItemGroup.REDSTONE));
+        ItemRegistrar.addItem(new ItemFuelBlock(pineSapling =
+                new BlockSapling(new PineTree(), "pine_sapling"), 100, ItemGroup.DECORATIONS));
+
 
         // Misc Blocks
         ItemRegistrar.addItemBlock(blockVolcanicAsh = new BlockAsh("volcanic_ash"), ItemGroup.BUILDING_BLOCKS);
@@ -197,6 +202,7 @@ public final class BlockRegistrar {
         event.getRegistry().register(barkPine);
         event.getRegistry().register(woodPine);
         event.getRegistry().register(pineNeedles);
+        event.getRegistry().register(pineSapling);
         event.getRegistry().register(blockPinePlanks);
         event.getRegistry().register(slabPine);
         event.getRegistry().register(pineStairs);

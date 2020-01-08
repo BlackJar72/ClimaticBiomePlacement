@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "climaticbiomes:pine_sapling" }
+        "": { "model": "climaticbiomes:block/pine_sapling" }
     }
 }
