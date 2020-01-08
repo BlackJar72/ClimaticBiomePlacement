@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "climaticbiomes:pine_log",
+    "climaticbiomes:pine_bark",
+    "climaticbiomes:pine_log_stripped",
+    "climaticbiomes:pine_wood"
+  ]
+}

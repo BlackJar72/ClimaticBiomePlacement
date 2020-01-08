@@ -39,7 +39,7 @@ public final class BlockRegistrar {
     static WallSignBlock pineWallSign;
     static PressurePlateBlock pinePPlate;
     static TrapDoorBlock pineTDoor;
-    static WoodButtonBlock pineNutton;
+    static WoodButtonBlock pineButton;
     static RotatedPillarBlock barkPine;
     static RotatedPillarBlock woodPine;
     static FlowerPotBlock pinePotted;
@@ -154,6 +154,10 @@ public final class BlockRegistrar {
                 makeWoodenFence(blockPinePlanks, "pine_fence"), 200, ItemGroup.DECORATIONS));
         ItemRegistrar.addItem(new ItemFuelBlock(pineGate =
                 makeWoodenGate(blockPinePlanks, "pine_gate"), 300, ItemGroup.REDSTONE));
+        ItemRegistrar.addItem(new ItemFuelBlock(pineDoor =
+                new BlockDoor(blockPinePlanks, "pine_door"), 300, ItemGroup.REDSTONE));
+        ItemRegistrar.addItem(new ItemFuelBlock(pineTDoor =
+                new BlockTrapDoor(blockPinePlanks, "pine_trapdoor"), 300, ItemGroup.REDSTONE));
 
         // Misc Blocks
         ItemRegistrar.addItemBlock(blockVolcanicAsh = new BlockAsh("volcanic_ash"), ItemGroup.BUILDING_BLOCKS);
@@ -193,6 +197,8 @@ public final class BlockRegistrar {
         event.getRegistry().register(pineStairs);
         event.getRegistry().register(pineFence);
         event.getRegistry().register(pineGate);
+        event.getRegistry().register(pineDoor);
+        event.getRegistry().register(pineTDoor);
 
         // Misc
         event.getRegistry().register(blockPeat);
