@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "climaticbiomes:pine_planks"
+    }
+  ],
+  "result": {
+    "item": "climaticbiomes:pine_button"
+  }
+}

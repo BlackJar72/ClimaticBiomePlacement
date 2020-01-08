@@ -42,6 +42,9 @@
   "block.climaticbiomes.pine_gate": "Pine Fence Gate",
   "block.climaticbiomes.pine_door": "Pine Door",
   "block.climaticbiomes.pine_trapdoor": "Pine Trapdoor",
+  "block.climaticbiomes.pine_pressure_plate": "Pine Pressure Plate",
+  "block.climaticbiomes.pine_button": "Pine Button",
+  "block.climaticbiomes.pine_sign": "Pine Sign",
 
   "block.climaticbiomes.block_basalt": "Basalt",
   "block.climaticbiomes.block_basalt_slab": "Basalt Slab",
