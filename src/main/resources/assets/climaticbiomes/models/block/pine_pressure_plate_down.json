@@ -1,6 +1,6 @@
 {
   "parent": "block/pressure_plate_down",
   "textures": {
-    "texture": "climaticbiomes:block/pine_planks"
+    "texture": "climaticbiomes:blocks/pine_planks"
   }
 }

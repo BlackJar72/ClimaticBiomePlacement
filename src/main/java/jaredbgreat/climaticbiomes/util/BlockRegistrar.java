@@ -158,6 +158,11 @@ public final class BlockRegistrar {
                 new BlockDoor(blockPinePlanks, "pine_door"), 300, ItemGroup.REDSTONE));
         ItemRegistrar.addItem(new ItemFuelBlock(pineTDoor =
                 new BlockTrapDoor(blockPinePlanks, "pine_trapdoor"), 300, ItemGroup.REDSTONE));
+        ItemRegistrar.addItem(new ItemFuelBlock(pinePPlate =
+                new BlockWoodenPressurePlate(blockPinePlanks, "pine_pressure_plate"),
+                300, ItemGroup.REDSTONE));
+        ItemRegistrar.addItem(new ItemFuelBlock(pineButton =
+                new BlockWoodenButton("pine_button"), 100, ItemGroup.REDSTONE));
 
         // Misc Blocks
         ItemRegistrar.addItemBlock(blockVolcanicAsh = new BlockAsh("volcanic_ash"), ItemGroup.BUILDING_BLOCKS);
@@ -199,6 +204,8 @@ public final class BlockRegistrar {
         event.getRegistry().register(pineGate);
         event.getRegistry().register(pineDoor);
         event.getRegistry().register(pineTDoor);
+        event.getRegistry().register(pinePPlate);
+        event.getRegistry().register(pineButton);
 
         // Misc
         event.getRegistry().register(blockPeat);
