@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiomes.biomes;
 
+import jaredbgreat.climaticbiomes.Info;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
@@ -12,7 +13,7 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 
 public class WarmForest extends Biome {
 
-    public WarmForest() {
+    public WarmForest(String name) {
         super((new Biome.Builder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
                 .precipitation(Biome.RainType.RAIN)
@@ -24,6 +25,7 @@ public class WarmForest extends Biome {
                 .waterColor(4159204)
                 .waterFogColor(329011)
                 .parent((String)null));
+        setRegistryName(Info.ID, name);
         this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
@@ -35,7 +37,7 @@ public class WarmForest extends Biome {
         DefaultBiomeFeatures.addStoneVariants(this);
         DefaultBiomeFeatures.addOres(this);
         DefaultBiomeFeatures.addSedimentDisks(this);
-        //DefaultBiomeFeatures.addForestTrees(this); // TODO: Replace with subtropical version
+        ClimaticBiomesFeatures.addSubtropicalForestTrees(this); // TODO: Edit that!
         DefaultBiomeFeatures.addDefaultFlowers(this);
         DefaultBiomeFeatures.addGrass(this);
         DefaultBiomeFeatures.addMushrooms(this);

@@ -1,10 +1,12 @@
 package jaredbgreat.climaticbiomes;
 
 import jaredbgreat.climaticbiomes.proxy.ClientProxy;
+import jaredbgreat.climaticbiomes.testing.TestWorldType;
 import jaredbgreat.climaticbiomes.util.BlockRegistrar;
 import jaredbgreat.climaticbiomes.util.ItemRegistrar;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.world.WorldType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,6 +26,9 @@ import java.util.stream.Collectors;
 public class ClimaticBiomes {
     private static final Logger LOGGER = LogManager.getLogger();
     public static ClimaticBiomes instance;
+
+    // TODO: Delete this when ready to create the Climatic World Type
+    public static final WorldType testWorlds = new TestWorldType();
 
 
     public ClimaticBiomes() {
