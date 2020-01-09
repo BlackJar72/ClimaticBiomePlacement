@@ -13,15 +13,15 @@ import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.PillagerOutpostConfig;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 
-public class DenseScrub extends Biome {
+public class DenseScrubHills extends Biome {
 
-    public DenseScrub(String name) {
-        super((new Biome.Builder()).surfaceBuilder(Surfaces.DENSE_SCRUB,
+    public DenseScrubHills(String name) {
+        super((new Builder()).surfaceBuilder(Surfaces.DENSE_SCRUB,
                 SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.DESERT)
-                .depth(0.125F)
-                .scale(0.05F)
+                .depth(0.45F)
+                .scale(0.3F)
                 .temperature(1.0F)
                 .downfall(0.1F)
                 .waterColor(4159204)
@@ -49,26 +49,26 @@ public class DenseScrub extends Biome {
         DefaultBiomeFeatures.addSprings(this);
         DefaultBiomeFeatures.addFreezeTopLayer(this);
         this.addSpawn(EntityClassification.CREATURE,
-                new Biome.SpawnListEntry(EntityType.RABBIT, 4, 2, 3));
+                new SpawnListEntry(EntityType.RABBIT, 4, 2, 3));
         this.addSpawn(EntityClassification.AMBIENT,
-                new Biome.SpawnListEntry(EntityType.BAT, 10, 8, 8));
+                new SpawnListEntry(EntityType.BAT, 10, 8, 8));
         this.addSpawn(EntityClassification.MONSTER,
-                new Biome.SpawnListEntry(EntityType.SPIDER, 100, 4, 4));
+                new SpawnListEntry(EntityType.SPIDER, 100, 4, 4));
         this.addSpawn(EntityClassification.MONSTER,
-                new Biome.SpawnListEntry(EntityType.SKELETON, 100, 4, 4));
+                new SpawnListEntry(EntityType.SKELETON, 100, 4, 4));
         this.addSpawn(EntityClassification.MONSTER,
-                new Biome.SpawnListEntry(EntityType.CREEPER, 100, 4, 4));
+                new SpawnListEntry(EntityType.CREEPER, 100, 4, 4));
         this.addSpawn(EntityClassification.MONSTER,
-                new Biome.SpawnListEntry(EntityType.SLIME, 100, 4, 4));
+                new SpawnListEntry(EntityType.SLIME, 100, 4, 4));
         this.addSpawn(EntityClassification.MONSTER,
-                new Biome.SpawnListEntry(EntityType.ENDERMAN, 10, 1, 4));
+                new SpawnListEntry(EntityType.ENDERMAN, 10, 1, 4));
         this.addSpawn(EntityClassification.MONSTER,
-                new Biome.SpawnListEntry(EntityType.WITCH, 5, 1, 1));
+                new SpawnListEntry(EntityType.WITCH, 5, 1, 1));
         this.addSpawn(EntityClassification.MONSTER,
-                new Biome.SpawnListEntry(EntityType.ZOMBIE, 19, 4, 4));
+                new SpawnListEntry(EntityType.ZOMBIE, 19, 4, 4));
         this.addSpawn(EntityClassification.MONSTER,
-                new Biome.SpawnListEntry(EntityType.ZOMBIE_VILLAGER, 1, 1, 1));
+                new SpawnListEntry(EntityType.ZOMBIE_VILLAGER, 1, 1, 1));
         this.addSpawn(EntityClassification.MONSTER,
-                new Biome.SpawnListEntry(EntityType.HUSK, 80, 4, 4));
+                new SpawnListEntry(EntityType.HUSK, 80, 4, 4));
     }
 }

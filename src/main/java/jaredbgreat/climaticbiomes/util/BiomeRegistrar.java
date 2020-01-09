@@ -16,11 +16,12 @@ public class BiomeRegistrar {
     public static WarmForestHills warmForestHills;
     public static HotForest       tropicalForest;
     public static HotForestHills  tropicalForestHills;
-    public static Pinewoods pinewoods;
-//    public static Scrub           denseScrub;
-//    public static Scrub           dryScrub;
-//    public static Scrub           denseScrubHills;
-//    public static Scrub           dryScrubHills;
+    public static Pinewoods       pinewoods;
+    //TODO: Make Bamboo FOREST
+    public static DenseScrub      denseScrub;
+    public static DryScrub        dryScrub;
+    public static DenseScrubHills denseScrubHills;
+    public static DryScrubHills   dryScrubHills;
 //    public static BiomePlains     coolPlains;
 //    public static WindsweptPlains windswept;
 //    public static WindsweptPlains coolWindswept;
@@ -57,15 +58,13 @@ public class BiomeRegistrar {
 
     private static void makeBiomes() {
         makeForests();
+        makeScrub();
     }
 
 
     private static void registerBiomes(final RegistryEvent.Register<Biome> event) {
-        registerBiome(warmForest, event);
-        registerBiome(warmForestHills, event);
-        registerBiome(tropicalForest, event);
-        registerBiome(tropicalForestHills, event);
-        registerBiome(pinewoods, event);
+        registerForests(event);
+        registerScrub(event);
     }
 
 
@@ -94,20 +93,14 @@ public class BiomeRegistrar {
         tropicalForest = new HotForest("tropical_forest");
         tropicalForestHills = new HotForestHills("tropical_forest_hills");
         pinewoods = new Pinewoods("pinewoods");
-        BiomeDictionary.addTypes(warmForest, Type.FOREST, BiomeDictionary.Type.CONIFEROUS);
-        BiomeDictionary.addTypes(tropicalForest, BiomeDictionary.Type.FOREST, Type.JUNGLE,
-                Type.HOT);
-        BiomeDictionary.addTypes(pinewoods, Type.FOREST, Type.WET, Type.HOT,
-                Type.CONIFEROUS, Type.SWAMP, Type.SAVANNA);
-        BiomeDictionary.addTypes(warmForestHills, Type.FOREST, Type.CONIFEROUS,
-                Type.HILLS);
-        BiomeDictionary.addTypes(tropicalForestHills, Type.FOREST, Type.JUNGLE,
-                Type.HOT, Type.HILLS);
     }
 
 
     private static void makeScrub() {
-
+        denseScrub = new DenseScrub("dense_scrub");
+        dryScrub = new DryScrub("dry_scrub");
+        denseScrubHills = new DenseScrubHills("dense_scrub_hills");
+        dryScrubHills = new DryScrubHills("dry_scrub_hills");
     }
 
 
@@ -132,11 +125,27 @@ public class BiomeRegistrar {
         registerBiome(tropicalForest, event);
         registerBiome(tropicalForestHills, event);
         registerBiome(pinewoods, event);
+        BiomeDictionary.addTypes(warmForest, Type.FOREST, Type.CONIFEROUS);
+        BiomeDictionary.addTypes(tropicalForest, BiomeDictionary.Type.FOREST, Type.JUNGLE,
+                Type.HOT);
+        BiomeDictionary.addTypes(pinewoods, Type.FOREST, Type.WET, Type.HOT,
+                Type.CONIFEROUS, Type.SWAMP, Type.SAVANNA);
+        BiomeDictionary.addTypes(warmForestHills, Type.FOREST, Type.CONIFEROUS,
+                Type.HILLS);
+        BiomeDictionary.addTypes(tropicalForestHills, Type.FOREST, Type.JUNGLE,
+                Type.HOT, Type.HILLS);
     }
 
 
     private static void registerScrub(final RegistryEvent.Register<Biome> event) {
-
+        registerBiome(denseScrub, event);
+        registerBiome(dryScrub, event);
+        registerBiome(denseScrubHills, event);
+        registerBiome(dryScrubHills, event);
+        BiomeDictionary.addTypes(denseScrub, Type.SPARSE, Type.HOT, Type.DRY);
+        BiomeDictionary.addTypes(dryScrub, Type.SPARSE, Type.HOT, Type.DRY, Type.SANDY);
+        BiomeDictionary.addTypes(denseScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS);
+        BiomeDictionary.addTypes(dryScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS, Type.SANDY);
     }
 
 
