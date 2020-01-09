@@ -12,20 +12,20 @@ import net.minecraftforge.event.RegistryEvent;
 public class BiomeRegistrar {
 
     // Core Biomes
-    public static WarmForest      warmForest;
-    public static WarmForestHills warmForestHills;
-    public static HotForest       tropicalForest;
-    public static HotForestHills  tropicalForestHills;
-    public static Pinewoods       pinewoods;
-    //TODO: Make Bamboo FOREST
-    public static DenseScrub      denseScrub;
-    public static DryScrub        dryScrub;
-    public static DenseScrubHills denseScrubHills;
-    public static DryScrubHills   dryScrubHills;
-//    public static BiomePlains     coolPlains;
-//    public static WindsweptPlains windswept;
-//    public static WindsweptPlains coolWindswept;
-//    public static CoolPlains      coldPlains;
+    public static WarmForest          warmForest;
+    public static WarmForestHills     warmForestHills;
+    public static HotForest           tropicalForest;
+    public static HotForestHills      tropicalForestHills;
+    public static Pinewoods           pinewoods;
+    public static BambooForest        bambooForest;
+    public static DenseScrub          denseScrub;
+    public static DryScrub            dryScrub;
+    public static DenseScrubHills     denseScrubHills;
+    public static DryScrubHills       dryScrubHills;
+    public static CoolPlains          coolPlains;
+    public static WindsweptPlains     windswept;
+    public static CoolWindsweptPlains coolWindswept;
+    public static ColdPlains          coldPlains;
 //    public static Wetland         bog;
 //    public static Wetland         carr;
 //    public static Wetland         marsh;
@@ -59,12 +59,18 @@ public class BiomeRegistrar {
     private static void makeBiomes() {
         makeForests();
         makeScrub();
+        makeMountains();
+        makePlains();
+        makeSwamps();
     }
 
 
     private static void registerBiomes(final RegistryEvent.Register<Biome> event) {
         registerForests(event);
         registerScrub(event);
+        registerMountains(event);
+        registerPlains(event);
+        registerSwamps(event);
     }
 
 
@@ -93,6 +99,7 @@ public class BiomeRegistrar {
         tropicalForest = new HotForest("tropical_forest");
         tropicalForestHills = new HotForestHills("tropical_forest_hills");
         pinewoods = new Pinewoods("pinewoods");
+        bambooForest = new BambooForest("bamboo_forest");
     }
 
 
@@ -110,7 +117,10 @@ public class BiomeRegistrar {
 
 
     private static void makePlains() {
-
+        coolPlains = new CoolPlains("cool_plains");
+        windswept = new WindsweptPlains("windswept_plains");
+        coolWindswept = new CoolWindsweptPlains("cool_windswept_plains");
+        coldPlains = new ColdPlains("cold_plains");
     }
 
 
@@ -125,15 +135,18 @@ public class BiomeRegistrar {
         registerBiome(tropicalForest, event);
         registerBiome(tropicalForestHills, event);
         registerBiome(pinewoods, event);
+        registerBiome(bambooForest, event, false);
         BiomeDictionary.addTypes(warmForest, Type.FOREST, Type.CONIFEROUS);
-        BiomeDictionary.addTypes(tropicalForest, BiomeDictionary.Type.FOREST, Type.JUNGLE,
-                Type.HOT);
+        BiomeDictionary.addTypes(tropicalForest, BiomeDictionary.Type.FOREST,
+                Type.SAVANNA, Type.HOT);
         BiomeDictionary.addTypes(pinewoods, Type.FOREST, Type.WET, Type.HOT,
-                Type.CONIFEROUS, Type.SWAMP, Type.SAVANNA);
+                Type.CONIFEROUS, Type.SWAMP, Type.LUSH);
         BiomeDictionary.addTypes(warmForestHills, Type.FOREST, Type.CONIFEROUS,
                 Type.HILLS);
-        BiomeDictionary.addTypes(tropicalForestHills, Type.FOREST, Type.JUNGLE,
-                Type.HOT, Type.HILLS);
+        BiomeDictionary.addTypes(tropicalForestHills, Type.FOREST,
+                Type.SAVANNA, Type.HOT, Type.HILLS);
+        BiomeDictionary.addTypes(bambooForest, Type.FOREST, Type.WET,
+                Type.LUSH);
     }
 
 
@@ -150,7 +163,14 @@ public class BiomeRegistrar {
 
 
     private static void registerMountains(final RegistryEvent.Register<Biome> event) {
-
+        registerBiome(coolPlains, event);
+        registerBiome(windswept, event);
+        registerBiome(coolWindswept, event);
+        registerBiome(coldPlains, event);
+        BiomeDictionary.addTypes(coolPlains, Type.PLAINS);
+        BiomeDictionary.addTypes(windswept, Type.PLAINS);
+        BiomeDictionary.addTypes(coolWindswept, Type.PLAINS);
+        BiomeDictionary.addTypes(coldPlains, Type.PLAINS, Type.COLD);
     }
 
 

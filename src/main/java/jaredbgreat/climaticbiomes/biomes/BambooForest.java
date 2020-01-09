@@ -11,13 +11,13 @@ import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 
-public class WarmForest extends Biome {
+public class BambooForest extends Biome {
 
-    public WarmForest(String name) {
-        super((new Biome.Builder())
+    public BambooForest(String name) {
+        super((new Builder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
-                .precipitation(Biome.RainType.RAIN)
-                .category(Biome.Category.FOREST)
+                .precipitation(RainType.RAIN)
+                .category(Category.FOREST)
                 .depth(0.1F)
                 .scale(0.2F)
                 .temperature(0.85F)
@@ -37,40 +37,42 @@ public class WarmForest extends Biome {
         DefaultBiomeFeatures.addStoneVariants(this);
         DefaultBiomeFeatures.addOres(this);
         DefaultBiomeFeatures.addSedimentDisks(this);
-        ClimaticBiomesFeatures.addSubtropicalForestTrees(this);
+        ClimaticBiomesFeatures.addBambooForestPlants(this);
         DefaultBiomeFeatures.addDefaultFlowers(this);
         DefaultBiomeFeatures.addGrass(this);
         DefaultBiomeFeatures.addMushrooms(this);
         DefaultBiomeFeatures.addReedsAndPumpkins(this);
         DefaultBiomeFeatures.addSprings(this);
         DefaultBiomeFeatures.addFreezeTopLayer(this);
-        this.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(EntityType.SHEEP,
+        this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.SHEEP,
                 12, 4, 4));
-        this.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(EntityType.PIG,
+        this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.PIG,
                 10, 4, 4));
-        this.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(EntityType.CHICKEN,
+        this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.CHICKEN,
                 10, 4, 4));
-        this.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(EntityType.COW,
+        this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.COW,
                 8, 4, 4));
-        this.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(EntityType.WOLF,
+        this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.WOLF,
                 5, 4, 4));
-        this.addSpawn(EntityClassification.AMBIENT, new Biome.SpawnListEntry(EntityType.BAT,
+        this.addSpawn(EntityClassification.AMBIENT, new SpawnListEntry(EntityType.BAT,
                 10, 8, 8));
-        this.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.SPIDER,
+        this.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(EntityType.PANDA,
+                80, 1, 2));
+        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.SPIDER,
                 100, 4, 4));
-        this.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.ZOMBIE,
+        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.ZOMBIE,
                 95, 4, 4));
-        this.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.ZOMBIE_VILLAGER,
+        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.ZOMBIE_VILLAGER,
                 5, 1, 1));
-        this.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.SKELETON,
+        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.SKELETON,
                 100, 4, 4));
-        this.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.CREEPER,
+        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.CREEPER,
                 100, 4, 4));
-        this.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.SLIME,
+        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.SLIME,
                 100, 4, 4));
-        this.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.ENDERMAN,
+        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.ENDERMAN,
                 10, 1, 4));
-        this.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.WITCH,
+        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.WITCH,
                 5, 1, 1));
     }
 

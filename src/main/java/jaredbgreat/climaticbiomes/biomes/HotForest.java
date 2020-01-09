@@ -37,7 +37,7 @@ public class HotForest extends Biome {
         DefaultBiomeFeatures.addStoneVariants(this);
         DefaultBiomeFeatures.addOres(this);
         DefaultBiomeFeatures.addSedimentDisks(this);
-        ClimaticBiomesFeatures.addTropicalForestTrees(this); // TODO: Edit that!
+        ClimaticBiomesFeatures.addTropicalForestTrees(this);
         DefaultBiomeFeatures.addDefaultFlowers(this);
         DefaultBiomeFeatures.addGrass(this);
         DefaultBiomeFeatures.addMushrooms(this);

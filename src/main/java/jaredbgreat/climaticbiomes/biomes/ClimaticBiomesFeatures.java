@@ -5,11 +5,9 @@ import jaredbgreat.climaticbiomes.features.PineTreeFeature;
 import net.minecraft.block.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
-import net.minecraft.world.gen.placement.FrequencyConfig;
-import net.minecraft.world.gen.placement.HeightWithChanceConfig;
-import net.minecraft.world.gen.placement.Placement;
+import net.minecraft.world.gen.placement.*;
 
 public class ClimaticBiomesFeatures {
     public static final PineTreeFeature PINE
@@ -138,4 +136,90 @@ public class ClimaticBiomesFeatures {
                         new BlockBlobConfig(Blocks.COBBLESTONE.getDefaultState(), 0),
                         Placement.FOREST_ROCK, new FrequencyConfig(3)));
     }
+
+
+    public static void addBambooForestPlants(Biome biomeIn) {
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.BAMBOO, new ProbabilityConfig(0.25F),
+                        Placement.TOP_SOLID_HEIGHTMAP_NOISE_BIASED,
+                        new TopSolidWithNoiseConfig(160, 80.0D, 0.3D,
+                                Heightmap.Type.WORLD_SURFACE_WG)));
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR,
+                        new MultipleRandomFeatureConfig(new Feature[]
+                                {SCRUB_BUSH1, Feature.JUNGLE_GROUND_BUSH, Feature.JUNGLE_GRASS},
+                                new IFeatureConfig[]
+                                        {IFeatureConfig.NO_FEATURE_CONFIG, IFeatureConfig.NO_FEATURE_CONFIG,
+                                                IFeatureConfig.NO_FEATURE_CONFIG},
+                                new float[]{0.1f, 0.05f, 0.15f},
+                                Feature.BAMBOO, new ProbabilityConfig(0.25F)),
+                        Placement.COUNT_EXTRA_HEIGHTMAP,
+                        new AtSurfaceWithExtraConfig(40, 0.1F, 1)));
+    }
+
+
+    public static void addWindsweptPlainsPlants(Biome biomeIn) {
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.PLAIN_FLOWER,
+                        IFeatureConfig.NO_FEATURE_CONFIG,
+                        Placement.NOISE_HEIGHTMAP_32,
+                        new NoiseDependant(-0.8D, 15, 4)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.GRASS,
+                        new GrassFeatureConfig(Blocks.GRASS.getDefaultState()),
+                        Placement.NOISE_HEIGHTMAP_DOUBLE,
+                        new NoiseDependant(-0.8D, 5, 10)));
+    }
+
+
+    public static void addCoolPlainsPlants(Biome biomeIn) {
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR,
+                        new MultipleRandomFeatureConfig(new Feature[]{Feature.SPRUCE_TREE, Feature.PINE_TREE},
+                                new IFeatureConfig[]{IFeatureConfig.NO_FEATURE_CONFIG, IFeatureConfig.NO_FEATURE_CONFIG},
+                                new float[]{0.25f, 0.25f}, Feature.NORMAL_TREE,
+                                IFeatureConfig.NO_FEATURE_CONFIG),
+                        Placement.COUNT_EXTRA_HEIGHTMAP,
+                        new AtSurfaceWithExtraConfig(0, 0.05F, 1)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.PLAIN_FLOWER,
+                        IFeatureConfig.NO_FEATURE_CONFIG,
+                        Placement.NOISE_HEIGHTMAP_32,
+                        new NoiseDependant(-0.8D, 15, 4)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.GRASS,
+                        new GrassFeatureConfig(Blocks.GRASS.getDefaultState()),
+                        Placement.NOISE_HEIGHTMAP_DOUBLE,
+                        new NoiseDependant(-0.8D, 5, 10)));
+    }
+
+
+    public static void addColdPlainsPlants(Biome biomeIn) {
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR,
+                        new MultipleRandomFeatureConfig(new Feature[]{SCRUB_BUSH1},
+                                new IFeatureConfig[]{IFeatureConfig.NO_FEATURE_CONFIG},
+                                new float[]{0.5f}, SCRUB_BUSH2,
+                                IFeatureConfig.NO_FEATURE_CONFIG),
+                        Placement.COUNT_EXTRA_HEIGHTMAP,
+                        new AtSurfaceWithExtraConfig(0, 0.5F, 1)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.PLAIN_FLOWER,
+                        IFeatureConfig.NO_FEATURE_CONFIG,
+                        Placement.NOISE_HEIGHTMAP_32,
+                        new NoiseDependant(-0.8D, 15, 4)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.GRASS,
+                        new GrassFeatureConfig(Blocks.GRASS.getDefaultState()),
+                        Placement.NOISE_HEIGHTMAP_DOUBLE,
+                        new NoiseDependant(-0.8D, 5, 10)));
+    }
+
+
+
 }
