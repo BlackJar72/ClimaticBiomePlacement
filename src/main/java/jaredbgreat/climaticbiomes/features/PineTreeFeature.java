@@ -3,7 +3,6 @@ package jaredbgreat.climaticbiomes.features;
 import com.mojang.datafixers.Dynamic;
 import jaredbgreat.climaticbiomes.util.BlockRegistrar;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.gen.IWorldGenerationReader;
@@ -82,9 +81,7 @@ public class PineTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
                 }
 
                 for(int i2 = 0; i2 < h1; ++i2) {
-                    if(isAirOrLeaves(world, pos.up(i2))) {
-                        this.setLogState(changed, world, pos.up(i2), TRUNK, mbb);
-                    }
+                    setLogState(changed, world, pos.up(i2), TRUNK, mbb);
                 }
 
                 return true;

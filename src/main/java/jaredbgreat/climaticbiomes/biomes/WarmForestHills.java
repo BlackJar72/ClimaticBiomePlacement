@@ -20,8 +20,8 @@ public class WarmForestHills extends Biome {
                 .category(Biome.Category.FOREST)
                 .depth(0.45F)
                 .scale(0.3F)
-                .temperature(0.9F)
-                .downfall(0.85F)
+                .temperature(0.85F)
+                .downfall(0.8F)
                 .waterColor(4159204)
                 .waterFogColor(329011)
                 .parent((String)null));
@@ -37,7 +37,7 @@ public class WarmForestHills extends Biome {
         DefaultBiomeFeatures.addStoneVariants(this);
         DefaultBiomeFeatures.addOres(this);
         DefaultBiomeFeatures.addSedimentDisks(this);
-        ClimaticBiomesFeatures.addSubtropicalForestTrees(this); // TODO: Replace with subtropical version
+        ClimaticBiomesFeatures.addSubtropicalForestTrees(this);
         DefaultBiomeFeatures.addDefaultFlowers(this);
         DefaultBiomeFeatures.addGrass(this);
         DefaultBiomeFeatures.addMushrooms(this);
