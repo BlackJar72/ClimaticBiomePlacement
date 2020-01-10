@@ -1,8 +1,11 @@
 package jaredbgreat.climaticbiomes.biomes;
 
+import com.google.common.collect.Lists;
 import jaredbgreat.climaticbiomes.features.PineTree;
 import jaredbgreat.climaticbiomes.features.PineTreeFeature;
+import jaredbgreat.climaticbiomes.util.BlockRegistrar;
 import net.minecraft.block.Blocks;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.Heightmap;
@@ -138,6 +141,42 @@ public class ClimaticBiomesFeatures {
     }
 
 
+    public static void addVolcanoOres(Biome biomeIn) {
+        biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
+                Biome.createDecoratedFeature(Feature.ORE,
+                        new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                                Blocks.IRON_ORE.getDefaultState(), 12),
+                        Placement.COUNT_RANGE,
+                        new CountRangeConfig(20, 0, 0, 56)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
+                Biome.createDecoratedFeature(Feature.ORE,
+                        new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                                Blocks.GOLD_ORE.getDefaultState(), 12),
+                        Placement.COUNT_RANGE,
+                        new CountRangeConfig(4, 0, 0, 48)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
+                Biome.createDecoratedFeature(Feature.ORE,
+                        new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                                Blocks.LAVA.getDefaultState(), 9),
+                        Placement.COUNT_RANGE,
+                        new CountRangeConfig(4, 0, 0, 128)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.SPRING_FEATURE,
+                        new LiquidsConfig(Fluids.LAVA.getDefaultState()),
+                        Placement.COUNT_VERY_BIASED_RANGE,
+                        new CountRangeConfig(256, 8, 16, 256)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS,
+                Biome.createDecoratedFeature(Feature.LAKE,
+                        new LakesConfig(Blocks.LAVA.getDefaultState()),
+                        Placement.LAVA_LAKE, new LakeChanceConfig(20)));
+
+    }
+
+
     public static void addBambooForestPlants(Biome biomeIn) {
         biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
                 Biome.createDecoratedFeature(Feature.BAMBOO, new ProbabilityConfig(0.25F),
@@ -220,6 +259,111 @@ public class ClimaticBiomesFeatures {
                         new NoiseDependant(-0.8D, 5, 10)));
     }
 
+
+    public static void addBogPlants(Biome biomeIn) {
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR,
+                        new MultipleRandomFeatureConfig(new Feature[]{SCRUB_BUSH1, SCRUB_BUSH2},
+                                new IFeatureConfig[]{IFeatureConfig.NO_FEATURE_CONFIG,
+                                        IFeatureConfig.NO_FEATURE_CONFIG},
+                                new float[]{0.1f, 0.1f}, Feature.JUNGLE_GRASS,
+                                IFeatureConfig.NO_FEATURE_CONFIG),
+                        Placement.COUNT_EXTRA_HEIGHTMAP,
+                        new AtSurfaceWithExtraConfig(12, 0.5F, 1)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.SWAMP_FLOWER, IFeatureConfig.NO_FEATURE_CONFIG,
+                        Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(1)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.GRASS, new GrassFeatureConfig(Blocks.GRASS.getDefaultState()),
+                        Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(10)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.DEAD_BUSH, IFeatureConfig.NO_FEATURE_CONFIG,
+                        Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(1)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.WATERLILY, IFeatureConfig.NO_FEATURE_CONFIG,
+                        Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(4)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.BUSH,
+                        new BushConfig(Blocks.BROWN_MUSHROOM.getDefaultState()),
+                        Placement.COUNT_CHANCE_HEIGHTMAP, new HeightWithChanceConfig(8, 0.25F)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Blocks.RED_MUSHROOM.getDefaultState()),
+                        Placement.COUNT_CHANCE_HEIGHTMAP_DOUBLE, new HeightWithChanceConfig(8, 0.125F)));
+    }
+
+
+    public static void addCarrPlants(Biome biomeIn) {
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR,
+                        new MultipleRandomFeatureConfig(new Feature[]{Feature.SPRUCE_TREE, Feature.PINE_TREE},
+                                new IFeatureConfig[]{IFeatureConfig.NO_FEATURE_CONFIG,
+                                        IFeatureConfig.NO_FEATURE_CONFIG},
+                                new float[]{0.25f, 0.25f}, Feature.BIRCH_TREE,
+                                IFeatureConfig.NO_FEATURE_CONFIG),
+                        Placement.COUNT_EXTRA_HEIGHTMAP,
+                        new AtSurfaceWithExtraConfig(8, 0.5F, 1)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.SWAMP_FLOWER, IFeatureConfig.NO_FEATURE_CONFIG,
+                        Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(1)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.GRASS, new GrassFeatureConfig(Blocks.GRASS.getDefaultState()),
+                        Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(10)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.WATERLILY, IFeatureConfig.NO_FEATURE_CONFIG,
+                        Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(16)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.BUSH,
+                        new BushConfig(Blocks.BROWN_MUSHROOM.getDefaultState()),
+                        Placement.COUNT_CHANCE_HEIGHTMAP, new HeightWithChanceConfig(8, 0.25F)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Blocks.RED_MUSHROOM.getDefaultState()),
+                        Placement.COUNT_CHANCE_HEIGHTMAP_DOUBLE, new HeightWithChanceConfig(8, 0.125F)));
+    }
+
+
+    public static void addMarshPlants(Biome biomeIn) {
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.SWAMP_FLOWER, IFeatureConfig.NO_FEATURE_CONFIG,
+                        Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(1)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.GRASS, new GrassFeatureConfig(Blocks.GRASS.getDefaultState()),
+                        Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(12)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.WATERLILY, IFeatureConfig.NO_FEATURE_CONFIG,
+                        Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(12)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.BUSH,
+                        new BushConfig(Blocks.BROWN_MUSHROOM.getDefaultState()),
+                        Placement.COUNT_CHANCE_HEIGHTMAP, new HeightWithChanceConfig(8, 0.25F)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Blocks.RED_MUSHROOM.getDefaultState()),
+                        Placement.COUNT_CHANCE_HEIGHTMAP_DOUBLE, new HeightWithChanceConfig(8, 0.125F)));
+    }
+
+
+    public static void addPeatDisks(Biome biomeIn) {
+        biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
+                Biome.createDecoratedFeature(Feature.DISK,
+                        new SphereReplaceConfig(BlockRegistrar.blockPeat.getDefaultState(),
+                                6, 2, Lists.newArrayList(Blocks.DIRT.getDefaultState(),
+                                BlockRegistrar.blockPeat.getDefaultState())),
+                        Placement.COUNT_TOP_SOLID, new FrequencyConfig(3)));
+    }
 
 
 }

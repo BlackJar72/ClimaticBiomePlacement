@@ -26,27 +26,27 @@ public class BiomeRegistrar {
     public static WindsweptPlains     windswept;
     public static CoolWindsweptPlains coolWindswept;
     public static ColdPlains          coldPlains;
-//    public static Wetland         bog;
-//    public static Wetland         carr;
-//    public static Wetland         marsh;
-//    // TODO: IceCap
-//
+    public static Bog                 bog;
+    public static Carr                carr;
+    public static Marsh               marsh;
+
 //    // Extra Mountains
 //    public static SubtropicalMountains warmMountain;
 //    public static SubtropicalMountains warmMountainTrees;
 //    public static TropicalMountains    hotMountain;
 //    public static TropicalMountains    hotMountainTrees;
-//    public static ActiveVolcano        activeVolcano;
 //    public static MontaneForest        coolMontaneForest;
 //    public static MontaneForest        warmMontaneForest;
 //    public static MontaneForest        mediMontaneForest;
 //    public static MontaneForest        montaneJungle;
-//
-//    // Advanced Rivers
-//    public static BiomeRiver coolRiver;
-//    public static BiomeRiver river;
-//    public static BiomeRiver warmRiver;
-//    public static BiomeRiver hotRiver;
+
+    // Water
+    public static IceCap    iceCap;
+    public static IceRiver  iceRiver;
+    public static CoolRiver coolRiver;
+    public static River     river;
+    public static WarmRiver warmRiver;
+    public static HotRiver  hotRiver;
 
 
     public static void setupBlocks(final RegistryEvent.Register<Biome> event) {
@@ -62,6 +62,7 @@ public class BiomeRegistrar {
         makeMountains();
         makePlains();
         makeSwamps();
+        makeRivers();
     }
 
 
@@ -71,6 +72,7 @@ public class BiomeRegistrar {
         registerMountains(event);
         registerPlains(event);
         registerSwamps(event);
+        registerRivers(event);
     }
 
 
@@ -125,7 +127,19 @@ public class BiomeRegistrar {
 
 
     private static void makeSwamps() {
+        bog = new Bog("bog");
+        carr = new Carr("carr");
+        marsh = new Marsh("marsh");
+    }
 
+
+    private static void makeRivers() {
+        iceCap = new IceCap("ice_cap");
+        iceRiver = new IceRiver("frozen_river");
+        coolRiver = new CoolRiver("cool_river");
+        river = new River("temporate_river");
+        warmRiver = new WarmRiver("warm_river");
+        hotRiver = new HotRiver("tropical_river");
     }
 
 
@@ -163,6 +177,11 @@ public class BiomeRegistrar {
 
 
     private static void registerMountains(final RegistryEvent.Register<Biome> event) {
+
+    }
+
+
+    private static void registerPlains(final RegistryEvent.Register<Biome> event) {
         registerBiome(coolPlains, event);
         registerBiome(windswept, event);
         registerBiome(coolWindswept, event);
@@ -174,13 +193,29 @@ public class BiomeRegistrar {
     }
 
 
-    private static void registerPlains(final RegistryEvent.Register<Biome> event) {
-
+    private static void registerSwamps(final RegistryEvent.Register<Biome> event) {
+        registerBiome(bog, event);
+        registerBiome(carr, event);
+        registerBiome(marsh, event);
+        BiomeDictionary.addTypes(bog, Type.SWAMP, Type.COLD, Type.WET);
+        BiomeDictionary.addTypes(carr, Type.SWAMP, Type.FOREST, Type.WET);
+        BiomeDictionary.addTypes(marsh, Type.SWAMP, Type.PLAINS, Type.WET);
     }
 
 
-    private static void registerSwamps(final RegistryEvent.Register<Biome> event) {
-
+    private static void registerRivers(final RegistryEvent.Register<Biome> event) {
+        registerBiome(iceCap, event);
+        registerBiome(iceRiver, event);
+        registerBiome(coolRiver, event);
+        registerBiome(river, event);
+        registerBiome(warmRiver, event);
+        registerBiome(hotRiver, event);
+        BiomeDictionary.addTypes(iceCap, Type.OCEAN, Type.WATER, Type.COLD, Type.SNOWY, Type.WASTELAND);
+        BiomeDictionary.addTypes(iceRiver, Type.RIVER, Type.WATER, Type.COLD, Type.SNOWY);
+        BiomeDictionary.addTypes(coolRiver, Type.RIVER, Type.WATER, Type.COLD);
+        BiomeDictionary.addTypes(river, Type.RIVER, Type.WATER);
+        BiomeDictionary.addTypes(warmRiver, Type.RIVER, Type.WATER);
+        BiomeDictionary.addTypes(hotRiver, Type.RIVER, Type.WATER, Type.HOT);
     }
 
     /*----------------------------------------------------------------------------------------------------------------*/
