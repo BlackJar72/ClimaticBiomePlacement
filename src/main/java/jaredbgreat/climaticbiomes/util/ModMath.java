@@ -1,4 +1,4 @@
-package jaredbgreat.climaticbiome.util;
+package jaredbgreat.climaticbiomes.util;
 
 public class ModMath {
         

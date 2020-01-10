@@ -1,25 +1,27 @@
 package jaredbgreat.climaticbiomes.generation.cache;
 
+public interface ICachable {
 
-public interface ICachable {	
-	
-	/**
-	 * Updates last used time.
-	 */
-	public void use();
-	/**
-	 * Is this ready to be removed?
-	 * 
-	 * @return
-	 */
-	public boolean isOldData();
-	/**
-	 * Was this an old item returned from the cache.
-	 * 
-	 * @return
-	 */
+    /**
+     * Updates last used time.
+     */
+    public void use();
+
+    /**
+     * Is this ready to be removed?
+     *
+     * @return
+     */
+
+    public boolean isOldData();
+    /**
+     * Was this an old item returned from the cache.
+     *
+     * @return
+     */
+
     public Coords getCoords();
-	/**
-	 * Mark whether this is in the cache.
-	 */
+    /**
+     * Mark whether this is in the cache.
+     */
 }

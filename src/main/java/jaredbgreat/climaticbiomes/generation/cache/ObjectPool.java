@@ -8,15 +8,15 @@ package jaredbgreat.climaticbiomes.generation.cache;
 public class ObjectPool<T> {
     private final ObjectStack<T>   stack;
     private final ObjectFactory<T> factory;
-    
-    
+
+
     public interface ObjectFactory<T> {
         T create();
     }
-    
-    
+
+
     @SuppressWarnings("hiding")
-	private class ObjectStack<T> {
+    private class ObjectStack<T> {
         final Object[] data;
         int pos;
         public ObjectStack(int size) {
@@ -28,7 +28,7 @@ public class ObjectPool<T> {
                 data[pos++] = in;
             }
         }
-        @SuppressWarnings({ "unchecked", "rawtypes" }) 
+        @SuppressWarnings({ "unchecked", "rawtypes" })
         T pop() {
             T out = (T)data[--pos];
             data[pos] = null;
@@ -41,15 +41,15 @@ public class ObjectPool<T> {
             return pos == data.length;
         }
     }
-    
-    
-    @SuppressWarnings({ "unchecked", "rawtypes" }) 
+
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public ObjectPool(ObjectFactory<T> fact, int maxSize) {
         factory = fact;
-        stack = new ObjectStack(maxSize);        
+        stack = new ObjectStack(maxSize);
     }
-    
-    
+
+
     public T getObject() {
         if(stack.isEmpty()) {
             return factory.create();
@@ -57,8 +57,8 @@ public class ObjectPool<T> {
             return stack.pop();
         }
     }
-    
-    
+
+
     public void free(T object) {
         stack.push(object);
     }
