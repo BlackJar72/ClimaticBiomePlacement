@@ -30,16 +30,14 @@ public class BiomeRegistrar {
     public static Carr                carr;
     public static Marsh               marsh;
 
-//    // Extra Mountains
-//    public static SubtropicalMountains warmMountain;
-//    public static SubtropicalMountains warmMountainTrees;
-//    public static TropicalMountains    hotMountain;
-//    public static TropicalMountains    hotMountainTrees;
-//    public static MontaneForest        coolMontaneForest;
-//    public static MontaneForest        warmMontaneForest;
-//    public static MontaneForest        mediMontaneForest;
-//    public static MontaneForest        montaneJungle;
-//    //public static ActiveVolcano activeVolcano; // FIXME ... or do not use...!
+    // Extra Mountains
+    public static WarmMountains      warmMountain;
+    public static WarmMountainsTrees warmMountainTrees;
+    public static HotMountains       hotMountain;
+    public static HotMountainsTrees  hotMountainTrees;
+    public static CoolMontaneForest  coolMontaneForest;
+    public static WarmMontaneForest  warmMontaneForest;
+    public static MontaneJungle      montaneJungle;
 
     // Water
     public static IceCap    iceCap;
@@ -115,7 +113,13 @@ public class BiomeRegistrar {
 
 
     private static void makeMountains() {
-
+        warmMountain = new WarmMountains("subtropical_mountains");
+        warmMountainTrees = new WarmMountainsTrees("subtropical_wooded_mountains");
+        hotMountain = new HotMountains("tropical_mountains");
+        hotMountainTrees = new HotMountainsTrees("tropical_wooded_mountains");
+        coolMontaneForest = new CoolMontaneForest("cool_montane_forest");
+        warmMontaneForest = new WarmMontaneForest("warm_montane_forest");
+        montaneJungle = new MontaneJungle("montane_jungle");
     }
 
 
@@ -178,7 +182,26 @@ public class BiomeRegistrar {
 
 
     private static void registerMountains(final RegistryEvent.Register<Biome> event) {
-
+        registerBiome(warmMountain, event);
+        registerBiome(warmMountainTrees, event);
+        registerBiome(hotMountain, event);
+        registerBiome(hotMountainTrees, event);
+        registerBiome(coolMontaneForest, event);
+        registerBiome(warmMontaneForest, event);
+        registerBiome(montaneJungle, event);
+        BiomeDictionary.addTypes(warmMountain, Type.HILLS, Type.MOUNTAIN);
+        BiomeDictionary.addTypes(warmMountainTrees, Type.HILLS,
+                Type.MOUNTAIN, Type.FOREST);
+        BiomeDictionary.addTypes(hotMountain, Type.HILLS, Type.MOUNTAIN,
+                Type.HOT);
+        BiomeDictionary.addTypes(hotMountainTrees, Type.HILLS, Type.MOUNTAIN,
+                Type.FOREST, Type.HOT);
+        BiomeDictionary.addTypes(coolMontaneForest, Type.HILLS, Type.MOUNTAIN,
+                Type.COLD, Type.FOREST);
+        BiomeDictionary.addTypes(warmMontaneForest, Type.HILLS,
+                Type.MOUNTAIN, Type.FOREST);
+        BiomeDictionary.addTypes(montaneJungle, Type.HILLS, Type.MOUNTAIN,
+                Type.JUNGLE, Type.HOT, Type.WET);
     }
 
 

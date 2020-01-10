@@ -366,4 +366,74 @@ public class ClimaticBiomesFeatures {
     }
 
 
+    public static void addWarmMTrees(Biome biomeIn) {
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR,
+                        new MultipleRandomFeatureConfig(new Feature[]
+                                {Feature.BIRCH_TREE, Feature.PINE_TREE, Feature.SPRUCE_TREE, Feature.NORMAL_TREE},
+                                new IFeatureConfig[]
+                                        {IFeatureConfig.NO_FEATURE_CONFIG, IFeatureConfig.NO_FEATURE_CONFIG,
+                                         IFeatureConfig.NO_FEATURE_CONFIG,IFeatureConfig.NO_FEATURE_CONFIG},
+                                new float[]{0.2f, 0.1f, 0.1f, 0.2f}, Feature.FANCY_TREE,
+                                IFeatureConfig.NO_FEATURE_CONFIG), Placement.COUNT_EXTRA_HEIGHTMAP,
+                        new AtSurfaceWithExtraConfig(3, 0.1F, 1)));
+    }
+
+
+    public static void addHotMTrees(Biome biomeIn) {
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR,
+                        new MultipleRandomFeatureConfig(new Feature[]
+                                {PINE, Feature.JUNGLE_TREE},
+                                new IFeatureConfig[]
+                                        {IFeatureConfig.NO_FEATURE_CONFIG, IFeatureConfig.NO_FEATURE_CONFIG},
+                                new float[]{0.2f, 0.1f}, Feature.FANCY_TREE,
+                                IFeatureConfig.NO_FEATURE_CONFIG), Placement.COUNT_EXTRA_HEIGHTMAP,
+                        new AtSurfaceWithExtraConfig(3, 0.1F, 1)));
+    }
+
+
+    public static void addMFWTrees(Biome biomeIn) {
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR,
+                        new MultipleRandomFeatureConfig(new Feature[]
+                                {PINE, Feature.NORMAL_TREE, Feature.BIRCH_TREE, Feature.SPRUCE_TREE, Feature.PINE_TREE},
+                                new IFeatureConfig[]
+                                        {IFeatureConfig.NO_FEATURE_CONFIG, IFeatureConfig.NO_FEATURE_CONFIG,
+                                         IFeatureConfig.NO_FEATURE_CONFIG, IFeatureConfig.NO_FEATURE_CONFIG,
+                                         IFeatureConfig.NO_FEATURE_CONFIG},
+                                new float[]{0.2f, 0.2f, 0.2f, 0.1f, 0.1f}, Feature.FANCY_TREE,
+                                IFeatureConfig.NO_FEATURE_CONFIG), Placement.COUNT_EXTRA_HEIGHTMAP,
+                        new AtSurfaceWithExtraConfig(7, 0.1F, 1)));
+    }
+
+
+    public static void addMFCTrees(Biome biomeIn) {
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR,
+                        new MultipleRandomFeatureConfig(new Feature[]
+                                {Feature.FANCY_TREE, Feature.SPRUCE_TREE, Feature.PINE_TREE},
+                                new IFeatureConfig[]
+                                        {IFeatureConfig.NO_FEATURE_CONFIG, IFeatureConfig.NO_FEATURE_CONFIG,
+                                                IFeatureConfig.NO_FEATURE_CONFIG, IFeatureConfig.NO_FEATURE_CONFIG},
+                                new float[]{0.2f, 0.25f, 0.25f}, Feature.BIRCH_TREE,
+                                IFeatureConfig.NO_FEATURE_CONFIG), Placement.COUNT_EXTRA_HEIGHTMAP,
+                        new AtSurfaceWithExtraConfig(7, 0.1F, 1)));
+    }
+
+
+    public static void addMFHTrees(Biome biomeIn) {
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+                Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR,
+                        new MultipleRandomFeatureConfig(new Feature[]
+                                {PINE, Feature.FANCY_TREE, Feature.JUNGLE_TREE, Feature.SAVANNA_TREE},
+                                new IFeatureConfig[]
+                                        {IFeatureConfig.NO_FEATURE_CONFIG, IFeatureConfig.NO_FEATURE_CONFIG,
+                                         IFeatureConfig.NO_FEATURE_CONFIG, IFeatureConfig.NO_FEATURE_CONFIG},
+                                new float[]{0.1f, 0.1f, 0.3f, 0.1f}, Feature.JUNGLE_GROUND_BUSH,
+                                IFeatureConfig.NO_FEATURE_CONFIG), Placement.COUNT_EXTRA_HEIGHTMAP,
+                        new AtSurfaceWithExtraConfig(20, 0.1F, 1)));
+    }
+
+
 }
