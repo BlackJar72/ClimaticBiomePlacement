@@ -1,4 +1,4 @@
-package jaredbgreat.climaticbiomes.biomes;
+package jaredbgreat.climaticbiomes.features;
 
 import com.google.common.collect.Lists;
 import jaredbgreat.climaticbiomes.features.PineTree;
@@ -193,7 +193,7 @@ public class ClimaticBiomesFeatures {
                                 new float[]{0.1f, 0.05f, 0.15f},
                                 Feature.BAMBOO, new ProbabilityConfig(0.25F)),
                         Placement.COUNT_EXTRA_HEIGHTMAP,
-                        new AtSurfaceWithExtraConfig(40, 0.1F, 1)));
+                        new AtSurfaceWithExtraConfig(32, 0.1F, 1)));
     }
 
 

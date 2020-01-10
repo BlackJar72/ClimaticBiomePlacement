@@ -1,6 +1,7 @@
 package jaredbgreat.climaticbiomes.biomes;
 
 import jaredbgreat.climaticbiomes.Info;
+import jaredbgreat.climaticbiomes.features.ClimaticBiomesFeatures;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
