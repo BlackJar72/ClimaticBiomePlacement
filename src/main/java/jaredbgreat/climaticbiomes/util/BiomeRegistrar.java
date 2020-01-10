@@ -39,6 +39,7 @@ public class BiomeRegistrar {
 //    public static MontaneForest        warmMontaneForest;
 //    public static MontaneForest        mediMontaneForest;
 //    public static MontaneForest        montaneJungle;
+//    //public static ActiveVolcano activeVolcano; // FIXME ... or do not use...!
 
     // Water
     public static IceCap    iceCap;

@@ -10,4 +10,6 @@ public class Surfaces {
             = new DenseScrubSurfaceBuilder(SurfaceBuilderConfig::deserialize);
     public static final SurfaceBuilder<SurfaceBuilderConfig> DRY_SCRUB
             = new DryScrubSurfaceBuilder(SurfaceBuilderConfig::deserialize);
+    public static final SurfaceBuilder<SurfaceBuilderConfig> VOLCANIC
+            = new VolcanoSurfaceBuilder(SurfaceBuilderConfig::deserialize);
 }
