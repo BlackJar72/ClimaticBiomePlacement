@@ -28,7 +28,7 @@ public class ClimaticBiomes {
     public static ClimaticBiomes instance;
 
     // TODO: Delete this when ready to create the Climatic World Type
-    public static final WorldType testWorlds = new TestWorldType();
+    // public static final WorldType testWorlds = new TestWorldType();
 
 
     public ClimaticBiomes() {

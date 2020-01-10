@@ -43,7 +43,10 @@ public class CoolRiver extends Biome {
         DefaultBiomeFeatures.addMushrooms(this);
         DefaultBiomeFeatures.addReedsAndPumpkins(this);
         DefaultBiomeFeatures.addSprings(this);
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(Feature.SEAGRASS, new SeaGrassConfig(48, 0.4D), Placement.TOP_SOLID_HEIGHTMAP, IPlacementConfig.NO_PLACEMENT_CONFIG));
+        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(Feature.SEAGRASS,
+                new SeaGrassConfig(48, 0.4D),
+                Placement.TOP_SOLID_HEIGHTMAP,
+                IPlacementConfig.NO_PLACEMENT_CONFIG));
         DefaultBiomeFeatures.addFreezeTopLayer(this);
         this.addSpawn(EntityClassification.WATER_CREATURE,
                 new Biome.SpawnListEntry(EntityType.SQUID, 2, 1, 4));

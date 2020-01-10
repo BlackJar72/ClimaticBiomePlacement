@@ -12,6 +12,7 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placement.*;
 
+
 public class ClimaticBiomesFeatures {
     public static final PineTreeFeature PINE
             = new PineTreeFeature(NoFeatureConfig::deserialize, false);
@@ -186,11 +187,11 @@ public class ClimaticBiomesFeatures {
         biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
                 Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR,
                         new MultipleRandomFeatureConfig(new Feature[]
-                                {SCRUB_BUSH1, Feature.JUNGLE_GROUND_BUSH, Feature.JUNGLE_GRASS},
+                                {SCRUB_BUSH1, Feature.JUNGLE_GROUND_BUSH, Feature.JUNGLE_GRASS, Feature.FANCY_TREE},
                                 new IFeatureConfig[]
                                         {IFeatureConfig.NO_FEATURE_CONFIG, IFeatureConfig.NO_FEATURE_CONFIG,
-                                                IFeatureConfig.NO_FEATURE_CONFIG},
-                                new float[]{0.1f, 0.05f, 0.15f},
+                                         IFeatureConfig.NO_FEATURE_CONFIG, IFeatureConfig.NO_FEATURE_CONFIG},
+                                new float[]{0.1f, 0.04f, 0.14f, 0.02f},
                                 Feature.BAMBOO, new ProbabilityConfig(0.25F)),
                         Placement.COUNT_EXTRA_HEIGHTMAP,
                         new AtSurfaceWithExtraConfig(32, 0.1F, 1)));
