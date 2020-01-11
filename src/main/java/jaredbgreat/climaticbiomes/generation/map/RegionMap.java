@@ -58,8 +58,7 @@ public class RegionMap extends AbstractCachable implements IRegionMap {
      * is freshly initialized so that the value is zero).
      *
      * @param biome
-     * @param x relative chunk x within region
-     * @param z relative chunk x within region
+     * @param i positoin in the array
      */
     public void setBiomeExpress(long biome, int i) {
         data[i] = biome;

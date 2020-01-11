@@ -13,16 +13,17 @@ import jaredbgreat.climaticbiomes.generation.cache.Cache;
 import jaredbgreat.climaticbiomes.generation.cache.Coords;
 import jaredbgreat.climaticbiomes.generation.generator.BiomeBasin;
 import jaredbgreat.climaticbiomes.generation.generator.MapMaker;
+//import jaredbgreat.climaticbiomes.util.BiomeMappings;
 import jaredbgreat.climaticbiomes.util.SpatialNoise;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+
 
 public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
+    private final static Biome DEFAULT_BIOME = Biomes.OCEAN;
     private final Cache<RegionMap> data;
-    private final BiomeMappings biomeRegistry;
-
 
     private final SpatialNoise chunkNoise;
     private final SpatialNoise regionNoise;
@@ -44,7 +45,6 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
         cOffset = cWidth / 2;
         bOffset = bWidth / 2;
         data = new Cache<>();
-        biomeRegistry = new BiomeMappings();
         Random random = new Random(seed);
         chunkNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         regionNoise = new SpatialNoise(random.nextLong(), random.nextLong());
@@ -272,7 +272,7 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
      * @return
      */
     public Biome getBiomeChunk(int x, int z) {
-        return biomeRegistry.get((int)getMapFromChunkCoord(x, z)
+        return getFullBiome((int)getMapFromChunkCoord(x, z)
                 .getBiome(modRight(x + cOffset, cWidth),
                         modRight(z + cOffset, cWidth)));
     }
@@ -289,8 +289,6 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
      *
      * @param x
      * @param z
-     * @param h
-     * @param w
      * @return
      */
     public Biome[] getChunkBiomeGrid(int x, int z, Biome[] in) {
@@ -310,7 +308,7 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
         }
         for(int i = 0; i < 16; i++)
             for(int j = 0; j < 16; j++) {
-                in[(j * 16) + i] = biomeRegistry.get((int)tiles[BiomeBasin
+                in[(j * 16) + i] = getFullBiome((int)tiles[BiomeBasin
                                 .summateEffect(basins, 16 + i, 16 + j)],
                         Biomes.DEFAULT);
             }
@@ -354,7 +352,7 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
         }
         for(int i = 0; i < w; i++)
             for(int j = 0; j < h; j++) {
-                out[(j * w) + i] = biomeRegistry.get((int)tiles[BiomeBasin
+                out[(j * w) + i] = getFullBiome((int)tiles[BiomeBasin
                                 .summateEffect(basins, 16 + i, 16 + j)],
                         Biomes.DEFAULT);
             }
@@ -401,7 +399,38 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 
 
     private Biome getFullBiome(long id) {
-        return biomeRegistry.get((int)(id & 0xffffffffL), Biomes.DEFAULT);
+        Biome out = Registry.BIOME.getByValue(((int)(id & 0xffffffffL)));
+        if(out == null) {
+            out = DEFAULT_BIOME;
+        }
+        return out;
+    }
+
+
+    private Biome getFullBiome(long id, Biome aDefault) {
+        Biome out = Registry.BIOME.getByValue(((int)(id & 0xffffffffL)));
+        if(out == null) {
+            out = aDefault;
+        }
+        return out;
+    }
+
+
+    private Biome getFullBiome(int id) {
+        Biome out = Registry.BIOME.getByValue(id);
+        if(out == null) {
+            out = DEFAULT_BIOME;
+        }
+        return out;
+    }
+
+
+    private Biome getFullBiome(int id, Biome aDefault) {
+        Biome out = Registry.BIOME.getByValue(id);
+        if(out == null) {
+            out = aDefault;
+        }
+        return out;
     }
 
 
@@ -411,8 +440,6 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
      *
      * @param x
      * @param z
-     * @param h
-     * @param w
      * @return
      */
     public Biome[] getChunkBiomeGen(int x, int z, Biome[] in) {

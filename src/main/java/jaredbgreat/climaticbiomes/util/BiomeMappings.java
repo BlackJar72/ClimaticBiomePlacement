@@ -1,4 +1,4 @@
-package jaredbgreat.climaticbiomes.generation.map;
+package jaredbgreat.climaticbiomes.util;
 
 import java.util.HashMap;
 import java.util.Map;

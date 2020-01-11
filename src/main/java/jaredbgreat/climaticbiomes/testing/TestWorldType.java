@@ -22,7 +22,7 @@ public class TestWorldType extends WorldType {
         OverworldGenSettings settings = new OverworldGenSettings();
         SingleBiomeProviderSettings single = new SingleBiomeProviderSettings();
         // TODO: Change next line to biome being tested
-        single.setBiome(BiomeRegistrar.warmMountainTrees);
+        single.setBiome(BiomeRegistrar.bambooForest);
         return new OverworldChunkGenerator(world, new SingleBiomeProvider(single), settings);
     }
 }
