@@ -70,11 +70,11 @@ public class ActiveVolcano extends Biome  {
 
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer cpi, 
     			int x, int z, double noise) {
-		if(noise > 2.5) {
-			fillerBlock = ASH;
-		} else {
-			fillerBlock = BASALT;
-		}
+        if(noise > 2.5) {
+                fillerBlock = ASH;
+        } else {
+                fillerBlock = BASALT;
+        }
         if(noise > 1.25) {
         	this.topBlock = ASH;
         } else if(rand.nextInt(196) == 0){

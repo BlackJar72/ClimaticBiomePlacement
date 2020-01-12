@@ -24,7 +24,7 @@ public class GetJungle implements IBiomeSpecifier {
 		forest  = GetHotForest.getForest();
 		swamp   = GetSwamp.getSwamp();
 		DefReader.readBiomeData(jungles, "Jungle.cfg");
-		if(isEmpty()) {
+		if(jungles.isEmpty()) {
 			jungles.addItem(new LeafBiome(21), 3);
 			jungles.addItem(new LeafBiome(23), 2);
 		}

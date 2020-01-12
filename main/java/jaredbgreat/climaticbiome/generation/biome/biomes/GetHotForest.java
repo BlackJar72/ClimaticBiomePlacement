@@ -30,7 +30,7 @@ public class GetHotForest implements IBiomeSpecifier {
 		if(!ConfigHandler.includeForests) {
 			DefReader.readBiomeData(forests, "Jungle.cfg");			
 		}
-		if(isEmpty()) {
+		if(forests.isEmpty()) {
 			if(ConfigHandler.includeForests) {
 				forests.addItem(new SeedDoubleBiome(151, 5, 23));
 				forests.addItem(new LeafBiome(Biome.getIdForBiome(ModBiomes.tropicalForestHills)));

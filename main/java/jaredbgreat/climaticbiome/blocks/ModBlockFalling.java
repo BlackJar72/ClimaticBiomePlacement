@@ -42,7 +42,7 @@ public class ModBlockFalling extends BlockFalling /*implements IHaveModel*/ {
     
     @SideOnly(Side.CLIENT)
     public int getDustColor(IBlockState state) {
-        return -8356741;
+        return 0xFF807C7B;
     }
 
 }
