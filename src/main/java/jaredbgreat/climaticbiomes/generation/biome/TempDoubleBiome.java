@@ -49,4 +49,9 @@ public class TempDoubleBiome extends AbstractTerminalSpecifier {
         return ((a < 0) || (b < 0));
     }
 
+
+    public void listOut() {
+        System.err.println("Biome a: " + a + "; biome b: " + b);
+    }
+
 }

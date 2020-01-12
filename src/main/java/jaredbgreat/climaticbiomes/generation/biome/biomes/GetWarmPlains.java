@@ -53,4 +53,10 @@ public class GetWarmPlains implements IBiomeSpecifier {
         return false;
     }
 
+
+    public void listOut() {
+        cool.listOut();
+        hot.listOut();
+    }
+
 }

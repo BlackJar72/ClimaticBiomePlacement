@@ -59,4 +59,11 @@ public class GetCoolPark implements IBiomeSpecifier {
         return false;
     }
 
+
+    public void listOut() {
+        plains.listOut();
+        woods.listOut();
+        parks.listOut();
+    }
+
 }

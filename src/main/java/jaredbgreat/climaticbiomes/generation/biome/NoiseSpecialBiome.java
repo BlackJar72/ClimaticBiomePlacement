@@ -31,4 +31,9 @@ public class NoiseSpecialBiome implements IBiomeSpecifier {
         return a.isEmpty() || b.isEmpty();
     }
 
+
+    public void listOut() {
+        System.err.println("Biome a: " + a + "; biome b: " + b);
+    }
+
 }

@@ -24,7 +24,7 @@ public class GetJungle implements IBiomeSpecifier {
         forest  = GetHotForest.getForest();
         swamp   = GetSwamp.getSwamp();
         //DefReader.readBiomeData(jungles, "Jungle.cfg"); //FIXME
-        if(isEmpty()) {
+        if(jungles.isEmpty()) {
             jungles.addItem(new LeafBiome(21), 3);
             jungles.addItem(new LeafBiome(23), 2);
         }
@@ -61,6 +61,14 @@ public class GetJungle implements IBiomeSpecifier {
     @Override
     public boolean isEmpty() {
         return false;
+    }
+
+
+    public void listOut() {
+        jungles.listOut();
+        forest.listOut();
+        alpine.listOut();
+        swamp.listOut();
     }
 
 }

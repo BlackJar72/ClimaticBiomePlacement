@@ -51,6 +51,13 @@ public class BiomeClimateTable implements IBiomeSpecifier {
         public boolean isEmpty() {
             return table == null;
         }
+
+
+        public void listOut() {
+            for(IBiomeSpecifier sp: table) {
+                sp.listOut();
+            }
+        }
     }
 
     IBiomeSpecifier OCEAN;
@@ -268,6 +275,13 @@ public class BiomeClimateTable implements IBiomeSpecifier {
                 DESERT, SAVANNA, SAVANNA, TFOREST, JUNGLE,  JUNGLE,  JUNGLE, JUNGLE, JUNGLE, JUNGLE,
                 DESERT, SAVANNA, TFOREST, JUNGLE,  JUNGLE,  JUNGLE,  JUNGLE, JUNGLE, JUNGLE, JUNGLE
         };
+    }
+
+
+    public void listOut() {
+        for(IBiomeSpecifier sp: table) {
+            sp.listOut();
+        }
     }
 
 }

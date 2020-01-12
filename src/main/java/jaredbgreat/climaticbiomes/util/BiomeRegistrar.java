@@ -157,13 +157,13 @@ public class BiomeRegistrar {
         registerBiome(bambooForest, event, false);
         BiomeDictionary.addTypes(warmForest, Type.FOREST, Type.CONIFEROUS);
         BiomeDictionary.addTypes(tropicalForest, BiomeDictionary.Type.FOREST,
-                Type.SAVANNA, Type.HOT);
+                Type.HOT);
         BiomeDictionary.addTypes(pinewoods, Type.FOREST, Type.WET, Type.HOT,
                 Type.CONIFEROUS, Type.SWAMP, Type.LUSH);
         BiomeDictionary.addTypes(warmForestHills, Type.FOREST, Type.CONIFEROUS,
                 Type.HILLS);
         BiomeDictionary.addTypes(tropicalForestHills, Type.FOREST,
-                Type.SAVANNA, Type.HOT, Type.HILLS);
+                Type.HOT, Type.HILLS);
         BiomeDictionary.addTypes(bambooForest, Type.FOREST, Type.WET,
                 Type.LUSH);
     }

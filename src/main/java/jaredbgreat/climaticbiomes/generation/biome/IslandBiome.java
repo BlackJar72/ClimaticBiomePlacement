@@ -41,4 +41,9 @@ public class IslandBiome extends AbstractTerminalSpecifier {
         return (island < 0);
     }
 
+
+    public void listOut() {
+        System.err.println("Biome Island: " + island);
+    }
+
 }

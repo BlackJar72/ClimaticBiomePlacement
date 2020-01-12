@@ -31,10 +31,11 @@ public class GetBeach implements IBiomeSpecifier {
         cold = new BiomeList();
         rock = new BiomeList();
         warm = new BiomeList();
+        // FIXME: More beach types than this now!
         // TODO: Make configurable
-//        cold.addItem(new LeafBiome(Biome.getBiome(26)));
-//        rock.addItem(new LeafBiome(Biome.getBiome(25)));
-//        warm.addItem(new LeafBiome(Biome.getBiome(16)));
+        cold.addItem(new LeafBiome(26));
+        rock.addItem(new LeafBiome(25));
+        warm.addItem(new LeafBiome(16));
     }
 
 
@@ -65,6 +66,11 @@ public class GetBeach implements IBiomeSpecifier {
             beaches = new GetBeach();
         }
         return beaches;
+    }
+
+
+    public void listOut() {
+
     }
 
 }

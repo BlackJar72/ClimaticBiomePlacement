@@ -6,4 +6,7 @@ public interface IBiomeSpecifier {
     public long getBiome(ChunkTile tile);
     public boolean isEmpty();
 
+    // Debugging
+    public void listOut();
+
 }

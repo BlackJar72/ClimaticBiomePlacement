@@ -44,4 +44,9 @@ public class GetColdPlains implements IBiomeSpecifier {
         return plains;
     }
 
+
+    public void listOut() {
+        coldPlains.listOut();
+    }
+
 }

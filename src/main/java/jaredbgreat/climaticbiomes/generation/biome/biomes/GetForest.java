@@ -76,4 +76,12 @@ public class GetForest implements IBiomeSpecifier {
         forests.merge(GetCoolForest.getForest().getList());
     }
 
+
+    public void listOut() {
+        forests.listOut();
+        alpine.listOut();
+        plains.listOut();
+        swamp.listOut();
+    }
+
 }

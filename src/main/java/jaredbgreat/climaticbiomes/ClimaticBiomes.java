@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiomes;
 
+import jaredbgreat.climaticbiomes.generation.ClimaticWorldType;
 import jaredbgreat.climaticbiomes.proxy.ClientProxy;
 import jaredbgreat.climaticbiomes.testing.TestWorldType;
 import jaredbgreat.climaticbiomes.util.BlockRegistrar;
@@ -29,6 +30,7 @@ public class ClimaticBiomes {
 
     // TODO: Delete this when ready to create the Climatic World Type
     // public static final WorldType testWorlds = new TestWorldType();
+    public static final WorldType climatic = new ClimaticWorldType();
 
 
     public ClimaticBiomes() {

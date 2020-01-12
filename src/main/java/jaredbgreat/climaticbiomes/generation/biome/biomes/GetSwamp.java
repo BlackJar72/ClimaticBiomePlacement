@@ -90,4 +90,12 @@ public class GetSwamp implements IBiomeSpecifier {
         return false;
     }
 
+
+    public void listOut() {
+        cold.listOut();
+        cool.listOut();
+        cold.listOut();
+        hot.listOut();
+    }
+
 }

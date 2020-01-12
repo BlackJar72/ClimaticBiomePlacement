@@ -80,4 +80,12 @@ public class GetCoolForest implements IBiomeSpecifier {
         return cforest;
     }
 
+
+    public void listOut() {
+        forests.listOut();
+        plains.listOut();
+        alpine.listOut();
+        swamp.listOut();
+    }
+
 }

@@ -13,7 +13,7 @@ import jaredbgreat.climaticbiomes.generation.cache.Cache;
 import jaredbgreat.climaticbiomes.generation.cache.Coords;
 import jaredbgreat.climaticbiomes.generation.generator.BiomeBasin;
 import jaredbgreat.climaticbiomes.generation.generator.MapMaker;
-//import jaredbgreat.climaticbiomes.util.BiomeMappings;
+import jaredbgreat.climaticbiomes.util.Debug;
 import jaredbgreat.climaticbiomes.util.SpatialNoise;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -72,6 +72,7 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
         //System.out.println("{" + x + ", " + z + "}");
         RegionMap out = data.get(x, z);
         if(out == null) {
+            Debug.bigSysout("Map was Null");
             out = new RegionMap(x, z, cWidth);
             readMap(out);
             data.add(out);
@@ -111,83 +112,46 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
      * @param map
      */
     private void initializeMap(RegionMap map) {
+        Debug.bigSysout("Initializing Map");
         maker.generate(map, world);
         if(cansave) writeMap(map);
+        Debug.bigSysout("Initialized Map");
     }
 
 
     private void readMap(RegionMap map) {
+        Debug.bigSysout("Reading Map");
         Coords coords = map.getCoords();
         int x = coords.getX();
         int z = coords.getZ();
-        if(!cansave) {
-            return;
-        }
         File file = getSaveFile(x, z);
         long[] data = map.getData();
-        if(file != null && file.exists()) {
-            if(file.length() < (dataSize * 4)) {
-                convertMap(map, file);
-            } else try {
-                FileInputStream fs = new FileInputStream(file);
-                for(int i = 0; i < dataSize; i++) {
-                    data[i] = (short)fs.read();
-                    data[i] |= (fs.read() << 8);
-                    data[i] |= (fs.read() << 16);
-                    data[i] |= (fs.read() << 24);
-                    data[i] |= (fs.read() << 32);
-                }
-                fs.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
+//        if(file != null && file.exists()) {
+//            try {
+//                FileInputStream fs = new FileInputStream(file);
+//                for(int i = 0; i < dataSize; i++) {
+//                    data[i] = (short)fs.read();
+//                    data[i] |= (fs.read() << 8);
+//                    data[i] |= (fs.read() << 16);
+//                    data[i] |= (fs.read() << 24);
+//                    data[i] |= (fs.read() << 32);
+//                }
+//                fs.close();
+//            } catch (FileNotFoundException e) {
+//                Debug.bigSysout("File Not Found Exception");
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                Debug.bigSysout("IO Exception");
+//                e.printStackTrace();
+//            }
+//        } else {
             initializeMap(map);
-        }
-    }
-
-
-    private void convertMap(RegionMap map, File file) {
-        Coords coords = map.getCoords();
-        int x = coords.getX();
-        int z = coords.getZ();
-        long[] data = map.getData();
-        // Load old format map with modifications
-        try {
-            FileInputStream fs = new FileInputStream(file);
-            for(int i = 0; i < dataSize; i++) {
-                data[i] = (short)fs.read();
-                data[i] |= (fs.read() << 32);
-            }
-            fs.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // Re-save in new format
-        try {
-            FileOutputStream fs = new FileOutputStream(file);
-            for(int i = 0; i < dataSize; i++) {
-                fs.write((int)(data[i]  & 0xffL));
-                fs.write((int)((data[i] & 0xff00L) >> 8));
-                fs.write((int)((data[i] & 0xff0000L) >> 16));
-                fs.write((int)((data[i] & 0xff000000L) >> 24));
-                fs.write((int)((data[i] & 0xff00000000L) >> 32));
-            }
-            //System.out.println("Wrote Data: " + hasher.getHash());
-            fs.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        }
     }
 
 
     private void writeMap(RegionMap map) {
+        Debug.bigSysout("Saving Map");
         Coords coords = map.getCoords();
         int x = coords.getX();
         int z = coords.getZ();

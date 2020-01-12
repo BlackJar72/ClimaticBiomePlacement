@@ -66,4 +66,11 @@ public class GetPark implements IBiomeSpecifier {
         return false;
     }
 
+
+    public void listOut() {
+        woods.listOut();
+        plains.listOut();
+        parks.listOut();
+    }
+
 }

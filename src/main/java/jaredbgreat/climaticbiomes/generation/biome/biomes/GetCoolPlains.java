@@ -64,4 +64,10 @@ public class GetCoolPlains implements IBiomeSpecifier  {
         return grassland;
     }
 
+
+    public void listOut() {
+        plains.listOut();
+        alpine.listOut();
+    }
+
 }

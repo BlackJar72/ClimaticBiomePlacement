@@ -34,4 +34,10 @@ public class LeafBiome extends AbstractTerminalSpecifier {
         return (biome < 0);
     }
 
+
+    public void listOut() {
+        System.err.println("Biome: " + biome);
+    }
+
+
 }

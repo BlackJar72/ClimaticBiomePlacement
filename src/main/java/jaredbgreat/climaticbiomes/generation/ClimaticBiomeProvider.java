@@ -9,24 +9,29 @@ import javax.annotation.Nullable;
 
 import jaredbgreat.climaticbiomes.generation.map.IMapRegistry;
 import jaredbgreat.climaticbiomes.generation.map.MapRegistry;
+import jaredbgreat.climaticbiomes.util.BiomeRegistrar;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
+import net.minecraft.world.biome.provider.SingleBiomeProvider;
+import net.minecraft.world.biome.provider.SingleBiomeProviderSettings;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.OverworldChunkGenerator;
+import net.minecraft.world.gen.OverworldGenSettings;
 import net.minecraft.world.gen.feature.structure.Structure;
 
 // FIXME BROKEN!!!
 // TODO: Basically Everything
-public class ClimaticBiomeProvider /*extends BiomeProvider*/ {
+public class ClimaticBiomeProvider extends BiomeProvider {
+    private static Set<Biome> biomes = new HashSet<>(); // TODO: Config Loader must add to this
     private World world;
-    private /*static*/ IMapRegistry finder;
-    private boolean vanillaCacheValid;
+    private IMapRegistry finder;
 
 
     public ClimaticBiomeProvider(World world) {
-        super(/*world.getWorldInfo()*/);
-        vanillaCacheValid = true;
+        super();
         this.world = world;
         finder = new MapRegistry(world.getSeed(), world);
     }
@@ -36,7 +41,7 @@ public class ClimaticBiomeProvider /*extends BiomeProvider*/ {
     /*-------------------------------------------------------------------------------------------------*/
     /*                              NEW METHOD FOR THE CURRENT API                                     */
     /*-------------------------------------------------------------------------------------------------*/
-/*
+
 
     @Override
     public Biome getBiome(int x, int z) {
@@ -67,69 +72,67 @@ public class ClimaticBiomeProvider /*extends BiomeProvider*/ {
     }
 
 
-    @Override
-    public boolean hasStructure(Structure<?> structureIn) {
-        // FIXME!!!!!
-        Break this!
-        // TODO Auto-generated method stub
-        return false;
-    }
-
 
     @Override
-    public Set<BlockState> getSurfaceBlocks() {
-        // FIXME!!!!!
-        Break this!
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-*/
-
-    /*-------------------------------------------------------------------------------------------------*/
-    /*                            OLD PIECES FROM THE 1.12.2 VERSION                                   */
-    /*-------------------------------------------------------------------------------------------------*/
-/*
-
     @Nullable
-    @Override
-    public BlockPos findBiomePosition(int x, int z, int range,
-                                      List<Biome> biomes, Random random) {
+    public BlockPos findBiomePosition(int x, int z, int range, List<Biome> biomes, Random random) {
         int i = x - range >> 2;
         int j = z - range >> 2;
         int k = x + range >> 2;
         int l = z + range >> 2;
         int i1 = k - i + 1;
         int j1 = l - j + 1;
-        Biome[] barr = new Biome[i1 * j1];
-        barr = this.getBiomes(i, j, i1, j1, false);
+        Biome[] abiome = getBiomes(i, j, i1, j1, false);
         BlockPos blockpos = null;
         int k1 = 0;
 
-        for (int l1 = 0; l1 < i1 * j1; ++l1) {
+        for(int l1 = 0; l1 < i1 * j1; ++l1) {
             int i2 = i + l1 % i1 << 2;
             int j2 = j + l1 / i1 << 2;
-            Biome biome = barr[l1];
+            if (biomes.contains(abiome[l1])) {
+                if (blockpos == null || random.nextInt(k1 + 1) == 0) {
+                    blockpos = new BlockPos(i2, 0, j2);
+                }
 
-            if (biomes.contains(biome) && (blockpos == null || random.nextInt(k1 + 1) == 0)) {
-                blockpos = new BlockPos(i2, 0, j2);
                 ++k1;
             }
         }
+
         return blockpos;
     }
 
 
-    public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height) {
-        if(biomes == null || biomes.length < width * height) {
-            biomes = new Biome[width * height];
-        }
-        for(int i = 0; i < width; i++)
-            for(int j = 0; j < height; j++) {
-                biomes[(j * width) + i] = findBiomeAt((x + i) * 4, (z + j) * 4);
+    @Override
+    public boolean hasStructure(Structure<?> structureIn) {
+        return this.hasStructureCache.computeIfAbsent(structureIn, (structure) -> {
+            for(Biome biome : biomes) {
+                if (biome.hasStructure(structure)) {
+                    return true;
+                }
             }
-        return biomes;
+            return false;
+        });
     }
+
+
+    // What does this even do?!
+    @Override
+    public Set<BlockState> getSurfaceBlocks() {
+        if (this.topBlocksCache.isEmpty()) {
+            for(Biome biome : this.biomes) {
+                this.topBlocksCache.add(biome.getSurfaceBuilderConfig().getTop());
+            }
+        }
+
+        return this.topBlocksCache;
+    }
+
+
+
+    /*-------------------------------------------------------------------------------------------------*/
+    /*                            OLD PIECES FROM THE 1.12.2 VERSION                                   */
+    /*-------------------------------------------------------------------------------------------------*/
+
 
 
     private Biome findBiomeAt(int x, int z) {
@@ -149,23 +152,10 @@ public class ClimaticBiomeProvider /*extends BiomeProvider*/ {
     }
 
 
-    public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed) {
-        x = (x - 8) / 16;
-        z = (z - 8) / 16;
-        int cr = (radius / 16) + 1;
-        for(int i = -cr + 1; i < cr; i++)
-            for(int j = -cr + 1; j < cr; j++) {
-                if(!allowed.contains(finder.getBiomeChunk(x + i, z + j))) {
-                    return false;
-                }
-            }
-        return allowed.contains(finder.getBiomeChunk(x, z));
-    }
-
-
+    //TODO: Link this in ... How?
     public void cleanupCache() {
         finder.cleanCaches();
     }
 
-*/
+
 }

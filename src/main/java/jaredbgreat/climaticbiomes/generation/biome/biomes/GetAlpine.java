@@ -98,4 +98,15 @@ public class GetAlpine implements IBiomeSpecifier {
     public boolean isEmpty() {
         return false;
     }
+
+
+    public void listOut() {
+        cold.listOut();
+        wet.listOut();
+        dry.listOut();
+        warmwet.listOut();
+        warmdry.listOut();
+        hotwet.listOut();
+        hotdry.listOut();
+    }
 }

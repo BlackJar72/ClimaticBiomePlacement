@@ -72,4 +72,10 @@ public class GetTaiga implements IBiomeSpecifier {
         return false;
     }
 
+
+    public void listOut() {
+        forest.listOut();
+        alpine.listOut();
+    }
+
 }

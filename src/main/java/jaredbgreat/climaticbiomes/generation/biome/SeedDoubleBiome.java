@@ -50,5 +50,10 @@ public class SeedDoubleBiome extends AbstractTerminalSpecifier {
     }
 
 
+    public void listOut() {
+        System.err.println("Biome a: " + a + "; biome b: " + b);
+    }
+
+
 
 }

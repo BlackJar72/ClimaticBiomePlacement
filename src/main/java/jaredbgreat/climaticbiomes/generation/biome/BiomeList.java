@@ -84,4 +84,11 @@ public class BiomeList implements IBiomeSpecifier {
     }
 
 
+    public void listOut() {
+        for(IBiomeSpecifier sp: list) {
+            sp.listOut();
+        }
+    }
+
+
 }

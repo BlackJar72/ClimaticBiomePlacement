@@ -62,4 +62,10 @@ public class GetPlains implements IBiomeSpecifier {
         return false;
     }
 
+
+    public void listOut() {
+        plains.listOut();
+        alpine.listOut();
+    }
+
 }

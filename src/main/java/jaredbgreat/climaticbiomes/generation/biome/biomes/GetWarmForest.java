@@ -76,4 +76,12 @@ public class GetWarmForest implements IBiomeSpecifier {
     }
 
 
+    public void listOut() {
+        forests.listOut();
+        alpine.listOut();
+        plains.listOut();
+        swamp.listOut();
+    }
+
+
 }
