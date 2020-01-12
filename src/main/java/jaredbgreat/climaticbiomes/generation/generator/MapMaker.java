@@ -3,8 +3,8 @@ package jaredbgreat.climaticbiomes.generation.generator;
 import static jaredbgreat.climaticbiomes.util.SpatialNoise.absModulus;
 import jaredbgreat.climaticbiomes.configuration.ClimaticWorldSettings;
 // TODO: Get actual biome -- BiomeSpecifiers and tables
-//import jaredbgreat.climaticbiomes.generation.biome.BiomeClimateTable;
-//import jaredbgreat.climaticbiomes.generation.biome.IBiomeSpecifier;
+import jaredbgreat.climaticbiomes.generation.biome.BiomeClimateTable;
+import jaredbgreat.climaticbiomes.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiomes.generation.cache.Cache;
 import jaredbgreat.climaticbiomes.generation.cache.Coords;
 import jaredbgreat.climaticbiomes.generation.cache.MutableCoords;
@@ -25,7 +25,7 @@ import net.minecraft.world.World;
  * @author jared
  */
 public class MapMaker {
-    //IBiomeSpecifier specifier; // TODO: Get actual biome
+    IBiomeSpecifier specifier;
     // STATIC VARIABLES USED IN MANY PLACES
     public static final int CSIZE = 16; // chuck size
     public static final int RSIZE = 4096 / CSIZE; // region / "continent" size
@@ -61,8 +61,7 @@ public class MapMaker {
         this.biomeNoise  = biomeNoise;
         this.settings    = settings;
         scale = settings.regionSize;
-        // TODO: Get actual biome
-        //specifier = BiomeClimateTable.getClimateTable(settings);
+        specifier = BiomeClimateTable.getClimateTable(settings);
     }
 
     /**
@@ -179,8 +178,7 @@ public class MapMaker {
             }
         }
         for(int i = 0; i < premap.length; i++) {
-            // TODO: Get actual biome
-            //datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
+            datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
         }
     }
 

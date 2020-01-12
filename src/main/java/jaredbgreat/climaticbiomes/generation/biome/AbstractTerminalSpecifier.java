@@ -33,4 +33,17 @@ public abstract class AbstractTerminalSpecifier implements IBiomeSpecifier {
         }
     }
 
+
+    // FIXME: These methods do not belong here for static uses
+    // TODO: This is a place to hook in per map data later.
+    public static Biome getBiomeForID(int id) {
+        return Registry.BIOME.getByValue(id);
+    }
+
+
+    // TODO: This is a place to hook in per map data later.
+    public static int getIdForBiome(Biome b) {
+        return Registry.BIOME.getId(b);
+    }
+
 }
