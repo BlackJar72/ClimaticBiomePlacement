@@ -129,13 +129,6 @@ public class ClimaticBiomesFeatures {
 
     public static void addScrubRocks(Biome biomeIn) {
         biomeIn.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS,
-                Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR,
-                        new MultipleRandomFeatureConfig(new Feature[]{BIG_ROCK_PILE},
-                                new IFeatureConfig[]{IFeatureConfig.NO_FEATURE_CONFIG},
-                                new float[]{0.66f}, BOULDER,
-                                IFeatureConfig.NO_FEATURE_CONFIG), Placement.COUNT_EXTRA_HEIGHTMAP,
-                        new AtSurfaceWithExtraConfig(0, 0.2F, 1)));
-        biomeIn.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS,
                 Biome.createDecoratedFeature(Feature.FOREST_ROCK,
                         new BlockBlobConfig(Blocks.COBBLESTONE.getDefaultState(), 0),
                         Placement.FOREST_ROCK, new FrequencyConfig(3)));

@@ -10,8 +10,10 @@ import java.io.IOException;
 
 import jaredbgreat.climaticbiomes.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiomes.configuration.ConfigHandler;
+import jaredbgreat.climaticbiomes.util.Debug;
 import jaredbgreat.climaticbiomes.util.Logging;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.fml.ModList;
 
 public abstract class AbstractMapRegistry implements IMapRegistry {
@@ -52,29 +54,22 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
             cansave = false;
             return;
         }
-        // FIXME?: This may or may not work!
-        if(true/*world.getServer().isDedicatedServer()*/) {
-            savedir      = world.getServer().getFile("world" + File.separator + "ClimaticMaps"
-                    + File.separator + "Dim" + world.getDimension());
-            settingsDir  = world.getServer().getFile("world" + File.separator + "ClimaticMaps"
-                    + File.separator + SETTINGS);
-            settingsFile = world.getServer().getFile("world" + File.separator + "ClimaticMaps"
-                    + File.separator + SETTINGS + File.separator
-                    + "dim" + world.getDimension() + ".json");
-        } else {/*
-			savedir = new File(world.getServer().getSaveHandler().getWorldDirectory().toString() 
-							+ File.separator + "ClimaticMaps" 
-							+ File.separator + "Dim" 
-							+ world.getDimension());
-			settingsDir = new File(world.getSaveHandler().getWorldDirectory().toString() 
-							+ File.separator + "ClimaticMaps" 
-							+ File.separator + SETTINGS);
-			settingsFile = new File(world.getSaveHandler().getWorldDirectory().toString() 
-							+ File.separator + "ClimaticMaps" 
-							+ File.separator + SETTINGS
-							+ File.separator + "dim" 
-							+ world.getDimension() + ".json");
-		*/}
+        Debug.bigSysout(world.getServer().getFolderName());
+        Debug.bigSysout(world.getWorldInfo().getWorldName());
+        if(world.getServer().isDedicatedServer()) {
+            File baseDir = world.getServer().getFile("world" + File.separator + "ClimaticBiomes");
+            savedir = new File(baseDir + File.separator + "Dim" + world.getDimension().getType().getId());
+            settingsDir = new File(baseDir + File.separator + SETTINGS);
+            settingsFile = new File(baseDir + File.separator + SETTINGS + File.separator
+                    + "dim" + world.getDimension().getType().getId() + ".json");
+        } else {
+            File baseDir = world.getServer().getFile("saves"
+                    + File.separator + world.getServer().getFolderName() + File.separator + "ClimaticBiomes");
+            savedir = new File(baseDir + File.separator + "Dim" + world.getDimension().getType().getId());
+            settingsDir = new File(baseDir + File.separator + SETTINGS);
+            settingsFile = new File(baseDir + SETTINGS + File.separator
+                    + "dim" + world.getDimension().getType().getId() + ".json");
+        }
         cansave  = savedir != null;
         perworld = (settingsDir != null) && (settingsFile != null);
         if(cansave && (!savedir.exists())) {

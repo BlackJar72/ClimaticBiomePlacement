@@ -126,27 +126,27 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
         int z = coords.getZ();
         File file = getSaveFile(x, z);
         long[] data = map.getData();
-//        if(file != null && file.exists()) {
-//            try {
-//                FileInputStream fs = new FileInputStream(file);
-//                for(int i = 0; i < dataSize; i++) {
-//                    data[i] = (short)fs.read();
-//                    data[i] |= (fs.read() << 8);
-//                    data[i] |= (fs.read() << 16);
-//                    data[i] |= (fs.read() << 24);
-//                    data[i] |= (fs.read() << 32);
-//                }
-//                fs.close();
-//            } catch (FileNotFoundException e) {
-//                Debug.bigSysout("File Not Found Exception");
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                Debug.bigSysout("IO Exception");
-//                e.printStackTrace();
-//            }
-//        } else {
+        if(cansave && file != null && file.exists()) {
+            try {
+                FileInputStream fs = new FileInputStream(file);
+                for(int i = 0; i < dataSize; i++) {
+                    data[i] = (short)fs.read();
+                    data[i] |= (fs.read() << 8);
+                    data[i] |= (fs.read() << 16);
+                    data[i] |= (fs.read() << 24);
+                    data[i] |= (fs.read() << 32);
+                }
+                fs.close();
+            } catch (FileNotFoundException e) {
+                Debug.bigSysout("File Not Found Exception");
+                e.printStackTrace();
+            } catch (IOException e) {
+                Debug.bigSysout("IO Exception");
+                e.printStackTrace();
+            }
+        } else {
             initializeMap(map);
-//        }
+        }
     }
 
 
