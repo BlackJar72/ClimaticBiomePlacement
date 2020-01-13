@@ -152,9 +152,14 @@ public class ClimaticBiomeProvider extends BiomeProvider {
     }
 
 
-    //TODO: Link this in ... How?
+    //TODO: Link this in ... How?  I guess listen and use (count) server tick events.
     public void cleanupCache() {
         finder.cleanCaches();
+    }
+
+
+    public static void addBiome(Biome b) {
+        biomes.add(b);
     }
 
 
