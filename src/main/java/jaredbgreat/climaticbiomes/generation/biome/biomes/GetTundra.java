@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiomes.generation.biome.biomes;
 
-//import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
+import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
 import jaredbgreat.climaticbiomes.generation.biome.BiomeList;
 import jaredbgreat.climaticbiomes.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiomes.generation.biome.TempDoubleBiome;
@@ -14,7 +14,7 @@ public class GetTundra extends BiomeList {
 
 
     public void init() {
-        //DefReader.readBiomeData(this, "Tundra.cfg"); //FIXME
+        DefReader.readBiomeData(this, "Tundra.cfg"); //FIXME
         if(isEmpty()) {
             addItem(new LeafBiome(12), 5);
             addItem(new TempDoubleBiome(140, 2, 12));

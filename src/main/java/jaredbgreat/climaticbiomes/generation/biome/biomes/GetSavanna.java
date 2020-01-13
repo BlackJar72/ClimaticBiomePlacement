@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiomes.generation.biome.biomes;
 
-//import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
+import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
 import jaredbgreat.climaticbiomes.generation.biome.BiomeList;
 import jaredbgreat.climaticbiomes.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiomes.generation.biome.NoiseDoubleBiome;
@@ -14,7 +14,7 @@ public class GetSavanna extends BiomeList {
 
 
     public void init() {
-        //DefReader.readBiomeData(this, "Savanna.cfg"); //FIXME
+        DefReader.readBiomeData(this, "Savanna.cfg");
         if(isEmpty()) {
             addItem(new LeafBiome(36));
             addItem(new NoiseDoubleBiome(35, 6, 36), 2);

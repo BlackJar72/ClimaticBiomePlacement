@@ -42,7 +42,11 @@ public class DefReader {
     }
 
 
-    public static void readBiomeData(BiomeList list, String filename) {
+    /* FIXME:  I'm not sure this system can even work with Forges ridicuous new config systerm,
+               where there is no longer and easy or obvious way (any way?) to get the directory.
+               One more reason this mod is likely just dead in 1.12.2.
+     */
+    public static void readBiomeData(BiomeList list, String filename) {/*
         if(ConfigHandler.useVanilla) {
             vanilla.parser.makeBiomeList(list, filename);
         }
@@ -85,7 +89,7 @@ public class DefReader {
         if(ConfigHandler.useSpecial) {
             special.parser.addSpecialBiomes(list, filename);
         }
-    }
+    */}
 
 
     public static void init(IForgeRegistry reg, File dir) {

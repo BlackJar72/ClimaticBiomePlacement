@@ -26,7 +26,6 @@
   "createWorld.climaticbiomes.volcanicislses.off": "Volcanic Islands: No",
   "createWorld.climaticbiomes.hasrivers.off": "Make Rivers: No",
 
-
   "createWorld.climaticbiomes.bopconf": "Configure Biomes O'Plenty",
 
   "block.climaticbiomes.pine_log": "Pine Log",
@@ -69,6 +68,41 @@
   "block.climaticbiomes.peat": "Peat",
 
   "item.block.climaticbiomes.pine_door": "Pine Door",
-  "item.climaticbiomes:pineseed": "Pine Cone"
-}
+  "item.climaticbiomes:pineseed": "Pine Cone",
+  
+  "biome.climaticbiomes.subtropical_forest": "Subtropical Forest",
+  "biome.climaticbiomes.subtropical_forest_hills": "Subtropical Forest Hills",  
+  "biome.climaticbiomes.subtropical_forest": "Tropical Forest",
+  "biome.climaticbiomes.subtropical_forest_hills": "Tropical Forest Hills",    
+  "biome.climaticbiomes.bamboo_forest": "Bamboo Forest",
+  "biome.climaticbiomes.pinewoods": "Pinewoods",
+  "biome.climaticbiomes.dense_scrub": "Dense Scrub",  
+  "biome.climaticbiomes.dense_scrub_hills": "Dense Scrub Hills",
+  "biome.climaticbiomes.dry_scrub": "Dry Scrub",
+  "biome.climaticbiomes.dry_scrub": "Dry Scrub Hills",
+  "biome.climaticbiomes.subtropical_mountains": "Subtropical Mountains",
+  "biome.climaticbiomes.subtropical_mountains_trees": "Subtropical Wooded Mountains",
+  "biome.climaticbiomes.tropical_mountains": "Tropical Mountains",
+  "biome.climaticbiomes.tropical_mountains_trees": "Tropical Wooded Mountains",
+  "biome.climaticbiomes.cool_montane_forest": "Cool Montane Forest",
+  "biome.climaticbiomes.warm_montane_forest": "Warm Montane Forest",
+  "biome.climaticbiomes.dry_montane_forest": "Dry Montane Forest",
+  "biome.climaticbiomes.montane_jungle": "Montane Jungle",
+  "biome.climaticbiomes.cool_plains": "Cool Plains",
+  "biome.climaticbiomes.windswept_plains": "Windswept Plains",
+  "biome.climaticbiomes.cool_windswept_plains": "Cool Windswept Plains",
+  "biome.climaticbiomes.cold_plains": "Cold Plains",
+  "biome.climaticbiomes.bog": "Bog",
+  "biome.climaticbiomes.marsh": "Marsh",
+  "biome.climaticbiomes.carr": "Carr",
+  "biome.climaticbiomes.ice_cap": "Ice Cap",
+  "biome.climaticbiomes.frozen_river": "Frozen River",
+  "biome.climaticbiomes.cool_river": "Cool River",
+  "biome.climaticbiomes.temperate_river": "Temporate River",
+  "biome.climaticbiomes.warm_river": "Warm River",
+  "biome.climaticbiomes.tropical_river": "Tropical River",
+  "biome.climaticbiomes.active_volcano": "Active Volcano"
+  
+  
+  }
 

@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiomes.generation.biome.biomes;
 
-//import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
+import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
 import jaredbgreat.climaticbiomes.configuration.ConfigHandler;
 import jaredbgreat.climaticbiomes.generation.biome.AbstractTerminalSpecifier;
 import jaredbgreat.climaticbiomes.generation.biome.BiomeList;
@@ -8,7 +8,6 @@ import jaredbgreat.climaticbiomes.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiomes.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiomes.generation.generator.ChunkTile;
 import jaredbgreat.climaticbiomes.util.BiomeRegistrar;
-import net.minecraft.world.biome.Biome;
 
 public class GetWarmForest implements IBiomeSpecifier {
     private static GetWarmForest sforest;
@@ -27,7 +26,7 @@ public class GetWarmForest implements IBiomeSpecifier {
         alpine  = GetAlpine.getAlpine();
         plains  = GetPlains.getPlains();
         swamp   = GetSwamp.getSwamp();
-        //DefReader.readBiomeData(forests, "ForestWarm.cfg"); // FIXME
+        DefReader.readBiomeData(forests, "ForestWarm.cfg");
         if(forests.isEmpty()) {
             if(ConfigHandler.includeForests) {
                 forests.addItem(new LeafBiome(AbstractTerminalSpecifier

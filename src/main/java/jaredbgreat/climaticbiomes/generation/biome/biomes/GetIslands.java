@@ -1,7 +1,6 @@
 package jaredbgreat.climaticbiomes.generation.biome.biomes;
 
-//import jaredbgreat.climaticbiomes.compat.BoP;
-//import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
+import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
 import jaredbgreat.climaticbiomes.configuration.ConfigHandler;
 import jaredbgreat.climaticbiomes.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiomes.generation.biome.BiomeList;
@@ -35,12 +34,12 @@ public class GetIslands implements IBiomeSpecifier {
         hot    = new BiomeList();
         desert = new BiomeList();
         basic  = BiomeClimateTable.getLandTable();
-//        DefReader.readBiomeData(frozen, "SpecialIslandFrozen.cfg"); // FIXME
-//        DefReader.readBiomeData(cold,   "SpecialIslandCold.cfg");
-//        DefReader.readBiomeData(cool,   "SpecialIslandCool.cfg");
-//        DefReader.readBiomeData(warm,   "SpecialIslandWarm.cfg");
-//        DefReader.readBiomeData(hot,    "SpecialIslandTropical.cfg");
-//        DefReader.readBiomeData(desert, "SpecialIslandDesert.cfg");
+        DefReader.readBiomeData(frozen, "SpecialIslandFrozen.cfg"); // FIXME
+        DefReader.readBiomeData(cold,   "SpecialIslandCold.cfg");
+        DefReader.readBiomeData(cool,   "SpecialIslandCool.cfg");
+        DefReader.readBiomeData(warm,   "SpecialIslandWarm.cfg");
+        DefReader.readBiomeData(hot,    "SpecialIslandTropical.cfg");
+        DefReader.readBiomeData(desert, "SpecialIslandDesert.cfg");
 //        if(volcanicIslands) addVolcanicIslands((BiomeList)frozen, (BiomeList)cold,
 //                (BiomeList)cool, (BiomeList)warm,
 //                (BiomeList)hot, (BiomeList)desert);

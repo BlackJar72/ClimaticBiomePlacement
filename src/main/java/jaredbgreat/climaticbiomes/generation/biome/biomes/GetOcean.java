@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiomes.generation.biome.biomes;
 
-//import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
+import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
 import jaredbgreat.climaticbiomes.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiomes.configuration.ConfigHandler;
 import jaredbgreat.climaticbiomes.generation.biome.BiomeClimateTable;
@@ -55,16 +55,16 @@ public class GetOcean implements IBiomeSpecifier {
         // Beaches
         beaches = GetBeach.getBeach();
         // Add biomes
-//        DefReader.readBiomeData(frozen,  "OceanFrozen.cfg");
-//        DefReader.readBiomeData(cold,    "OceanCold.cfg");
-//        DefReader.readBiomeData(cool,    "OceanCool.cfg");
-//        DefReader.readBiomeData(warm,    "OceanWarm.cfg");
-//        DefReader.readBiomeData(hot,     "OceanHot.cfg");
-//        DefReader.readBiomeData(dfrozen, "DeepOceanFrozen.cfg");
-//        DefReader.readBiomeData(dcold,   "DeepOceanCold.cfg");
-//        DefReader.readBiomeData(dcool,   "DeepOceanCool.cfg");
-//        DefReader.readBiomeData(dwarm,   "DeepOceanWarm.cfg");
-//        DefReader.readBiomeData(dhot,    "DeepOceanHot.cfg");
+        DefReader.readBiomeData(frozen,  "OceanFrozen.cfg");
+        DefReader.readBiomeData(cold,    "OceanCold.cfg");
+        DefReader.readBiomeData(cool,    "OceanCool.cfg");
+        DefReader.readBiomeData(warm,    "OceanWarm.cfg");
+        DefReader.readBiomeData(hot,     "OceanHot.cfg");
+        DefReader.readBiomeData(dfrozen, "DeepOceanFrozen.cfg");
+        DefReader.readBiomeData(dcold,   "DeepOceanCold.cfg");
+        DefReader.readBiomeData(dcool,   "DeepOceanCool.cfg");
+        DefReader.readBiomeData(dwarm,   "DeepOceanWarm.cfg");
+        DefReader.readBiomeData(dhot,    "DeepOceanHot.cfg");
         if(warm.isEmpty()) {
             warm.addItem(new LeafBiome(0));
         }

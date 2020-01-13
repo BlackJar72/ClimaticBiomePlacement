@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiomes.generation.biome.biomes;
 
-//import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
+import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
 import jaredbgreat.climaticbiomes.generation.biome.BiomeList;
 import jaredbgreat.climaticbiomes.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiomes.generation.biome.SeedDoubleBiome;
@@ -19,7 +19,7 @@ public class GetPlains implements IBiomeSpecifier {
     public void init() {
         plains = new BiomeList();
         alpine = GetAlpine.getAlpine();
-        //DefReader.readBiomeData(plains, "Plains.cfg"); // FIXME
+        DefReader.readBiomeData(plains, "Plains.cfg"); // FIXME
         if(plains.isEmpty()) {
             plains.addItem(new SeedDoubleBiome(129, 7, 1));
         }

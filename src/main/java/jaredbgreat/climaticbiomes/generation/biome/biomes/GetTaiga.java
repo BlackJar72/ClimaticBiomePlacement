@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiomes.generation.biome.biomes;
 
-//import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
+import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
 import jaredbgreat.climaticbiomes.configuration.ConfigHandler;
 import jaredbgreat.climaticbiomes.generation.biome.BiomeList;
 import jaredbgreat.climaticbiomes.generation.biome.IBiomeSpecifier;
@@ -41,7 +41,7 @@ public class GetTaiga implements IBiomeSpecifier {
         }
         forest = new BiomeList();
         alpine = GetAlpine.getAlpine();
-        //DefReader.readBiomeData(forest, "Taiga.cfg"); //FIXME
+        DefReader.readBiomeData(forest, "Taiga.cfg"); //FIXME
         if(forest.isEmpty()){
             forest.addItem(new TempDoubleBiome(30,  tbound, 5),  4);
             forest.addItem(new TempDoubleBiome(32,  tbound, 5),  2);

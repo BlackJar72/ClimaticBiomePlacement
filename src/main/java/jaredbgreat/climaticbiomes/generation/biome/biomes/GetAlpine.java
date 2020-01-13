@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiomes.generation.biome.biomes;
 
-//import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
+import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
 import jaredbgreat.climaticbiomes.generation.biome.BiomeList;
 import jaredbgreat.climaticbiomes.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiomes.generation.biome.LeafBiome;
@@ -32,13 +32,13 @@ public class GetAlpine implements IBiomeSpecifier {
         warmdry = new BiomeList();
         hotwet  = new BiomeList();
         hotdry = new BiomeList();
-//        DefReader.readBiomeData(cold, "AplineCold.cfg");
-//        DefReader.readBiomeData(wet,  "AplineWet.cfg");
-//        DefReader.readBiomeData(dry,  "AplineDry.cfg");
-//        DefReader.readBiomeData(warmwet, "AplineWetWarm.cfg");
-//        DefReader.readBiomeData(warmdry, "AplineDryWarm.cfg");
-//        DefReader.readBiomeData(hotwet,  "AplineWetHot.cfg");
-//        DefReader.readBiomeData(hotdry,  "AplineDryHot.cfg");
+        DefReader.readBiomeData(cold, "AplineCold.cfg");
+        DefReader.readBiomeData(wet,  "AplineWet.cfg");
+        DefReader.readBiomeData(dry,  "AplineDry.cfg");
+        DefReader.readBiomeData(warmwet, "AplineWetWarm.cfg");
+        DefReader.readBiomeData(warmdry, "AplineDryWarm.cfg");
+        DefReader.readBiomeData(hotwet,  "AplineWetHot.cfg");
+        DefReader.readBiomeData(hotdry,  "AplineDryHot.cfg");
         if(wet.isEmpty()) {
             wet.addItem(new LeafBiome(34));
             wet.addItem(new LeafBiome(162));

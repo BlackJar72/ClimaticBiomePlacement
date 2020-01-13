@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiomes.generation.biome.biomes;
 
-//import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
+import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
 import jaredbgreat.climaticbiomes.generation.biome.BiomeList;
 import jaredbgreat.climaticbiomes.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiomes.generation.biome.LeafBiome;
@@ -25,10 +25,10 @@ public class GetSwamp implements IBiomeSpecifier {
         cool = new BiomeList();
         warm = new BiomeList();
         hot  = new BiomeList();
-//        DefReader.readBiomeData(cold, "SwampCold.cfg"); //FIXME
-//        DefReader.readBiomeData(cool, "SwampCool.cfg");
-//        DefReader.readBiomeData(warm, "SwampWarm.cfg");
-//        DefReader.readBiomeData(hot,  "SwampTropical.cfg");
+        DefReader.readBiomeData(cold, "SwampCold.cfg"); //FIXME
+        DefReader.readBiomeData(cool, "SwampCool.cfg");
+        DefReader.readBiomeData(warm, "SwampWarm.cfg");
+        DefReader.readBiomeData(hot,  "SwampTropical.cfg");
         if(warm.isEmpty()) {
             warm.addItem(new LeafBiome(6), 3);
             warm.addItem(new LeafBiome(134), 1);

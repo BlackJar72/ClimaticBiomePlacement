@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiomes.generation.biome.biomes;
 
-//import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
+import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
 import jaredbgreat.climaticbiomes.generation.biome.BiomeList;
 import jaredbgreat.climaticbiomes.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiomes.generation.biome.LeafBiome;
@@ -26,7 +26,7 @@ public class GetCoolPlains implements IBiomeSpecifier  {
     public void init() {
         plains = new BiomeList();
         alpine = GetAlpine.getAlpine();
-        //DefReader.readBiomeData(plains, "PlainsCool.cfg"); FIXME
+        DefReader.readBiomeData(plains, "PlainsCool.cfg");
         if(plains.isEmpty()) {
             plains.addItem(new LeafBiome(1));
         }

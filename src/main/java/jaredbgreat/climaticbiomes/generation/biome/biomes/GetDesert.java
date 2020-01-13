@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiomes.generation.biome.biomes;
 
-//import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
+import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
 import jaredbgreat.climaticbiomes.generation.biome.BiomeList;
 import jaredbgreat.climaticbiomes.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiomes.generation.biome.NoiseDoubleBiome;
@@ -13,7 +13,7 @@ public class GetDesert extends BiomeList {
     }
 
     public void init() {
-        //DefReader.readBiomeData(this, "Desert.cfg"); FIXME
+        DefReader.readBiomeData(this, "Desert.cfg");
         if(isEmpty()) {
             this.addItem(new LeafBiome(2),   6);
             this.addItem(new LeafBiome(17),  3);
