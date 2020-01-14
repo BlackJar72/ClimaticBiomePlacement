@@ -46,6 +46,12 @@ public class River {
      * @param r
      */
     public void build(Random r) {
+        if(((x * MapMaker.RSIZE * scale.whole) + z) < 0) {
+                Logging.logError("Tried to make river starting out side map! "
+                                + "\n\r x = " + x + ", z = " + z + ", index = "
+                                + ((x * MapMaker.RSIZE * scale.whole) + z));
+                return;
+        }
         ChunkTile t = map.getTile(x, z);
         while(!shouldEnd(t)) {
             t.river = id;
