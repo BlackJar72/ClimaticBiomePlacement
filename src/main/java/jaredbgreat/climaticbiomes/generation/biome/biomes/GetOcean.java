@@ -3,11 +3,9 @@ package jaredbgreat.climaticbiomes.generation.biome.biomes;
 import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
 import jaredbgreat.climaticbiomes.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiomes.configuration.ConfigHandler;
-import jaredbgreat.climaticbiomes.generation.biome.BiomeClimateTable;
-import jaredbgreat.climaticbiomes.generation.biome.BiomeList;
-import jaredbgreat.climaticbiomes.generation.biome.IBiomeSpecifier;
-import jaredbgreat.climaticbiomes.generation.biome.LeafBiome;
+import jaredbgreat.climaticbiomes.generation.biome.*;
 import jaredbgreat.climaticbiomes.generation.generator.ChunkTile;
+import jaredbgreat.climaticbiomes.util.BiomeRegistrar;
 
 
 public class GetOcean implements IBiomeSpecifier {
@@ -21,6 +19,7 @@ public class GetOcean implements IBiomeSpecifier {
         farEdge  = (256 * settings.regionSize.whole) - 6 - settings.regionSize.whole;
         init();
     }
+    private static int icecap;
     BiomeList frozen;
     BiomeList cold;
     BiomeList cool;
@@ -34,9 +33,11 @@ public class GetOcean implements IBiomeSpecifier {
     IBiomeSpecifier islands1; // Main land biomes
     IBiomeSpecifier islands2; // Special island-only biomes
     IBiomeSpecifier beaches;
+    IBiomeSpecifier coastal;
 
 
     public void init() {
+        icecap = AbstractTerminalSpecifier.getIdForBiome(BiomeRegistrar.iceCap);
         // Shallows
         frozen = new BiomeList();
         cold   = new BiomeList();
@@ -54,6 +55,7 @@ public class GetOcean implements IBiomeSpecifier {
         islands2 = GetIslands.getIslands();
         // Beaches
         beaches = GetBeach.getBeach();
+        coastal = GetCoastal.getCoastal();
         // Add biomes
         DefReader.readBiomeData(frozen,  "OceanFrozen.cfg");
         DefReader.readBiomeData(cold,    "OceanCold.cfg");
@@ -96,8 +98,12 @@ public class GetOcean implements IBiomeSpecifier {
 
     @Override
     public long getBiome(ChunkTile tile) {
-        if(tile.isIsBeach() && !tile.isRiver() && !swampy(tile)) {
-            return beaches.getBiome(tile);
+        if(!tile.isRiver() && !swampy(tile)) {
+            if(tile.isBeach()) {
+                return beaches.getBiome(tile);
+            } else if(tile.isCoastal()) {
+                return coastal.getBiome(tile);
+            }
         }
         int temp = tile.getTemp();
         int seed = tile.getBiomeSeed();
@@ -132,22 +138,27 @@ public class GetOcean implements IBiomeSpecifier {
             }
         } else if((tile.getHeight()) < 0.2) {
             return getDeepOcean(tile, temp, iceNoise);
+        } else if(tile.getHeight() < 0.5) {
+            return getShallowOcean(tile, temp, iceNoise);
         }
-        return getShallowOcean(tile, temp, iceNoise);
+        return coastal.getBiome(tile);
     }
 
 
     public long getDeepOcean(ChunkTile tile, int temp, int iceNoise) {
-        if(((iceNoise / 2) - temp) > -1) {
+        if(((iceNoise / 2) - temp) > -2) {
+            if(((iceNoise / 2) - temp) > 0) {
+                return icecap;
+            }
             return dfrozen.getBiome(tile);
         }
-        if(temp < 7) {
+        if(temp < 10) {
             return dcold.getBiome(tile);
         }
-        if(temp < 13) {
+        if(temp < 16) {
             return dcool.getBiome(tile);
         }
-        if(temp < 19) {
+        if(temp < 20) {
             return dwarm.getBiome(tile);
         }
         return dhot.getBiome(tile);
@@ -155,16 +166,19 @@ public class GetOcean implements IBiomeSpecifier {
 
 
     public long getShallowOcean(ChunkTile tile, int temp, int iceNoise) {
-        if(((iceNoise / 2) - temp) > -1) {
+        if(((iceNoise / 2) - temp) > -2) {
+            if(((iceNoise / 2) - temp) > 0) {
+                return icecap;
+            }
             return frozen.getBiome(tile);
         }
-        if(temp < 7) {
+        if(temp < 10) {
             return cold.getBiome(tile);
         }
-        if(temp < 13) {
+        if(temp < 16) {
             return cool.getBiome(tile);
         }
-        if(temp < 19) {
+        if(temp < 20) {
             return warm.getBiome(tile);
         }
         return hot.getBiome(tile);

@@ -1,24 +1,27 @@
 package jaredbgreat.climaticbiomes.generation.biome.biomes;
 
 import jaredbgreat.climaticbiomes.configuration.ConfigHandler;
+import jaredbgreat.climaticbiomes.generation.biome.AbstractTerminalSpecifier;
 import jaredbgreat.climaticbiomes.generation.biome.BiomeList;
 import jaredbgreat.climaticbiomes.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiomes.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiomes.generation.generator.ChunkTile;
+import jaredbgreat.climaticbiomes.util.BiomeRegistrar;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 
-public class GetBeach implements IBiomeSpecifier {
+public class GetBeach extends AbstractTerminalSpecifier {
     private static GetBeach beaches;
     private GetBeach() {
         super();
         init();
     }
-    private BiomeList cold;
-    private BiomeList cool;
-    private BiomeList rock;
-    private BiomeList temporate;
-    private BiomeList warm;
-    private BiomeList hot;
+    private static int frozen;
+    private static int cold;
+    private static int cool;
+    private static int warm;
+    private static int hot;
+    private static int rock;
     private static int tbound;
 
 
@@ -28,30 +31,38 @@ public class GetBeach implements IBiomeSpecifier {
         } else {
             tbound = 7;
         }
-        cold = new BiomeList();
-        rock = new BiomeList();
-        warm = new BiomeList();
-        // FIXME: More beach types than this now!
-        // TODO: Make configurable
-        cold.addItem(new LeafBiome(26));
-        rock.addItem(new LeafBiome(25));
-        warm.addItem(new LeafBiome(16));
+        frozen    = getIdForBiome(Biomes.SNOWY_BEACH);
+        cold      = getIdForBiome(BiomeRegistrar.coldBeach);
+        cool      = getIdForBiome(BiomeRegistrar.coolBeach);
+        warm      = getIdForBiome(Biomes.BEACH);
+        hot       = getIdForBiome(BiomeRegistrar.hotBeach);
+        rock      = getIdForBiome(Biomes.STONE_SHORE);
     }
 
 
     @Override
     public long getBiome(ChunkTile tile) {
+        int temp = tile.getTemp();
         if(tile.getTemp() < tbound) {
-            return cold.getBiome(tile);
+            return frozen;
         }
-        return warm.getBiome(tile);
+        if(temp < 10) {
+            return cold;
+        }
+        if(temp < 16) {
+            return cool;
+        }
+        if(temp < 20) {
+            return warm;
+        }
+        return hot;
     }
 
 
-    public long getHighBiome(ChunkTile tile) {
-        if(tile.getTemp() < tbound) {
-            return rock.getBiome(tile);
-        } else return warm.getBiome(tile);//return 0;
+    public long getHighBiome(ChunkTile tile, long nonBeach) {
+        if((tile.getTemp() < 14) && (tile.getTemp() > tbound)) {
+            return rock;
+        } else return nonBeach;
     }
 
 

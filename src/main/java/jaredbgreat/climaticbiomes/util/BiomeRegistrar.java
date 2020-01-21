@@ -2,9 +2,7 @@ package jaredbgreat.climaticbiomes.util;
 
 import jaredbgreat.climaticbiomes.ClimaticBiomes;
 import jaredbgreat.climaticbiomes.biomes.*;
-import jaredbgreat.climaticbiomes.biomes.technical.Coast;
-import jaredbgreat.climaticbiomes.biomes.technical.FrozenCoast;
-import jaredbgreat.climaticbiomes.biomes.technical.SnowyCoast;
+import jaredbgreat.climaticbiomes.biomes.technical.*;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import static net.minecraftforge.common.BiomeDictionary.*;
@@ -49,9 +47,16 @@ public class BiomeRegistrar {
     public static River       river;
     public static WarmRiver   warmRiver;
     public static HotRiver    hotRiver;
-    public static Coast       coast;
+    public static CoolCoast   coolCoast;
     public static FrozenCoast frozenCoast;
     public static SnowyCoast  coldCoast;
+    public static WarmCoast   warmCoast;
+    public static HotCoast    hotCoast;
+
+    // Beaches
+    public static ColdBeach coldBeach;
+    public static CoolBeach coolBeach;
+    public static HotBeach hotBeach;
 
 
 
@@ -158,9 +163,14 @@ public class BiomeRegistrar {
 
 
     private static void makeOceans() {
-        coast = new Coast("coastal_waters");
+        coolCoast = new CoolCoast("coastal_waters");
         frozenCoast = new FrozenCoast("frozen_coastal_waters");
         coldCoast = new SnowyCoast("cold_coastal_waters");
+        warmCoast = new WarmCoast("warm_coastal_water");
+        hotCoast = new HotCoast("hot_costal_waters");
+        coldBeach = new ColdBeach("cold_beach");
+        coolBeach = new CoolBeach("cool_beach");
+        hotBeach = new HotBeach("hot_beach");
     }
 
 
@@ -268,15 +278,27 @@ public class BiomeRegistrar {
 
 
     private static void registerOceans(final RegistryEvent.Register<Biome> event) {
-        registerBiome(coast, event);
+        registerBiome(coolCoast, event);
         registerBiome(frozenCoast, event);
         registerBiome(coldCoast, event);
-        BiomeDictionary.addTypes(coast, Type.OCEAN, Type.WATER, Type.BEACH,
+        registerBiome(warmCoast, event);
+        registerBiome(hotCoast, event);;
+        registerBiome(coldBeach, event);;
+        registerBiome(coolBeach, event);;
+        registerBiome(hotBeach, event);
+        BiomeDictionary.addTypes(coolCoast, Type.OCEAN, Type.WATER, Type.BEACH,
                 Type.OVERWORLD);
         BiomeDictionary.addTypes(coldCoast, Type.OCEAN, Type.WATER, Type.BEACH,
                 Type.COLD, Type.SNOWY, Type.OVERWORLD);
         BiomeDictionary.addTypes(frozenCoast, Type.OCEAN, Type.WATER, Type.BEACH,
                 Type.COLD, Type.SNOWY, Type.OVERWORLD);
+        BiomeDictionary.addTypes(warmCoast, Type.OCEAN, Type.WATER, Type.BEACH,
+                Type.OVERWORLD);
+        BiomeDictionary.addTypes(hotCoast, Type.OCEAN, Type.WATER, Type.BEACH,
+                Type.HOT, Type.OVERWORLD);
+        BiomeDictionary.addTypes(coldBeach, Type.BEACH, Type.COLD, Type.OVERWORLD);
+        BiomeDictionary.addTypes(coolBeach, Type.BEACH, Type.OVERWORLD);
+        BiomeDictionary.addTypes(hotBeach, Type.BEACH, Type.HOT, Type.OVERWORLD);
     }
 
 

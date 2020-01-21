@@ -22,7 +22,7 @@ public class ChunkTile extends AbstractCachable {
     int noiseVal = 0;
     int river;
     double height;
-    boolean mountain = false, hilly = false, beach = false;
+    boolean coastal = false, beach = false;
 
 
     public ChunkTile(int x, int z, int xoff, int zoff) {
@@ -45,7 +45,6 @@ public class ChunkTile extends AbstractCachable {
         return z;
     }
 
-
     public int getTX() {
         return tx;
     }
@@ -53,6 +52,7 @@ public class ChunkTile extends AbstractCachable {
     public int getTZ() {
         return tz;
     }
+
     public int getVal() {
         return val;
     }
@@ -81,28 +81,16 @@ public class ChunkTile extends AbstractCachable {
         return noiseVal;
     }
 
-    public boolean isIsMountain() {
-        return mountain;
-    }
-
-    public boolean isIsHilly() {
-        return hilly;
-    }
-
     public boolean isRiver() {
         return river > 0;
     }
 
-    public void beRiver(int id) {
-        river = id;
-    }
-
-    public void beIsBeach() {
-        beach = true;
-    }
-
-    public boolean isIsBeach() {
+    public boolean isBeach() {
         return beach;
+    }
+
+    public boolean isCoastal() {
+        return coastal;
     }
 
 

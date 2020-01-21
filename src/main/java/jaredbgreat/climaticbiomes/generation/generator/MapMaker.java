@@ -169,13 +169,19 @@ public class MapMaker {
         for(int i = start; i < end; i++) {
             thinBeach(premap[i]);
         }
-        if(settings.extraBeaches) {
+        if(/*settings.extraBeaches*/false) {
             for(int i = start; i < end; i++) {
                 growBeach1(premap[i]);
             }
             for(int i = start; i < end; i++) {
                 growBeach2(premap[i]);
             }
+        }
+        for(int i = start; i < end; i++) {
+            growCoast1(premap[i]);
+        }
+        for(int i = start; i < end; i++) {
+            growCoast1(premap[i]);
         }
         for(int i = 0; i < premap.length; i++) {
             datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
@@ -411,24 +417,6 @@ public class MapMaker {
     }
 
 
-    void makeBeach(ChunkTile t) {
-        if(notLand(t) || (t.getX() < 1) || (t.getX() > 254)
-                || (t.getZ() < 1) || (t.getZ() > 254)) return;
-        int oceans = 0;
-        for(int i = -1; i < 2; i++)
-            for(int j = -1; j < 2; j++) {
-                ChunkTile x = premap[((t.getX() + i) * RSIZE * scale.whole) + t.getZ() + j];
-                if(notLand(x)) {
-                    oceans++;
-                }
-            }
-        if(oceans < 3) return;
-        t.beach = t.getNoise() < (oceans - (2 * Math.max(oceans - 5, 0)) + 5
-                - ((t.getBiomeSeed() >> 16) & 1)
-                + ((t.getBiomeSeed() >> 15) & 1));
-    }
-
-
     // FIXME: This should now make coastal waters (coasts) instead.
     void growBeach1(ChunkTile t) {
         int farEdge = RSIZE * scale.whole - 3;
@@ -449,8 +437,26 @@ public class MapMaker {
     }
 
 
+    // FIXME: This should now make coastal waters (coasts) instead.
+    void growCoast1(ChunkTile t) {
+        int farEdge = RSIZE * scale.whole - 3;
+        if(!notLand(t) || (t.getX() < 2) || (t.getX() > farEdge)
+                || (t.getZ() < 2) || (t.getZ() > farEdge)) return;
+        int beaches = 0;
+        for(int i = -1; i < 2; i++)
+            for(int j = -1; j < 2; j++) {
+                ChunkTile x = premap[((t.getX() + i) * RSIZE * scale.whole) + t.getZ() + j];
+                if(!notLand(x) && (x.beach || x.coastal)) {
+                    beaches++;
+                }
+            }
+        if(beaches < 1) return;
+        t.coastal = true;
+    }
+
+
     void growBeach2(ChunkTile t) {
-        if(t.beach) t.rlBiome = 1;
+        if(t.beach || t.coastal) t.rlBiome = 1;
     }
 
 

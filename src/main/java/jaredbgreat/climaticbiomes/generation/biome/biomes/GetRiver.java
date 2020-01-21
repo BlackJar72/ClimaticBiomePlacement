@@ -9,6 +9,7 @@ public class GetRiver implements IBiomeSpecifier {
     private static GetRiver river;
     private GetRiver() {
         super();
+        init();
     }
     private static int frozen;
     private static int cool;
@@ -16,7 +17,7 @@ public class GetRiver implements IBiomeSpecifier {
     private static int warm;
     private static int hot;
 
-    // TODO: Call this fuctions!
+
     public void init() {
         frozen    = AbstractTerminalSpecifier.getIdForBiome(BiomeRegistrar.iceRiver);
         cool      = AbstractTerminalSpecifier.getIdForBiome(BiomeRegistrar.coolRiver);

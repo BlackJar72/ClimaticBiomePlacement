@@ -2,27 +2,7 @@ package jaredbgreat.climaticbiomes.generation.biome;
 
 import jaredbgreat.climaticbiomes.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiomes.configuration.ConfigHandler;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetAlpine;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetBeach;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetChaparral;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetColdPlains;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetCoolForest;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetCoolPark;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetCoolPlains;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetDesert;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetForest;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetHotForest;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetJungle;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetOcean;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetPark;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetPlains;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetRiver;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetSavanna;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetSwamp;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetTaiga;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetTundra;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetWarmForest;
-import jaredbgreat.climaticbiomes.generation.biome.biomes.GetWarmPlains;
+import jaredbgreat.climaticbiomes.generation.biome.biomes.*;
 import jaredbgreat.climaticbiomes.generation.generator.ChunkTile;
 
 import java.util.logging.Level;
@@ -81,6 +61,7 @@ public class BiomeClimateTable implements IBiomeSpecifier {
     IBiomeSpecifier PARKb;
     IBiomeSpecifier RIVER;
     GetBeach        BEACH;
+    GetCoastal      COASTAL;
 
     /**
      * Create a table for looking up biomes based on temperature 
@@ -134,6 +115,9 @@ public class BiomeClimateTable implements IBiomeSpecifier {
         if(tile.isRiver()) {
             return RIVER.getBiome(tile);
         }
+        if(tile.isCoastal()) {
+            return COASTAL.getBiome(tile);
+        }
         if(tile.getTemp() > 7 && ((tile.getWet() - tile.getVal() - tile.getHeight()) > 0)) {
             if((tile.getBiomeSeed() & 0x1) == 1) {
                 tile.nextBiomeSeed();
@@ -149,11 +133,10 @@ public class BiomeClimateTable implements IBiomeSpecifier {
                             + out + "; returning 0 (Ocean).  (Check your configs.)");
             return 0;
         }
-        if(tile.isIsBeach()) {
+        if(tile.isBeach()) {
             if(BiomeDictionary.hasType(outb, Type.HILLS)
                     || BiomeDictionary.hasType(outb, Type.MOUNTAIN)) {
-                //return BEACH.getHighBiome(tile);
-                return out;
+                return BEACH.getHighBiome(tile, out);
             }
             return BEACH.getBiome(tile);
         }
