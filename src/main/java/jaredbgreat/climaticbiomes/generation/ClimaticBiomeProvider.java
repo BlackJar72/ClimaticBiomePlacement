@@ -12,6 +12,7 @@ import jaredbgreat.climaticbiomes.generation.map.MapRegistry;
 import jaredbgreat.climaticbiomes.util.BiomeRegistrar;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
@@ -22,10 +23,9 @@ import net.minecraft.world.gen.OverworldChunkGenerator;
 import net.minecraft.world.gen.OverworldGenSettings;
 import net.minecraft.world.gen.feature.structure.Structure;
 
-// FIXME BROKEN!!!
-// TODO: Basically Everything
+
 public class ClimaticBiomeProvider extends BiomeProvider {
-    private static Set<Biome> biomes = new HashSet<>(); // TODO: Config Loader must add to this
+    private static Set<Biome> biomes = new HashSet<>();
     private World world;
     private IMapRegistry finder;
 
@@ -34,6 +34,11 @@ public class ClimaticBiomeProvider extends BiomeProvider {
         super();
         this.world = world;
         finder = new MapRegistry(world.getSeed(), world);
+        if(biomes.isEmpty()) {
+            for (Biome biome : Registry.BIOME) {
+                biomes.add(biome);
+            }
+        }
     }
 
 
