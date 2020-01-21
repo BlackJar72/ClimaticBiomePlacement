@@ -7,6 +7,8 @@ import jaredbgreat.climaticbiomes.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiomes.generation.biome.NoiseDoubleBiome;
 import jaredbgreat.climaticbiomes.generation.generator.ChunkTile;
 
+import static jaredbgreat.climaticbiomes.compat.userdef.DefReader.readBiomeData;
+
 public class GetAlpine implements IBiomeSpecifier {
     private static GetAlpine alpine;
     private GetAlpine() {
@@ -32,13 +34,13 @@ public class GetAlpine implements IBiomeSpecifier {
         warmdry = new BiomeList();
         hotwet  = new BiomeList();
         hotdry = new BiomeList();
-        DefReader.readBiomeData(cold, "AplineCold.cfg");
-        DefReader.readBiomeData(wet,  "AplineWet.cfg");
-        DefReader.readBiomeData(dry,  "AplineDry.cfg");
-        DefReader.readBiomeData(warmwet, "AplineWetWarm.cfg");
-        DefReader.readBiomeData(warmdry, "AplineDryWarm.cfg");
-        DefReader.readBiomeData(hotwet,  "AplineWetHot.cfg");
-        DefReader.readBiomeData(hotdry,  "AplineDryHot.cfg");
+        readBiomeData(cold, "AplineCold.cfg");
+        readBiomeData(wet,  "AplineWet.cfg");
+        readBiomeData(dry,  "AplineDry.cfg");
+        readBiomeData(warmwet, "AplineWetWarm.cfg");
+        readBiomeData(warmdry, "AplineDryWarm.cfg");
+        readBiomeData(hotwet,  "AplineWetHot.cfg");
+        readBiomeData(hotdry,  "AplineDryHot.cfg");
         if(wet.isEmpty()) {
             wet.addItem(new LeafBiome(34));
             wet.addItem(new LeafBiome(162));

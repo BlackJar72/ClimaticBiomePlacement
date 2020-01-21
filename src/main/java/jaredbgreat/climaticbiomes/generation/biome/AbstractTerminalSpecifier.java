@@ -14,22 +14,11 @@ public abstract class AbstractTerminalSpecifier implements IBiomeSpecifier {
 
 
     public long getBiomeNumber(String bstring, IForgeRegistry biomeReg) {
-        Tokenizer tokens = new Tokenizer(bstring, ":");
-        if(tokens.countTokens() < 3) {
-            Biome biome = (Biome)biomeReg.getValue(new ResourceLocation(bstring));
-            if(biome == null) {
-                return -1;
-            }
+        try {
+            Biome biome = Registry.BIOME.getValue(new ResourceLocation(bstring)).get();
             return Registry.BIOME.getId(biome);
-        } else {
-            Biome biome = (Biome)biomeReg
-                    .getValue(new ResourceLocation(tokens.nextToken()
-                            + ":" + tokens.nextToken()));
-            if(biome == null) {
-                return -1;
-            }
-            return Registry.BIOME.getId(biome)
-                    + (Long.parseLong(tokens.nextToken()) << 32);
+        } catch(Exception e) {
+            return -1;
         }
     }
 

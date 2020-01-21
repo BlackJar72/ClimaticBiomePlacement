@@ -20,7 +20,7 @@ public class DenseScrubHills extends Biome {
         super((new Builder()).surfaceBuilder(Surfaces.DENSE_SCRUB,
                 SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
                 .precipitation(RainType.RAIN)
-                .category(Category.DESERT)
+                .category(Category.NONE)
                 .depth(0.45F)
                 .scale(0.3F)
                 .temperature(1.0F)

@@ -12,17 +12,17 @@ import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.ShipwreckConfig;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 
-public class SnowyCoast extends Biome {
+public class FrozenCoast extends Biome {
 
-    public SnowyCoast(String name) {
+    public FrozenCoast(String name) {
         super((new Biome.Builder()).surfaceBuilder(SurfaceBuilder.DEFAULT,
                 SurfaceBuilder.SAND_SAND_GRAVEL_CONFIG)
                 .precipitation(Biome.RainType.RAIN)
                 .category(Biome.Category.BEACH)
                 .depth(-0.5F)
                 .scale(0.005F)
-                .temperature(0.05F)
-                .downfall(0.3F)
+                .temperature(-0.6F)
+                .downfall(0.4F)
                 .waterColor(4159204)
                 .waterFogColor(329011)
                 .parent((String)null));

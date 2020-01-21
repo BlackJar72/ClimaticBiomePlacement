@@ -429,24 +429,11 @@ public class MapMaker {
     }
 
 
-    void makeUniversalBeach(ChunkTile t) {
-        if(notLand(t) || (t.getX() < 1) || (t.getX() > 254)
-                || (t.getZ() < 1) || (t.getZ() > 254)) return;
-        int oceans = 0;
-        for(int i = -1; i < 2; i++)
-            for(int j = -1; j < 2; j++) {
-                ChunkTile x = premap[((t.getX() + i) * RSIZE * scale.whole) + t.getZ() + j];
-                if(notLand(x)) {
-                    oceans++;
-                }
-            }
-        t.beach = (oceans > 1);
-    }
-
-
+    // FIXME: This should now make coastal waters (coasts) instead.
     void growBeach1(ChunkTile t) {
-        if(!notLand(t) || (t.getX() < 1) || (t.getX() > 254)
-                || (t.getZ() < 1) || (t.getZ() > 254)) return;
+        int farEdge = RSIZE * scale.whole - 3;
+        if(!notLand(t) || (t.getX() < 2) || (t.getX() > farEdge)
+                || (t.getZ() < 2) || (t.getZ() > farEdge)) return;
         int beaches = 0;
         for(int i = -1; i < 2; i++)
             for(int j = -1; j < 2; j++) {

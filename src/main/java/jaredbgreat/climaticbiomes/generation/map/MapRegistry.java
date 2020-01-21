@@ -14,6 +14,7 @@ import jaredbgreat.climaticbiomes.generation.cache.Coords;
 import jaredbgreat.climaticbiomes.generation.generator.BiomeBasin;
 import jaredbgreat.climaticbiomes.generation.generator.MapMaker;
 import jaredbgreat.climaticbiomes.util.Debug;
+import jaredbgreat.climaticbiomes.util.Logging;
 import jaredbgreat.climaticbiomes.util.SpatialNoise;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -72,7 +73,6 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
         //System.out.println("{" + x + ", " + z + "}");
         RegionMap out = data.get(x, z);
         if(out == null) {
-            Debug.bigSysout("Map was Null");
             out = new RegionMap(x, z, cWidth);
             readMap(out);
             data.add(out);
@@ -112,15 +112,12 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
      * @param map
      */
     private void initializeMap(RegionMap map) {
-        Debug.bigSysout("Initializing Map");
         maker.generate(map, world);
         if(cansave) writeMap(map);
-        Debug.bigSysout("Initialized Map");
     }
 
 
     private void readMap(RegionMap map) {
-        Debug.bigSysout("Reading Map");
         Coords coords = map.getCoords();
         int x = coords.getX();
         int z = coords.getZ();
@@ -139,9 +136,11 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
                 fs.close();
             } catch (FileNotFoundException e) {
                 Debug.bigSysout("File Not Found Exception");
+                Logging.logError("File Not Found Exception");
                 e.printStackTrace();
             } catch (IOException e) {
                 Debug.bigSysout("IO Exception");
+                Logging.logError("IO Exception");
                 e.printStackTrace();
             }
         } else {
@@ -151,7 +150,6 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 
 
     private void writeMap(RegionMap map) {
-        Debug.bigSysout("Saving Map");
         Coords coords = map.getCoords();
         int x = coords.getX();
         int z = coords.getZ();

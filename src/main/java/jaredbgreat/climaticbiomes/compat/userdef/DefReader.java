@@ -8,13 +8,14 @@ import java.util.List;
 
 import jaredbgreat.climaticbiomes.configuration.ConfigHandler;
 import jaredbgreat.climaticbiomes.generation.biome.BiomeList;
+import jaredbgreat.climaticbiomes.util.Logging;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 
 // FIXME: Change mods supported; 1.14.4 doesn't have the same mods availebale
-public class DefReader {
+public final class DefReader {
     private static DefReader vanilla;
     private static DefReader BoP;
     private static DefReader traverse;
@@ -42,11 +43,8 @@ public class DefReader {
     }
 
 
-    /* FIXME:  I'm not sure this system can even work with Forges ridicuous new config systerm,
-               where there is no longer and easy or obvious way (any way?) to get the directory.
-               One more reason this mod is likely just dead in 1.12.2.
-     */
-    public static void readBiomeData(BiomeList list, String filename) {/*
+    public static void readBiomeData(BiomeList list, String filename) {
+        //Logging.logInfo("Reading biomes for " + filename);
         if(ConfigHandler.useVanilla) {
             vanilla.parser.makeBiomeList(list, filename);
         }
@@ -89,7 +87,7 @@ public class DefReader {
         if(ConfigHandler.useSpecial) {
             special.parser.addSpecialBiomes(list, filename);
         }
-    */}
+    }
 
 
     public static void init(IForgeRegistry reg, File dir) {

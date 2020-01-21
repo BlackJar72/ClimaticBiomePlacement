@@ -2,6 +2,9 @@ package jaredbgreat.climaticbiomes.util;
 
 import jaredbgreat.climaticbiomes.ClimaticBiomes;
 import jaredbgreat.climaticbiomes.biomes.*;
+import jaredbgreat.climaticbiomes.biomes.technical.Coast;
+import jaredbgreat.climaticbiomes.biomes.technical.FrozenCoast;
+import jaredbgreat.climaticbiomes.biomes.technical.SnowyCoast;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import static net.minecraftforge.common.BiomeDictionary.*;
@@ -40,12 +43,16 @@ public class BiomeRegistrar {
     public static MontaneJungle      montaneJungle;
 
     // Water
-    public static IceCap    iceCap;
-    public static IceRiver  iceRiver;
-    public static CoolRiver coolRiver;
-    public static River     river;
-    public static WarmRiver warmRiver;
-    public static HotRiver  hotRiver;
+    public static IceCap      iceCap;
+    public static IceRiver    iceRiver;
+    public static CoolRiver   coolRiver;
+    public static River       river;
+    public static WarmRiver   warmRiver;
+    public static HotRiver    hotRiver;
+    public static Coast       coast;
+    public static FrozenCoast frozenCoast;
+    public static SnowyCoast  coldCoast;
+
 
 
     public static void setupBlocks(final RegistryEvent.Register<Biome> event) {
@@ -62,6 +69,7 @@ public class BiomeRegistrar {
         makePlains();
         makeSwamps();
         makeRivers();
+        makeOceans();
     }
 
 
@@ -72,6 +80,7 @@ public class BiomeRegistrar {
         registerPlains(event);
         registerSwamps(event);
         registerRivers(event);
+        registerOceans(event);
     }
 
 
@@ -148,6 +157,13 @@ public class BiomeRegistrar {
     }
 
 
+    private static void makeOceans() {
+        coast = new Coast("coastal_waters");
+        frozenCoast = new FrozenCoast("frozen_coastal_waters");
+        coldCoast = new SnowyCoast("cold_coastal_waters");
+    }
+
+
     private static void registerForests(final RegistryEvent.Register<Biome> event) {
         registerBiome(warmForest, event);
         registerBiome(warmForestHills, event);
@@ -155,17 +171,17 @@ public class BiomeRegistrar {
         registerBiome(tropicalForestHills, event);
         registerBiome(pinewoods, event);
         registerBiome(bambooForest, event, false);
-        BiomeDictionary.addTypes(warmForest, Type.FOREST, Type.CONIFEROUS);
+        BiomeDictionary.addTypes(warmForest, Type.FOREST, Type.CONIFEROUS, Type.OVERWORLD);
         BiomeDictionary.addTypes(tropicalForest, BiomeDictionary.Type.FOREST,
-                Type.HOT);
+                Type.HOT, Type.OVERWORLD);
         BiomeDictionary.addTypes(pinewoods, Type.FOREST, Type.WET, Type.HOT,
-                Type.CONIFEROUS, Type.SWAMP, Type.LUSH);
+                Type.CONIFEROUS, Type.SWAMP, Type.LUSH, Type.OVERWORLD);
         BiomeDictionary.addTypes(warmForestHills, Type.FOREST, Type.CONIFEROUS,
-                Type.HILLS);
+                Type.HILLS, Type.OVERWORLD);
         BiomeDictionary.addTypes(tropicalForestHills, Type.FOREST,
-                Type.HOT, Type.HILLS);
+                Type.HOT, Type.HILLS, Type.OVERWORLD);
         BiomeDictionary.addTypes(bambooForest, Type.FOREST, Type.WET,
-                Type.LUSH);
+                Type.LUSH, Type.OVERWORLD);
     }
 
 
@@ -174,10 +190,14 @@ public class BiomeRegistrar {
         registerBiome(dryScrub, event);
         registerBiome(denseScrubHills, event);
         registerBiome(dryScrubHills, event);
-        BiomeDictionary.addTypes(denseScrub, Type.SPARSE, Type.HOT, Type.DRY);
-        BiomeDictionary.addTypes(dryScrub, Type.SPARSE, Type.HOT, Type.DRY, Type.SANDY);
-        BiomeDictionary.addTypes(denseScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS);
-        BiomeDictionary.addTypes(dryScrubHills, Type.SPARSE, Type.HOT, Type.DRY, Type.HILLS, Type.SANDY);
+        BiomeDictionary.addTypes(denseScrub, Type.SPARSE, Type.HOT, Type.DRY,
+                Type.OVERWORLD);
+        BiomeDictionary.addTypes(dryScrub, Type.SPARSE, Type.HOT, Type.DRY,
+                Type.SANDY, Type.OVERWORLD);
+        BiomeDictionary.addTypes(denseScrubHills, Type.SPARSE, Type.HOT, Type.DRY,
+                Type.HILLS, Type.OVERWORLD);
+        BiomeDictionary.addTypes(dryScrubHills, Type.SPARSE, Type.HOT, Type.DRY,
+                Type.HILLS, Type.SANDY, Type.OVERWORLD);
     }
 
 
@@ -189,19 +209,19 @@ public class BiomeRegistrar {
         registerBiome(coolMontaneForest, event);
         registerBiome(warmMontaneForest, event);
         registerBiome(montaneJungle, event);
-        BiomeDictionary.addTypes(warmMountain, Type.HILLS, Type.MOUNTAIN);
+        BiomeDictionary.addTypes(warmMountain, Type.HILLS, Type.MOUNTAIN, Type.OVERWORLD);
         BiomeDictionary.addTypes(warmMountainTrees, Type.HILLS,
-                Type.MOUNTAIN, Type.FOREST);
+                Type.MOUNTAIN, Type.FOREST, Type.OVERWORLD);
         BiomeDictionary.addTypes(hotMountain, Type.HILLS, Type.MOUNTAIN,
-                Type.HOT);
+                Type.HOT, Type.OVERWORLD);
         BiomeDictionary.addTypes(hotMountainTrees, Type.HILLS, Type.MOUNTAIN,
-                Type.FOREST, Type.HOT);
+                Type.FOREST, Type.HOT, Type.OVERWORLD);
         BiomeDictionary.addTypes(coolMontaneForest, Type.HILLS, Type.MOUNTAIN,
-                Type.COLD, Type.FOREST);
+                Type.COLD, Type.FOREST, Type.OVERWORLD);
         BiomeDictionary.addTypes(warmMontaneForest, Type.HILLS,
-                Type.MOUNTAIN, Type.FOREST);
+                Type.MOUNTAIN, Type.FOREST, Type.OVERWORLD);
         BiomeDictionary.addTypes(montaneJungle, Type.HILLS, Type.MOUNTAIN,
-                Type.JUNGLE, Type.HOT, Type.WET);
+                Type.JUNGLE, Type.HOT, Type.WET, Type.OVERWORLD);
     }
 
 
@@ -210,10 +230,10 @@ public class BiomeRegistrar {
         registerBiome(windswept, event);
         registerBiome(coolWindswept, event);
         registerBiome(coldPlains, event);
-        BiomeDictionary.addTypes(coolPlains, Type.PLAINS);
-        BiomeDictionary.addTypes(windswept, Type.PLAINS);
-        BiomeDictionary.addTypes(coolWindswept, Type.PLAINS);
-        BiomeDictionary.addTypes(coldPlains, Type.PLAINS, Type.COLD);
+        BiomeDictionary.addTypes(coolPlains, Type.PLAINS, Type.OVERWORLD);
+        BiomeDictionary.addTypes(windswept, Type.PLAINS, Type.OVERWORLD);
+        BiomeDictionary.addTypes(coolWindswept, Type.PLAINS, Type.OVERWORLD);
+        BiomeDictionary.addTypes(coldPlains, Type.PLAINS, Type.COLD, Type.OVERWORLD);
     }
 
 
@@ -221,9 +241,9 @@ public class BiomeRegistrar {
         registerBiome(bog, event);
         registerBiome(carr, event);
         registerBiome(marsh, event);
-        BiomeDictionary.addTypes(bog, Type.SWAMP, Type.COLD, Type.WET);
-        BiomeDictionary.addTypes(carr, Type.SWAMP, Type.FOREST, Type.WET);
-        BiomeDictionary.addTypes(marsh, Type.SWAMP, Type.PLAINS, Type.WET);
+        BiomeDictionary.addTypes(bog, Type.SWAMP, Type.COLD, Type.WET, Type.OVERWORLD);
+        BiomeDictionary.addTypes(carr, Type.SWAMP, Type.FOREST, Type.WET, Type.OVERWORLD);
+        BiomeDictionary.addTypes(marsh, Type.SWAMP, Type.PLAINS, Type.WET, Type.OVERWORLD);
     }
 
 
@@ -234,13 +254,34 @@ public class BiomeRegistrar {
         registerBiome(river, event);
         registerBiome(warmRiver, event);
         registerBiome(hotRiver, event);
-        BiomeDictionary.addTypes(iceCap, Type.OCEAN, Type.WATER, Type.COLD, Type.SNOWY, Type.WASTELAND);
-        BiomeDictionary.addTypes(iceRiver, Type.RIVER, Type.WATER, Type.COLD, Type.SNOWY);
-        BiomeDictionary.addTypes(coolRiver, Type.RIVER, Type.WATER, Type.COLD);
-        BiomeDictionary.addTypes(river, Type.RIVER, Type.WATER);
-        BiomeDictionary.addTypes(warmRiver, Type.RIVER, Type.WATER);
-        BiomeDictionary.addTypes(hotRiver, Type.RIVER, Type.WATER, Type.HOT);
+        BiomeDictionary.addTypes(iceCap, Type.OCEAN, Type.WATER, Type.COLD, Type.SNOWY,
+                Type.WASTELAND, Type.OVERWORLD);
+        BiomeDictionary.addTypes(iceRiver, Type.RIVER, Type.WATER, Type.COLD, Type.SNOWY,
+                Type.OVERWORLD);
+        BiomeDictionary.addTypes(coolRiver, Type.RIVER, Type.WATER, Type.COLD,
+                Type.OVERWORLD);
+        BiomeDictionary.addTypes(river, Type.RIVER, Type.WATER, Type.OVERWORLD);
+        BiomeDictionary.addTypes(warmRiver, Type.RIVER, Type.WATER, Type.OVERWORLD);
+        BiomeDictionary.addTypes(hotRiver, Type.RIVER, Type.WATER, Type.HOT,
+                Type.OVERWORLD);
     }
+
+
+    private static void registerOceans(final RegistryEvent.Register<Biome> event) {
+        registerBiome(coast, event);
+        registerBiome(frozenCoast, event);
+        registerBiome(coldCoast, event);
+        BiomeDictionary.addTypes(coast, Type.OCEAN, Type.WATER, Type.BEACH,
+                Type.OVERWORLD);
+        BiomeDictionary.addTypes(coldCoast, Type.OCEAN, Type.WATER, Type.BEACH,
+                Type.COLD, Type.SNOWY, Type.OVERWORLD);
+        BiomeDictionary.addTypes(frozenCoast, Type.OCEAN, Type.WATER, Type.BEACH,
+                Type.COLD, Type.SNOWY, Type.OVERWORLD);
+    }
+
+
+
+
 
     /*----------------------------------------------------------------------------------------------------------------*/
     /*                        Add Biomes to Default World (is this still needed / effective?)                         */

@@ -55,6 +55,7 @@ public class BiomeParser {
 
 
     public void makeBiomeList(BiomeList list, String filename) {
+        //Logging.logInfo("Reading biomes for " + fileDir + filename);
         File file = new File(fileDir + filename);
         if(!file.exists()) {
             try {
@@ -70,6 +71,7 @@ public class BiomeParser {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             while(reader.ready()) {
                 line = reader.readLine().trim();
+                //Logging.logInfo(" \t Read line: " + line);
                 if(line.isEmpty() || line.startsWith("#")) continue;
                 tokens = new Tokenizer(line, "()");
                 String tag = tokens.nextToken().toLowerCase().trim();

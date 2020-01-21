@@ -20,7 +20,7 @@ public class DryScrubHills extends Biome {
         super((new Builder()).surfaceBuilder(Surfaces.DRY_SCRUB,
                 SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
                 .precipitation(RainType.NONE)
-                .category(Category.DESERT)
+                .category(Category.NONE)
                 .depth(0.45F)
                 .scale(0.3F)
                 .temperature(1.0F)

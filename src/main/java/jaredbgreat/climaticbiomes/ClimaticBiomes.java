@@ -1,12 +1,15 @@
 package jaredbgreat.climaticbiomes;
 
+import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
 import jaredbgreat.climaticbiomes.generation.ClimaticWorldType;
 import jaredbgreat.climaticbiomes.proxy.ClientProxy;
 import jaredbgreat.climaticbiomes.testing.TestWorldType;
 import net.minecraft.world.WorldType;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
@@ -37,12 +40,13 @@ public class ClimaticBiomes {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::fowardToClientProxy);
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-        CONF_DIR = FMLPaths.CONFIGDIR.get().toFile();
+        CONF_DIR = new File(FMLPaths.CONFIGDIR.get().toFile() + File.separator + Info.DIR);
     }
 
 
     private void setup(final FMLCommonSetupEvent event) {
         LOGGER.info("Starting Climatic Biomes");
+        DefReader.init(GameRegistry.findRegistry(Biome.class), CONF_DIR);
     }
 
 
