@@ -3,33 +3,29 @@ package jaredbgreat.climaticbiomes;
 import jaredbgreat.climaticbiomes.generation.ClimaticWorldType;
 import jaredbgreat.climaticbiomes.proxy.ClientProxy;
 import jaredbgreat.climaticbiomes.testing.TestWorldType;
-import jaredbgreat.climaticbiomes.util.BlockRegistrar;
-import jaredbgreat.climaticbiomes.util.ItemRegistrar;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.world.WorldType;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.stream.Collectors;
+import java.io.File;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Info.ID)
 public class ClimaticBiomes {
     private static final Logger LOGGER = LogManager.getLogger();
+    private final File CONF_DIR;
     public static ClimaticBiomes instance;
 
     // TODO: Delete this when ready to create the Climatic World Type
-    // public static final WorldType testWorlds = new TestWorldType();
+    //public static final WorldType testWorlds = new TestWorldType();
     public static final WorldType climatic = new ClimaticWorldType();
 
 
@@ -41,6 +37,7 @@ public class ClimaticBiomes {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::fowardToClientProxy);
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        CONF_DIR = FMLPaths.CONFIGDIR.get().toFile();
     }
 
 

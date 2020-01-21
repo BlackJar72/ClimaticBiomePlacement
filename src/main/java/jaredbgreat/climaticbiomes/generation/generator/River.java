@@ -3,6 +3,7 @@ package jaredbgreat.climaticbiomes.generation.generator;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Random;
+import static jaredbgreat.climaticbiomes.util.Logging.*;
 
 /**
  * A river generator.
@@ -47,7 +48,7 @@ public class River {
      */
     public void build(Random r) {
         if(((x * MapMaker.RSIZE * scale.whole) + z) < 0) {
-                Logging.logError("Tried to make river starting out side map! "
+                logError("Tried to make river starting out side map! "
                                 + "\n\r x = " + x + ", z = " + z + ", index = "
                                 + ((x * MapMaker.RSIZE * scale.whole) + z));
                 return;
