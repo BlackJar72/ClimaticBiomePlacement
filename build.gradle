@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '2.14.11-MC1.14.4'
+version = 'pre3.0.0-MC1.14.4'
 group = 'jardbgreat.climaticbiomes' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'ClimaticBiomes'
 

@@ -30,7 +30,7 @@ public class GetCoastal extends AbstractTerminalSpecifier {
     public long getBiome(ChunkTile tile) {
         int iceNoise = tile.getNoise();
         int temp = tile.getTemp();
-        if(((iceNoise / 2) - temp) > 0) {
+        if(((iceNoise / 2) - temp) > -2) {
             return frozen;
         }
         if(temp < 10) {

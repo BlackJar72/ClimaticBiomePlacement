@@ -1,7 +1,6 @@
 package jaredbgreat.climaticbiomes.generation.biome;
 
 import jaredbgreat.climaticbiomes.configuration.ClimaticWorldSettings;
-import jaredbgreat.climaticbiomes.configuration.ConfigHandler;
 import jaredbgreat.climaticbiomes.generation.biome.biomes.*;
 import jaredbgreat.climaticbiomes.generation.generator.ChunkTile;
 
@@ -177,54 +176,13 @@ public class BiomeClimateTable implements IBiomeSpecifier {
         PARKb = GetCoolPark.getPark();
         RIVER = GetRiver.getRiver();
         BEACH = GetBeach.getBeach();
-        // TODO: Logic to determine which table to create,
-        if(ConfigHandler.useBoP || ConfigHandler.useBoPTable) {
-            makeModdedTable();
-        } else {
-            makeVanillaTable();
-        }
+        makeTable();
         // Initialize land table to use same table
         land.init(table);
     }
 
 
-    public void makeVanillaTable() {
-        table = new IBiomeSpecifier[]{
-                //Arctic
-                TUNDRA, TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA, TUNDRA, TUNDRA, TUNDRA, TUNDRA,
-                TUNDRA, TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA, TUNDRA, TUNDRA, TUNDRA, TUNDRA,
-                TUNDRA, TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA, TUNDRA, TUNDRA, TUNDRA, TUNDRA,
-                TUNDRA, TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA, TUNDRA, TUNDRA, TUNDRA, TUNDRA,
-                TUNDRA, TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA, TUNDRA, TUNDRA, TUNDRA, TUNDRA,
-                //Sub-Arctic
-                TUNDRA, TUNDRA,    TAIGA,   TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
-                TUNDRA, CGRASS,    TAIGA,   TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
-                CGRASS,  CGRASS,   TAIGA,   TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
-                CGRASS,  CGRASS,   TAIGA,   TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
-                CGRASS,  CGRASS,   TAIGA,   TAIGA,   TAIGA,   TAIGA,  TAIGA,  TAIGA,  TAIGA,  TAIGA,
-                //Temperate
-                GRASS,  GRASS,   GRASS,   GRASS,   PARK,  FOREST, FOREST, FOREST, FOREST, FOREST,
-                SCRUB,  GRASS,   GRASS,   GRASS,   PARK,  FOREST, FOREST, FOREST, FOREST, FOREST,
-                SCRUB,  GRASS,   GRASS,   GRASS,   PARK,  FOREST, FOREST, FOREST, FOREST, FOREST,
-                DESERT, SCRUB,   GRASS,   GRASS,   PARK,  FOREST, FOREST, FOREST, FOREST, FOREST,
-                DESERT, DESERT,  SCRUB,   GRASS,   PARK,  FOREST, FOREST, FOREST, FOREST, FOREST,
-                //Sub-Tropical
-                DESERT, DESERT,  DESERT,  SCRUB,   SGRASS,   SFOREST, SFOREST, SFOREST, SFOREST, SFOREST,
-                DESERT, DESERT,  DESERT,  SCRUB,   SGRASS,   SFOREST, SFOREST, SFOREST, SFOREST, JUNGLE,
-                DESERT, DESERT,  DESERT,  SCRUB,   SGRASS,   SFOREST, SFOREST, SFOREST, SFOREST, JUNGLE,
-                DESERT, DESERT,  DESERT,  SCRUB,   SGRASS,   SFOREST, SFOREST, SFOREST, JUNGLE,  JUNGLE,
-                DESERT, DESERT,  DESERT,  SCRUB,   SGRASS,   SFOREST, SFOREST, JUNGLE,  JUNGLE,  JUNGLE,
-                //Tropical
-                DESERT, DESERT,  SAVANNA, SAVANNA, TFOREST, TFOREST, JUNGLE, JUNGLE, JUNGLE, JUNGLE,
-                DESERT, SAVANNA, SAVANNA, SAVANNA, TFOREST, JUNGLE,  JUNGLE, JUNGLE, JUNGLE, JUNGLE,
-                DESERT, SAVANNA, SAVANNA, SAVANNA, TFOREST, JUNGLE,  JUNGLE, JUNGLE, JUNGLE, JUNGLE,
-                DESERT, SAVANNA, SAVANNA, TFOREST, TFOREST, JUNGLE,  JUNGLE, JUNGLE, JUNGLE, JUNGLE,
-                DESERT, SAVANNA, TFOREST, TFOREST, JUNGLE,  JUNGLE,  JUNGLE, JUNGLE, JUNGLE, JUNGLE
-        };
-    }
-
-
-    public void makeModdedTable() {
+    public void makeTable() {
         table = new IBiomeSpecifier[]{
                 //Arctic
                 TUNDRA, TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA,  TUNDRA, TUNDRA, TUNDRA, TUNDRA, TUNDRA,

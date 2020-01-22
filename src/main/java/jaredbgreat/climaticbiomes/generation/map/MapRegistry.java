@@ -51,7 +51,6 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
         regionNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         biomeNoise = new SpatialNoise(random.nextLong(), random.nextLong());
         maker = new MapMaker(chunkNoise, regionNoise, biomeNoise, settings);
-        noFakes = areFakesInvalid();
     }
 
 
@@ -275,6 +274,39 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
                         Biomes.DEFAULT);
             }
         return in;
+    }
+
+
+    /**
+     * Returns a biome array for the chunk at chunk
+     * coordinates x,z.
+     *
+     * @param x
+     * @param z
+     * @return
+     */
+    public Biome getBiomeAt(int x, int z) {
+        int cx = x / 16;
+        int cz = z / 16;
+        long[] tiles = new long[9];
+        BiomeBasin[][] basins = new BiomeBasin[3][3];
+        for(int i = 0; i < tiles.length; i++) {
+            int x1 = (i / 3);
+            int z1 = (i % 3);
+            int x2 = cx + x1;
+            int z2 = cz + z1;
+            tiles[i] = getBiomeIDChunk(x2, z2);
+            basins[i / 3][i % 3] = new BiomeBasin(
+                    (x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
+                    (z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
+                    i, 1.0 + chunkNoise.doubleFor(x2, z2, 12));
+        }
+
+        x = modRight(x, 16) + 16;
+        z = modRight(z, 16) + 16;
+        return getFullBiome((int)tiles[BiomeBasin
+                        .summateEffect(basins, x, z)],
+                Biomes.DEFAULT);
     }
 
 

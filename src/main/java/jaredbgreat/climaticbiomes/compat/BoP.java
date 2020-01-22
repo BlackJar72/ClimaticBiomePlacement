@@ -1,4 +1,4 @@
-package jaredbgreat.climaticbiome.compat;
+package jaredbgreat.climaticbiomes.compat;
 
 public class BoP {/*
 

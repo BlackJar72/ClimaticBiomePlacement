@@ -26,11 +26,7 @@ public class GetBeach extends AbstractTerminalSpecifier {
 
 
     public void init() {
-        if(ConfigHandler.useBoP || ConfigHandler.useBoPTable) {
-            tbound = 6;
-        } else {
-            tbound = 7;
-        }
+        tbound = 6;
         frozen    = getIdForBiome(Biomes.SNOWY_BEACH);
         cold      = getIdForBiome(BiomeRegistrar.coldBeach);
         cool      = getIdForBiome(BiomeRegistrar.coolBeach);
@@ -43,7 +39,7 @@ public class GetBeach extends AbstractTerminalSpecifier {
     @Override
     public long getBiome(ChunkTile tile) {
         int temp = tile.getTemp();
-        if(tile.getTemp() < tbound) {
+        if(tile.getTemp() < 6) {
             return frozen;
         }
         if(temp < 10) {

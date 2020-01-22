@@ -109,7 +109,7 @@ public class GetOcean implements IBiomeSpecifier {
         int seed = tile.getBiomeSeed();
         int iceNoise = tile.getNoise();
         tile.nextBiomeSeed();
-        if(settings.addIslands && (tile.getHeight() < 0.5)
+        if(settings.addIslands && (tile.getHeight() < 0.5) && (tile.getHeight() > 0.0)
                 && (tile.getVal() < 3)
                 && ((seed % 5) == 0)
                 && notNearEdge(tile)) {
@@ -124,19 +124,23 @@ public class GetOcean implements IBiomeSpecifier {
                         return 15;
                     }
                 }
-                return 0;
+                return coastal.getBiome(tile.nextBiomeSeed());
             } else if(settings.addIslands && ((seed & 1) == 0)) {
                 if(noise > (4 + (seed % 3))) {
                     return islands1.getBiome(tile.nextBiomeSeed());
+                } else {
+                    return coastal.getBiome(tile.nextBiomeSeed());
                 }
             } else if(settings.addIslands) {
                 if(noise > (seed % 3)) {
                     return islands2.getBiome(tile.nextBiomeSeed());
+                } else {
+                    return coastal.getBiome(tile.nextBiomeSeed());
                 }
             } else {
                 return getForIsland(tile);
             }
-        } else if((tile.getHeight()) < 0.2) {
+        } else if(((tile.getHeight()) < 0.0) && (tile.getVal() < 3)) {
             return getDeepOcean(tile, temp, iceNoise);
         } else if(tile.getHeight() < 0.5) {
             return getShallowOcean(tile, temp, iceNoise);

@@ -27,7 +27,7 @@ import net.minecraft.world.gen.feature.structure.Structure;
 public class ClimaticBiomeProvider extends BiomeProvider {
     private static Set<Biome> biomes = new HashSet<>();
     private World world;
-    private IMapRegistry finder;
+    private MapRegistry finder;
 
 
     public ClimaticBiomeProvider(World world) {
@@ -50,10 +50,7 @@ public class ClimaticBiomeProvider extends BiomeProvider {
 
     @Override
     public Biome getBiome(int x, int z) {
-        //Biome[] biomes = new Biome[1];
-        //finder.getUnalignedBiomeGrid(x, z, 1, 1, biomes);
-        //return biomes[0];
-        return finder.getBiomeChunk(x / 16, z / 16);
+        return finder.getBiomeAt(x, z);
     }
 
 
@@ -139,32 +136,8 @@ public class ClimaticBiomeProvider extends BiomeProvider {
     /*-------------------------------------------------------------------------------------------------*/
 
 
-
-    private Biome findBiomeAt(int x, int z) {
-        Biome[] chunk = new Biome[256];
-        finder.getChunkBiomeGen(x / 16, z / 16, chunk);
-        return chunk[(chunkModulus(z) * 16) + chunkModulus(x)];
-    }
-
-
-    private int modRight4(int in) {
-        return in & 3;
-    }
-
-
     private int chunkModulus(int in) {
         return in & 0xf;
-    }
-
-
-    //TODO: Link this in ... How?  I guess listen and use (count) server tick events.
-    public void cleanupCache() {
-        finder.cleanCaches();
-    }
-
-
-    public static void addBiome(Biome b) {
-        biomes.add(b);
     }
 
 

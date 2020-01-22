@@ -34,11 +34,7 @@ public class GetTaiga implements IBiomeSpecifier {
 
 
     public void init() {
-        if(ConfigHandler.useBoP || ConfigHandler.useBoPTable) {
-            tbound = 6;
-        } else {
-            tbound = 7;
-        }
+        tbound = 6;
         forest = new BiomeList();
         alpine = GetAlpine.getAlpine();
         DefReader.readBiomeData(forest, "Taiga.cfg"); //FIXME

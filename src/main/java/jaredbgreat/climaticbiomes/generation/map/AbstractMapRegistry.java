@@ -39,12 +39,6 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
     }
 
 
-    final boolean areFakesInvalid() {
-        return ModList.get().isLoaded("lostcities")
-                && ConfigHandler.chunkProvider.equalsIgnoreCase("lostcities");
-    }
-
-
     /* (non-Javadoc)
      * @see jaredbgreat.climaticbiomes.generation.map.IMapRegistry#findSaveDir()
      */

@@ -23,20 +23,13 @@ public class GetHotForest implements IBiomeSpecifier {
         forests = new BiomeList();
         alpine  = GetAlpine.getAlpine();
         swamp   = GetSwamp.getSwamp();
-        DefReader.readBiomeData(forests, "ForestTropical.cfg"); //FIXME
-        if(!ConfigHandler.includeForests) {
-            DefReader.readBiomeData(forests, "Jungle.cfg"); //FIXME
-        }
+        DefReader.readBiomeData(forests, "ForestTropical.cfg");
         if(forests.isEmpty()) {
-            if(ConfigHandler.includeForests) {
-                forests.addItem(new SeedDoubleBiome(151, 5, 23));
-                forests.addItem(new LeafBiome(AbstractTerminalSpecifier
-                        .getIdForBiome(BiomeRegistrar.tropicalForestHills)));
-                forests.addItem(new LeafBiome(AbstractTerminalSpecifier
-                        .getIdForBiome(BiomeRegistrar.tropicalForest)), 3);
-            } else {
-                forests.addItem(GetJungle.getJungle());
-            }
+            forests.addItem(new SeedDoubleBiome(151, 5, 23));
+            forests.addItem(new LeafBiome(AbstractTerminalSpecifier
+                    .getIdForBiome(BiomeRegistrar.tropicalForestHills)));
+            forests.addItem(new LeafBiome(AbstractTerminalSpecifier
+                    .getIdForBiome(BiomeRegistrar.tropicalForest)), 3);
         }
     }
 

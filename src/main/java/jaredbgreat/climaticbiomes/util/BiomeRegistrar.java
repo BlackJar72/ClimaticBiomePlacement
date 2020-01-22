@@ -49,13 +49,14 @@ public class BiomeRegistrar {
     public static HotRiver    hotRiver;
     public static CoolCoast   coolCoast;
     public static FrozenCoast frozenCoast;
-    public static SnowyCoast  coldCoast;
+    public static ColdCoast  coldCoast;
     public static WarmCoast   warmCoast;
     public static HotCoast    hotCoast;
 
     // Beaches
     public static ColdBeach coldBeach;
     public static CoolBeach coolBeach;
+    public static WarmBeach warmBeach;
     public static HotBeach hotBeach;
 
 
@@ -165,11 +166,12 @@ public class BiomeRegistrar {
     private static void makeOceans() {
         coolCoast = new CoolCoast("coastal_waters");
         frozenCoast = new FrozenCoast("frozen_coastal_waters");
-        coldCoast = new SnowyCoast("cold_coastal_waters");
+        coldCoast = new ColdCoast("cold_coastal_waters");
         warmCoast = new WarmCoast("warm_coastal_water");
         hotCoast = new HotCoast("hot_costal_waters");
         coldBeach = new ColdBeach("cold_beach");
         coolBeach = new CoolBeach("cool_beach");
+        warmBeach = new WarmBeach("warm_beach");
         hotBeach = new HotBeach("hot_beach");
     }
 
@@ -282,9 +284,10 @@ public class BiomeRegistrar {
         registerBiome(frozenCoast, event);
         registerBiome(coldCoast, event);
         registerBiome(warmCoast, event);
-        registerBiome(hotCoast, event);;
-        registerBiome(coldBeach, event);;
-        registerBiome(coolBeach, event);;
+        registerBiome(hotCoast, event);
+        registerBiome(coldBeach, event);
+        registerBiome(coolBeach, event);
+        registerBiome(warmBeach, event);
         registerBiome(hotBeach, event);
         BiomeDictionary.addTypes(coolCoast, Type.OCEAN, Type.WATER, Type.BEACH,
                 Type.OVERWORLD);
@@ -298,33 +301,14 @@ public class BiomeRegistrar {
                 Type.HOT, Type.OVERWORLD);
         BiomeDictionary.addTypes(coldBeach, Type.BEACH, Type.COLD, Type.OVERWORLD);
         BiomeDictionary.addTypes(coolBeach, Type.BEACH, Type.OVERWORLD);
+        BiomeDictionary.addTypes(warmBeach, Type.BEACH, Type.OVERWORLD);
         BiomeDictionary.addTypes(hotBeach, Type.BEACH, Type.HOT, Type.OVERWORLD);
     }
-
-
-
 
 
     /*----------------------------------------------------------------------------------------------------------------*/
     /*                        Add Biomes to Default World (is this still needed / effective?)                         */
     /*----------------------------------------------------------------------------------------------------------------*/
-
-
-    public static void addToVanilla() {
-//        if(ConfigHandler.includeForests) {
-//            addForests2MC();
-//        }
-//        addScrub2MC();
-//        if(ConfigHandler.includeMountains) {
-//            addMountains2MC();
-//        }
-//        if(ConfigHandler.includePlains) {
-//            addPlains2MC();
-//        }
-//        if(ConfigHandler.includeSwamps) {
-//            addSwamps2MC();
-//        }
-    }
 
 
     private static void addForests2MC() {
@@ -337,22 +321,21 @@ public class BiomeRegistrar {
 
 
     private static void addScrub2MC() {
-//        BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(denseScrub, 5));
-//        BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(denseScrubHills, 5));
-//        BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(dryScrub, 5));
-//        BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(dryScrubHills, 5));
+        BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(denseScrub, 5));
+        BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(denseScrubHills, 5));
+        BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(dryScrub, 5));
+        BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(dryScrubHills, 5));
     }
 
 
     private static void addMountains2MC() {
-//        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMountain, 5));
-//        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMountainTrees, 5));
-//        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(hotMountain, 5));
-//        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(hotMountainTrees, 5));
-//        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMontaneForest, 5));
-//        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(montaneJungle, 5));
-//        BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(mediMontaneForest, 5));
-//        BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolMontaneForest, 10));
+        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMountain, 5));
+        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMountainTrees, 5));
+        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(hotMountain, 5));
+        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(hotMountainTrees, 5));
+        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(warmMontaneForest, 5));
+        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(montaneJungle, 5));
+        BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolMontaneForest, 10));
 //        if(ConfigHandler.includeVolcano) {
 //            BiomeManager.addBiome(BiomeType.ICY, new BiomeEntry(activeVolcano, 1));
 //            BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(activeVolcano, 1));
@@ -363,17 +346,17 @@ public class BiomeRegistrar {
 
 
     private static void addPlains2MC() {
-//        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(windswept, 5));
-//        BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolPlains, 5));
-//        BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coldPlains, 5));
-//        BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolWindswept, 5));
+        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(windswept, 5));
+        BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolPlains, 5));
+        BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coldPlains, 5));
+        BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(coolWindswept, 5));
     }
 
 
     private static void addSwamps2MC() {
-//        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(marsh, 5));
-//        BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(bog, 5));
-//        BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(carr, 10));
+        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(marsh, 5));
+        BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(bog, 5));
+        BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(carr, 10));
     }
 
 }

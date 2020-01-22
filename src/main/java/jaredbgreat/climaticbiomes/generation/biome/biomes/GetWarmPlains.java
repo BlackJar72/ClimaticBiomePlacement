@@ -20,11 +20,7 @@ public class GetWarmPlains implements IBiomeSpecifier {
     public void init() {
         cool = GetPlains.getPlains();
         hot  = GetSavanna.getSavanna();
-        if(ConfigHandler.useBoP || ConfigHandler.useBoPTable) {
-            tbound = 17;
-        } else {
-            tbound = 15;
-        }
+        tbound = 17;
     }
 
 

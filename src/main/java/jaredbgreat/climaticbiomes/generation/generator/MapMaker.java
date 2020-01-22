@@ -169,14 +169,6 @@ public class MapMaker {
         for(int i = start; i < end; i++) {
             thinBeach(premap[i]);
         }
-        if(/*settings.extraBeaches*/false) {
-            for(int i = start; i < end; i++) {
-                growBeach1(premap[i]);
-            }
-            for(int i = start; i < end; i++) {
-                growBeach2(premap[i]);
-            }
-        }
         for(int i = start; i < end; i++) {
             growCoast1(premap[i]);
         }

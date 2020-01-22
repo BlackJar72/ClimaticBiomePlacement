@@ -1,15 +1,20 @@
 package jaredbgreat.climaticbiomes;
 
 import jaredbgreat.climaticbiomes.compat.userdef.DefReader;
+import jaredbgreat.climaticbiomes.configuration.ConfigHandler;
 import jaredbgreat.climaticbiomes.generation.ClimaticWorldType;
 import jaredbgreat.climaticbiomes.proxy.ClientProxy;
 import jaredbgreat.climaticbiomes.testing.TestWorldType;
+import jaredbgreat.climaticbiomes.util.Externalizer;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
@@ -46,6 +51,8 @@ public class ClimaticBiomes {
 
     private void setup(final FMLCommonSetupEvent event) {
         LOGGER.info("Starting Climatic Biomes");
+        Externalizer externalizer = new Externalizer();
+        externalizer.copyOut(CONF_DIR);
         DefReader.init(GameRegistry.findRegistry(Biome.class), CONF_DIR);
     }
 

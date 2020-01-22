@@ -19,11 +19,9 @@ public class ClimaticWorldSettings {
 
     // Core settings
     public boolean addIslands;
-    public boolean extraBeaches;
     public boolean forceWhole;
     public boolean rockyScrub;
     public boolean deepSand;
-    public boolean volcanicIslands;
     public boolean hasRivers;
 
     public int biomeSize;
@@ -46,10 +44,8 @@ public class ClimaticWorldSettings {
      */
     private final void setDataFromConfig() {
         this.addIslands = ConfigHandler.addIslands;
-        this.extraBeaches = ConfigHandler.extraBeaches;
         this.rockyScrub = ConfigHandler.rockyScrub;
         this.deepSand = ConfigHandler.deepSand;
-        this.volcanicIslands = ConfigHandler.volcanicIslands;
         this.hasRivers = ConfigHandler.hasRivers;
         this.forceWhole = ConfigHandler.forceWhole;
         this.biomeSize = ConfigHandler.biomeSize;
@@ -78,17 +74,11 @@ public class ClimaticWorldSettings {
             if(json.has("addIslands"))
                 addIslands = json.get("addIslands").getAsBoolean();
 
-            if(json.has("addBeaches"))
-                extraBeaches = json.get("extraBeaches").getAsBoolean();
-
             if(json.has("rockyScrub"))
                 rockyScrub = json.get("rockyScrub").getAsBoolean();
 
             if(json.has("deepSand"))
                 deepSand = json.get("deepSand").getAsBoolean();
-
-            if(json.has("volcanicIslands"))
-                volcanicIslands = json.get("volcanicIslands").getAsBoolean();
 
             if(json.has("hasRivers"))
                 hasRivers = json.get("hasRivers").getAsBoolean();
@@ -134,10 +124,8 @@ public class ClimaticWorldSettings {
     public JsonObject toJson() {
         JsonObject jsonObj = new JsonObject();
         jsonObj.addProperty("addIslands", addIslands);
-        jsonObj.addProperty("extraBeaches", extraBeaches);
         jsonObj.addProperty("rockyScrub", rockyScrub);
         jsonObj.addProperty("deepSand", deepSand);
-        jsonObj.addProperty("volcanicIslands", volcanicIslands);
         jsonObj.addProperty("hasRivers", hasRivers);
         jsonObj.addProperty("forceWholeBiome", forceWhole);
         jsonObj.addProperty("biomeSize", biomeSize);
@@ -177,7 +165,6 @@ public class ClimaticWorldSettings {
             jsonObj = new JsonObject();
         }
         jsonObj.addProperty("addIslands", addIslands);
-        jsonObj.addProperty("extraBeaches", extraBeaches);
         jsonObj.addProperty("forceWholeBiome", forceWhole);
         jsonObj.addProperty("biomeSize", biomeSize);
         jsonObj.addProperty("regionSize", regionSize.ordinal() + 1);

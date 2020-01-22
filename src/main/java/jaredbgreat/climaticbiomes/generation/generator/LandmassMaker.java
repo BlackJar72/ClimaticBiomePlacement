@@ -59,10 +59,7 @@ public class LandmassMaker {
             for(int j = 0; j < size; j++) {
                 if(out[(i * size) + j].height > 0.6) {
                     out[(i * size) + j].rlBiome = 1;
-                    if(settings.extraBeaches ||
-                            out[(i * size) + j].height < beachThreshold) {
-                        out[(i * size) + j].beach = true;
-                    }
+                    out[(i * size) + j].beach = true;
                 } else {
                     out[(i * size) + j].rlBiome = 0;
                 }

@@ -28,16 +28,12 @@ public class GetWarmForest implements IBiomeSpecifier {
         swamp   = GetSwamp.getSwamp();
         DefReader.readBiomeData(forests, "ForestWarm.cfg");
         if(forests.isEmpty()) {
-            if(ConfigHandler.includeForests) {
-                forests.addItem(new LeafBiome(AbstractTerminalSpecifier
-                        .getIdForBiome(BiomeRegistrar.warmForest)), 5);
-                forests.addItem(new LeafBiome(AbstractTerminalSpecifier
-                        .getIdForBiome(BiomeRegistrar.warmForestHills)), 3);
-                forests.addItem(new LeafBiome(AbstractTerminalSpecifier
-                        .getIdForBiome(BiomeRegistrar.pinewoods)));
-            } else {
-                forests.addItem(GetForest.getForest());
-            }
+            forests.addItem(new LeafBiome(AbstractTerminalSpecifier
+                    .getIdForBiome(BiomeRegistrar.warmForest)), 5);
+            forests.addItem(new LeafBiome(AbstractTerminalSpecifier
+                    .getIdForBiome(BiomeRegistrar.warmForestHills)), 3);
+            forests.addItem(new LeafBiome(AbstractTerminalSpecifier
+                    .getIdForBiome(BiomeRegistrar.pinewoods)));
         }
     }
 

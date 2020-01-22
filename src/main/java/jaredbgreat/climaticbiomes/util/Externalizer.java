@@ -1,12 +1,14 @@
 package jaredbgreat.climaticbiomes.util;
 
 /* 
- * This mod is the creation and copyright (c) 2015 
+ * This mod is the creation and copyright (c) 2018, 2019, 2020
  * of Jared Blackburn (JaredBGreat).
  * 
  * It is licensed under the creative commons 4.0 attribution license: * 
  * https://creativecommons.org/licenses/by/4.0/legalcode
 */	
+
+import sun.util.locale.LocaleObjectCache;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,7 +17,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-// FIXME / TODO: This whole class needs to be redone to fit different compatible mods.
 
 /**
  * The purpose of this class is to read internal resource, located inside the jar
@@ -30,11 +31,9 @@ import java.io.InputStreamReader;
 public class Externalizer {
 	private BufferedReader instream;
 	private BufferedWriter outstream;
-	private static final   String baseLocation = "/assets/climaticbiomesjbg/BiomeLists/";
+	private static final   String baseLocation = "/data/climaticbiomes/BiomeLists/";
 	private static final   String outDir       = "BiomeConfig";
 	private static final   String readMeFile   = "README.txt";
-	private static final   String varDir       = "BiomeVariants";
-	private static final   String varFileName  = "variants.cfg";
 	
 	private static final String[] blists = {
 		"AplineCold.cfg",
@@ -86,18 +85,7 @@ public class Externalizer {
 	
 	private static final String[] subdirs = {
 		"Minecraft",
-		"BiomeOPlenty",
-		"Traverse",
 		"custom",
-		"AbyssalCraft",
-		"AuxiliaryBiomes",
-		"Environs",
-		"Minecraft",
-		"PVJ",
-		"BYG",
-		"DefiledLands",
-		"Redwoods",
-		"NovamTerram",
 		"special"
 	};
 	
@@ -107,14 +95,14 @@ public class Externalizer {
 	 * writing it to the hard drive, but only if a file with 
 	 * that path does not already exist on the drive.
 	 * 
-	 * @param name
+	 * @param confdir
 	 */
 	public void copyOut(File confdir) {
 		File outFile;
 		try {
 			File listDir = new File(confdir + File.separator + outDir);
 			if(!listDir.exists()) {
-				listDir.mkdirs();
+				listDir.mkdir();
 			}
 			outFile = new File(confdir + File.separator + outDir + File.separator + readMeFile);
 			if(!outFile.exists()) {
@@ -122,7 +110,7 @@ public class Externalizer {
 			}
 			copyLists(listDir);
 		} catch (Exception e) {
-			System.err.println("Error! Failed to write theme README file!");
+			Logging.logError("Error! Failed to write theme README file!");
 			e.printStackTrace();
 		} 
 	}
@@ -132,24 +120,15 @@ public class Externalizer {
 		for(String sub : subdirs) {
 			File dir = new File(listDir + File.separator + sub + File.separator);
 			if(!dir.exists()) {
-				dir.mkdirs();
+				dir.mkdir();
 			}
 			for(String fname : blists) {
 				File file = new File(dir + File.separator + fname);
 				if(!file.exists()) {
-					System.out.println("Creating file " + file);
+					Logging.logInfo("Creating file " + file.toString());
 					copyBiomeList(file, sub, fname);					
 				}
 			}
-		}
-		File dir = new File(listDir + File.separator + varDir + File.separator);
-		if(!dir.exists()) {
-			dir.mkdirs();
-		}
-		File file = new File(dir + File.separator + varFileName);
-		if(!file.exists()) {
-			System.out.println("Creating file " + file);
-			copyBiomeList(file, varDir, varFileName);					
 		}
 	}
 	
@@ -163,7 +142,7 @@ public class Externalizer {
 			while((line = instream.readLine()) != null) {
 				outstream.write(line + System.lineSeparator());
 			} else {
-				System.err.println("Error! Failed to write theme README file!");
+				Logging.logError("Error! Failed to write theme README file!");
 			}
 		if(instream  != null) instream.close();
 		if(outstream != null) outstream.close();		
@@ -179,7 +158,7 @@ public class Externalizer {
 			while((line = instream.readLine()) != null) {
 				outstream.write(line + System.lineSeparator());
 			} else {
-				System.err.println("Error! Failed to write theme README file!");
+				Logging.logError("Error! Failed to write to theme file " + outFile + "!");
 			}
 		if(instream  != null) instream.close();
 		if(outstream != null) outstream.close();		

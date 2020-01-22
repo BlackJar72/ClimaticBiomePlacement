@@ -44,49 +44,20 @@ public final class DefReader {
 
 
     public static void readBiomeData(BiomeList list, String filename) {
-        //Logging.logInfo("Reading biomes for " + filename);
-        if(ConfigHandler.useVanilla) {
-            vanilla.parser.makeBiomeList(list, filename);
-        }
-        if(ConfigHandler.useBoP) {
-            BoP.parser.makeBiomeList(list, filename);
-        }
-        if(ConfigHandler.useTraverse) {
-            traverse.parser.makeBiomeList(list, filename);
-        }
-        if(ConfigHandler.useNT) {
-            nt.parser.makeBiomeList(list, filename);
-        }
-        if(ConfigHandler.useAby) {
-            abyssal.parser.makeBiomeList(list, filename);
-        }
-        if(ConfigHandler.useAux) {
-            auxiliary.parser.makeBiomeList(list, filename);
-        }
-        if(ConfigHandler.useEnvirons) {
-            environs.parser.makeBiomeList(list, filename);
-        }
-        if(ConfigHandler.usePVJ) {
-            pvj.parser.makeBiomeList(list, filename);
-        }
-        if(ConfigHandler.useBYG) {
-            byg.parser.makeBiomeList(list, filename);
-        }
-        if(ConfigHandler.useDefiled) {
-            defiled.parser.makeBiomeList(list, filename);
-        }
-        if(ConfigHandler.useRWmod) {
-            redwoods.parser.makeBiomeList(list, filename);
-        }
-        if(ConfigHandler.useZoe) {
-            zoestria.parser.makeBiomeList(list, filename);
-        }
-        if(ConfigHandler.useCfg) {
-            custom.parser.makeBiomeList(list, filename);
-        }
-        if(ConfigHandler.useSpecial) {
-            special.parser.addSpecialBiomes(list, filename);
-        }
+        vanilla.parser.makeBiomeList(list, filename);
+//        BoP.parser.makeBiomeList(list, filename);
+//        traverse.parser.makeBiomeList(list, filename);
+//        nt.parser.makeBiomeList(list, filename);
+//        abyssal.parser.makeBiomeList(list, filename);
+//        auxiliary.parser.makeBiomeList(list, filename);
+//        environs.parser.makeBiomeList(list, filename);
+//        pvj.parser.makeBiomeList(list, filename);
+//        byg.parser.makeBiomeList(list, filename);
+//        defiled.parser.makeBiomeList(list, filename);
+//        redwoods.parser.makeBiomeList(list, filename);
+//        zoestria.parser.makeBiomeList(list, filename);
+        custom.parser.makeBiomeList(list, filename);
+        special.parser.addSpecialBiomes(list, filename);
     }
 
 
