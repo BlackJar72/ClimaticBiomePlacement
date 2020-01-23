@@ -37,9 +37,9 @@ public class WarmRiver extends Biome {
         DefaultBiomeFeatures.addStoneVariants(this);
         DefaultBiomeFeatures.addOres(this);
         DefaultBiomeFeatures.addSedimentDisks(this);
-        DefaultBiomeFeatures.func_222296_u(this);
+        DefaultBiomeFeatures.addScatteredOakTrees(this);
         DefaultBiomeFeatures.addDefaultFlowers(this);
-        DefaultBiomeFeatures.func_222348_W(this);
+        DefaultBiomeFeatures.addSparseGrass(this);
         DefaultBiomeFeatures.addMushrooms(this);
         DefaultBiomeFeatures.addReedsAndPumpkins(this);
         DefaultBiomeFeatures.addSprings(this);

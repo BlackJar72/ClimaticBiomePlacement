@@ -42,7 +42,7 @@ public class Bog extends Biome {
         DefaultBiomeFeatures.addSwampClayDisks(this);
         ClimaticBiomesFeatures.addBogPlants(this);
         DefaultBiomeFeatures.addMushrooms(this);
-        DefaultBiomeFeatures.func_222329_ae(this);
+        DefaultBiomeFeatures.addExtraReedsAndPumpkins(this);
         DefaultBiomeFeatures.addSprings(this);
         DefaultBiomeFeatures.addFossils(this);
         DefaultBiomeFeatures.addFreezeTopLayer(this);

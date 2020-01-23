@@ -45,7 +45,6 @@ public class Marsh extends Biome {
         DefaultBiomeFeatures.func_222283_Y(this);
         ClimaticBiomesFeatures.addMarshPlants(this);
         DefaultBiomeFeatures.addMushrooms(this);
-        DefaultBiomeFeatures.func_222329_ae(this);
         DefaultBiomeFeatures.addSprings(this);
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
                 createDecoratedFeature(Feature.SEAGRASS,

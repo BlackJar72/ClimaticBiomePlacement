@@ -37,7 +37,7 @@ public class MontaneJungle extends Biome {
         DefaultBiomeFeatures.addSedimentDisks(this);
         ClimaticBiomesFeatures.addMFHTrees(this);
         DefaultBiomeFeatures.addDefaultFlowers(this);
-        DefaultBiomeFeatures.func_222348_W(this);
+        DefaultBiomeFeatures.addSparseGrass(this);
         DefaultBiomeFeatures.addMushrooms(this);
         DefaultBiomeFeatures.addReedsAndPumpkins(this);
         DefaultBiomeFeatures.addSprings(this);
