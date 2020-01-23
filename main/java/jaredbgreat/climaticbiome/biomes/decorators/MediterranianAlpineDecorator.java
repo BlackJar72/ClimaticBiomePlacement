@@ -2,6 +2,7 @@ package jaredbgreat.climaticbiome.biomes.decorators;
 
 import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.biomes.feature.GenNoTree;
+import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 
 import java.util.Random;
 
@@ -22,7 +23,9 @@ public class MediterranianAlpineDecorator extends BiomeDecorator  {
 	@Override
     protected void genDecorations(Biome biome, World world, Random random) {        
     	super.genDecorations(biome, world, random);
-    	
+    	if(ConfigHandler.hasDT) {
+    		return;
+    	}
     	for(int i = 0; i < 6; i++) {
             int x = random.nextInt(16) + 8 + chunkPos.getX();
             int z = random.nextInt(16) + 8 + chunkPos.getZ();
