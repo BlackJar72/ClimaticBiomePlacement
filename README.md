@@ -1,5 +1,7 @@
 # ClimaticBiomePlacement
 
+[![Climatic-Map-Test2a.jpg](https://i.postimg.cc/hGDV7qMn/Climatic-Map-Test2a.jpg)](https://postimg.cc/tscsLwLv)
+
 https://minecraft.curseforge.com/projects/climatic-biome-placement
 
 An experiment in placing biome into minecraft using a climate model. 
