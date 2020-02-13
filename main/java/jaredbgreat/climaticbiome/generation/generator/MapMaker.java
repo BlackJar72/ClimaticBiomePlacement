@@ -471,10 +471,14 @@ public class MapMaker {
     }
     
     
+    public boolean tileIndexIsBad(int x, int z) {
+    	int index = (x * RSIZE * scale.whole) + z;
+    	return ((index < 0) || (index >= premap.length));
+    }
+    
+    
     public ChunkTile getTile(int x, int y) {
-    	//System.err.println("Geting Tile: " + x + ", " + y + " = " + ((x * RSIZE) + y));
         int index = (x * RSIZE * scale.whole) + y;
-        //System.err.println(x + ", " + y + " = " + index);
         return premap[index];
     }
     

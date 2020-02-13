@@ -48,7 +48,7 @@ public class River {
      * @param r 
      */
     public void build(Random r) {
-    	if(((x * MapMaker.RSIZE * scale.whole) + z) < 0) {
+    	if(map.tileIndexIsBad(x, z)) {
     		Logging.logError("Tried to make river starting out side map! "
     				+ "\n\r x = " + x + ", z = " + z + ", index = "
     				+ ((x * MapMaker.RSIZE * scale.whole) + z));

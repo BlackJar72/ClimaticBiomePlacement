@@ -23,7 +23,7 @@ public class MediterranianAlpineDecorator extends BiomeDecorator  {
 	@Override
     protected void genDecorations(Biome biome, World world, Random random) {        
     	super.genDecorations(biome, world, random);
-    	if(ConfigHandler.hasDT) {
+    	if(ConfigHandler.useDT) {
     		return;
     	}
     	for(int i = 0; i < 6; i++) {
