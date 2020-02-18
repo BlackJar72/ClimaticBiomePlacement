@@ -1,5 +1,33 @@
 generator.climatic_bp=Climaticos
 
+createWorld.climaticbiomesjbg.biomesize=Tamaño del bioma
+createWorld.climaticbiomesjbg.genscale=Escala del mapa
+createWorld.climaticbiomesjbg.sisize=Tamaño de la isla de supervivencia
+
+createWorld.climaticbiomesjbg.continents=Continentes
+createWorld.climaticbiomesjbg.isles=Islas grandes
+createWorld.climaticbiomesjbg.water=Mundo acuático
+createWorld.climaticbiomesjbg.sislands=Isla de supervivencia
+
+createWorld.climaticbiomesjbg.forcewhole.on=Forzar biomas completos: sí
+createWorld.climaticbiomesjbg.addbeach.on=Agregar playa extra: sí
+createWorld.climaticbiomesjbg.addisles.on=Agregar islas adicionales: sí
+createWorld.climaticbiomesjbg.rockyscrub.on=Matorral rocoso: sí
+createWorld.climaticbiomesjbg.deepsand.on=Arena profunda en el matorral: sí
+createWorld.climaticbiomesjbg.volcanicislses.on=Islas Volcanicas: Si
+createWorld.climaticbiomesjbg.hasrivers.on=Hacer ríos: sí
+
+createWorld.climaticbiomesjbg.forcewhole.off=Forzar biomas completos: No
+createWorld.climaticbiomesjbg.addbeach.off=Agregar playa extra: No
+createWorld.climaticbiomesjbg.addisles.off=Agregar islas adicionales: No
+createWorld.climaticbiomesjbg.rockyscrub.off=Matorral rocoso: No
+createWorld.climaticbiomesjbg.deepsand.off=Arena profunda en el matorral: No
+createWorld.climaticbiomesjbg.volcanicislses.off=Islas Volcanicas: No
+createWorld.climaticbiomesjbg.hasrivers.off=Hacer ríos: No
+
+
+createWorld.climaticbiomesjbg.bopconf=Configurar Biomes O'Plenty
+
 tile.climaticbiomesjbg.pine_log.name=Madera de Pino
 tile.climaticbiomesjbg.pine_leaves.oak.name=Agujas de Pino
 tile.climaticbiomesjbg.pine_planks.name=Tablones de Madera de Pino

@@ -1,5 +1,33 @@
 generator.climatic_bp=Климатический
 
+createWorld.climaticbiomesjbg.biomesize=Размер биома
+createWorld.climaticbiomesjbg.genscale=Масштаб карты
+createWorld.climaticbiomesjbg.sisize=Размер Острова Выживания
+
+createWorld.climaticbiomesjbg.continents=Континенты
+createWorld.climaticbiomesjbg.isles=Большие острова
+createWorld.climaticbiomesjbg.water=Водный мир
+createWorld.climaticbiomesjbg.sislands=Остров выживания
+
+createWorld.climaticbiomesjbg.forcewhole.on=Сила целых биомов: да
+createWorld.climaticbiomesjbg.addbeach.on=Добавить дополнительный пляж: Yes
+createWorld.climaticbiomesjbg.addisles.on=Добавить дополнительные острова: Yes
+createWorld.climaticbiomesjbg.rockyscrub.on=Скалистый скраб: Yes
+createWorld.climaticbiomesjbg.deepsand.on=Глубокий песок в кустахb: Yes
+createWorld.climaticbiomesjbg.volcanicislses.on=Вулканические острова: Yes
+createWorld.climaticbiomesjbg.hasrivers.on=Сделать реки: Yes
+
+createWorld.climaticbiomesjbg.forcewhole.off=Сила целых биомов: нет
+createWorld.climaticbiomesjbg.addbeach.off=Добавить дополнительный пляж: нет
+createWorld.climaticbiomesjbg.addisles.off=Добавить дополнительные острова: нет
+createWorld.climaticbiomesjbg.rockyscrub.off=Скалистый скраб: нет
+createWorld.climaticbiomesjbg.deepsand.off=Глубокий песок в кустах: нет
+createWorld.climaticbiomesjbg.volcanicislses.off=Вулканические острова: нет
+createWorld.climaticbiomesjbg.hasrivers.off=Сделать реки: нет
+
+
+createWorld.climaticbiomesjbg.bopconf=Сконфигурируйте Biomes O'Plenty
+
 tile.climaticbiomesjbg.pine_log.name=Cосновая древесина
 tile.climaticbiomesjbg.pine_leaves.oak.name=Cосновая хвоя
 tile.climaticbiomesjbg.pine_planks.name=Доски из сосны

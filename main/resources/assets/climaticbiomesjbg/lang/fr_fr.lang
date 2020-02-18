@@ -1,5 +1,33 @@
 generator.climatic_bp=Climatique
 
+createWorld.climaticbiomesjbg.biomesize=Taille du biome
+createWorld.climaticbiomesjbg.genscale=Échelle de la carte
+createWorld.climaticbiomesjbg.sisize=Taille de l'île de survie
+
+createWorld.climaticbiomesjbg.continents=Continents
+createWorld.climaticbiomesjbg.isles=Grandes îles
+createWorld.climaticbiomesjbg.water=Monde de l'eau
+createWorld.climaticbiomesjbg.sislands=Île de survie
+
+createWorld.climaticbiomesjbg.forcewhole.on=Forcer les biomes entiers: Oui
+createWorld.climaticbiomesjbg.addbeach.on=Ajouter une plage supplémentaire: Oui
+createWorld.climaticbiomesjbg.addisles.on=Ajouter des îles supplémentaires: Oui
+createWorld.climaticbiomesjbg.rockyscrub.on=Rocky Scrub: Oui
+createWorld.climaticbiomesjbg.deepsand.on=Sable profond en gommage: Oui
+createWorld.climaticbiomesjbg.volcanicislses.on=Îles volcaniques: Oui
+createWorld.climaticbiomesjbg.hasrivers.on=Faire des rivières: Oui
+
+createWorld.climaticbiomesjbg.forcewhole.off=Forcer les biomes entiers: Non
+createWorld.climaticbiomesjbg.addbeach.off=Ajouter une plage supplémentaire: Non
+createWorld.climaticbiomesjbg.addisles.off=Ajouter des îles supplémentaires: non
+createWorld.climaticbiomesjbg.rockyscrub.off=Gommage rocheux: Non
+createWorld.climaticbiomesjbg.deepsand.off=Sable profond en gommage: Non
+createWorld.climaticbiomesjbg.volcanicislses.off=Îles volcaniques: Non
+createWorld.climaticbiomesjbg.hasrivers.off=Faire des rivières: non
+
+
+createWorld.climaticbiomesjbg.bopconf=Configurer Biomes O'Plenty
+
 tile.climaticbiomesjbg.pine_log.name=Bois De Pin
 tile.climaticbiomesjbg.pine_leaves.oak.name=Aiguilles De Pin
 tile.climaticbiomesjbg.pine_planks.name=Planches De Bois De Pin
