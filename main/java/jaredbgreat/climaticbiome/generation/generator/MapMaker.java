@@ -5,7 +5,7 @@
  */
 package jaredbgreat.climaticbiome.generation.generator;
 
-import static jaredbgreat.climaticbiome.util.SpatialNoise.absModulus;
+import static jaredbgreat.climaticbiome.util.SpatialHash.absModulus;
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
@@ -14,8 +14,8 @@ import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.cache.MutableCoords;
 import jaredbgreat.climaticbiome.generation.map.IRegionMap;
 import jaredbgreat.climaticbiome.util.HeightNoise;
-import jaredbgreat.climaticbiome.util.SpatialNoise;
-import jaredbgreat.climaticbiome.util.SpatialNoise.RandomAt;
+import jaredbgreat.climaticbiome.util.SpatialHash;
+import jaredbgreat.climaticbiome.util.SpatialHash.RandomAt;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,9 +46,9 @@ public class MapMaker {
     private ClimateNode[] height;
     private BiomeBasin[][] subbiomes;
     
-    public final SpatialNoise chunkNoise;
-    public final SpatialNoise regionNoise;
-    public final SpatialNoise biomeNoise;
+    public final SpatialHash chunkNoise;
+    public final SpatialHash regionNoise;
+    public final SpatialHash biomeNoise;
     
     public final SizeScale scale;
     
@@ -58,8 +58,8 @@ public class MapMaker {
     private ChunkTile[] premap;
     
     
-    public MapMaker(SpatialNoise chunkNoise, SpatialNoise regionNoise, 
-    			SpatialNoise biomeNoise, ClimaticWorldSettings settings) {
+    public MapMaker(SpatialHash chunkNoise, SpatialHash regionNoise, 
+    			SpatialHash biomeNoise, ClimaticWorldSettings settings) {
         this.chunkNoise  = chunkNoise;
         this.regionNoise = regionNoise;
         this.biomeNoise  = biomeNoise;
@@ -124,7 +124,7 @@ public class MapMaker {
         ClimateNode[] tempAr = temp.toArray(new ClimateNode[temp.size()]);
         ClimateNode[] wetAr = wet.toArray(new ClimateNode[wet.size()]);
         
-        SpatialNoise random = chunkNoise;
+        SpatialHash random = chunkNoise;
         makeLandmass(basinAr, coords.getX(), coords.getZ(), random);
         
         HeightNoise climateMaker 
@@ -187,7 +187,7 @@ public class MapMaker {
     }
     
     
-    private void makeLandmass(BasinNode[] basins, int cx, int cz, SpatialNoise random) {
+    private void makeLandmass(BasinNode[] basins, int cx, int cz, SpatialHash random) {
         LandmassMaker maker;
         switch(settings.mode) {
         case 1:
@@ -222,7 +222,7 @@ public class MapMaker {
     }
     
     
-    protected int[][] makeNoise(SpatialNoise random, int t) {
+    protected int[][] makeNoise(SpatialHash random, int t) {
         int[][] noise = new int[RSIZE * scale.whole + 2][RSIZE * scale.whole + 2];
         for(int i = 0; i < (RSIZE * scale.whole + 2); i++)
             for(int j = 0; j < (RSIZE * scale.whole + 2); j++) {
@@ -277,7 +277,7 @@ public class MapMaker {
     }
     
     
-    private double[][] makeDoubleNoise(SpatialNoise random, int t) {
+    private double[][] makeDoubleNoise(SpatialHash random, int t) {
         double[][] noise = new double[RSIZE * scale.whole + 4][RSIZE * scale.whole + 4];
         for(int i = 0; i < (RSIZE * scale.whole + 2); i++)
             for(int j = 0; j < (RSIZE * scale.whole + 2); j++) {

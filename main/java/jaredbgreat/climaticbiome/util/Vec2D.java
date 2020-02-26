@@ -23,7 +23,7 @@ public class Vec2D {
         y = rand.nextDouble() * 2.0 - 1.0;
     }
     
-    public Vec2D(SpatialNoise random, int px, int py, int pz) {
+    public Vec2D(SpatialHash random, int px, int py, int pz) {
         x = random.doubleFor(px, py, pz) * 2.0 - 1.0;
         y = random.doubleFor(px, py, pz + 1) * 2.0 - 1.0;
     }

@@ -1,9 +1,9 @@
 package jaredbgreat.climaticbiome.generation.cache;
 
-import jaredbgreat.climaticbiome.util.SpatialNoise;
+import jaredbgreat.climaticbiome.util.SpatialHash;
 
 public class MutableCoords {
-	private static final SpatialNoise NH = new SpatialNoise(0xADD5C0DE);
+	private static final SpatialHash NH = new SpatialHash(0xADD5C0DE);
 	private int x, z;
 	
 	

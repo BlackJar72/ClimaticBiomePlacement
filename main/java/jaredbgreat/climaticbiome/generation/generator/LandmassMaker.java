@@ -3,10 +3,10 @@ package jaredbgreat.climaticbiome.generation.generator;
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.util.HeightNoise;
-import jaredbgreat.climaticbiome.util.SpatialNoise;
+import jaredbgreat.climaticbiome.util.SpatialHash;
 
 public class LandmassMaker {
-    SpatialNoise random;
+    SpatialHash random;
     int regx, regz, size;
     SizeScale scale;
     double currentScale;
@@ -14,7 +14,7 @@ public class LandmassMaker {
     int xoff, zoff;
     
     
-    LandmassMaker(int rx, int ry, SpatialNoise rand, 
+    LandmassMaker(int rx, int ry, SpatialHash rand, 
                 BasinNode[] basinAr, SizeScale sc, int startW,
                 int xoffIn, int zoffIn) {
         random = rand;

@@ -11,7 +11,7 @@ import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
-import jaredbgreat.climaticbiome.util.SpatialNoise;
+import jaredbgreat.climaticbiome.util.SpatialHash;
 
 /**
  *
@@ -26,7 +26,7 @@ public final class Region extends AbstractCachable {
     static int n = 0;
     
      
-    public Region(int x, int z, SpatialNoise random, ClimaticWorldSettings settings) {
+    public Region(int x, int z, SpatialHash random, ClimaticWorldSettings settings) {
         super(x, z);
         
         cx = (x * RSIZE) - RADIUS;
@@ -58,7 +58,7 @@ public final class Region extends AbstractCachable {
     
     
     
-    public Region init(int x, int z, SpatialNoise random, ClimaticWorldSettings settings) {
+    public Region init(int x, int z, SpatialHash random, ClimaticWorldSettings settings) {
         cx = (x * RSIZE) - RADIUS;
         cz = (z * RSIZE) - RADIUS;
         makeBasins(5, 10, 15, random.getRandomAt(x, z, 0));
@@ -68,7 +68,7 @@ public final class Region extends AbstractCachable {
     }
     
     
-    private BasinNode makeBasin(int value, double decay, SpatialNoise.RandomAt random) {
+    private BasinNode makeBasin(int value, double decay, SpatialHash.RandomAt random) {
         int x = cx + random.nextInt(RSIZE);
         int z = cz + random.nextInt(RSIZE);
         return new BasinNode(x, z, value, 
@@ -76,21 +76,21 @@ public final class Region extends AbstractCachable {
     }
     
     
-    private BasinNode makeCentralBasin1(int value, double decay, SpatialNoise.RandomAt random) {
+    private BasinNode makeCentralBasin1(int value, double decay, SpatialHash.RandomAt random) {
         int x = cx + random.nextInt(RSIZE / 2) + (RSIZE / 4);
         int z = cz + random.nextInt(RSIZE / 2) + (RSIZE / 4);
         return new BasinNode(x, z, value, decay * 1.5);
     }
     
     
-    private BasinNode makeCentralBasin2(int value, double decay, SpatialNoise.RandomAt random) {
+    private BasinNode makeCentralBasin2(int value, double decay, SpatialHash.RandomAt random) {
         int x = cx + random.nextInt((RSIZE * 8) / 10) + (RSIZE / 10);
         int y = cz + random.nextInt((RSIZE * 8) / 10) + (RSIZE / 10);
         return new BasinNode(x, y, value, decay * 1.5);
     }
     
     
-    public void makeBasins(int main, int pos, int neg, SpatialNoise.RandomAt random) {
+    public void makeBasins(int main, int pos, int neg, SpatialHash.RandomAt random) {
         basins = new BasinNode[main + pos + neg];
         for(int i = 0; i < main; i++) {
             basins[i] = makeCentralBasin1(10, 
@@ -107,7 +107,7 @@ public final class Region extends AbstractCachable {
     }
     
     
-    private void makePoles(ClimateNode[] nodes, SpatialNoise.RandomAt random, 
+    private void makePoles(ClimateNode[] nodes, SpatialHash.RandomAt random, 
     		ClimaticWorldSettings settings) {
     	int movex = 0, movez = 0;
     	if(settings.mode == 4) {
@@ -131,7 +131,7 @@ public final class Region extends AbstractCachable {
     }
     
     
-    public void makeTempBasins(int n, SpatialNoise.RandomAt random, ClimaticWorldSettings settings) {
+    public void makeTempBasins(int n, SpatialHash.RandomAt random, ClimaticWorldSettings settings) {
         temp = new ClimateNode[n + 2];
         makePoles(temp, random, settings);
         for(int i = 2; i < temp.length; i++) {
@@ -145,7 +145,7 @@ public final class Region extends AbstractCachable {
     }
     
     
-    public void makeRainBasins(int n, SpatialNoise.RandomAt random) {
+    public void makeRainBasins(int n, SpatialHash.RandomAt random) {
         wet = new ClimateNode[n];
         for(int i = 0; i < wet.length; i++) {
             int cycle = i % 3;

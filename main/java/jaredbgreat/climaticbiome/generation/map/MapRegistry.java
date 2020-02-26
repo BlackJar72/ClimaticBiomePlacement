@@ -7,7 +7,7 @@ import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
 import jaredbgreat.climaticbiome.generation.generator.MapMaker;
-import jaredbgreat.climaticbiome.util.SpatialNoise;
+import jaredbgreat.climaticbiome.util.SpatialHash;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,9 +36,9 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	private final Cache<RegionMap> data;
 	private final SubBiomeRegistry subbiomes;
 	
-    private final SpatialNoise chunkNoise;
-    private final SpatialNoise regionNoise;
-    private final SpatialNoise biomeNoise;
+    private final SpatialHash chunkNoise;
+    private final SpatialHash regionNoise;
+    private final SpatialHash biomeNoise;
     
     private int dataSize;
     private int cWidth;
@@ -59,9 +59,9 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
 		data = new Cache<>();
 		subbiomes = SubBiomeRegistry.getSubBiomeRegistry();
         Random random = new Random(seed);
-        chunkNoise = new SpatialNoise(random.nextLong(), random.nextLong());
-        regionNoise = new SpatialNoise(random.nextLong(), random.nextLong());
-        biomeNoise = new SpatialNoise(random.nextLong(), random.nextLong());
+        chunkNoise = new SpatialHash(random.nextLong(), random.nextLong());
+        regionNoise = new SpatialHash(random.nextLong(), random.nextLong());
+        biomeNoise = new SpatialHash(random.nextLong(), random.nextLong());
         maker = new MapMaker(chunkNoise, regionNoise, biomeNoise, settings);
 	}
 	

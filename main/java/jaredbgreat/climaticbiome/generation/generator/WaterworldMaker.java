@@ -2,12 +2,12 @@ package jaredbgreat.climaticbiome.generation.generator;
 
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.util.HeightNoise;
-import jaredbgreat.climaticbiome.util.SpatialNoise;
+import jaredbgreat.climaticbiome.util.SpatialHash;
 
 public class WaterworldMaker extends LandmassMaker {
     
     
-    WaterworldMaker(int rx, int ry, SpatialNoise rand, 
+    WaterworldMaker(int rx, int ry, SpatialHash rand, 
                 BasinNode[] basinAr, SizeScale sc, int startW,
                 int xoffIn, int zoffIn) {
     	super(rx, ry, rand, basinAr, sc, startW, xoffIn, zoffIn);

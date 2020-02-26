@@ -2,12 +2,11 @@ package jaredbgreat.climaticbiome.generation.map;
 
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
-import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
 import jaredbgreat.climaticbiome.generation.generator.MapMaker;
-import jaredbgreat.climaticbiome.util.SpatialNoise;
+import jaredbgreat.climaticbiome.util.SpatialHash;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,18 +16,16 @@ import java.io.IOException;
 import java.util.Random;
 
 import net.minecraft.init.Biomes;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.DimensionManager;
 
 public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	private final Cache<NewRegionMap> data;
 	private final SubBiomeRegistry subbiomes;
 	
-    private final SpatialNoise chunkNoise;
-    private final SpatialNoise regionNoise;
-    private final SpatialNoise biomeNoise;
+    private final SpatialHash chunkNoise;
+    private final SpatialHash regionNoise;
+    private final SpatialHash biomeNoise;
     
     private int dataSize;
     private int cWidth;
@@ -48,9 +45,9 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 		data = new Cache<>();
 		subbiomes = SubBiomeRegistry.getSubBiomeRegistry();
         Random random = new Random(seed);
-        chunkNoise = new SpatialNoise(random.nextLong(), random.nextLong());
-        regionNoise = new SpatialNoise(random.nextLong(), random.nextLong());
-        biomeNoise = new SpatialNoise(random.nextLong(), random.nextLong());
+        chunkNoise = new SpatialHash(random.nextLong(), random.nextLong());
+        regionNoise = new SpatialHash(random.nextLong(), random.nextLong());
+        biomeNoise = new SpatialHash(random.nextLong(), random.nextLong());
         maker = new MapMaker(chunkNoise, regionNoise, biomeNoise, settings);
         noFakes = areFakesInvalid();
 	}
