@@ -20,10 +20,10 @@ public class HeightNoise {
     int size, interval, currentInterval, regx, regy;
     double[][] field;
     double scale, divisor;
-    SpatialNoise random;
+    SpatialHash random;
 
     
-    public HeightNoise(SpatialNoise random, int size, int interval, 
+    public HeightNoise(SpatialHash random, int size, int interval, 
                 double scale, int regx, int regy) {
         this.size = size; 
         this.interval = interval; 

@@ -88,7 +88,7 @@ public class SpatialNoise {
      * @return 
      */
     public float floatFor(int x, int z, int t) {
-        return ((float)(longFor(x, z, t) & 0x7fffffff)) 
+        return ((float)(longFor(x, z, t))) 
                 / ((float)Long.MAX_VALUE);
     }
     
