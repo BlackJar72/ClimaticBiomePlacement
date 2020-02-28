@@ -26,13 +26,11 @@ import net.minecraft.world.gen.feature.structure.Structure;
 
 public class ClimaticBiomeProvider extends BiomeProvider {
     private static Set<Biome> biomes = new HashSet<>();
-    private World world;
     private MapRegistry finder;
 
 
     public ClimaticBiomeProvider(World world) {
         super();
-        this.world = world;
         finder = new MapRegistry(world.getSeed(), world);
         if(biomes.isEmpty()) {
             for (Biome biome : Registry.BIOME) {
@@ -59,6 +57,12 @@ public class ClimaticBiomeProvider extends BiomeProvider {
         Biome[] biomes = new Biome[width * length];
         finder.getUnalignedBiomeGrid(x, z, width, length, biomes);
         return biomes;
+    }
+
+
+    public Biome[] getChunkBiomes(int x, int z, boolean cacheFlag) {
+        Biome[] biomes = new Biome[256];
+        return finder.getChunkBiomeGrid(x, z, biomes);
     }
 
 
@@ -106,9 +110,9 @@ public class ClimaticBiomeProvider extends BiomeProvider {
 
     @Override
     public boolean hasStructure(Structure<?> structureIn) {
-        return this.hasStructureCache.computeIfAbsent(structureIn, (structure) -> {
+        return hasStructureCache.computeIfAbsent(structureIn, (structure) -> {
             for(Biome biome : biomes) {
-                if (biome.hasStructure(structure)) {
+                if(biome.hasStructure(structure)) {
                     return true;
                 }
             }

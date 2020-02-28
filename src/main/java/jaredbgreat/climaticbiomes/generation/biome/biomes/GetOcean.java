@@ -110,7 +110,6 @@ public class GetOcean implements IBiomeSpecifier {
         int iceNoise = tile.getNoise();
         tile.nextBiomeSeed();
         if(settings.addIslands && (tile.getHeight() < 0.5) && (tile.getHeight() > 0.0)
-                && (tile.getVal() < 3)
                 && ((seed % 5) == 0)
                 && notNearEdge(tile)) {
             int noise = tile.getNoise();

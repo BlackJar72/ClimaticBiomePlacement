@@ -13,19 +13,21 @@ public class GetColdPlains implements IBiomeSpecifier {
         init();
     }
     private BiomeList coldPlains;
+    private IBiomeSpecifier alpine;
 
     public void init() {
         coldPlains = new BiomeList();
-        DefReader.readBiomeData(coldPlains, "PlainsCold.cfg"); // FIXME
+        DefReader.readBiomeData(coldPlains, "PlainsCold.cfg");
         if(coldPlains.isEmpty()) {
-            coldPlains.addItem(new LeafBiome(1), 2);
+            coldPlains.addItem(new LeafBiome(1));
         }
+        alpine = GetAlpine.getAlpine();
     }
 
     @Override
     public long getBiome(ChunkTile tile) {
-        if((tile.getBiomeSeed() % 3) == 0) {
-            return 13;  // TODO: Once GetAlpine is more generic use that
+        if((tile.getBiomeSeed() % 4) == 0) {
+            return alpine.getBiome(tile);
         }
         tile.nextBiomeSeed();
         return coldPlains.getBiome(tile);

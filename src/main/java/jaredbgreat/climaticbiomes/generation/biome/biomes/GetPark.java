@@ -21,13 +21,15 @@ public class GetPark implements IBiomeSpecifier {
         plains = GetPlains.getPlains();
         woods = GetForest.getForest();
         DefReader.readBiomeData(parks, "Parkland.cfg");
+        parks.addItem(woods);
+        parks.addItem(plains);
     }
 
 
     @Override
     public long getBiome(ChunkTile tile) {
         int seed = tile.getBiomeSeed();
-        if(parks.isEmpty() || ((seed & 5) == 0)) {
+        if(parks.isEmpty() || ((seed % 7) == 0)) {
             if((seed & 1) == 0) {
                 tile.nextBiomeSeed();
                 return woods.getBiome(tile);
