@@ -11,9 +11,11 @@ import java.util.Random;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeSwamp;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -66,6 +68,7 @@ public class Wetland extends BiomeSwamp {
 		} else {
 			wcolor = 0xffffff;
 		}
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntitySlime.class, 1, 1, 1));
 	}
 	
 	
