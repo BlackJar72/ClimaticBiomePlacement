@@ -27,16 +27,16 @@ public class ChunkGeneratorTest extends ChunkGeneratorOverworld {
     	int d1 = 0, d2 = 0, d3 =0;
     	for(int i = 0; i < 16; i++) 
 			for(int k = 0; k < 16; k++) {				 
-				d1 = (i - 8);
-				d2 = (k - 8);
-				d1 *= d1;
-				d2 *= d2;
-				d3 = (int)Math.sqrt(d1 + d2) - c3;
+				//d1 = (i - 8);
+				//d2 = (k - 8);
+				//d1 *= d1;
+				//d2 *= d2;
+				//d3 = (int)Math.sqrt(d1 + d2) - c3;
 				for(int j = 0; j < 256; j++) {
 					if ((j) < 64) {
-				        primer.setBlockState(i, j, k, STONE);
-				    } else if (j + d3 < 72) {
 				        primer.setBlockState(i, j, k, WATER);
+				    } else if (j < 72) {
+				        primer.setBlockState(i, j, k, STONE);
 				    }
     			}
 			}

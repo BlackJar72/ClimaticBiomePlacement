@@ -1,7 +1,7 @@
 package jaredbgreat.climaticbiome.generation.cache;
 
 
-public interface ICachable {	
+public interface ICachable extends IHaveCoords {	
 	
 	/**
 	 * Updates last used time.
@@ -17,9 +17,5 @@ public interface ICachable {
 	 * Was this an old item returned from the cache.
 	 * 
 	 * @return
-	 */
-    public Coords getCoords();
-	/**
-	 * Mark whether this is in the cache.
 	 */
 }
