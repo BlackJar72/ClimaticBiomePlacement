@@ -17,29 +17,45 @@ public class ChunkGeneratorTest extends ChunkGeneratorOverworld {
 	
 
 
-    public void setBlocksInChunk(int x, int z, ChunkPrimer primer) {		 
-		int c1 = ((x % 16) - 8);
-		int c2 = ((z % 16) - 8);
-		c1 *= c1;
-		c2 *= c2;
-		int c3 = (int)Math.sqrt(c1 + c2);
-		
-    	int d1 = 0, d2 = 0, d3 =0;
+    public void setBlocksInChunk(int x, int z, ChunkPrimer primer) {
+    	int[] heightmap = getHeihtmapForChunk(x, z);
     	for(int i = 0; i < 16; i++) 
-			for(int k = 0; k < 16; k++) {				 
-				//d1 = (i - 8);
-				//d2 = (k - 8);
-				//d1 *= d1;
-				//d2 *= d2;
-				//d3 = (int)Math.sqrt(d1 + d2) - c3;
+			for(int k = 0; k < 16; k++) {
+				int h = heightmap[(i * 16) + k];
 				for(int j = 0; j < 256; j++) {
-					if ((j) < 64) {
-				        primer.setBlockState(i, j, k, WATER);
-				    } else if (j < 72) {
+					if (j < h) {
 				        primer.setBlockState(i, j, k, STONE);
+				    } else if (j < 64) {
+				        primer.setBlockState(i, j, k, WATER);
 				    }
     			}
 			}
+    }
+    
+    
+    // FIXME? Should this return and int[] or should I use a byte[]?
+    private int[] getHeihtmapForChunk(int x, int z) {
+    	// TODO: Everything, mostly elsewhere; this is a stand-in!
+    	int[] out = new int[256];
+    	for(int i = 0; i < 16; i++) {
+    			out[i * 16]      = 63;
+    			out[i * 16 +  2] = 63;
+    			out[i * 16 +  4] = 63;
+    			out[i * 16 +  6] = 63;
+    			out[i * 16 +  8] = 63;
+    			out[i * 16 + 10] = 63;
+    			out[i * 16 + 12] = 63;
+    			out[i * 16 + 14] = 63;
+    			out[i * 16 +  1] = 65;
+    			out[i * 16 +  3] = 65;
+    			out[i * 16 +  5] = 65;
+    			out[i * 16 +  7] = 65;
+    			out[i * 16 +  9] = 65;
+    			out[i * 16 + 11] = 65;
+    			out[i * 16 + 13] = 65;
+    			out[i * 16 + 15] = 65;
+    		}
+    	return out;
     }
 
 }
