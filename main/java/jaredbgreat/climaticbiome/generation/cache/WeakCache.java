@@ -249,7 +249,7 @@ public class WeakCache <T extends IHaveCoords> {
      */
     private void shrink() {
     	CacheReference<T>[] old = data;
-        data = new CacheReference[old.length / 2];
+        data = new CacheReference[Math.max(old.length / 2, minSize)];
         for(int i = 0; i < old.length; i++) {
             if(old[i] != null && old[i].get() != null) {
                 rebucket(old[i].get());
@@ -262,12 +262,16 @@ public class WeakCache <T extends IHaveCoords> {
     
     
     private void rebucketAll() {
-    	CacheReference<T>[] old = data;
-        data = new CacheReference[old.length];
-        for(int i = 0; i < old.length; i++) {
-            if(old[i] != null && old[i].get() != null) {
-                rebucket(old[i].get());
-            }
+        if(length < lowLimit) {
+            shrink();
+        } else {
+	    	CacheReference<T>[] old = data;
+	        data = new CacheReference[old.length];
+	        for(int i = 0; i < old.length; i++) {
+	            if(old[i] != null && old[i].get() != null) {
+	                rebucket(old[i].get());
+	            }
+	        }
         }
         altered  = false;
     }
@@ -295,8 +299,5 @@ public class WeakCache <T extends IHaveCoords> {
     public void reduce() {
     	length--;
     	altered = true;
-        if(length < lowLimit) {
-            shrink();
-        }
     } 
 }

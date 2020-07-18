@@ -238,7 +238,7 @@ public class Cache <T extends ICachable> {
      */
     private void shrink() {
         T[] old = data;
-        data = (T[]) new ICachable[old.length / 2];
+        data = (T[]) new ICachable[Math.max(old.length / 2, minSize)];
         for(int i = 0; i < old.length; i++) {
             if(old[i] != null) {
                 rebucket(old[i]);
