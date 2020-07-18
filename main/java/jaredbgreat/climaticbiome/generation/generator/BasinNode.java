@@ -68,7 +68,7 @@ public class BasinNode {
             power = 1.0 / (weakness * weakness);
             sum += power;
             effect += Math.max(((double)n[i].value) * power, 0);
-        }
+        }        
         return (effect / sum);
     }
     

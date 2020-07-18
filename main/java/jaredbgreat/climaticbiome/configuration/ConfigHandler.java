@@ -63,6 +63,8 @@ public class ConfigHandler {
 	static boolean rockyScrub = true;
 	static boolean hasRivers = true;
 	
+	//public static boolean allPolesCold = true;
+	
 	static int        biomeSize  = 16;
 	static SizeScale  regionSize = SizeScale.X1;
 	static boolean    forceWhole = false;
@@ -70,8 +72,7 @@ public class ConfigHandler {
 	static int        mode       = 1;
 	
 	public static boolean failfast = false;
-	
-	
+		
 	public static  int     modes     = 3;
 	public static  boolean includeSI = false;
 

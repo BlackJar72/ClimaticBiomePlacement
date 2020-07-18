@@ -49,6 +49,11 @@ public class ClimateNode extends BasinNode {
             sum += power;
             effect += ((double)n[i].value) * power;
         }
+//        double result = (effect / sum) + noise;
+//        if(result > 25.0) {
+//        	result = 50.0 - result;
+//        }
+//        return Math.max(result, 0);
         return Math.max((effect / sum) + noise, 0);
     }
     

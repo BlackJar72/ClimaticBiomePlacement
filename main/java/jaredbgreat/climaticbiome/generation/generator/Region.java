@@ -131,17 +131,46 @@ public final class Region extends AbstractCachable {
     }
     
     
+    private void makeColdPoles(ClimateNode[] nodes, SpatialHash.RandomAt random, 
+    		ClimaticWorldSettings settings) {
+    	int movex = 0, movez = 0;
+    	if(settings.mode == 4) {
+    		movex = random.nextInt(512) - 256;
+    		movez = random.nextInt(512) - 256;
+    	}
+        int dist = (RSIZE / 6) 
+                + random.nextInt(RSIZE / 4);
+        double angle = random.nextDouble() * 2 * Math.PI;
+        int x = cx + RADIUS + (int)(dist * Math.cos(angle)) + movex;
+        int y = cz + RADIUS + (int)(dist * Math.sin(angle)) + movez;
+        nodes[0] = new ClimateNode(x, y, 0, 
+                (BasinNode.getLogScaled(-14) / 40) * 1.5, 0);
+        dist = (RSIZE / 6) + random.nextInt(RSIZE / 4);
+        angle = angle + (random.nextDouble() 
+                * (Math.PI / 2)) + ((Math.PI * 3) / 4);
+        x = cx + (RADIUS) + (int)(dist * Math.cos(angle));
+        y = cz + (RADIUS) + (int)(dist * Math.sin(angle));
+        nodes[1] = new ClimateNode(x, y, 50, 
+                (BasinNode.getLogScaled(-15) / 40) * 1.5, 0);        
+    }
+    
+    
     public void makeTempBasins(int n, SpatialHash.RandomAt random, ClimaticWorldSettings settings) {
-        temp = new ClimateNode[n + 2];
-        makePoles(temp, random, settings);
-        for(int i = 2; i < temp.length; i++) {
-            temp[i] = new ClimateNode(
-                cx + random.nextInt(RSIZE), 
-                cz + random.nextInt(RSIZE), 
-                random.nextInt(25), 
-                (BasinNode.getLogScaled(random.nextInt(5) - 12) / 30) * 1.5, 
-                random.nextInt(3) + 1);
-        }
+        /*if(!ConfigHandler.allPolesCold)*/ {
+	        temp = new ClimateNode[n + 2];
+	        makePoles(temp, random, settings);
+	        for(int i = 2; i < temp.length; i++) {
+	            temp[i] = new ClimateNode(
+	                cx + random.nextInt(RSIZE), 
+	                cz + random.nextInt(RSIZE), 
+	                random.nextInt(25), 
+	                (BasinNode.getLogScaled(random.nextInt(5) - 12) / 30) * 1.5, 
+	                random.nextInt(3) + 1);
+	        }
+        } /*else {
+	        temp = new ClimateNode[2];
+	        makeColdPoles(temp, random, settings);
+        }*/
     }
     
     
