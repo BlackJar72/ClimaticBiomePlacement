@@ -60,6 +60,7 @@ public class GetAlpine implements IBiomeSpecifier {
 
 	@Override
 	public long getBiome(ChunkTile tile) {
+		tile.setMountainous();
 		boolean plus = (tile.getBiomeSeed() % 7) < tile.getWet();
 		tile.nextBiomeSeed();
 		int t = tile.getTemp();

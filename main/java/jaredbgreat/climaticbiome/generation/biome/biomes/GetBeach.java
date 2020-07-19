@@ -37,6 +37,7 @@ public class GetBeach implements IBiomeSpecifier {
 	
 	@Override
 	public long getBiome(ChunkTile tile) {
+		tile.setVanilla();
 		if(tile.getTemp() < tbound) {
 			return cold.getBiome(tile);
 		}

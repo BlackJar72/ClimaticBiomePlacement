@@ -7,9 +7,11 @@ import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.IslandBiome;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
+import jaredbgreat.climaticbiome.generation.biome.MesaDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.NoiseDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.TempDoubleBiome;
+import jaredbgreat.climaticbiome.generation.biome.TerrainBiome;
 import jaredbgreat.climaticbiome.generation.biome.WetDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetTaiga.TaigaDoubleBiome;
 import jaredbgreat.dldungeons.parser.Tokenizer;
@@ -52,6 +54,8 @@ public class BiomeParser {
 		commands.put("taiga", new TaigaParse());
 		commands.put("wetness", new WetParse());
 		commands.put("island", new IslandParse());
+		commands.put("plateau", new MesaParse());
+		commands.put("terrain", new TerrainParse());
 	}
 	
 	
@@ -183,6 +187,16 @@ public class BiomeParser {
 	}
 	
 	
+	private final class MesaParse implements ICommand {
+		public IBiomeSpecifier parse(String in) {
+			Tokenizer tokens = new Tokenizer(in, ", \t");		
+			return new MesaDoubleBiome(tokens.nextToken(), 
+					   Integer.parseInt(tokens.nextToken()), 
+					   tokens.nextToken(), biomeReg);
+		}
+	}
+	
+	
 	
 	private final class SeedParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
@@ -226,6 +240,13 @@ public class BiomeParser {
 	private final class LeafParse implements ICommand {
 		public IBiomeSpecifier parse(String in) {
 			return new LeafBiome(in, biomeReg);
+		}
+	}
+	
+	
+	private final class TerrainParse implements ICommand {
+		public IBiomeSpecifier parse(String in) {
+			return new TerrainBiome(in, biomeReg);
 		}
 	}
 	

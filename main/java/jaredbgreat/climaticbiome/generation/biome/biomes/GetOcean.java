@@ -96,7 +96,8 @@ public class GetOcean implements IBiomeSpecifier {
 	
 	@Override
 	public long getBiome(ChunkTile tile) {
-		if(tile.isIsBeach() && !tile.isRiver() && !swampy(tile)) {
+		tile.setVanilla();
+		if(tile.isBeach() && !tile.isRiver() && !swampy(tile)) {
 			return beaches.getBiome(tile);
 		}
 		int temp = tile.getTemp();

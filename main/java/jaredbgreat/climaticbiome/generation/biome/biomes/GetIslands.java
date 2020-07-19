@@ -49,6 +49,7 @@ public class GetIslands implements IBiomeSpecifier {
 
 	@Override
 	public long getBiome(ChunkTile tile) {
+		tile.setVanilla();
 		tile.nextBiomeSeed();
 		int seed = tile.getBiomeSeed();
 		int temp = tile.getTemp();
