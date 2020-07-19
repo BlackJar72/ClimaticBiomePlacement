@@ -131,6 +131,11 @@ public class ClimaticBiomeProvider extends BiomeProvider {
                 }
         return allowed.contains(finder.getBiomeChunk(x, z));
     }
+    
+    
+    public float[] getTerrainBiomeGen(int x, int z) {
+    	return finder.getTerrainBiomeGen(x, z, new float[512]);
+    }
 
     
     public void cleanupCache() {

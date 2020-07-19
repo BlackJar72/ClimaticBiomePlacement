@@ -2,10 +2,11 @@ package jaredbgreat.climaticbiome.generation.map;
 
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
+import jaredbgreat.climaticbiome.generation.biomeprovider.BiomeBasin;
+import jaredbgreat.climaticbiome.generation.biomeprovider.MapMaker;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
-import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
-import jaredbgreat.climaticbiome.generation.generator.MapMaker;
+import jaredbgreat.climaticbiome.generation.chunk.BasinNode;
 import jaredbgreat.climaticbiome.util.SpatialHash;
 
 import java.io.File;
@@ -486,6 +487,39 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
     						.summateEffect(basins, 16 + i, 16 + j)]);
     		}
     	return out;
+    }
+    
+    
+    @Override
+	public float[] getTerrainBiomeGen(int x, int z, float[] in) {
+    	Biome[] tiles = new Biome[9];
+    	BasinNode[] heights = new BasinNode[9];
+    	BasinNode[] scales  = new BasinNode[9];
+    	for(int i = 0; i < tiles.length; i++) {
+    		int x1 = (i / 3);
+    		int z1 = (i % 3);   
+    		int x2 = x + x1;
+    		int z2 = z + z1;    		 		
+    		tiles[i] = getBiomeChunk(x2, z2);
+    		heights[i] = new BasinNode(
+    				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
+    				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
+    				tiles[i].getBaseHeight(), 
+    				(1.0 / 1.0 + chunkNoise.doubleFor(x2, z2, 12)));
+    		scales[i] = new BasinNode(
+    				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
+    				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
+    				tiles[i].getHeightVariation(), 
+    				(1.0 / 1.0 + chunkNoise.doubleFor(x2, z2, 12)));    				
+    	}
+    	for(int i = 0; i < 16; i++)
+    		for(int j = 0; j < 16; j++) {
+    			in[(j * 16) + i] = 
+    					(float)BasinNode.summateEffect(heights, 16 + i, 16 + j);
+    			in[(j * 16) + i + 256] = 
+    					(float)BasinNode.summateEffect(scales, 16 + i, 16 + j);
+    		}
+    	return in;
     }
 
 

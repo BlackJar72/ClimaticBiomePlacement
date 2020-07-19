@@ -63,5 +63,7 @@ public interface IMapRegistry {
 	public abstract Biome[] getChunkBiomeGen(int x, int z, Biome[] in);
 
 	public abstract void cleanCaches();
+	
+	public float[] getTerrainBiomeGen(int x, int z, float[] in);
 
 }

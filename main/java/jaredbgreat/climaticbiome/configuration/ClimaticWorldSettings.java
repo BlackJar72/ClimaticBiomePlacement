@@ -3,7 +3,7 @@ package jaredbgreat.climaticbiome.configuration;
 import jaredbgreat.climaticbiome.Info;
 import jaredbgreat.climaticbiome.biomes.basic.Scrub;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetIslands;
-import jaredbgreat.climaticbiome.generation.generator.SizeScale;
+import jaredbgreat.climaticbiome.generation.biomeprovider.SizeScale;
 import jaredbgreat.climaticbiome.gui.GuiCBToggleButton;
 import jaredbgreat.climaticbiome.gui.GuiIntSlider;
 import jaredbgreat.climaticbiome.gui.GuiScaleSlider;

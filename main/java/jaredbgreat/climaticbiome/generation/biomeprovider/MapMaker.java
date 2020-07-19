@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jaredbgreat.climaticbiome.generation.generator;
+package jaredbgreat.climaticbiome.generation.biomeprovider;
 
 import static jaredbgreat.climaticbiome.util.SpatialHash.absModulus;
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;

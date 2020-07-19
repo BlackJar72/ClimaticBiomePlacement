@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiome.generation.chunk;
 
-import jaredbgreat.climaticbiome.util.HeightNoiseMap;
+import jaredbgreat.climaticbiome.generation.ClimaticBiomeProvider;
 import jaredbgreat.climaticbiome.util.SpatialHash;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -12,6 +12,7 @@ public class ChunkGeneratorTest extends ChunkGeneratorOverworld {
 	private static final IBlockState WATER = Blocks.WATER.getDefaultState();
 	private final SpatialHash sprandom;
 	private final HeightMapManager heightMapManager;
+	private final World world;
 	
 
 	public ChunkGeneratorTest(World worldIn, long seed,
@@ -19,12 +20,12 @@ public class ChunkGeneratorTest extends ChunkGeneratorOverworld {
 		super(worldIn, seed, mapFeaturesEnabledIn, generatorOptions);
 		sprandom = new SpatialHash(seed);
 		heightMapManager = new HeightMapManager();
+		world = worldIn;
 	}
 	
 
 
     public void setBlocksInChunk(int x, int z, ChunkPrimer primer) {
-    	x += 0x4fffffff; z += 0x4fffffff;
     	int[] heightmap = getHeihtmapForChunk(x, z, sprandom);
     	for(int i = 0; i < 16; i++) 
 			for(int k = 0; k < 16; k++) {
@@ -42,7 +43,8 @@ public class ChunkGeneratorTest extends ChunkGeneratorOverworld {
     
     // FIXME? Should this return and int[] or should I use a byte[]?
     private int[] getHeihtmapForChunk(int x, int z, SpatialHash rand) {
-    	return heightMapManager.getChunkHieghts(x, z, rand);
+    	ClimaticBiomeProvider provider = (ClimaticBiomeProvider)world.getBiomeProvider();
+    	return heightMapManager.getChunkHieghts(x, z, rand, provider.getTerrainBiomeGen(x, z));
     }
 
 }

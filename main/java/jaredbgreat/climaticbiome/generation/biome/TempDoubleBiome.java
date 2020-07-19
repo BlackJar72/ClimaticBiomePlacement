@@ -2,7 +2,7 @@ package jaredbgreat.climaticbiome.generation.biome;
 
 import java.util.StringTokenizer;
 
-import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
+import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.IForgeRegistry;
