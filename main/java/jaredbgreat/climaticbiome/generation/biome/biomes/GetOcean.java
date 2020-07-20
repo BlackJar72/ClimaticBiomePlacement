@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
@@ -35,8 +36,11 @@ public class GetOcean implements IBiomeSpecifier {
 	IBiomeSpecifier islands2; // Special island-only biomes
 	IBiomeSpecifier beaches;
 	
+	long coasts;
+	
 	
 	public void init() {
+		coasts = ModBiomes.coast.getIdForBiome(ModBiomes.coast);
 		// Shallows
 		frozen = new BiomeList();
 		cold   = new BiomeList();
@@ -98,16 +102,14 @@ public class GetOcean implements IBiomeSpecifier {
 	public long getBiome(ChunkTile tile) {
 		tile.setVanilla();
 		if(tile.isBeach() && !tile.isRiver() && !swampy(tile)) {
-			return beaches.getBiome(tile);
+			return coasts;
 		}
 		int temp = tile.getTemp();
 		int seed = tile.getBiomeSeed();
 		int iceNoise = tile.getNoise();
 		tile.nextBiomeSeed();
-        if(settings.addIslands && (tile.getHeight() < 0.5) 
-        							&& (tile.getVal() < 3) 
-        							&& ((seed % 5) == 0) 
-        							&& notNearEdge(tile)) {
+        if(settings.addIslands && (((seed % 5) == 0) 
+        					   && notNearEdge(tile))) {
     		int noise = tile.getNoise();
     		if((seed % 31) == 0) {
     				if((tile.getTemp() > 9) && (tile.getTemp() < 19)
@@ -127,10 +129,9 @@ public class GetOcean implements IBiomeSpecifier {
     			} else if(settings.addIslands) {
     				if(noise > (seed % 3)) {
     					return islands2.getBiome(tile.nextBiomeSeed());
-    				}				
-    			} else {
-    				return getForIsland(tile);
-    			}    			
+    				}
+    			}
+    			return getForIsland(tile);
     		} else if((tile.getHeight()) < 0.2) {
     			return getDeepOcean(tile, temp, iceNoise);
     		}
@@ -232,8 +233,9 @@ public class GetOcean implements IBiomeSpecifier {
 	 * @return
 	 */
 	public long getForIsland(ChunkTile tile) {
-		tile.nextBiomeSeed();
+		//tile.nextBiomeSeed();
 		return getShallowOcean(tile, tile.getTemp(), tile.getNoise());
+		//return coasts;
 	}
 	
 	

@@ -15,6 +15,7 @@ import jaredbgreat.climaticbiome.biomes.pseudo.PseudoBiomes;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetRiver;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeBeach;
 import net.minecraft.world.biome.BiomeHills;
 import net.minecraft.world.biome.BiomePlains;
 import net.minecraft.world.biome.BiomeRiver;
@@ -47,6 +48,7 @@ public class ModBiomes {
 	public static Wetland         bog;
 	public static Wetland         carr;
 	public static Wetland         marsh;
+	public static BiomeBeach      coast;
 	
 	// Extra Mountains
 	public static SubtropicalMountains warmMountain;
@@ -86,6 +88,7 @@ public class ModBiomes {
 		if(ConfigHandler.includeRivers) {
 			makeAdvancedRivers();
 		}
+		createCoasts();
     }
     
     
@@ -284,6 +287,15 @@ public class ModBiomes {
 		makeMoreUsable(marsh);
     }
     
+    
+    private static void createCoasts() {
+		coast = new BiomeBeach((new Biome.BiomeProperties("Coast"))
+					.setBaseHeight(-0.5F)
+					.setHeightVariation(0.025F)
+					.setTemperature(0.8F)
+					.setRainfall(0.4F));
+    }
+    
 
 	@SubscribeEvent
 	public static void registerBiomes(RegistryEvent.Register<Biome> event) {
@@ -306,6 +318,7 @@ public class ModBiomes {
 		if(ConfigHandler.includeRivers) {
 			registerAdvancedRivers(event);
 		}
+		registerCoast(event);
 	}
 	
 	
@@ -417,6 +430,13 @@ public class ModBiomes {
 		BiomeDictionary.addTypes(bog, Type.SWAMP, Type.COLD, Type.WET);
 		BiomeDictionary.addTypes(carr, Type.SWAMP, Type.FOREST, Type.WET);
 		BiomeDictionary.addTypes(marsh, Type.SWAMP, Type.PLAINS, Type.WET);		
+	}
+	
+	
+	private static void registerCoast(RegistryEvent.Register<Biome> event) {
+		event.getRegistry().register(coast
+				.setRegistryName("coastal_waters"));
+		BiomeDictionary.addTypes(coast, Type.BEACH, Type.OCEAN);		
 	}
 	
 	

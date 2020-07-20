@@ -43,7 +43,7 @@ public class GetSwamp implements IBiomeSpecifier {
 
 	@Override
 	public long getBiome(ChunkTile tile) {
-		tile.setVanilla(); // Should this be set to steep?
+		tile.setSteep();
 		int temp = tile.getTemp();
     	if(temp < 12) {
     		return cold.getBiome(tile);

@@ -492,31 +492,33 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
     
     @Override
 	public float[] getTerrainBiomeGen(int x, int z, float[] in) {
-    	Biome[] tiles = new Biome[9];
-    	BasinNode[] heights = new BasinNode[9];
-    	BasinNode[] scales  = new BasinNode[9];
+    	Biome[] tiles = new Biome[49];
+    	BasinNode[] heights = new BasinNode[49];
+    	BasinNode[] scales  = new BasinNode[49];
+    	//System.out.println();
     	for(int i = 0; i < tiles.length; i++) {
-    		int x1 = (i / 3);
-    		int z1 = (i % 3);   
+    		int x1 = (i / 7);
+    		int z1 = (i % 7);   
     		int x2 = x + x1;
-    		int z2 = z + z1;    		 		
+    		int z2 = z + z1;
+        	//System.out.println(x2 + ", " + z2);
     		tiles[i] = getBiomeChunk(x2, z2);
     		heights[i] = new BasinNode(
     				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
     				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
     				tiles[i].getBaseHeight(), 
-    				(1.0 / 1.0 + chunkNoise.doubleFor(x2, z2, 12)));
+    				(1.0 + chunkNoise.doubleFor(x2, z2, 12)));
     		scales[i] = new BasinNode(
     				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
     				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
     				tiles[i].getHeightVariation(), 
-    				(1.0 / 1.0 + chunkNoise.doubleFor(x2, z2, 12)));    				
+    				(1.0 + chunkNoise.doubleFor(x2, z2, 12)));    				
     	}
     	for(int i = 0; i < 16; i++)
     		for(int j = 0; j < 16; j++) {
-    			in[(j * 16) + i] = 
+    			in[(i * 16) + j] = 
     					(float)BasinNode.summateEffect(heights, 16 + i, 16 + j);
-    			in[(j * 16) + i + 256] = 
+    			in[(i * 16) + j + 256] =  
     					(float)BasinNode.summateEffect(scales, 16 + i, 16 + j);
     		}
     	return in;

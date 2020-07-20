@@ -19,6 +19,7 @@ import java.util.Random;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
 
 
 /**
@@ -423,7 +424,8 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     
     @Override
 	public float[] getTerrainBiomeGen(int x, int z, float[] in) {
-    	Biome[] tiles = new Biome[49];
+    	//Biome[] tiles = new Biome[49];
+    	float[][] tiles = new float[49][];
     	BasinNode[] heights = new BasinNode[49];
     	BasinNode[] scales  = new BasinNode[49];
     	//System.out.println();
@@ -433,16 +435,16 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     		int x2 = x + x1;
     		int z2 = z + z1;
         	//System.out.println(x2 + ", " + z2);
-    		tiles[i] = getBiomeChunk(x2, z2);
+    		tiles[i] = makeTerainFloatuple(x2, z2);//getBiomeChunk(x2, z2);
     		heights[i] = new BasinNode(
     				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
     				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
-    				tiles[i].getBaseHeight(), 
+    				tiles[i][0]/*tiles[i].getBaseHeight()*/, 
     				(1.0 + chunkNoise.doubleFor(x2, z2, 12)));
     		scales[i] = new BasinNode(
     				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
     				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
-    				tiles[i].getHeightVariation(), 
+    				tiles[i][1]/*tiles[i].getHeightVariation()*/, 
     				(1.0 + chunkNoise.doubleFor(x2, z2, 12)));    				
     	}
     	for(int i = 0; i < 16; i++)
@@ -454,6 +456,44 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     		}
     	return in;
     }
+    
+    /**
+     * This is a stand-in to test chunk averaging. 
+     * 
+     * @param x
+     * @param z
+     * @return
+     */
+    private float[] makeTerainFloatuple(int x, int z) {
+    	Biome center = getBiomeChunk(x, z);
+    	float[] out = new float[2];
+    	if(BiomeDictionary.hasType(center, BiomeDictionary.Type.SWAMP) 
+    			|| BiomeDictionary.hasType(center, BiomeDictionary.Type.RIVER)) {
+    		out[0] = center.getBaseHeight();
+    		out[1] = center.getHeightVariation();
+    	} else {
+    		out[0]  = (getBiomeChunk(x - 1, z - 1).getBaseHeight()
+    				+ getBiomeChunk(x - 1, z).getBaseHeight()
+    				+ getBiomeChunk(x - 1, z + 1).getBaseHeight()
+    				+ getBiomeChunk(x, z - 1).getBaseHeight()
+    				+ getBiomeChunk(x - 1, z + 1).getBaseHeight()
+    				+ getBiomeChunk(x + 1, z - 1).getBaseHeight()
+    				+ getBiomeChunk(x + 1, z).getBaseHeight()
+    				+ getBiomeChunk(x - 1, z + 1).getBaseHeight()) / 8.0f;
+    		out[1]  = (getBiomeChunk(x - 1, z - 1).getHeightVariation()
+    				+ getBiomeChunk(x - 1, z).getHeightVariation()
+    				+ getBiomeChunk(x - 1, z + 1).getHeightVariation()
+    				+ getBiomeChunk(x, z - 1).getHeightVariation()
+    				+ getBiomeChunk(x - 1, z + 1).getHeightVariation()
+    				+ getBiomeChunk(x + 1, z - 1).getHeightVariation()
+    				+ getBiomeChunk(x + 1, z).getHeightVariation()
+    				+ getBiomeChunk(x - 1, z + 1).getHeightVariation()
+    				+ getBiomeChunk(x, z).getHeightVariation()) /9.0f;
+	    	out[0] = (out[0] + getBiomeChunk(x, z).getBaseHeight()) / 2.0f;
+    	}
+    	return out;
+    }
+    
 
 
 	/* (non-Javadoc)
