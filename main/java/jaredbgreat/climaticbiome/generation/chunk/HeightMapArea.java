@@ -34,7 +34,7 @@ public class HeightMapArea extends AbstractWeaklyCacheable {
     		for(int j = startz; j < endz; j++, jz++) {
     			index = (ix * 16) + jz;
     			out[0][index] = (int)((heightMap[i][j] * biomeData[index + 256]) 
-    					+ (biomeData[index] * 20) + 68);
+    					+ (biomeData[index] * 20) + 64);
     		}
     	}
     	return out;

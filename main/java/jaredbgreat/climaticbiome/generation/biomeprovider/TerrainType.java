@@ -17,7 +17,9 @@ public enum TerrainType {
 	// Use the mean of biome and noise; might be used for hills?
 	AVERAGED (new AveragedHeightAdjuster()),
 	// Used for plateaus, before setting them to STEEP
-	PLATEAU (new PlateauHeightAdjuster());    
+	PLATEAU (new PlateauHeightAdjuster()),
+	// Used for swamps, before setting them to STEEP
+	SWAMP (new SwampHeightAdjuster());    
 	
 	public static final TerrainType[] types = values(); // Just make it public, with no method call... 
 	
@@ -114,6 +116,17 @@ public enum TerrainType {
 			Biome biome = Biome.getBiome(tile.rlBiome, Biomes.DEFAULT);
 			tile.height = (biome.getBaseHeight()) + (tile.height * 0.1f);
 			tile.scale = biome.getHeightVariation() + 0.05f + (tile.scale * 0.1f);
+			tile.terrainType = STEEP;
+		}
+	}
+	
+	
+	public static final class SwampHeightAdjuster implements BiomeHeightAdjuster {
+		@Override
+		public void processTile(ChunkTile tile) {
+			Biome biome = Biome.getBiome(tile.rlBiome, Biomes.DEFAULT);
+			tile.height = Math.max((biome.getBaseHeight()) + 0.2f, 0f);
+			tile.scale = biome.getHeightVariation();
 			tile.terrainType = STEEP;
 		}
 	}

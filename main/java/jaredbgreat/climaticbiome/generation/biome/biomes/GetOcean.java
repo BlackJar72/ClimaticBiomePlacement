@@ -42,7 +42,7 @@ public class GetOcean implements IBiomeSpecifier {
 	
 	public void init() {
 		coasts  = ModBiomes.coast.getIdForBiome(ModBiomes.coast);
-		fcoasts = ModBiomes.frozenCoast.getIdForBiome(ModBiomes.coast);
+		fcoasts = ModBiomes.frozenCoast.getIdForBiome(ModBiomes.frozenCoast);
 		// Shallows
 		frozen = new BiomeList();
 		cold   = new BiomeList();
