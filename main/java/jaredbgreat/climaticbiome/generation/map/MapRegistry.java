@@ -424,29 +424,24 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     
     @Override
 	public float[] getTerrainBiomeGen(int x, int z, float[] in) {
-    	//Biome[] tiles = new Biome[49];
     	float[][] tiles = new float[49][];
     	BasinNode[] heights = new BasinNode[49];
     	BasinNode[] scales  = new BasinNode[49];
-    	//System.out.println();
     	for(int i = 0; i < tiles.length; i++) {
     		int x1 = (i / 7);
     		int z1 = (i % 7);   
     		int x2 = x + x1;
     		int z2 = z + z1;
-        	//System.out.println(x2 + ", " + z2);
-    		//tiles[i] = makeTerainFloatuple(x2, z2);//getBiomeChunk(x2, z2);
-    		tiles[i] = makeTerainFloatuple(x2, z2);
-    		//if(tiles[i][0] > 0) System.out.println(tiles[i]);
+    		tiles[i] = getHeightData(x2, z2);
     		heights[i] = new BasinNode(
     				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
     				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
-    				tiles[i][0]/*tiles[i].getBaseHeight()*/, 
+    				tiles[i][0], 
     				(1.0 + chunkNoise.doubleFor(x2, z2, 12)));
     		scales[i] = new BasinNode(
     				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
     				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
-    				tiles[i][1]/*tiles[i].getHeightVariation()*/, 
+    				tiles[i][1], 
     				(1.0 + chunkNoise.doubleFor(x2, z2, 12)));    				
     	}
     	for(int i = 0; i < 16; i++)
@@ -457,39 +452,6 @@ public class MapRegistry extends AbstractMapRegistry implements IMapRegistry {
     					(float)BasinNode.summateEffect(scales, 16 + i, 16 + j);
     		}
     	return in;
-    }
-    
-    /**
-     * This is a stand-in to test chunk averaging. 
-     * 
-     * @param x
-     * @param z
-     * @return
-     */
-    private float[] makeTerainFloatuple(int x, int z) {
-    	if(isSteep(x, z)) {
-    		return getHeightData(x, z);
-    	}
-    	float[] out = new float[2];
-		out[0]  = (getBaseHeight(x - 1, z - 1)
-				+ getBaseHeight(x - 1, z)
-				+ getBaseHeight(x - 1, z + 1)
-				+ getBaseHeight(x, z - 1)
-				+ getBaseHeight(x - 1, z + 1)
-				+ getBaseHeight(x + 1, z - 1)
-				+ getBaseHeight(x + 1, z)
-				+ getBaseHeight(x - 1, z + 1)) / 8.0f;
-		out[1]  = (getHeightScale(x - 1, z - 1)
-				+ getHeightScale(x - 1, z)
-				+ getHeightScale(x - 1, z + 1)
-				+ getHeightScale(x, z - 1)
-				+ getHeightScale(x - 1, z + 1)
-				+ getHeightScale(x + 1, z - 1)
-				+ getHeightScale(x + 1, z)
-				+ getHeightScale(x - 1, z + 1)
-				+ getHeightScale(x, z)) / 9.0f;
-    	out[0] = (out[0] + getBiomeChunk(x, z).getBaseHeight()) / 2.0f;
-    	return out;
     }
     
     

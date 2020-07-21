@@ -496,14 +496,11 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
     	float[][] tiles = new float[49][];
     	BasinNode[] heights = new BasinNode[49];
     	BasinNode[] scales  = new BasinNode[49];
-    	//System.out.println();
     	for(int i = 0; i < tiles.length; i++) {
     		int x1 = (i / 7);
     		int z1 = (i % 7);   
     		int x2 = x + x1;
     		int z2 = z + z1;
-        	//System.out.println(x2 + ", " + z2);
-    		//tiles[i] = getBiomeChunk(x2, z2);
     		tiles[i] = getHeightData(x2, z2);
     		heights[i] = new BasinNode(
     				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
