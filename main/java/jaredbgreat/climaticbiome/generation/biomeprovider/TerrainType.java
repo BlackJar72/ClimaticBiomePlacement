@@ -15,7 +15,9 @@ public enum TerrainType {
 	// Like vanilla but reduces some averaging; for plateaus and technical biomes
 	STEEP (new VanillaHeightAdjuster()),       
 	// Use the mean of biome and noise; might be used for hills?
-	AVERAGED (new AveragedHeightAdjuster());    
+	AVERAGED (new AveragedHeightAdjuster()),
+	// Used for plateaus, before setting them to STEEP
+	PLATEAU (new PlateauHeightAdjuster());    
 	
 	public static final TerrainType[] types = values(); // Just make it public, with no method call... 
 	
@@ -23,18 +25,6 @@ public enum TerrainType {
 	
 	TerrainType(BiomeHeightAdjuster adjuster) {
 		heightAdjuster = adjuster;
-	}
-	
-	
-	/**
-	 * This should provide a fast, efficient way to determine if it 
-	 * is type steep by ordinal.
-	 * 
-	 * @param in
-	 * @return
-	 */
-	public static boolean isSteep(int in) {
-		return in == 3;
 	}
 	    
 	    
@@ -114,6 +104,17 @@ public enum TerrainType {
 			Biome biome = Biome.getBiome(tile.rlBiome, Biomes.DEFAULT);
 			tile.height = (tile.height + biome.getBaseHeight()) * 0.5f ;
 			tile.scale  = (tile.scale + biome.getHeightVariation()) * 0.5f;
+		}
+	}
+	
+	
+	public static final class PlateauHeightAdjuster implements BiomeHeightAdjuster {
+		@Override
+		public void processTile(ChunkTile tile) {
+			Biome biome = Biome.getBiome(tile.rlBiome, Biomes.DEFAULT);
+			tile.height = (biome.getBaseHeight()) + (tile.height * 0.1f);
+			tile.scale = biome.getHeightVariation() + 0.05f + (tile.scale * 0.1f);
+			tile.terrainType = STEEP;
 		}
 	}
 	

@@ -137,6 +137,10 @@ public class ChunkTile extends AbstractCachable {
     		terrainType = TerrainType.STEEP;
     }
     
+    public void setPlateau() { 
+    		terrainType = TerrainType.PLATEAU;
+    }
+    
     public void setNormalTerrain() {
     	if(terrainType != TerrainType.STEEP) 
     		terrainType = TerrainType.VANILLA;

@@ -37,10 +37,12 @@ public class GetOcean implements IBiomeSpecifier {
 	IBiomeSpecifier beaches;
 	
 	long coasts;
+	long fcoasts;
 	
 	
 	public void init() {
-		coasts = ModBiomes.coast.getIdForBiome(ModBiomes.coast);
+		coasts  = ModBiomes.coast.getIdForBiome(ModBiomes.coast);
+		fcoasts = ModBiomes.frozenCoast.getIdForBiome(ModBiomes.coast);
 		// Shallows
 		frozen = new BiomeList();
 		cold   = new BiomeList();
@@ -101,12 +103,15 @@ public class GetOcean implements IBiomeSpecifier {
 	@Override
 	public long getBiome(ChunkTile tile) {
 		tile.setVanilla();
-		if(tile.isBeach() && !tile.isRiver() && !swampy(tile)) {
-			return coasts;
-		}
 		int temp = tile.getTemp();
 		int seed = tile.getBiomeSeed();
 		int iceNoise = tile.getNoise();
+		if(tile.isBeach() && !tile.isRiver() && !swampy(tile)) {
+	        if(((iceNoise / 2) - temp) > -1) {
+	        	return fcoasts;
+	        }
+			return coasts;
+		}
 		tile.nextBiomeSeed();
         if(settings.addIslands && (((seed % 5) == 0) 
         					   && notNearEdge(tile))) {

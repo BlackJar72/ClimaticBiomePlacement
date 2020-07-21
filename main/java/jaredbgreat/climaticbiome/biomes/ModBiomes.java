@@ -49,6 +49,7 @@ public class ModBiomes {
 	public static Wetland         carr;
 	public static Wetland         marsh;
 	public static BiomeBeach      coast;
+	public static BiomeBeach      frozenCoast;
 	
 	// Extra Mountains
 	public static SubtropicalMountains warmMountain;
@@ -289,11 +290,17 @@ public class ModBiomes {
     
     
     private static void createCoasts() {
-		coast = new BiomeBeach((new Biome.BiomeProperties("Coast"))
+		coast = new BiomeBeach((new Biome.BiomeProperties("Coastal Waters"))
 					.setBaseHeight(-0.5F)
 					.setHeightVariation(0.025F)
 					.setTemperature(0.8F)
 					.setRainfall(0.4F));
+		frozenCoast = new BiomeBeach((new Biome.BiomeProperties("Frozen Coastal Waters"))
+					.setBaseHeight(-0.5F)
+					.setHeightVariation(0.025F)
+					.setTemperature(0.0F)
+					.setRainfall(0.4F)
+					.setSnowEnabled());
     }
     
 
@@ -436,7 +443,10 @@ public class ModBiomes {
 	private static void registerCoast(RegistryEvent.Register<Biome> event) {
 		event.getRegistry().register(coast
 				.setRegistryName("coastal_waters"));
-		BiomeDictionary.addTypes(coast, Type.BEACH, Type.OCEAN);		
+		event.getRegistry().register(frozenCoast
+				.setRegistryName("frozen_coastal_waters"));
+		BiomeDictionary.addTypes(coast, Type.BEACH, Type.OCEAN);
+		BiomeDictionary.addTypes(frozenCoast, Type.BEACH, Type.OCEAN, Type.COLD, Type.SNOWY);			
 	}
 	
 	

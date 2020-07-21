@@ -36,7 +36,7 @@ public class MesaDoubleBiome extends AbstractTerminalSpecifier {
 
 	@Override
 	public long getBiome(ChunkTile tile) {
-		tile.setSteep();
+		tile.setPlateau();
 		if(tile.getNoise() < boundary) {
 			return a;
 		} else {
