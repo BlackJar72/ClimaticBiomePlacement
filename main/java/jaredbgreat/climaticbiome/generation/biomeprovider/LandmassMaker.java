@@ -58,6 +58,7 @@ public class LandmassMaker {
         for(int i = 0; i < size; i++)
             for(int j = 0; j < size; j++) {
                 if(out[(i * size) + j].height > 0.6) {
+                	//System.out.println(out[(i * size) + j].height);
                     out[(i * size) + j].rlBiome = 1;
                     out[(i * size) + j].beach = true;
                 } else {

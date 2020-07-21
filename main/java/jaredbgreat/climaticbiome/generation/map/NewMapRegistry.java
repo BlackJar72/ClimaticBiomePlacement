@@ -4,6 +4,7 @@ import static jaredbgreat.climaticbiome.util.ModMath.modRight;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
 import jaredbgreat.climaticbiome.generation.biomeprovider.BiomeBasin;
 import jaredbgreat.climaticbiome.generation.biomeprovider.MapMaker;
+import jaredbgreat.climaticbiome.generation.biomeprovider.TerrainType;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.chunk.BasinNode;
@@ -492,7 +493,7 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
     
     @Override
 	public float[] getTerrainBiomeGen(int x, int z, float[] in) {
-    	Biome[] tiles = new Biome[49];
+    	float[][] tiles = new float[49][];
     	BasinNode[] heights = new BasinNode[49];
     	BasinNode[] scales  = new BasinNode[49];
     	//System.out.println();
@@ -502,16 +503,17 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
     		int x2 = x + x1;
     		int z2 = z + z1;
         	//System.out.println(x2 + ", " + z2);
-    		tiles[i] = getBiomeChunk(x2, z2);
+    		//tiles[i] = getBiomeChunk(x2, z2);
+    		tiles[i] = getHeightData(x2, z2);
     		heights[i] = new BasinNode(
     				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
     				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
-    				tiles[i].getBaseHeight(), 
+    				tiles[i][0], 
     				(1.0 + chunkNoise.doubleFor(x2, z2, 12)));
     		scales[i] = new BasinNode(
     				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
     				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
-    				tiles[i].getHeightVariation(), 
+    				tiles[i][1], 
     				(1.0 + chunkNoise.doubleFor(x2, z2, 12)));    				
     	}
     	for(int i = 0; i < 16; i++)
@@ -523,6 +525,73 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
     		}
     	return in;
     }
+    
+    
+    /**
+     * Returns height data if any.  If there is none 
+     * it will return -1.
+     * 
+     * @param x relative chunk x within region
+     * @param z relative chunk x within region
+     * @return The biome id as in int
+     */
+    public float getBaseHeight(int x, int z) {
+		return getMapFromChunkCoord(x, z)
+				.getBaseHeight(modRight(x + cOffset, cWidth), 
+						       modRight(z + cOffset, cWidth));
+	}
+    
+    
+    /**
+     * Returns scale data if any.  If there is none 
+     * it will return -1.
+     * 
+     * @param x relative chunk x within region
+     * @param z relative chunk x within region
+     * @return The biome id as in int
+     */
+    public float getHeightScale(int x, int z) {
+		return getMapFromChunkCoord(x, z)
+				.getHeightScale(modRight(x + cOffset, cWidth), 
+						        modRight(z + cOffset, cWidth));
+	}
+    
+    
+    /**
+     * Returns the terrain type.  If there is none 
+     * it will return STEEP (vanilla but don't average).
+     * 
+     * @param x relative chunk x within region
+     * @param z relative chunk x within region
+     * @return The biome id as in int
+     */
+    public TerrainType getTerrainType(int x, int z) {
+		return getMapFromChunkCoord(x, z)
+				.getTerrainType(modRight(x + cOffset, cWidth), 
+						        modRight(z + cOffset, cWidth));
+	}
+    
+    
+    /**
+     * Returns true if the terrain type is STEEP.  
+     * If there is none TRUE.
+     * 
+     * @param x relative chunk x within region
+     * @param z relative chunk x within region
+     * @return The biome id as in int
+     */
+    public boolean isSteep(int x, int z) {
+		return getMapFromChunkCoord(x, z)
+				.isSteep(modRight(x + cOffset, cWidth), 
+						 modRight(z + cOffset, cWidth));
+	}
+    
+    
+    public float[] getHeightData(int x, int z) {
+		return getMapFromChunkCoord(x, z)
+				.getHeightData(modRight(x + cOffset, cWidth), 
+						       modRight(z + cOffset, cWidth));
+	}
 
 
 	public void cleanCaches() {

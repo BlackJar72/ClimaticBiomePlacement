@@ -6,7 +6,6 @@
 package jaredbgreat.climaticbiome.generation.biomeprovider;
 
 import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
-import jaredbgreat.climaticbiome.generation.chunk.TerrainType;
 
 /**
  *
@@ -22,6 +21,7 @@ public class ChunkTile extends AbstractCachable {
     int noiseVal = 0;
     int river;
     double height;
+    float scale;
     boolean beach;
     TerrainType terrainType = TerrainType.VARIABLE;
     
@@ -54,6 +54,7 @@ public class ChunkTile extends AbstractCachable {
     public int getTZ() {
         return tz;
     }
+    
     public int getVal() {
         return val;
     }
@@ -101,6 +102,10 @@ public class ChunkTile extends AbstractCachable {
     public boolean isNoramlTerrain() {
         return terrainType == TerrainType.VARIABLE;
     }
+
+    public boolean isAveragedTerrain() {
+        return terrainType == TerrainType.AVERAGED;
+    }
     
     public TerrainType getTerrainType() {
     	return terrainType;
@@ -135,6 +140,11 @@ public class ChunkTile extends AbstractCachable {
     public void setNormalTerrain() {
     	if(terrainType != TerrainType.STEEP) 
     		terrainType = TerrainType.VANILLA;
+    }
+    
+    public void setAveraged() {
+    	if(terrainType == TerrainType.VARIABLE) 
+    		terrainType = TerrainType.AVERAGED;
     }
     
     

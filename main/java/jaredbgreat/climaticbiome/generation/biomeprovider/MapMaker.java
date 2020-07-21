@@ -179,8 +179,11 @@ public class MapMaker {
 	        }
         //}
         for(int i = 0; i < premap.length; i++) {
-        	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
+        	premap[i].rlBiome = (int)specifier.getBiome(premap[i]);
+        	datamap.setBiomeExpress(premap[i].rlBiome, i);
         }
+        TerrainPrimer terrainPrimer = new TerrainPrimer();
+        datamap.attachHeighData(terrainPrimer.processTerrain(premap, climateMaker));
     }
     
     

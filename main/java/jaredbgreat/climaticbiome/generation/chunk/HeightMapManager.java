@@ -13,14 +13,13 @@ public class HeightMapManager {
 	}
 	
 	
-	public int[][] getChunkHieghts(int x, int z, SpatialHash rand, SpatialHash rand2, 
-			SpatialHash rand3, SpatialHash rand4, float[] biomeData) {
+	public int[][] getChunkHieghts(int x, int z, SpatialHash rand, float[] biomeData) {
     	x += 0x4fffffff; z += 0x4fffffff;
 		int ax = x / CSIZE;
 		int az = z / CSIZE;
 		HeightMapArea area = cache.get(ax, az);
 		if(area == null) {
-			area = new HeightMapArea(ax, az, rand, rand2, rand3, rand4, this);
+			area = new HeightMapArea(ax, az, rand, this);
 			cache.add(area);			
 		}
 		return area.getChunkHieghts(x, z, biomeData);		
