@@ -13,10 +13,9 @@ public class TerrainPrimer {
 			int z = i % RSIZE;
 			if(tiles[i].isRiver()) tiles[i].setSteep();
 			tiles[i].height = (tiles[i].height - 0.6);
-			//System.out.println(tiles[i].height);
 			tiles[i].scale = (float)Math.min(((Math.max((scaleNoise[x][z] * 2
 					+ 0.4d + (tiles[i].height) / 2d) / 5d, 0d))), tiles[i].height);
-			//if(tiles[i].height < 0) System.out.println(tiles[i].scale);
+			lowerRiver(tiles, x, z);
 			tiles[i].terrainType.heightAdjuster.processTile(tiles[i]);
 			if(tiles[i].height > 2) tiles[i].height = 3 - (1 / (tiles[i].height - 1));
 			out[i] =  Math.max(Math.min((int)((averageHeight(tiles, x, z) * 32d) + 128d), 255), 0) +
@@ -37,14 +36,14 @@ public class TerrainPrimer {
     	double out = center.height;
     	if((x > 0) && (x < RSIZE - 1) && (z > 0) && (z < RSIZE - 1) && !center.isSteep()) {
     		out  = (getTileFromCoords(tiles, x - 1, z - 1).height
-						+  getTileFromCoords(tiles, x - 1, z).height
-						+  getTileFromCoords(tiles, x - 1, z + 1).height
-						+  getTileFromCoords(tiles, x, z - 1).height
-						+  getTileFromCoords(tiles, x - 1, z + 1).height
-						+  getTileFromCoords(tiles, x + 1, z - 1).height
-						+  getTileFromCoords(tiles, x + 1, z).height
-						+  getTileFromCoords(tiles, x - 1, z + 1).height) / 8.0;
-    		out = (center.height + out) * 0.5d;
+				 +  getTileFromCoords(tiles, x - 1, z).height
+				 +  getTileFromCoords(tiles, x - 1, z + 1).height
+				 +  getTileFromCoords(tiles, x, z - 1).height
+				 +  getTileFromCoords(tiles, x - 1, z + 1).height
+				 +  getTileFromCoords(tiles, x + 1, z - 1).height
+				 +  getTileFromCoords(tiles, x + 1, z).height
+				 +  getTileFromCoords(tiles, x - 1, z + 1).height
+				 +  (center.height * 2f)) / 9f;
     	}
     	return out;
     }
@@ -55,16 +54,33 @@ public class TerrainPrimer {
     	float out = center.scale;
     	if((x > 0) && (x < RSIZE - 1) && (z > 0) && (z < RSIZE - 1) && !center.isSteep()) {
 			out  = (getTileFromCoords(tiles, x - 1, z - 1).scale
-						  +  getTileFromCoords(tiles, x - 1, z).scale
-						  +  getTileFromCoords(tiles, x - 1, z + 1).scale
-						  +  getTileFromCoords(tiles, x, z - 1).scale
-						  +  getTileFromCoords(tiles, x - 1, z + 1).scale
-						  +  getTileFromCoords(tiles, x + 1, z - 1).scale
-						  +  getTileFromCoords(tiles, x + 1, z).scale
-						  +  getTileFromCoords(tiles, x - 1, z + 1).scale) / 8.0f;
-    		out = (center.scale + out) * 0.5f;
+				 +  getTileFromCoords(tiles, x - 1, z).scale
+				 +  getTileFromCoords(tiles, x - 1, z + 1).scale
+				 +  getTileFromCoords(tiles, x, z - 1).scale
+				 +  getTileFromCoords(tiles, x - 1, z + 1).scale
+				 +  getTileFromCoords(tiles, x + 1, z - 1).scale
+				 +  getTileFromCoords(tiles, x + 1, z).scale
+				 +  getTileFromCoords(tiles, x - 1, z + 1).scale
+				 +  center.scale) / 9f;
     	}
     	return out;
+    }
+    
+    
+    private void lowerRiver(ChunkTile[] tiles, int x, int z) {
+    	ChunkTile center = getTileFromCoords(tiles, x, z);   
+    	if((x > 0) && (x < RSIZE - 1) && (z > 0) && (z < RSIZE - 1) && !center.isSteep()) {
+    		if(getTileFromCoords(tiles, x - 1, z - 1).isRiver()
+				 || getTileFromCoords(tiles, x - 1, z).isRiver()
+				 || getTileFromCoords(tiles, x - 1, z + 1).isRiver()
+				 || getTileFromCoords(tiles, x, z - 1).isRiver()
+				 || getTileFromCoords(tiles, x - 1, z + 1).isRiver()
+				 || getTileFromCoords(tiles, x + 1, z - 1).isRiver()
+				 || getTileFromCoords(tiles, x + 1, z).isRiver()
+				 || getTileFromCoords(tiles, x - 1, z + 1).isRiver()) {
+    			center.height *= 0.5d;
+    		}
+    	}
     }
     
     

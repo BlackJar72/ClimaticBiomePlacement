@@ -94,8 +94,9 @@ public enum TerrainType {
 		@Override
 		public void processTile(ChunkTile tile) {
 			Biome biome = Biome.getBiome(tile.rlBiome, Biomes.DEFAULT);
+			tile.height *= 2.0d;
 			tile.height += biome.getBaseHeight();
-			tile.scale = Math.max(biome.getHeightVariation(), tile.scale);
+			tile.scale  += biome.getHeightVariation();
 		}
 	}
 	
