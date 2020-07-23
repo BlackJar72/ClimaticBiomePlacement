@@ -1,8 +1,11 @@
 package jaredbgreat.climaticbiome.generation.biomeprovider;
 
+import java.util.Set;
+
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
-import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 
 
 public enum TerrainType {
@@ -76,7 +79,22 @@ public enum TerrainType {
 	
 	public static final class VariableHeightAdjuster implements BiomeHeightAdjuster {
 		@Override
-		public void processTile(ChunkTile tile) {/*Do Nothing for This One!*/}
+		public void processTile(ChunkTile tile) {
+			Biome biome = Biome.getBiome(tile.rlBiome, Biomes.DEFAULT);
+			Set types = BiomeDictionary.getTypes(biome);
+			if(types.contains(Type.MESA)) {
+				// Mesa biomes are always treat as plateaus
+				tile.height = (biome.getBaseHeight()) + (tile.height * 0.1f);
+				tile.scale = biome.getHeightVariation() + 0.05f + (tile.scale * 0.1f);
+				tile.terrainType = STEEP;
+			} else if(types.contains(Type.HILLS) || types.contains(Type.MOUNTAIN)) {
+				// Hills variants are made at least a little hilly but prevented from
+				// being mountainous; only biome placed as mountains (alpine) are 
+				// treated fully as mountains.
+				tile.height = (tile.height + biome.getBaseHeight()) * 0.5d;
+				tile.scale = (tile.scale + biome.getBaseHeight()) * 0.5f;
+			}
+		}
 	}
 	
 	

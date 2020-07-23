@@ -13,7 +13,7 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
     
     final int[] data;
     
-    private int[] heightData;
+    final int[] shit;
     
     static int n = 0;
     
@@ -23,6 +23,7 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
         bWidth = width * 16;
         dataSize = width * width;
         data = new int[dataSize];
+        shit = new int[dataSize];
         n++;
     }
     
@@ -90,7 +91,7 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
     @Override
 	public void setBiomeExpress(long biome, int i) {
         data[i]  = (short)(biome & 0xffL);
-        data[i] |= ((biome >> 32) & 0xffL);    
+        data[i] |= ((biome >> 32) & 0xffL); 
     }
     
     
@@ -160,13 +161,6 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
     	}
     	return hash;
     }
-
-
-    // Attach an array of height data.
-	@Override
-	public void attachHeighData(int[] heightData) {
-		this.heightData = heightData;
-	}
     
     
     /**
@@ -178,8 +172,10 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
      * @return The biome id as in int
      */
     public float getBaseHeight(int x, int z) {
-    	if(heightData == null) return -1f;
-        return ((float)(heightData[(x * cWidth) + z] & 0xff)) / 32f - 4f;
+    	//System.out.println(((data[(x * cWidth) + z] & 0xff0000) >> 16) 
+    	//		+ " -> " 
+    	//		+ (((float)((data[(x * cWidth) + z] & 0xff0000) >> 16)) / 32f - 4f));
+        return ((float)((data[(x * cWidth) + z] & 0xff0000) >> 16)) / 32f - 4f;
     }
     
     
@@ -192,8 +188,7 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
      * @return The biome id as in int
      */
     public float getHeightScale(int x, int z) {
-    	if(heightData == null) return 0f;
-        return ((float)((heightData[(x * cWidth) + z] & 0xff00) >> 8)) / 32f - 4f;
+        return ((float)((data[(x * cWidth) + z] & 0xff000000) >>> 24)) / 32f - 4f;
     }
     
     
@@ -207,35 +202,20 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
     public float[] getHeightData(int x, int z) {
         return new float[]{getBaseHeight(x, z), getHeightScale(x, z)};
     }
-    
-    
-    /**
-     * Returns the terrain type.  If there is none 
-     * it will return STEEP (vanilla but don't average).
-     * 
-     * @param x relative chunk x within region
-     * @param z relative chunk x within region
-     * @return The biome id as in int
-     */
-    public TerrainType getTerrainType(int x, int z) {
-    	if(heightData == null) return TerrainType.STEEP;
-        return TerrainType.types[(heightData[(x * cWidth) + z] & 0xff0000) >> 16];
-    }
-    
-    
-    /**
-     * Returns true if the terrain type is STEEP.  
-     * If there is none TRUE.
-     * 
-     * @param x relative chunk x within region
-     * @param z relative chunk x within region
-     * @return The biome id as in int
-     */
-    public boolean isSteep(int x, int z) {
-    	if(heightData == null) return true;
-        return TerrainType.types[(heightData[(x * cWidth) + z] & 0xff0000) >> 16]
-        		== TerrainType.STEEP;
-    }
+
+
+	@Override
+	public void setTerrainExpress(int terrain, int i) {
+		int fuck = data[i];
+		data[i] |= terrain << 16;
+		shit[i] |= terrain << 16;
+		//System.out.println((((float)((data[i] & 0xff0000) >> 16)) / 32f - 4f));
+        //System.out.println(Integer.toHexString(fuck) 
+        //		+ " + " 
+        //		+ Integer.toHexString(terrain << 16) 
+        //		+ " = "
+        //		+ Integer.toHexString(data[i]));
+	}
     
     
     

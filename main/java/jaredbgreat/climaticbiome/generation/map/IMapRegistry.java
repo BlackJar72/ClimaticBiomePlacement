@@ -70,9 +70,5 @@ public interface IMapRegistry {
     public float getBaseHeight(int x, int z);
     
     public float getHeightScale(int x, int z);
-    
-    public TerrainType getTerrainType(int x, int z);
-
-    public boolean isSteep(int x, int z);
 
 }

@@ -30,16 +30,10 @@ public interface IRegionMap {
 
 	public abstract Coords getCoords();
 	
-	public abstract void attachHeighData(int[] heightData);
+	public abstract void setTerrainExpress(int terrain, int i);
 
-    public float getBaseHeight(int x, int z);
+    public abstract float getBaseHeight(int x, int z);
     
-    public float getHeightScale(int x, int z);
-    
-    public TerrainType getTerrainType(int x, int z);
-
-    public boolean isSteep(int x, int z);
-    
-    public float[] getHeightData(int x, int z);
+    public abstract float getHeightScale(int x, int z);
 
 }

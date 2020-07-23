@@ -107,7 +107,7 @@ public class MapMaker {
     }
     
     
-    public void generate(IRegionMap datamap, World world) {
+    public void generate(IRegionMap datamap, World world, boolean altChunks) {
         Coords coords = datamap.getCoords();
         xoff = ((coords.getX() * 256) - 128) * scale.whole;
         zoff = ((coords.getZ() * 256) - 128) * scale.whole;
@@ -182,8 +182,10 @@ public class MapMaker {
         	premap[i].rlBiome = (int)specifier.getBiome(premap[i]);
         	datamap.setBiomeExpress(premap[i].rlBiome, i);
         }
-        TerrainPrimer terrainPrimer = new TerrainPrimer();
-        datamap.attachHeighData(terrainPrimer.processTerrain(premap, climateMaker));
+        if(altChunks) {
+	        TerrainPrimer terrainPrimer = new TerrainPrimer();
+	        terrainPrimer.processTerrain(premap, datamap, climateMaker);
+        }
     }
     
     

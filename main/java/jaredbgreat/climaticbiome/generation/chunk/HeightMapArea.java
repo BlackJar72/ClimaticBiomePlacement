@@ -53,7 +53,7 @@ public class HeightMapArea extends AbstractWeaklyCacheable {
 	 * @param in
 	 * @param name
 	 */
-	private void statArray(float[][] in, String name) {
+	public static void statArray(float[][] in, String name) {
 		float min = Float.NEGATIVE_INFINITY;
 		float max = Float.POSITIVE_INFINITY;
 		float sum = 0;
@@ -61,6 +61,55 @@ public class HeightMapArea extends AbstractWeaklyCacheable {
 		float std = 0;
 		int   num = 0;
 		float tmp;
+		for(int i = 0; i < in.length; i++)
+			for(int j = 0; j < in[i].length; j++) {
+				num++;
+				if(in[i][j] > min) min = in[i][j];
+				if(in[i][j] < max) max = in[i][j];
+				sum += in[i][j];
+			}
+		avg = sum / num;
+		for(int i = 0; i < in.length; i++)
+			for(int j = 0; j < in[i].length; j++) {
+				tmp = in[i][j] - avg;
+				std += (tmp * tmp);
+			}
+		std /= num;
+		std = (float)Math.sqrt(std);
+		System.out.println();
+		System.out.println("****************");
+		System.out.println("Array Name: " + name );
+		System.out.println("N = " + num);
+		System.out.println("Minimum = " + min);
+		System.out.println("Maximum = " + max);
+		System.out.println("Total = " + sum);
+		System.out.println("Mean = " + avg);
+		System.out.println("Standard Deviation = " + std);
+		System.out.println("****************");
+		System.out.println();
+	}
+	
+	
+	/**
+	 * A method to analyze hieghtmaps for debugging. I'm 
+	 * not sure how valid it all is (i.e., I don't know 
+	 * if these noise functions are even close to normally
+	 * distributed, and don't even remember the formulae 
+	 * for tests of statistical normality.  However, its 
+	 * good for getting a general sense of the spread of 
+	 * a 2D array (or the range if nothing else).
+	 * 
+	 * @param in
+	 * @param name
+	 */
+	public static void statArray(double[][] in, String name) {
+		double min = Double.NEGATIVE_INFINITY;
+		double max = Double.POSITIVE_INFINITY;
+		float sum = 0;
+		float avg = 0;
+		float std = 0;
+		int   num = 0;
+		double tmp;
 		for(int i = 0; i < in.length; i++)
 			for(int j = 0; j < in[i].length; j++) {
 				num++;

@@ -11,8 +11,6 @@ public class NewRegionMap extends AbstractCachable implements IRegionMap {
     
     final long[] data;
     
-    private int[] heightData;
-    
     static int n = 0;
 
 	public NewRegionMap(int x, int z, int width) {
@@ -132,12 +130,6 @@ public class NewRegionMap extends AbstractCachable implements IRegionMap {
     	}
     	return hash;
     }
-
-
-	@Override
-	public void attachHeighData(int[] heightData) {
-		this.heightData = heightData;
-	}
     
     
     /**
@@ -149,8 +141,7 @@ public class NewRegionMap extends AbstractCachable implements IRegionMap {
      * @return The biome id as in int
      */
     public float getBaseHeight(int x, int z) {
-    	if(heightData == null) return -1f;
-        return ((float)(heightData[(x * cWidth) + z] & 0xff)) / 32f - 4f;
+        return (float)(((data[(x * cWidth) + z] & 0xff0000000000l) >> 40) / 32f) - 4f;
     }
     
     
@@ -163,36 +154,7 @@ public class NewRegionMap extends AbstractCachable implements IRegionMap {
      * @return The biome id as in int
      */
     public float getHeightScale(int x, int z) {
-    	if(heightData == null) return 0f;
-        return ((float)((heightData[(x * cWidth) + z] & 0xff00) >> 8)) / 32f - 4f;
-    }
-    
-    
-    /**
-     * Returns the terrain type.  If there is none 
-     * it will return STEEP (vanilla but don't average).
-     * 
-     * @param x relative chunk x within region
-     * @param z relative chunk x within region
-     * @return The biome id as in int
-     */
-    public TerrainType getTerrainType(int x, int z) {
-    	if(heightData == null) return TerrainType.STEEP;
-        return TerrainType.types[(heightData[(x * cWidth) + z] & 0xff0000) >> 16];
-    }
-    
-    
-    /**
-     * Returns true if the terrain type is STEEP.  
-     * If there is none TRUE.
-     * 
-     * @param x relative chunk x within region
-     * @param z relative chunk x within region
-     * @return The biome id as in int
-     */
-    public boolean isSteep(int x, int z) {
-    	if(heightData == null) return true;
-        return ((heightData[(x * cWidth) + z] & 0xff0000) >> 16) == 3;
+        return ((float)((data[(x * cWidth) + z] & 0xff000000000000l) >>> 48)) / 32f - 4f;
     } 
     
     
@@ -206,5 +168,11 @@ public class NewRegionMap extends AbstractCachable implements IRegionMap {
     public float[] getHeightData(int x, int z) {
         return new float[]{getBaseHeight(x, z), getHeightScale(x, z)};
     }
+
+
+	@Override
+	public void setTerrainExpress(int terrain, int i) {
+		data[i] |= ((long)terrain) << 40;
+	}
 
 }

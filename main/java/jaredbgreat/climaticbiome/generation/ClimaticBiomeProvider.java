@@ -19,19 +19,20 @@ import net.minecraft.world.gen.structure.MapGenVillage;
 
 public class ClimaticBiomeProvider extends BiomeProvider {
         private World world;
-        private /*static*/ IMapRegistry finder;
+        private IMapRegistry finder;
         private boolean vanillaCacheValid;
+        private boolean altChunks;
         
         
-        public ClimaticBiomeProvider(World world) {             
+        public ClimaticBiomeProvider(World world, boolean altChunks) {             
                 super(/*world.getWorldInfo()*/);
                 vanillaCacheValid = true;
                 this.world = world;
                 {
 	                if(net.minecraftforge.fml.common.Loader.isModLoaded("jeid")) {
-	                	finder = new NewMapRegistry(world.getSeed(), world);
+	                	finder = new NewMapRegistry(world.getSeed(), world, altChunks);
 	                } else {
-	                	finder = new MapRegistry(world.getSeed(), world);
+	                	finder = new MapRegistry(world.getSeed(), world, altChunks);
 	                }
                 }
         }
@@ -155,14 +156,8 @@ public class ClimaticBiomeProvider extends BiomeProvider {
     }
     
     
-    
-/*---------------------------------------------------------------------------------------------------------------*/
-/*                       NEW STUFF THAT MAY BE USED BY THE EXPERIMENTAL CHUNK GENERATOR                          */
-/*---------------------------------------------------------------------------------------------------------------*/
-    
-    
-    private Biome findBiomeAtChunk(int x, int z) {
-    	return finder.getBiomeChunk(x, z);
+    public boolean isAltChunks() {
+    	return altChunks;
     }
 
     

@@ -4,6 +4,7 @@ import static jaredbgreat.climaticbiome.util.ModMath.modRight;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
 import jaredbgreat.climaticbiome.generation.biomeprovider.BiomeBasin;
 import jaredbgreat.climaticbiome.generation.biomeprovider.MapMaker;
+import jaredbgreat.climaticbiome.generation.biomeprovider.TerrainPrimer;
 import jaredbgreat.climaticbiome.generation.biomeprovider.TerrainType;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
@@ -24,6 +25,7 @@ import net.minecraft.world.biome.Biome;
 public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	private final Cache<NewRegionMap> data;
 	private final SubBiomeRegistry subbiomes;
+	private final boolean altChunks;
 	
     private final SpatialHash chunkNoise;
     private final SpatialHash regionNoise;
@@ -37,8 +39,9 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
     
     private final MapMaker maker;
 
-	public NewMapRegistry(long seed, World w) {
+	public NewMapRegistry(long seed, World w, boolean altChunks) {
 		super(w);
+		this.altChunks = altChunks;
 		cWidth = MapMaker.RSIZE * settings.regionSize.whole;
 		bWidth = cWidth * 16;
 		dataSize = cWidth * cWidth;
@@ -112,7 +115,7 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 	 * @param map
 	 */
 	private void initializeMap(NewRegionMap map) {		
-		maker.generate(map, world);
+		maker.generate(map, world, altChunks);
 		if(cansave) writeMap(map);
 	}
 	
@@ -139,6 +142,9 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 						data[i] |= (fs.read() << 32);
 					}
 				fs.close();
+				if(altChunks) {
+					readTerrainData(data, x, z);
+				}
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -146,6 +152,28 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 			}			
 		} else {
 			initializeMap(map);
+		}
+	}
+	
+	
+	private void readTerrainData(long[] data, int x, int z) {
+		File file = getSaveTerrain(x, z);
+		if(file != null && file.exists()) {
+			try {				
+				FileInputStream fs = new FileInputStream(file);
+				for(int i = 0; i < dataSize; i++) {
+						data[i] |= ((long)(fs.read()) << 40);
+						data[i] |= ((long)(fs.read()) << 48);
+					}
+				fs.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			
+		} else {
+			TerrainPrimer.makeFromVanilla(data);
+			writeTerrainData(data, x, z);
 		}
 	}
 	
@@ -195,8 +223,6 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 		File file = getSaveFile(x, z);
 		if(file != null && !file.exists()) { 
 			long[] data = map.getData();
-			//System.out.println("Writing Data: " + NewRegionMap.otherHash(data));
-			//Hasher hasher = new Hasher();
 			try {
 				FileOutputStream fs = new FileOutputStream(file);
 				for(int i = 0; i < dataSize; i++) {
@@ -206,7 +232,28 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 						fs.write((int)((data[i] & 0xff000000L) >> 24));
 						fs.write((int)((data[i] & 0xff00000000L) >> 32));
 					}
-				//System.out.println("Wrote Data: " + hasher.getHash());
+				fs.close();
+				if(altChunks) {
+					writeTerrainData(data, x, z);
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	private void writeTerrainData(long[] data, int x, int z) {
+		File file = getSaveTerrain(x, z);
+		if(file != null && !file.exists()) { 
+			try {
+				FileOutputStream fs = new FileOutputStream(file);
+				for(int i = 0; i < dataSize; i++) {
+						fs.write((int)(data[i] & 0xff0000000000l) >> 40);
+						fs.write((int)(data[i] & 0xff000000000000l) >> 48);
+					}
 				fs.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -549,36 +596,6 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 		return getMapFromChunkCoord(x, z)
 				.getHeightScale(modRight(x + cOffset, cWidth), 
 						        modRight(z + cOffset, cWidth));
-	}
-    
-    
-    /**
-     * Returns the terrain type.  If there is none 
-     * it will return STEEP (vanilla but don't average).
-     * 
-     * @param x relative chunk x within region
-     * @param z relative chunk x within region
-     * @return The biome id as in int
-     */
-    public TerrainType getTerrainType(int x, int z) {
-		return getMapFromChunkCoord(x, z)
-				.getTerrainType(modRight(x + cOffset, cWidth), 
-						        modRight(z + cOffset, cWidth));
-	}
-    
-    
-    /**
-     * Returns true if the terrain type is STEEP.  
-     * If there is none TRUE.
-     * 
-     * @param x relative chunk x within region
-     * @param z relative chunk x within region
-     * @return The biome id as in int
-     */
-    public boolean isSteep(int x, int z) {
-		return getMapFromChunkCoord(x, z)
-				.isSteep(modRight(x + cOffset, cWidth), 
-						 modRight(z + cOffset, cWidth));
 	}
     
     
