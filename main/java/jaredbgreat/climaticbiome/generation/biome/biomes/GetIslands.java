@@ -7,7 +7,7 @@ import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.NoiseSpecialBiome;
-import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
+import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
 
 public class GetIslands implements IBiomeSpecifier {
 	private static GetIslands islands;
@@ -49,6 +49,7 @@ public class GetIslands implements IBiomeSpecifier {
 
 	@Override
 	public long getBiome(ChunkTile tile) {
+		tile.setVanilla();
 		tile.nextBiomeSeed();
 		int seed = tile.getBiomeSeed();
 		int temp = tile.getTemp();

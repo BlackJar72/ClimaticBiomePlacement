@@ -5,7 +5,7 @@ import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.biomes.pseudo.PseudoBiomes;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
-import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
+import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
 
 public class GetRiver implements IBiomeSpecifier {
 	private static GetRiver river;
@@ -19,6 +19,7 @@ public class GetRiver implements IBiomeSpecifier {
 	
 	@Override
 	public long getBiome(ChunkTile tile) {
+		tile.setSteep();
 		if(ConfigHandler.includeRivers) {
 			int t = tile.getTemp();
 			if(t < 5) {

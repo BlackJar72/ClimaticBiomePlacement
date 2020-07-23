@@ -1,8 +1,9 @@
 package jaredbgreat.climaticbiome.generation.map;
 
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
+import jaredbgreat.climaticbiome.generation.biomeprovider.MapMaker;
+import jaredbgreat.climaticbiome.generation.biomeprovider.TerrainType;
 import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
-import jaredbgreat.climaticbiome.generation.generator.MapMaker;
 
 public class RegionMap extends AbstractCachable implements IRegionMap  {
     
@@ -12,6 +13,8 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
     
     final int[] data;
     
+    final int[] shit;
+    
     static int n = 0;
     
     public RegionMap(int x, int z, int width) {
@@ -20,6 +23,7 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
         bWidth = width * 16;
         dataSize = width * width;
         data = new int[dataSize];
+        shit = new int[dataSize];
         n++;
     }
     
@@ -87,7 +91,7 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
     @Override
 	public void setBiomeExpress(long biome, int i) {
         data[i]  = (short)(biome & 0xffL);
-        data[i] |= ((biome >> 32) & 0xffL);    
+        data[i] |= ((biome >> 32) & 0xffL); 
     }
     
     
@@ -157,6 +161,61 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
     	}
     	return hash;
     }
+    
+    
+    /**
+     * Returns height data if any.  If there is none 
+     * it will return -1.
+     * 
+     * @param x relative chunk x within region
+     * @param z relative chunk x within region
+     * @return The biome id as in int
+     */
+    public float getBaseHeight(int x, int z) {
+    	//System.out.println(((data[(x * cWidth) + z] & 0xff0000) >> 16) 
+    	//		+ " -> " 
+    	//		+ (((float)((data[(x * cWidth) + z] & 0xff0000) >> 16)) / 32f - 4f));
+        return ((float)((data[(x * cWidth) + z] & 0xff0000) >> 16)) / 32f - 4f;
+    }
+    
+    
+    /**
+     * Returns scale data if any.  If there is none 
+     * it will return -1.
+     * 
+     * @param x relative chunk x within region
+     * @param z relative chunk x within region
+     * @return The biome id as in int
+     */
+    public float getHeightScale(int x, int z) {
+        return ((float)((data[(x * cWidth) + z] & 0xff000000) >>> 24)) / 32f - 4f;
+    }
+    
+    
+    /**
+     * Returns height data if any.
+     * 
+     * @param x relative chunk x within region
+     * @param z relative chunk x within region
+     * @return The biome id as in int
+     */
+    public float[] getHeightData(int x, int z) {
+        return new float[]{getBaseHeight(x, z), getHeightScale(x, z)};
+    }
+
+
+	@Override
+	public void setTerrainExpress(int terrain, int i) {
+		int fuck = data[i];
+		data[i] |= terrain << 16;
+		shit[i] |= terrain << 16;
+		//System.out.println((((float)((data[i] & 0xff0000) >> 16)) / 32f - 4f));
+        //System.out.println(Integer.toHexString(fuck) 
+        //		+ " + " 
+        //		+ Integer.toHexString(terrain << 16) 
+        //		+ " = "
+        //		+ Integer.toHexString(data[i]));
+	}
     
     
     

@@ -1,49 +1,47 @@
 package jaredbgreat.climaticbiome.generation.cache;
 
 
-
 /**
- * A cache system using a homebrewed hash map.  The reason for not using 
- * java.util.HashMap is that for this use case and the processing needed 
- * for the intended caching function would actually be far more complex 
- * in terms of both code and processing than this, due unusual requirements 
- * of the caching.
+ * A cache system using weak reference to automatically have its contents 
+ * cleaned during garbage collection while remaining available until that time.
  * 
- * This does not include a linked list, but instead skips until finding a 
- * place to put items if the correct spot is taken by a hash collision.
+ * This is untested, so I have no idea how well (or if) this really works.
  * 
  * @author Jared Blackburn
  * @param <T>
  */
-public class Cache <T extends ICachable> {
-    private T[] data;
+public class WeakCache <T extends IHaveCoords> {
+    private CacheReference<T>[] data;
     private final int minSize;
     private int capacity;
     private int lowLimit;
     private int length;
+    private boolean altered;
     
     
     /**
      * Creates a cache with a default starting size elements.
      */
-    public Cache(int size) {
-        data = (T[]) new ICachable[size];
+    public WeakCache(int size) {
+        data = new CacheReference[size];
         minSize = size;
         capacity = (size * 3) / 4;
         lowLimit = ((size - minSize) * 3) / 16;
         length = 0;
+        altered = false;
     }
     
     
     /**
      * Creates a cache with a default starting size of 16 elements.
      */
-    public Cache() {
-        data = (T[]) new ICachable[16];
+    public WeakCache() {
+        data = new CacheReference[16];
         minSize = 16;
         capacity = 12;
         lowLimit = 0;
         length = 0;
+        altered = false;
     }
     
     
@@ -57,16 +55,13 @@ public class Cache <T extends ICachable> {
         int offset = 0;
         while(offset < data.length) {
             int slot = (bucket + offset) % data.length;
-            if(data[slot] == null) {
-                data[slot] = item;
-                data[slot].use();
-            	//System.out.println("**ADDING item  " + item + " to cache**");
+            if(data[slot] == null || data[slot].get() == null) {
+                data[slot] = new CacheReference(item, this);
                 if(++length > capacity) {
                     grow();
                 }
                 return;
             } else if(data[slot].equals(item)) {
-                data[slot].use();
                 return;
             }else {
                 offset++;
@@ -81,15 +76,17 @@ public class Cache <T extends ICachable> {
      * @return the object stored for those coordinates, or null.
      */
     public T get(Coords coords) {
+    	if(altered) {
+    		rebucketAll();
+    	}
         int bucket = (coords.hashCode() & 0x7fffffff) % data.length;
         int offset = 0;
         while(offset < data.length) {
             int slot = (bucket + offset) % data.length;
-            if(data[slot] == null) {
+            if(data[slot] == null || data[slot].get() == null) {
                 return null;
-            } else if(data[slot].getCoords().equals(coords)) {
-                data[slot].use();
-                return (T)data[slot];
+            } else if(data[slot].get().getCoords().equals(coords)) {
+                return (T)data[slot].get();
             } else {
                 offset++;
             }
@@ -104,15 +101,17 @@ public class Cache <T extends ICachable> {
      * @return the object stored for those coordinates, or null.
      */
     public T get(MutableCoords coords) {
+    	if(altered) {
+    		rebucketAll();
+    	}
         int bucket = (coords.hashCode() & 0x7fffffff) % data.length;
         int offset = 0;
         while(offset < data.length) {
             int slot = (bucket + offset) % data.length;
-            if(data[slot] == null) {
+            if(data[slot] == null || data[slot].get() == null) {
                 return null;
-            } else if(data[slot].getCoords().equals(coords)) {
-                data[slot].use();
-                return (T)data[slot];
+            } else if(data[slot].get().getCoords().equals(coords)) {
+                return (T)data[slot].get();
             } else {
                 offset++;
             }
@@ -129,15 +128,17 @@ public class Cache <T extends ICachable> {
      * @return the object stored for those coordinates, or null.
      */
     public T get(int x, int z) {
+    	if(altered) {
+    		rebucketAll();
+    	}
         int bucket = (Coords.hashCoords(x, z) & 0x7fffffff) % data.length;
         int offset = 0;
         while(offset < data.length) {
             int slot = (bucket + offset) % data.length;
-            if(data[slot] == null) {
+            if(data[slot] == null || data[slot].get() == null) {
                 return null;
-            } else if(data[slot].getCoords().equals(x, z)) {
-                data[slot].use();
-                return (T)data[slot];
+            } else if(data[slot].get().getCoords().equals(x, z)) {
+                return (T)data[slot].get();
             } else {
                 offset++;
             }
@@ -153,13 +154,16 @@ public class Cache <T extends ICachable> {
      * @return 
      */
     public boolean contains(Coords coords) {
+    	if(altered) {
+    		rebucketAll();
+    	}
         int bucket = (coords.hashCode() & 0x7fffffff) % data.length;
         int offset = 0;
         while(offset < data.length) {
             int slot = (bucket + offset) % data.length;
-            if(data[slot] == null) {
+            if(data[slot] == null || data[slot].get() == null) {
                 return false;
-            } else if(data[slot].getCoords().equals(coords)) {
+            } else if(data[slot].get().getCoords().equals(coords)) {
                 return true;
             } else {
                 offset++;
@@ -177,13 +181,16 @@ public class Cache <T extends ICachable> {
      * @return 
      */
     public boolean contains(int x, int z) {
+    	if(altered) {
+    		rebucketAll();
+    	}
         int bucket = (Coords.hashCoords(x, z) & 0x7fffffff) % data.length;
         int offset = 0;
         while(offset < data.length) {
             int slot = (bucket + offset) % data.length;
-            if(data[slot] == null) {
+            if(data[slot] == null || data[slot].get() == null) {
                 return false;
-            } else if(data[slot].getCoords().equals(x, z)) {
+            } else if(data[slot].get().getCoords().equals(x, z)) {
                 return true;
             } else {
                 offset++;
@@ -200,14 +207,17 @@ public class Cache <T extends ICachable> {
      * @return 
      */
     public boolean contains(T in) {
+    	if(altered) {
+    		rebucketAll();
+    	}
         Coords coords = in.getCoords();
         int bucket = (coords.hashCode() & 0x7fffffff) % data.length;
         int offset = 0;
         while(offset <= data.length) {
             int slot = (bucket + offset) % data.length;
-            if(data[slot] == null) {
+            if(data[slot] == null || data[slot].get() == null) {
                 return false;
-            } else if(data[slot].getCoords().equals(coords)) {
+            } else if(data[slot].get().getCoords().equals(coords)) {
                 return true;
             } else {
                 offset++;
@@ -221,15 +231,16 @@ public class Cache <T extends ICachable> {
      * This will grow the data size when needed.
      */
     private void grow() {
-        T[] old = data;
-        data = (T[]) new ICachable[(old.length * 3) / 2];
+    	CacheReference<T>[] old = data;
+        data = new CacheReference[(old.length * 3) / 2];
         for(int i = 0; i < old.length; i++) {
-            if(old[i] != null) {
-                rebucket(old[i]);
+            if(old[i] != null && old[i].get() != null) {
+                rebucket(old[i].get());
             }
         }
         capacity = (data.length * 3) / 4;
         lowLimit = ((data.length - minSize) * 3) / 16;
+        altered  = false;
     }
     
     
@@ -237,15 +248,32 @@ public class Cache <T extends ICachable> {
      * This will shrink the data size when needed.
      */
     private void shrink() {
-        T[] old = data;
-        data = (T[]) new ICachable[Math.max(old.length / 2, minSize)];
+    	CacheReference<T>[] old = data;
+        data = new CacheReference[Math.max(old.length / 2, minSize)];
         for(int i = 0; i < old.length; i++) {
-            if(old[i] != null) {
-                rebucket(old[i]);
+            if(old[i] != null && old[i].get() != null) {
+                rebucket(old[i].get());
             }
         }
         capacity = (data.length * 3) / 4;
         lowLimit = ((data.length - minSize) * 3) / 16;
+        altered  = false;
+    }
+    
+    
+    private void rebucketAll() {
+        if(length < lowLimit) {
+            shrink();
+        } else {
+	    	CacheReference<T>[] old = data;
+	        data = new CacheReference[old.length];
+	        for(int i = 0; i < old.length; i++) {
+	            if(old[i] != null && old[i].get() != null) {
+	                rebucket(old[i].get());
+	            }
+	        }
+        }
+        altered  = false;
     }
     
     
@@ -254,8 +282,9 @@ public class Cache <T extends ICachable> {
         int offset = 0;
         while(offset <= data.length) {
             int slot = (bucket + offset) % data.length;
-            if((data[slot] == null) || (data[slot].equals(item))) {
-                data[slot] = item;
+            if((data[slot] == null) || 
+            		(data[slot].get() != null && (data[slot].equals(item)))) {
+                data[slot] = new CacheReference(item, this);
                 return;
             }else {
                 offset++;
@@ -265,30 +294,10 @@ public class Cache <T extends ICachable> {
     
     
     /**
-     * This will iterate the cache items and remove any that identify 
- themselves as isOldData().  Usually this should mean removing items from 
- the cache that haven't been used in a set amount of time (most often 
- 30 seconds), though other criteria for isOldData() could be created.
+     * This will decrement the size by one and shrink the backing array if needed. 
      */
-    public void cleanup() {
-    	int startSize = data.length;
-        for(int i = 0; i < data.length; i++) {
-            if((data[i] != null) && (data[i].isOldData())) {
-            	//System.out.println("**Removing item from cache**");
-                data[i] = null;
-                length--;
-            }
-        }
-        if(length < lowLimit) {
-            shrink();
-        } else if(data.length != startSize) {
-        	T[] old = data;
-        	data = (T[]) new ICachable[data.length];
-        	for(int i = 0; i < length; i++) {
-        		if(old[i] != null) {
-        			rebucket(old[i]);
-        		}
-        	}
-        }
+    public void reduce() {
+    	length--;
+    	altered = true;
     } 
 }

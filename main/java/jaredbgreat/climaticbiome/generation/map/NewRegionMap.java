@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.map;
 
+import jaredbgreat.climaticbiome.generation.biomeprovider.TerrainType;
 import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
 
 public class NewRegionMap extends AbstractCachable implements IRegionMap {
@@ -129,5 +130,49 @@ public class NewRegionMap extends AbstractCachable implements IRegionMap {
     	}
     	return hash;
     }
+    
+    
+    /**
+     * Returns height data if any.  If there is none 
+     * it will return -1.
+     * 
+     * @param x relative chunk x within region
+     * @param z relative chunk x within region
+     * @return The biome id as in int
+     */
+    public float getBaseHeight(int x, int z) {
+        return (float)(((data[(x * cWidth) + z] & 0xff0000000000l) >> 40) / 32f) - 4f;
+    }
+    
+    
+    /**
+     * Returns scale data if any.  If there is none 
+     * it will return -1.
+     * 
+     * @param x relative chunk x within region
+     * @param z relative chunk x within region
+     * @return The biome id as in int
+     */
+    public float getHeightScale(int x, int z) {
+        return ((float)((data[(x * cWidth) + z] & 0xff000000000000l) >>> 48)) / 32f - 4f;
+    } 
+    
+    
+    /**
+     * Returns height data if any.
+     * 
+     * @param x relative chunk x within region
+     * @param z relative chunk x within region
+     * @return The biome id as in int
+     */
+    public float[] getHeightData(int x, int z) {
+        return new float[]{getBaseHeight(x, z), getHeightScale(x, z)};
+    }
+
+
+	@Override
+	public void setTerrainExpress(int terrain, int i) {
+		data[i] |= ((long)terrain) << 40;
+	}
 
 }

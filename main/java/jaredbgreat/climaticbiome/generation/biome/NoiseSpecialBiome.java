@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiome.generation.biome;
 
-import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
+import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
 import net.minecraft.world.biome.Biome;
 
 public class NoiseSpecialBiome implements IBiomeSpecifier {

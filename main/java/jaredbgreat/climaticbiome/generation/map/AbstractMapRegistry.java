@@ -109,6 +109,25 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 	
 	
 	/**
+	 * Find the actual save file to use for saving terrain data maps.
+	 * 
+	 * @param x
+	 * @param z
+	 * @return
+	 */
+	File getSaveTerrain(int x, int z) {
+		if(savedir == null) {
+			findSaveDir();
+		}
+		if(savedir == null) {
+			cansave = false;
+			return null;
+		}
+		return new File(savedir.toString() + File.separator + "X" + x + "Z" + z + ".cbter");
+	}
+	
+	
+	/**
 	 * Read in per-world settings if they exist; if not, create 
 	 * some per-world settings. 
 	 */

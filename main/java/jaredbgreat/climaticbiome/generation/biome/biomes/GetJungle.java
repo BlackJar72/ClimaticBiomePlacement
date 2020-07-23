@@ -4,7 +4,7 @@ import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
-import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
+import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
 
 public class GetJungle implements IBiomeSpecifier {
 	private static GetJungle jungle;

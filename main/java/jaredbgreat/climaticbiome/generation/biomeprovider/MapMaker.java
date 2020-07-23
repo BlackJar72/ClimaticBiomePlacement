@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jaredbgreat.climaticbiome.generation.generator;
+package jaredbgreat.climaticbiome.generation.biomeprovider;
 
 import static jaredbgreat.climaticbiome.util.SpatialHash.absModulus;
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
@@ -13,7 +13,7 @@ import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.cache.MutableCoords;
 import jaredbgreat.climaticbiome.generation.map.IRegionMap;
-import jaredbgreat.climaticbiome.util.HeightNoise;
+import jaredbgreat.climaticbiome.util.NoiseMap;
 import jaredbgreat.climaticbiome.util.SpatialHash;
 import jaredbgreat.climaticbiome.util.SpatialHash.RandomAt;
 
@@ -107,7 +107,7 @@ public class MapMaker {
     }
     
     
-    public void generate(IRegionMap datamap, World world) {
+    public void generate(IRegionMap datamap, World world, boolean altChunks) {
         Coords coords = datamap.getCoords();
         xoff = ((coords.getX() * 256) - 128) * scale.whole;
         zoff = ((coords.getZ() * 256) - 128) * scale.whole;
@@ -127,8 +127,8 @@ public class MapMaker {
         SpatialHash random = chunkNoise;
         makeLandmass(basinAr, coords.getX(), coords.getZ(), random);
         
-        HeightNoise climateMaker 
-                = new HeightNoise(chunkNoise, RSIZE * scale.whole, 
+        NoiseMap climateMaker 
+                = new NoiseMap(chunkNoise, RSIZE * scale.whole, 
                         32 * scale.whole, 2.0, 
                         coords.getX(), coords.getZ());
         
@@ -173,16 +173,18 @@ public class MapMaker {
         for(int i = start; i < end; i++) {
         	thinBeach(premap[i]);
         }
-        if(settings.extraBeaches) {
+        //if(settings.extraBeaches) {
 	        for(int i = start; i < end; i++) {
 	        	growBeach1(premap[i]);
 	        }
-	        for(int i = start; i < end; i++) {
-	        	growBeach2(premap[i]);
-	        }
-        }
+        //}
         for(int i = 0; i < premap.length; i++) {
-        	datamap.setBiomeExpress(specifier.getBiome(premap[i]), i);
+        	premap[i].rlBiome = (int)specifier.getBiome(premap[i]);
+        	datamap.setBiomeExpress(premap[i].rlBiome, i);
+        }
+        if(altChunks) {
+	        TerrainPrimer terrainPrimer = new TerrainPrimer();
+	        terrainPrimer.processTerrain(premap, datamap, climateMaker);
         }
     }
     
@@ -401,13 +403,23 @@ public class MapMaker {
     void thinBeach(ChunkTile t) {
         if(!t.beach) return;
         int oceans = 0;
-        for(int i = -2; i < 3; i++) 
-            for(int j = -1; j < 2; j++) {
-                ChunkTile x = premap[((t.getX() + i) * RSIZE * scale.whole) + t.getZ() + j];
-                if(notLand(x)) {
-                    oceans++;
-                }
-            }
+        if(settings.extraBeaches) {
+	        for(int i = -2; i < 3; i++) 
+	            for(int j = -2; j < 3; j++) {
+	                ChunkTile x = premap[((t.getX() + i) * RSIZE * scale.whole) + t.getZ() + j];
+	                if(notLand(x)) {
+	                    oceans++;
+	                }
+	            }
+        } else {
+	        for(int i = -1; i < 2; i++) 
+	            for(int j = -1; j < 2; j++) {
+	                ChunkTile x = premap[((t.getX() + i) * RSIZE * scale.whole) + t.getZ() + j];
+	                if(notLand(x)) {
+	                    oceans++;
+	                }
+	            }
+	        }
         if(oceans < 1) {
         	t.beach = false;
         	return;
@@ -433,27 +445,12 @@ public class MapMaker {
     }
     
     
-    void makeUniversalBeach(ChunkTile t) {
-        if(notLand(t) || (t.getX() < 1) || (t.getX() > 254)
-                      || (t.getZ() < 1) || (t.getZ() > 254)) return;
-        int oceans = 0;
-        for(int i = -1; i < 2; i++) 
-            for(int j = -1; j < 2; j++) {
-                ChunkTile x = premap[((t.getX() + i) * RSIZE * scale.whole) + t.getZ() + j];
-                if(notLand(x)) {
-                    oceans++;
-                }
-            }
-        t.beach = (oceans > 1);
-    }
-    
-    
     void growBeach1(ChunkTile t) {
         if(!notLand(t) || (t.getX() < 1) || (t.getX() > 254)
                        || (t.getZ() < 1) || (t.getZ() > 254)) return;
         int beaches = 0;
-        for(int i = -1; i < 2; i++) 
-            for(int j = -1; j < 2; j++) {
+        for(int i = -2; i < 3; i++) 
+            for(int j = -2; j < 3; j++) {
                 ChunkTile x = premap[((t.getX() + i) * RSIZE * scale.whole) + t.getZ() + j];
                 if(!notLand(x) && x.beach) {
                     beaches++;
@@ -463,11 +460,6 @@ public class MapMaker {
         t.beach = t.getNoise() < (beaches + 4 
                 - ((t.getBiomeSeed() >> 14) & 1)
                 + ((t.getBiomeSeed() >> 13) & 1));
-    }
-    
-    
-    void growBeach2(ChunkTile t) {
-    	if(t.beach) t.rlBiome = 1;
     }
     
     

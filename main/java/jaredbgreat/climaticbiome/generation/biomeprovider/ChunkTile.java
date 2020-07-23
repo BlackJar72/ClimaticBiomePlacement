@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jaredbgreat.climaticbiome.generation.generator;
+package jaredbgreat.climaticbiome.generation.biomeprovider;
 
 import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
-import jaredbgreat.climaticbiome.generation.cache.Coords;
 
 /**
  *
@@ -22,7 +21,9 @@ public class ChunkTile extends AbstractCachable {
     int noiseVal = 0;
     int river;
     double height;
-    boolean mountain = false, hilly = false, beach = false;
+    float scale;
+    boolean beach;
+    TerrainType terrainType = TerrainType.VARIABLE;
     
     
     public ChunkTile(int x, int z, int xoff, int zoff) {
@@ -53,6 +54,7 @@ public class ChunkTile extends AbstractCachable {
     public int getTZ() {
         return tz;
     }
+    
     public int getVal() {
         return val;
     }
@@ -81,12 +83,32 @@ public class ChunkTile extends AbstractCachable {
         return noiseVal;
     }
 
-    public boolean isIsMountain() {
-        return mountain;
+    public boolean isBeach() {
+        return beach;
     }
 
-    public boolean isIsHilly() {
-        return hilly;
+    public boolean isMountain() {
+        return terrainType == TerrainType.MOUNTIANOUS;
+    }
+
+    public boolean isVanilla() {
+        return terrainType == TerrainType.VANILLA;
+    }
+
+    public boolean isSteep() {
+        return terrainType == TerrainType.STEEP;
+    }
+
+    public boolean isNoramlTerrain() {
+        return terrainType == TerrainType.VARIABLE;
+    }
+
+    public boolean isAveragedTerrain() {
+        return terrainType == TerrainType.AVERAGED;
+    }
+    
+    public TerrainType getTerrainType() {
+    	return terrainType;
     }
 
     public boolean isRiver() {
@@ -97,13 +119,41 @@ public class ChunkTile extends AbstractCachable {
         river = id;
     }      
 
-    public void beIsBeach() {
-        beach = true;
-    }  
-
-    public boolean isIsBeach() {
-        return beach;
-    }  
+    public void setTerrainType(TerrainType type) {
+        terrainType = type;
+    }
+    
+    public void setMountainous() {
+    	if(terrainType == TerrainType.VARIABLE) 
+    		terrainType = TerrainType.MOUNTIANOUS;
+    }
+    
+    public void setVanilla() {
+    	if(terrainType == TerrainType.VARIABLE) 
+    		terrainType = TerrainType.VANILLA;
+    }
+    
+    public void setSteep() { 
+    		terrainType = TerrainType.STEEP;
+    }
+    
+    public void setPlateau() { 
+    		terrainType = TerrainType.PLATEAU;
+    }
+    
+    public void setSwamp() { 
+    		terrainType = TerrainType.SWAMP;
+    }
+    
+    public void setNormalTerrain() {
+    	if(terrainType != TerrainType.STEEP) 
+    		terrainType = TerrainType.VANILLA;
+    }
+    
+    public void setAveraged() {
+    	if(terrainType == TerrainType.VARIABLE) 
+    		terrainType = TerrainType.AVERAGED;
+    }
     
     
     public ChunkTile nextBiomeSeed() {

@@ -1,32 +1,33 @@
 package jaredbgreat.climaticbiome.generation.biome;
 
+import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
+
 import java.util.StringTokenizer;
 
-import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.IForgeRegistry;
 
-public class TempDoubleBiome extends AbstractTerminalSpecifier {
+public class MesaDoubleBiome extends AbstractTerminalSpecifier {
 	private final long a, b;
 	private final int boundary;
 	
 	
-	public TempDoubleBiome(long a, int boundary, long b) {
+	public MesaDoubleBiome(long a, int boundary, long b) {
 		this.a = a;
 		this.b = b;
 		this.boundary = boundary;
 	}
 	
 	
-	public TempDoubleBiome(Biome a, int boundary, Biome b) {
+	public MesaDoubleBiome(Biome a, int boundary, Biome b) {
 		this.a = Biome.getIdForBiome(a);
 		this.b = Biome.getIdForBiome(b);
 		this.boundary = boundary;
 	}
 	
 	
-	public TempDoubleBiome(String a, int boundary, String b, IForgeRegistry biomeReg) {
+	public MesaDoubleBiome(String a, int boundary, String b, IForgeRegistry biomeReg) {
 		this.a = getBiomeNumber(a, biomeReg);
 		this.b = getBiomeNumber(b, biomeReg);
 		this.boundary = boundary;
@@ -35,8 +36,8 @@ public class TempDoubleBiome extends AbstractTerminalSpecifier {
 
 	@Override
 	public long getBiome(ChunkTile tile) {
-		int r = tile.getBiomeSeed();
-		if((tile.getTemp() + (r & 1) - ((r & 2) >> 1)) < boundary) {
+		tile.setPlateau();
+		if(tile.getNoise() < boundary) {
 			return a;
 		} else {
 			return b;

@@ -23,7 +23,7 @@ import jaredbgreat.climaticbiome.generation.biome.biomes.GetTaiga;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetTundra;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetWarmForest;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetWarmPlains;
-import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
+import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -142,7 +142,7 @@ public class BiomeClimateTable implements IBiomeSpecifier {
     						+ out + "; returning 0 (Ocean).  (Check your configs.)");
     		return 0;
     	}
-        if(tile.isIsBeach()) {
+        if(tile.isBeach()) {
         	if(BiomeDictionary.hasType(outb, Type.HILLS)
         	    || BiomeDictionary.hasType(outb, Type.MOUNTAIN)) {
         	    //return BEACH.getHighBiome(tile);

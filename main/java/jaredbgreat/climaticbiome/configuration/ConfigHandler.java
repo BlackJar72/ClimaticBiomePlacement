@@ -2,7 +2,7 @@ package jaredbgreat.climaticbiome.configuration;
 
 import jaredbgreat.climaticbiome.Info;
 import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
-import jaredbgreat.climaticbiome.generation.generator.SizeScale;
+import jaredbgreat.climaticbiome.generation.biomeprovider.SizeScale;
 
 import java.io.File;
 
@@ -178,7 +178,7 @@ public class ConfigHandler {
 						"If true it read will files from the BiomeConfig/custom folder to extends \n"
 						+ "its worldgen. This is where to add extra biomes not otherwise supported.");
 		
-		extraBeaches = config.getBoolean("ExtraBeaches", "General", true, 
+		extraBeaches = config.getBoolean("ExtraBeaches", "General", false, 
 						"If true there will be more beaches.");
 		
 		rockyScrub = config.getBoolean("RockyScrub", "General", true, 
@@ -241,8 +241,10 @@ public class ConfigHandler {
 		
 		chunkProvider = config.getString("ChunkProvider", "General", "default", 
 						"You can use another mods chunk provider here if you like; \n"
-						+ "Warning: This is not guaraunteed to work (could depend "
-						+ "on how the other mod is written, which is out of my control).");
+						+ "Warning: This is not guaraunteed to work (could depend \n"
+						+ "on how the other mod is written, which is out of my control). \n"
+						+ "Use \"default\" for vanilla or \"climatic_realistic\" for this \n"
+						+ "mods new alternate chunk generator.");
 		ClimaticWorldType.setChunkGeneratorType(chunkProvider);
 		
 		biomeSize = config.getInt("BiomeSize", "Size", 16, 4, 64, "The average width of a "

@@ -2,10 +2,13 @@ package jaredbgreat.climaticbiome.generation.map;
 
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
+import jaredbgreat.climaticbiome.generation.biomeprovider.BiomeBasin;
+import jaredbgreat.climaticbiome.generation.biomeprovider.MapMaker;
+import jaredbgreat.climaticbiome.generation.biomeprovider.TerrainPrimer;
+import jaredbgreat.climaticbiome.generation.biomeprovider.TerrainType;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
-import jaredbgreat.climaticbiome.generation.generator.BiomeBasin;
-import jaredbgreat.climaticbiome.generation.generator.MapMaker;
+import jaredbgreat.climaticbiome.generation.chunk.BasinNode;
 import jaredbgreat.climaticbiome.util.SpatialHash;
 
 import java.io.File;
@@ -22,6 +25,7 @@ import net.minecraft.world.biome.Biome;
 public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry {
 	private final Cache<NewRegionMap> data;
 	private final SubBiomeRegistry subbiomes;
+	private final boolean altChunks;
 	
     private final SpatialHash chunkNoise;
     private final SpatialHash regionNoise;
@@ -35,8 +39,9 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
     
     private final MapMaker maker;
 
-	public NewMapRegistry(long seed, World w) {
+	public NewMapRegistry(long seed, World w, boolean altChunks) {
 		super(w);
+		this.altChunks = altChunks;
 		cWidth = MapMaker.RSIZE * settings.regionSize.whole;
 		bWidth = cWidth * 16;
 		dataSize = cWidth * cWidth;
@@ -110,7 +115,7 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 	 * @param map
 	 */
 	private void initializeMap(NewRegionMap map) {		
-		maker.generate(map, world);
+		maker.generate(map, world, altChunks);
 		if(cansave) writeMap(map);
 	}
 	
@@ -137,6 +142,9 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 						data[i] |= (fs.read() << 32);
 					}
 				fs.close();
+				if(altChunks) {
+					readTerrainData(data, x, z);
+				}
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -144,6 +152,28 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 			}			
 		} else {
 			initializeMap(map);
+		}
+	}
+	
+	
+	private void readTerrainData(long[] data, int x, int z) {
+		File file = getSaveTerrain(x, z);
+		if(file != null && file.exists()) {
+			try {				
+				FileInputStream fs = new FileInputStream(file);
+				for(int i = 0; i < dataSize; i++) {
+						data[i] |= ((long)(fs.read()) << 40);
+						data[i] |= ((long)(fs.read()) << 48);
+					}
+				fs.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			
+		} else {
+			TerrainPrimer.makeFromVanilla(data);
+			writeTerrainData(data, x, z);
 		}
 	}
 	
@@ -193,8 +223,6 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 		File file = getSaveFile(x, z);
 		if(file != null && !file.exists()) { 
 			long[] data = map.getData();
-			//System.out.println("Writing Data: " + NewRegionMap.otherHash(data));
-			//Hasher hasher = new Hasher();
 			try {
 				FileOutputStream fs = new FileOutputStream(file);
 				for(int i = 0; i < dataSize; i++) {
@@ -204,7 +232,28 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 						fs.write((int)((data[i] & 0xff000000L) >> 24));
 						fs.write((int)((data[i] & 0xff00000000L) >> 32));
 					}
-				//System.out.println("Wrote Data: " + hasher.getHash());
+				fs.close();
+				if(altChunks) {
+					writeTerrainData(data, x, z);
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	private void writeTerrainData(long[] data, int x, int z) {
+		File file = getSaveTerrain(x, z);
+		if(file != null && !file.exists()) { 
+			try {
+				FileOutputStream fs = new FileOutputStream(file);
+				for(int i = 0; i < dataSize; i++) {
+						fs.write((int)(data[i] & 0xff0000000000l) >> 40);
+						fs.write((int)(data[i] & 0xff000000000000l) >> 48);
+					}
 				fs.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -487,6 +536,74 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
     		}
     	return out;
     }
+    
+    
+    @Override
+	public float[] getTerrainBiomeGen(int x, int z, float[] in) {
+    	BasinNode[] heights = new BasinNode[49];
+    	BasinNode[] scales  = new BasinNode[49];
+    	for(int i = 0; i < 49; i++) {
+    		int x1 = (i / 7);
+    		int z1 = (i % 7);   
+    		int x2 = x + x1;
+    		int z2 = z + z1;
+    		heights[i] = new BasinNode(
+    				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
+    				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
+    				getBaseHeight(x2, z2), 
+    				(1.0 + chunkNoise.doubleFor(x2, z2, 12)));
+    		scales[i] = new BasinNode(
+    				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
+    				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),
+    				getHeightScale(x2, z2), 
+    				(1.0 + chunkNoise.doubleFor(x2, z2, 12)));    				
+    	}
+    	for(int i = 0; i < 16; i++)
+    		for(int j = 0; j < 16; j++) {
+    			in[(i * 16) + j] = 
+    					(float)BasinNode.summateEffect(heights, 16 + i, 16 + j);
+    			in[(i * 16) + j + 256] =  
+    					(float)BasinNode.summateEffect(scales, 16 + i, 16 + j);
+    		}
+    	return in;
+    }
+    
+    
+    /**
+     * Returns height data if any.  If there is none 
+     * it will return -1.
+     * 
+     * @param x relative chunk x within region
+     * @param z relative chunk x within region
+     * @return The biome id as in int
+     */
+    public float getBaseHeight(int x, int z) {
+		return getMapFromChunkCoord(x, z)
+				.getBaseHeight(modRight(x + cOffset, cWidth), 
+						       modRight(z + cOffset, cWidth));
+	}
+    
+    
+    /**
+     * Returns scale data if any.  If there is none 
+     * it will return -1.
+     * 
+     * @param x relative chunk x within region
+     * @param z relative chunk x within region
+     * @return The biome id as in int
+     */
+    public float getHeightScale(int x, int z) {
+		return getMapFromChunkCoord(x, z)
+				.getHeightScale(modRight(x + cOffset, cWidth), 
+						        modRight(z + cOffset, cWidth));
+	}
+    
+    
+    public float[] getHeightData(int x, int z) {
+		return getMapFromChunkCoord(x, z)
+				.getHeightData(modRight(x + cOffset, cWidth), 
+						       modRight(z + cOffset, cWidth));
+	}
 
 
 	public void cleanCaches() {

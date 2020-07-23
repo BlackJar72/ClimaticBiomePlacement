@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.map;
 
+import jaredbgreat.climaticbiome.generation.biomeprovider.TerrainType;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 
 public interface IRegionMap {
@@ -28,5 +29,11 @@ public interface IRegionMap {
 	public abstract int otherHash();
 
 	public abstract Coords getCoords();
+	
+	public abstract void setTerrainExpress(int terrain, int i);
+
+    public abstract float getBaseHeight(int x, int z);
+    
+    public abstract float getHeightScale(int x, int z);
 
 }

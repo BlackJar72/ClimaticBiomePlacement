@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
@@ -7,7 +8,7 @@ import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
-import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
+import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
 
 
 public class GetOcean implements IBiomeSpecifier {
@@ -35,8 +36,13 @@ public class GetOcean implements IBiomeSpecifier {
 	IBiomeSpecifier islands2; // Special island-only biomes
 	IBiomeSpecifier beaches;
 	
+	long coasts;
+	long fcoasts;
+	
 	
 	public void init() {
+		coasts  = ModBiomes.coast.getIdForBiome(ModBiomes.coast);
+		fcoasts = ModBiomes.frozenCoast.getIdForBiome(ModBiomes.frozenCoast);
 		// Shallows
 		frozen = new BiomeList();
 		cold   = new BiomeList();
@@ -96,17 +102,19 @@ public class GetOcean implements IBiomeSpecifier {
 	
 	@Override
 	public long getBiome(ChunkTile tile) {
-		if(tile.isIsBeach() && !tile.isRiver() && !swampy(tile)) {
-			return beaches.getBiome(tile);
-		}
+		tile.setVanilla();
 		int temp = tile.getTemp();
 		int seed = tile.getBiomeSeed();
 		int iceNoise = tile.getNoise();
+		if(tile.isBeach() && !tile.isRiver() && !swampy(tile)) {
+	        if(((iceNoise / 2) - temp) > -1) {
+	        	return fcoasts;
+	        }
+			return coasts;
+		}
 		tile.nextBiomeSeed();
-        if(settings.addIslands && (tile.getHeight() < 0.5) 
-        							&& (tile.getVal() < 3) 
-        							&& ((seed % 5) == 0) 
-        							&& notNearEdge(tile)) {
+        if(settings.addIslands && (((seed % 5) == 0) 
+        					   && notNearEdge(tile))) {
     		int noise = tile.getNoise();
     		if((seed % 31) == 0) {
     				if((tile.getTemp() > 9) && (tile.getTemp() < 19)
@@ -126,10 +134,9 @@ public class GetOcean implements IBiomeSpecifier {
     			} else if(settings.addIslands) {
     				if(noise > (seed % 3)) {
     					return islands2.getBiome(tile.nextBiomeSeed());
-    				}				
-    			} else {
-    				return getForIsland(tile);
-    			}    			
+    				}
+    			}
+    			return getForIsland(tile);
     		} else if((tile.getHeight()) < 0.2) {
     			return getDeepOcean(tile, temp, iceNoise);
     		}
@@ -231,8 +238,9 @@ public class GetOcean implements IBiomeSpecifier {
 	 * @return
 	 */
 	public long getForIsland(ChunkTile tile) {
-		tile.nextBiomeSeed();
+		//tile.nextBiomeSeed();
 		return getShallowOcean(tile, tile.getTemp(), tile.getNoise());
+		//return coasts;
 	}
 	
 	

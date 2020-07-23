@@ -5,7 +5,7 @@ import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
-import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
+import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
 
 // TODO / FIXME: Fix for use with mods!
 public class GetSwamp implements IBiomeSpecifier {
@@ -43,6 +43,7 @@ public class GetSwamp implements IBiomeSpecifier {
 
 	@Override
 	public long getBiome(ChunkTile tile) {
+		tile.setSwamp();
 		int temp = tile.getTemp();
     	if(temp < 12) {
     		return cold.getBiome(tile);

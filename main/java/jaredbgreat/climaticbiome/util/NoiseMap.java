@@ -16,14 +16,14 @@ import java.util.Collections;
  * 
  * @author Jared Blackburn
  */
-public class HeightNoise {
+public class NoiseMap {
     int size, interval, currentInterval, regx, regy;
     double[][] field;
     double scale, divisor;
     SpatialHash random;
 
     
-    public HeightNoise(SpatialHash random, int size, int interval, 
+    public NoiseMap(SpatialHash random, int size, int interval, 
                 double scale, int regx, int regy) {
         this.size = size; 
         this.interval = interval; 

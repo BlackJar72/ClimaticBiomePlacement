@@ -5,7 +5,7 @@ import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
 import jaredbgreat.climaticbiome.generation.biome.SeedDoubleBiome;
-import jaredbgreat.climaticbiome.generation.generator.ChunkTile;
+import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
 
 public class GetForest implements IBiomeSpecifier {
 	private static GetForest tforest;

@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.map;
 
+import jaredbgreat.climaticbiome.generation.biomeprovider.TerrainType;
 import net.minecraft.world.biome.Biome;
 
 public interface IMapRegistry {
@@ -63,5 +64,11 @@ public interface IMapRegistry {
 	public abstract Biome[] getChunkBiomeGen(int x, int z, Biome[] in);
 
 	public abstract void cleanCaches();
+	
+	public float[] getTerrainBiomeGen(int x, int z, float[] in);
+
+    public float getBaseHeight(int x, int z);
+    
+    public float getHeightScale(int x, int z);
 
 }
