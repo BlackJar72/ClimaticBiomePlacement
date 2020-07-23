@@ -39,7 +39,6 @@ public class ConfigHandler {
 	public static boolean badBiomeSpam = false;
 	public static boolean makeDefault = false;
 	public static boolean addToVanilla = false;
-	public static String  chunkProvider = "default";
 	
 	public static boolean includeForests = true;
 	public static boolean includeMountains = true;
@@ -238,14 +237,6 @@ public class ConfigHandler {
 		
 		hasRivers = config.getBoolean("MakeRivers", "General", true, 
 						"If true rivers will be generated.");
-		
-		chunkProvider = config.getString("ChunkProvider", "General", "default", 
-						"You can use another mods chunk provider here if you like; \n"
-						+ "Warning: This is not guaraunteed to work (could depend \n"
-						+ "on how the other mod is written, which is out of my control). \n"
-						+ "Use \"default\" for vanilla or \"climatic_realistic\" for this \n"
-						+ "mods new alternate chunk generator.");
-		ClimaticWorldType.setChunkGeneratorType(chunkProvider);
 		
 		biomeSize = config.getInt("BiomeSize", "Size", 16, 4, 64, "The average width of a "
 						+ "biome area in chunks.");

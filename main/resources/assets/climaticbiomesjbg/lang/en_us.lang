@@ -1,4 +1,5 @@
-generator.climatic_bp=Climatic
+generator.climatic_bp=Climatic Vanilla
+generator.climatic_real=Climatic Realistic
 
 createWorld.climaticbiomesjbg.biomesize=Biome Size
 createWorld.climaticbiomesjbg.genscale=Map Scale

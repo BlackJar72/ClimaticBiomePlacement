@@ -1,4 +1,5 @@
 generator.climatic_bp=Climaticos
+generator.climatic_real=Climático Realista
 
 createWorld.climaticbiomesjbg.biomesize=Tamaño del bioma
 createWorld.climaticbiomesjbg.genscale=Escala del mapa

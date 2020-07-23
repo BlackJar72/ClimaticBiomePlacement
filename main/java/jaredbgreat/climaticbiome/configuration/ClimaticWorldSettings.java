@@ -147,7 +147,7 @@ public class ClimaticWorldSettings {
 		jsonObj.addProperty("biomeSize", biomeSize);
 		jsonObj.addProperty("regionSize", regionSize.ordinal() + 1);
 		jsonObj.addProperty("mapType", mode);
-		jsonObj.addProperty("SurvivalIslandSize", sisize);
+		jsonObj.addProperty("SurvivalIslandSize", sisize);		
 		return jsonObj;
 	}
 	
@@ -161,34 +161,6 @@ public class ClimaticWorldSettings {
 	 */
 	public String toJsonString() {
 		return toJson().toString();
-	}
-	
-	
-	/**
-	 * This is a convenience wrapper around toJson(), allowing 
-	 * a (text-based) json representation to the settings to 
-	 * be obtained ... for saving ... somewhere.
-	 * 
-	 * @return A json (text) representation of the settings.
-	 */
-	public String extendJsonString(String in) {
-		JsonObject jsonObj;
-		if((in != null) && !in.isEmpty()) {
-			Gson gson = new Gson();
-			JsonElement jsonElement = gson.toJsonTree(in);
-			jsonObj = jsonElement.getAsJsonObject();
-		} else {
-			jsonObj = new JsonObject();
-		}
-		jsonObj.addProperty("addIslands", addIslands);
-		jsonObj.addProperty("extraBeaches", extraBeaches);	
-		jsonObj.addProperty("forceWholeBiome", forceWhole);
-		jsonObj.addProperty("biomeSize", biomeSize);
-		jsonObj.addProperty("regionSize", regionSize.ordinal() + 1);
-		jsonObj.addProperty("mapType", mode);
-		jsonObj.addProperty("SurvivalIslandSideepSandze", sisize);
-		Debug.bigSysout(jsonObj);
-		return jsonObj.toString();
 	}
 	
 	
@@ -240,6 +212,27 @@ public class ClimaticWorldSettings {
 		} else {
 			ClimaticWorldSettings out = queued;
 			queued = null;
+			return out;
+		}
+	}
+	
+	
+	/**
+	 * This will return the currently cached settings, or 
+	 * new settings if none are currently cashed.  It will
+	 * then clear the cached setting to null for future 
+	 * use.
+	 * 
+	 * @return
+	 */
+	public static ClimaticWorldSettings getQueued(boolean delete) {
+		if(queued == null) {
+			return new ClimaticWorldSettings();
+		} else {
+			ClimaticWorldSettings out = queued;
+			if(delete) {
+				queued = null;
+			}
 			return out;
 		}
 	}

@@ -54,7 +54,6 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
         regionNoise = new SpatialHash(random.nextLong(), random.nextLong());
         biomeNoise = new SpatialHash(random.nextLong(), random.nextLong());
         maker = new MapMaker(chunkNoise, regionNoise, biomeNoise, settings);
-        noFakes = areFakesInvalid();
 	}
 	
 	

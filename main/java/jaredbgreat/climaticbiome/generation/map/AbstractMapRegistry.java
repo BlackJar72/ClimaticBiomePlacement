@@ -39,12 +39,6 @@ public abstract class AbstractMapRegistry implements IMapRegistry {
 	}
 	
 	
-	final boolean areFakesInvalid() {
-		return net.minecraftforge.fml.common.Loader.isModLoaded("lostcities") 
-        		&& ConfigHandler.chunkProvider.equalsIgnoreCase("lostcities");
-	}
-	
-	
 	/* (non-Javadoc)
 	 * @see jaredbgreat.climaticbiome.generation.map.IMapRegistry#findSaveDir()
 	 */

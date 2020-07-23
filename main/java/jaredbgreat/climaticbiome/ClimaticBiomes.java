@@ -6,10 +6,8 @@ import jaredbgreat.climaticbiome.biomes.feature.GenPine;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.compat.userdef.VariantParser;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
+import jaredbgreat.climaticbiome.generation.ClimaticRealisticWorldType;
 import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
-import jaredbgreat.climaticbiome.generation.biome.biomes.GetForest;
-import jaredbgreat.climaticbiome.generation.biome.biomes.GetPark;
-import jaredbgreat.climaticbiome.generation.biome.biomes.GetPlains;
 import jaredbgreat.climaticbiome.proxy.IProxy;
 import jaredbgreat.climaticbiome.util.BlockRegistrar;
 import jaredbgreat.climaticbiome.util.Externalizer;
@@ -17,8 +15,6 @@ import jaredbgreat.climaticbiome.util.ItemRegistrar;
 
 import java.io.File;
 import java.util.logging.Logger;
-
-import org.apache.logging.log4j.LogManager;
 
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
@@ -41,7 +37,8 @@ public class ClimaticBiomes {
 	
 	@Instance
 	public static ClimaticBiomes instance;
-	public static ClimaticWorldType worldType;
+	public static ClimaticWorldType climaticWorldType;
+	public static ClimaticRealisticWorldType realisticWorldType;
 	public ConfigHandler configHandler;
 	File confdir;
 
@@ -62,7 +59,8 @@ public class ClimaticBiomes {
     	BlockRegistrar.initBlocks();
     	ItemRegistrar.initItems();
     	GenPine.init();
-    	worldType = new ClimaticWorldType();
+    	climaticWorldType = new ClimaticWorldType();
+    	realisticWorldType = new ClimaticRealisticWorldType();
     	ModBiomes.createBiomes();
     	if(ConfigHandler.addToVanilla) {
     		ModBiomes.addToVanilla();
@@ -94,7 +92,6 @@ public class ClimaticBiomes {
     	DefReader.init(ForgeRegistries.BIOMES, confdir);
     	VariantParser.parse(confdir);
     	ItemRegistrar.oreDict();
-    	ClimaticWorldType.initChunkGeneratorType();
     	try {
 	    	if(ConfigHandler.moreMansion) {
 		    	for(Biome biome : ForgeRegistries.BIOMES.getValues()) {
@@ -118,7 +115,7 @@ public class ClimaticBiomes {
     
     
     private void moveWorldTypes() {
-    	WorldType.WORLD_TYPES[0] = worldType;
+    	WorldType.WORLD_TYPES[0] = climaticWorldType;
     }
     
 

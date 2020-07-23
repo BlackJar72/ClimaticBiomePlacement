@@ -1,4 +1,5 @@
 generator.climatic_bp=气候化
+generator.climatic_real=气候现实
 
 createWorld.climaticbiomesjbg.biomesize=群系大小
 createWorld.climaticbiomesjbg.genscale=地图缩放

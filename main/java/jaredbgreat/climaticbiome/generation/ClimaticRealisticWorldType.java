@@ -21,7 +21,7 @@ import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ClimaticWorldType extends WorldType {
+public class ClimaticRealisticWorldType extends WorldType {
 	private static final String GEN_TAG = "ChunkGenerator";
 	
 	private static BiomeProvider biomeProvider;
@@ -32,19 +32,19 @@ public class ClimaticWorldType extends WorldType {
     private static volatile boolean altChunks;
     
 
-    public ClimaticWorldType() {
-		super("climatic_bp");		
+    public ClimaticRealisticWorldType() {
+		super("climatic_real");		
 	}
 
     public IChunkGenerator getChunkGenerator(World world, String generatorOptions) {
-		return new ChunkGeneratorOverworld(world, world.getSeed(), 
-    		world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
+		return new ChunkGenClimaticRealistic(world, world.getSeed(), 
+        		world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
     }
 
     
     @Override @Nonnull
     public BiomeProvider getBiomeProvider(@Nonnull World world) { 
-        return new ClimaticBiomeProvider(world, false);
+        return new ClimaticBiomeProvider(world, true);
     }
     
     
