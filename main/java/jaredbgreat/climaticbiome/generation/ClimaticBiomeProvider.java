@@ -79,6 +79,19 @@ public class ClimaticBiomeProvider extends BiomeProvider {
                 }
         return biomes;
     }
+
+
+    public float[][] getdataForGeneration(float[][] biomes, int x, int z, int width, int height) {
+        if(biomes == null || biomes.length < width * height) {
+            biomes = new float[width * height][];
+        }
+        for(int i = 0; i < width; i++) 
+                for(int j = 0; j < height; j++) {
+                        //System.err.println(findBiomeAt((x + i) * 4, (z + j) * 4));
+                        biomes[(j * width) + i] = finder.getHeightData((x + i) * 4, (z + j) * 4);
+                }
+        return biomes;
+    }
     
     
     private Biome findBiomeAt(int x, int z) {

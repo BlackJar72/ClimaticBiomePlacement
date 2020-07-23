@@ -70,5 +70,7 @@ public interface IMapRegistry {
     public float getBaseHeight(int x, int z);
     
     public float getHeightScale(int x, int z);
+    
+    public float[] getHeightData(int x, int z);
 
 }

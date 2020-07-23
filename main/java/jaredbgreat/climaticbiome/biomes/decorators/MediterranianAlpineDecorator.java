@@ -32,19 +32,17 @@ public class MediterranianAlpineDecorator extends BiomeDecorator  {
     		int y = world.getHeight(x, z); 
     		int cutoff = y + random.nextInt(16);
     		WorldGenAbstractTree tree;
-    		if(cutoff < 120) {
-	    		if(cutoff < 96) {
-	    			if(random.nextBoolean()) {
-	    				tree = ModBiomes.denseScrub.getRandomTreeFeature(random);
-	    			} else {
-	    				tree = NOTHING;
-	    			}
-	    		} else {
-	    			tree = biome.getRandomTreeFeature(random);
-	    		}
-	    		BlockPos pos = new BlockPos(x, y, z);
-	    		tree.generate(world, random, pos);
+    		if(cutoff < 96) {
+    			if(random.nextBoolean()) {
+    				tree = ModBiomes.denseScrub.getRandomTreeFeature(random);
+    			} else {
+    				tree = NOTHING;
+    			}
+    		} else {
+    			tree = biome.getRandomTreeFeature(random);
     		}
+    		BlockPos pos = new BlockPos(x, y, z);
+    		tree.generate(world, random, pos);
     	}
     }
 
