@@ -252,7 +252,7 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 				FileOutputStream fs = new FileOutputStream(file);
 				for(int i = 0; i < dataSize; i++) {
 						fs.write((int)(data[i] & 0xff0000000000l) >> 40);
-						fs.write((int)(data[i] & 0xff000000000000l) >> 48);
+						fs.write((int)(data[i] & 0xff000000000000l) >>> 48);
 					}
 				fs.close();
 			} catch (FileNotFoundException e) {

@@ -37,7 +37,6 @@ public class ClimaticWorldType extends WorldType {
     		return new ChunkGenClimaticRealistic(world, world.getSeed(), 
             		world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
     	} else {
-    		System.out.println("\nFUCK!!!\nFUCK!!! \nFUCK!!! \nFUCK!!! \nFUCK!!! \nFUCK!!! \nFUCK!!! \nFUCK!!! \n");
     		return chunkGeneratorType.getChunkGenerator(world, generatorOptions);
     	}
     }

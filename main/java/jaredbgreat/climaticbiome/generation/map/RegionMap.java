@@ -172,9 +172,6 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
      * @return The biome id as in int
      */
     public float getBaseHeight(int x, int z) {
-    	//System.out.println(((data[(x * cWidth) + z] & 0xff0000) >> 16) 
-    	//		+ " -> " 
-    	//		+ (((float)((data[(x * cWidth) + z] & 0xff0000) >> 16)) / 32f - 4f));
         return ((float)((data[(x * cWidth) + z] & 0xff0000) >> 16)) / 32f - 4f;
     }
     
@@ -209,12 +206,6 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
 		int fuck = data[i];
 		data[i] |= terrain << 16;
 		shit[i] |= terrain << 16;
-		//System.out.println((((float)((data[i] & 0xff0000) >> 16)) / 32f - 4f));
-        //System.out.println(Integer.toHexString(fuck) 
-        //		+ " + " 
-        //		+ Integer.toHexString(terrain << 16) 
-        //		+ " = "
-        //		+ Integer.toHexString(data[i]));
 	}
     
     
