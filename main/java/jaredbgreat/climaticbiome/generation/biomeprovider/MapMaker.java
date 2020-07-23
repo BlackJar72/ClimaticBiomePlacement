@@ -184,7 +184,7 @@ public class MapMaker {
         }
         if(altChunks) {
 	        TerrainPrimer terrainPrimer = new TerrainPrimer();
-	        terrainPrimer.processTerrain(premap, datamap, climateMaker);
+	        terrainPrimer.processTerrain(premap, datamap, climateMaker, scale);
         }
     }
     

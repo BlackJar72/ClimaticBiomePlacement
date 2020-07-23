@@ -10,80 +10,80 @@ import net.minecraft.world.biome.Biome;
 
 public class TerrainPrimer {
 	
-	public void processTerrain(ChunkTile[] tiles, IRegionMap datamap, NoiseMap noise) {
+	public void processTerrain(ChunkTile[] tiles, IRegionMap datamap, NoiseMap noise, SizeScale scale) {
 		int[] out = new int[tiles.length];
 		double[][] scaleNoise  = noise.process(1001);
 		double[][] heightNoise = noise.process(8675);
 		for(int i = 0; i < tiles.length; i++) {
-			int x = i / RSIZE;
-			int z = i % RSIZE;
+			int x = i / (RSIZE * scale.whole);
+			int z = i % (RSIZE * scale.whole);
 			if(tiles[i].isRiver()) tiles[i].setSteep();
 			tiles[i].height = Math.max((heightNoise[x][z] + 1), 0) * (tiles[i].height - 0.6);
 			tiles[i].scale = (float)Math.min(((Math.max((scaleNoise[x][z] * 2
 					+ 0.4d + (tiles[i].height) / 2d) / 5d, 0d))), tiles[i].height);
-			lowerRiver(tiles, x, z);
+			lowerRiver(tiles, x, z, scale.whole);
 			tiles[i].terrainType.heightAdjuster.processTile(tiles[i]);
 			if(tiles[i].height > 2) tiles[i].height = 3 - (1 / (tiles[i].height - 1));
-			datamap.setTerrainExpress(Math.max(Math.min((int)((averageHeight(tiles, x, z) 
+			datamap.setTerrainExpress(Math.max(Math.min((int)((averageHeight(tiles, x, z, scale.whole) 
 							 * 32d) + 128d), 255), 0) +
-					 (Math.max(Math.min((int)((averageScale(tiles, x, z)  
+					 (Math.max(Math.min((int)((averageScale(tiles, x, z, scale.whole)  
 							 * 32d) + 128d), 255), 0) << 8), i);
 		}
 	}
 	
 	
-	private ChunkTile getTileFromCoords(ChunkTile[] tiles, int x, int z) {
-		return tiles[(x * RSIZE) + z];
+	private ChunkTile getTileFromCoords(ChunkTile[] tiles, int x, int z, int size) {
+		return tiles[(x * RSIZE * size) + z];
 	}
     
    
-    private double averageHeight(ChunkTile[] tiles, int x, int z) {
-    	ChunkTile center = getTileFromCoords(tiles, x, z);
+    private double averageHeight(ChunkTile[] tiles, int x, int z, int size) {
+    	ChunkTile center = getTileFromCoords(tiles, x, z, size);
     	double out = center.height;
     	if((x > 0) && (x < RSIZE - 1) && (z > 0) && (z < RSIZE - 1) && !center.isSteep()) {
-    		out  = (getTileFromCoords(tiles, x - 1, z - 1).height
-				 +  getTileFromCoords(tiles, x - 1, z).height
-				 +  getTileFromCoords(tiles, x - 1, z + 1).height
-				 +  getTileFromCoords(tiles, x, z - 1).height
-				 +  getTileFromCoords(tiles, x - 1, z + 1).height
-				 +  getTileFromCoords(tiles, x + 1, z - 1).height
-				 +  getTileFromCoords(tiles, x + 1, z).height
-				 +  getTileFromCoords(tiles, x - 1, z + 1).height
+    		out  = (getTileFromCoords(tiles, x - 1, z - 1, size).height
+				 +  getTileFromCoords(tiles, x - 1, z, size).height
+				 +  getTileFromCoords(tiles, x - 1, z + 1, size).height
+				 +  getTileFromCoords(tiles, x, z - 1, size).height
+				 +  getTileFromCoords(tiles, x - 1, z + 1, size).height
+				 +  getTileFromCoords(tiles, x + 1, z - 1, size).height
+				 +  getTileFromCoords(tiles, x + 1, z, size).height
+				 +  getTileFromCoords(tiles, x - 1, z + 1, size).height
 				 +  (center.height * 2f)) / 9f;
     	}
     	return out;
     }
     
    
-    private float averageScale(ChunkTile[] tiles, int x, int z) {
-    	ChunkTile center = getTileFromCoords(tiles, x, z);
+    private float averageScale(ChunkTile[] tiles, int x, int z, int size) {
+    	ChunkTile center = getTileFromCoords(tiles, x, z, size);
     	float out = center.scale;
     	if((x > 0) && (x < RSIZE - 1) && (z > 0) && (z < RSIZE - 1) && !center.isSteep()) {
-			out  = (getTileFromCoords(tiles, x - 1, z - 1).scale
-				 +  getTileFromCoords(tiles, x - 1, z).scale
-				 +  getTileFromCoords(tiles, x - 1, z + 1).scale
-				 +  getTileFromCoords(tiles, x, z - 1).scale
-				 +  getTileFromCoords(tiles, x - 1, z + 1).scale
-				 +  getTileFromCoords(tiles, x + 1, z - 1).scale
-				 +  getTileFromCoords(tiles, x + 1, z).scale
-				 +  getTileFromCoords(tiles, x - 1, z + 1).scale
+			out  = (getTileFromCoords(tiles, x - 1, z - 1, size).scale
+				 +  getTileFromCoords(tiles, x - 1, z, size).scale
+				 +  getTileFromCoords(tiles, x - 1, z + 1, size).scale
+				 +  getTileFromCoords(tiles, x, z - 1, size).scale
+				 +  getTileFromCoords(tiles, x - 1, z + 1, size).scale
+				 +  getTileFromCoords(tiles, x + 1, z - 1, size).scale
+				 +  getTileFromCoords(tiles, x + 1, z, size).scale
+				 +  getTileFromCoords(tiles, x - 1, z + 1, size).scale
 				 +  center.scale) / 9f;
     	}
     	return out;
     }
     
     
-    private void lowerRiver(ChunkTile[] tiles, int x, int z) {
-    	ChunkTile center = getTileFromCoords(tiles, x, z);   
+    private void lowerRiver(ChunkTile[] tiles, int x, int z, int size) {
+    	ChunkTile center = getTileFromCoords(tiles, x, z, size);   
     	if((x > 0) && (x < RSIZE - 1) && (z > 0) && (z < RSIZE - 1) && !center.isSteep()) {
-    		if(getTileFromCoords(tiles, x - 1, z - 1).isRiver()
-				 || getTileFromCoords(tiles, x - 1, z).isRiver()
-				 || getTileFromCoords(tiles, x - 1, z + 1).isRiver()
-				 || getTileFromCoords(tiles, x, z - 1).isRiver()
-				 || getTileFromCoords(tiles, x - 1, z + 1).isRiver()
-				 || getTileFromCoords(tiles, x + 1, z - 1).isRiver()
-				 || getTileFromCoords(tiles, x + 1, z).isRiver()
-				 || getTileFromCoords(tiles, x - 1, z + 1).isRiver()) {
+    		if(getTileFromCoords(tiles, x - 1, z - 1, size).isRiver()
+				 || getTileFromCoords(tiles, x - 1, z, size).isRiver()
+				 || getTileFromCoords(tiles, x - 1, z + 1, size).isRiver()
+				 || getTileFromCoords(tiles, x, z - 1, size).isRiver()
+				 || getTileFromCoords(tiles, x - 1, z + 1, size).isRiver()
+				 || getTileFromCoords(tiles, x + 1, z - 1, size).isRiver()
+				 || getTileFromCoords(tiles, x + 1, z, size).isRiver()
+				 || getTileFromCoords(tiles, x - 1, z + 1, size).isRiver()) {
     			center.height *= 0.5d;
     		}
     	}
