@@ -147,7 +147,7 @@ public class River {
         } else {
             // Allow the river to progress a bit after hitting "ocean" to 
             // discourage immediately ending in a tiny body of water.
-            if(t.height < 0.5) {
+            if((t.height < 0.5) && !t.beach) {
                 oc++;
             } else {
                 oc = 0;
