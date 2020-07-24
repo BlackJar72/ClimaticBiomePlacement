@@ -121,11 +121,11 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 
 	@Override
 	public long getBiome(ChunkTile tile) {
-		if(tile.getRlBiome() == 0) {
-			return OCEAN.getBiome(tile);
-		}
 		if(tile.isRiver()) {
 			return RIVER.getBiome(tile);
+		}
+		if(tile.getRlBiome() == 0) {
+			return OCEAN.getBiome(tile);
 		}
         if(tile.getTemp() > 7 && ((tile.getWet() - tile.getVal() - tile.getHeight()) > 0)) {
             if((tile.getBiomeSeed() & 0x1) == 1) {
