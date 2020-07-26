@@ -107,6 +107,7 @@ public class GetOcean implements IBiomeSpecifier {
 		int seed = tile.getBiomeSeed();
 		int iceNoise = tile.getNoise();
 		if(tile.isBeach() && !tile.isRiver() && !swampy(tile)) {
+			tile.setSteep();
 	        if(((iceNoise / 2) - temp) > -1) {
 	        	return fcoasts;
 	        }

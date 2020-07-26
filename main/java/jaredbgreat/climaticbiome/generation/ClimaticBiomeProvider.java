@@ -74,7 +74,6 @@ public class ClimaticBiomeProvider extends BiomeProvider {
         }
         for(int i = 0; i < width; i++) 
                 for(int j = 0; j < height; j++) {
-                        //System.err.println(findBiomeAt((x + i) * 4, (z + j) * 4));
                         biomes[(j * width) + i] = findBiomeAt((x + i) * 4, (z + j) * 4);
                 }
         return biomes;
