@@ -144,7 +144,8 @@ public class BiomeClimateTable implements IBiomeSpecifier {
     	}
         if(tile.isBeach()) {
         	if(BiomeDictionary.hasType(outb, Type.HILLS)
-        	    || BiomeDictionary.hasType(outb, Type.MOUNTAIN)) {
+        	    || BiomeDictionary.hasType(outb, Type.MOUNTAIN)
+        	    || tile.isMountain()) {
         	    //return BEACH.getHighBiome(tile);
         		return out;
         	}
