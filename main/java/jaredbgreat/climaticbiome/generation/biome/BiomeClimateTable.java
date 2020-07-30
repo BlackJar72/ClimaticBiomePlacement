@@ -23,7 +23,7 @@ import jaredbgreat.climaticbiome.generation.biome.biomes.GetTaiga;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetTundra;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetWarmForest;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetWarmPlains;
-import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
+import jaredbgreat.climaticbiome.generation.mapgenerator.ChunkTile;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

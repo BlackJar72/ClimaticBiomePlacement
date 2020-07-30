@@ -7,7 +7,7 @@ import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.NoiseSpecialBiome;
-import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
+import jaredbgreat.climaticbiome.generation.mapgenerator.ChunkTile;
 
 public class GetIslands implements IBiomeSpecifier {
 	private static GetIslands islands;

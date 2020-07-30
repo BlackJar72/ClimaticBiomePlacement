@@ -1,4 +1,4 @@
-package jaredbgreat.climaticbiome.generation.biomeprovider;
+package jaredbgreat.climaticbiome.generation.mapgenerator;
 
 /**
  * An enum for region sizes 

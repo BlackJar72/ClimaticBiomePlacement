@@ -1,4 +1,4 @@
-package jaredbgreat.climaticbiome.generation.biomeprovider;
+package jaredbgreat.climaticbiome.generation.mapgenerator;
 
 import java.util.Set;
 
@@ -112,9 +112,16 @@ public enum TerrainType {
 		@Override
 		public void processTile(ChunkTile tile) {
 			Biome biome = Biome.getBiome(tile.rlBiome, Biomes.DEFAULT);
-			tile.height *= 2.0d;
+			int seed = tile.nextBiomeSeed().getBiomeSeed();
+			if((seed & 0x1) == 0x1) {
+				tile.height *= 2.0d;
+			}
 			tile.height += biome.getBaseHeight();
-			tile.scale  += biome.getHeightVariation();
+			if((seed & 0x2) == 0x2) {
+				tile.scale  += biome.getHeightVariation();
+			} else {
+				tile.scale = Math.max(tile.scale, biome.getHeightVariation());
+			}
 		}
 	}
 	

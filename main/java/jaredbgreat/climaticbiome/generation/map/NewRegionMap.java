@@ -1,7 +1,7 @@
 package jaredbgreat.climaticbiome.generation.map;
 
-import jaredbgreat.climaticbiome.generation.biomeprovider.TerrainType;
 import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;
+import jaredbgreat.climaticbiome.generation.mapgenerator.TerrainType;
 
 public class NewRegionMap extends AbstractCachable implements IRegionMap {
     

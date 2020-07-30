@@ -1,4 +1,4 @@
-package jaredbgreat.climaticbiome.generation.biomeprovider;
+package jaredbgreat.climaticbiome.generation.mapgenerator;
 
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;

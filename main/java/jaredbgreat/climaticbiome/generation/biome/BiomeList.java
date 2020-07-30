@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiome.generation.biome;
 
-import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
+import jaredbgreat.climaticbiome.generation.mapgenerator.ChunkTile;
 
 import java.util.ArrayList;
 import java.util.List;

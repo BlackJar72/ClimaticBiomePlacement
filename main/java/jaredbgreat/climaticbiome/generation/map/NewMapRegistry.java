@@ -2,13 +2,13 @@ package jaredbgreat.climaticbiome.generation.map;
 
 import static jaredbgreat.climaticbiome.util.ModMath.modRight;
 import jaredbgreat.climaticbiome.biomes.SubBiomeRegistry;
-import jaredbgreat.climaticbiome.generation.biomeprovider.BiomeBasin;
-import jaredbgreat.climaticbiome.generation.biomeprovider.MapMaker;
-import jaredbgreat.climaticbiome.generation.biomeprovider.TerrainPrimer;
-import jaredbgreat.climaticbiome.generation.biomeprovider.TerrainType;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.chunk.BasinNode;
+import jaredbgreat.climaticbiome.generation.mapgenerator.BiomeBasin;
+import jaredbgreat.climaticbiome.generation.mapgenerator.MapMaker;
+import jaredbgreat.climaticbiome.generation.mapgenerator.TerrainPrimer;
+import jaredbgreat.climaticbiome.generation.mapgenerator.TerrainType;
 import jaredbgreat.climaticbiome.util.SpatialHash;
 
 import java.io.File;

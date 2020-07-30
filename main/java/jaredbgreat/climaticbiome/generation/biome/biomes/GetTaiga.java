@@ -5,7 +5,7 @@ import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.TempDoubleBiome;
-import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
+import jaredbgreat.climaticbiome.generation.mapgenerator.ChunkTile;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.IForgeRegistry;
 

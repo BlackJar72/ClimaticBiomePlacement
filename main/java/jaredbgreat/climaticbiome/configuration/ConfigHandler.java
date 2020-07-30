@@ -2,7 +2,7 @@ package jaredbgreat.climaticbiome.configuration;
 
 import jaredbgreat.climaticbiome.Info;
 import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
-import jaredbgreat.climaticbiome.generation.biomeprovider.SizeScale;
+import jaredbgreat.climaticbiome.generation.mapgenerator.SizeScale;
 
 import java.io.File;
 

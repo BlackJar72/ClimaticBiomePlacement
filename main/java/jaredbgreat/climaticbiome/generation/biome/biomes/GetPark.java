@@ -3,7 +3,7 @@ package jaredbgreat.climaticbiome.generation.biome.biomes;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
-import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
+import jaredbgreat.climaticbiome.generation.mapgenerator.ChunkTile;
 
 public class GetPark implements IBiomeSpecifier {
 	private static GetPark pland;

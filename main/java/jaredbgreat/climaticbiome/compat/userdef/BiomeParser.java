@@ -36,6 +36,8 @@ public class BiomeParser {
 		IBiomeSpecifier parse(String in);
 	}
 	private HashMap<String, ICommand> commands;
+	private BufferedReader reader1;
+	private BufferedReader reader2;
 	
 	
 	public BiomeParser(IForgeRegistry reg, File dir, String sub) {
@@ -72,9 +74,9 @@ public class BiomeParser {
 		String line = null;
 		Tokenizer tokens;		
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(file));
-			while(reader.ready()) {
-				line = reader.readLine().trim();
+			reader1 = new BufferedReader(new FileReader(file));
+			while(reader1.ready()) {
+				line = reader1.readLine().trim();
 				if(line.isEmpty() || line.startsWith("#")) continue;
 				tokens = new Tokenizer(line, "()");
 				String tag = tokens.nextToken().toLowerCase().trim();
@@ -101,7 +103,7 @@ public class BiomeParser {
 	                throw e;
 	            }
 			}
-			reader.close();
+			reader1.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -125,9 +127,9 @@ public class BiomeParser {
 		String line = null;
 		Tokenizer tokens;		
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(file));
-			while(reader.ready()) {
-				line = reader.readLine().trim();
+			reader2 = new BufferedReader(new FileReader(file));
+			while(reader2.ready()) {
+				line = reader2.readLine().trim();
 				if(line.isEmpty() || line.startsWith("#")) continue;
 				tokens = new Tokenizer(line, "()");
 				String tag = tokens.nextToken().toLowerCase().trim();
@@ -153,7 +155,7 @@ public class BiomeParser {
 	                throw e;
 	            }
 			}
-			reader.close();
+			reader2.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

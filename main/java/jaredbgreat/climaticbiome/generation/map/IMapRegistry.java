@@ -1,6 +1,6 @@
 package jaredbgreat.climaticbiome.generation.map;
 
-import jaredbgreat.climaticbiome.generation.biomeprovider.TerrainType;
+import jaredbgreat.climaticbiome.generation.mapgenerator.TerrainType;
 import net.minecraft.world.biome.Biome;
 
 public interface IMapRegistry {

@@ -1,4 +1,4 @@
-package jaredbgreat.climaticbiome.generation.biomeprovider;
+package jaredbgreat.climaticbiome.generation.mapgenerator;
 
 import java.util.Random;
 

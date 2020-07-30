@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jaredbgreat.climaticbiome.generation.biomeprovider;
+package jaredbgreat.climaticbiome.generation.mapgenerator;
 
-import static jaredbgreat.climaticbiome.generation.biomeprovider.MapMaker.RADIUS;
-import static jaredbgreat.climaticbiome.generation.biomeprovider.MapMaker.RSIZE;
+import static jaredbgreat.climaticbiome.generation.mapgenerator.MapMaker.RADIUS;
+import static jaredbgreat.climaticbiome.generation.mapgenerator.MapMaker.RSIZE;
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.cache.AbstractCachable;

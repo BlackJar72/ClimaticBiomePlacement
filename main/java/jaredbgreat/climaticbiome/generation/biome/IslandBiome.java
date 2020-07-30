@@ -3,7 +3,7 @@ package jaredbgreat.climaticbiome.generation.biome;
 import java.util.StringTokenizer;
 
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetOcean;
-import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
+import jaredbgreat.climaticbiome.generation.mapgenerator.ChunkTile;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.IForgeRegistry;

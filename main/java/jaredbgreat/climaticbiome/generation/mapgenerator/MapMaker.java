@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jaredbgreat.climaticbiome.generation.biomeprovider;
+package jaredbgreat.climaticbiome.generation.mapgenerator;
 
 import static jaredbgreat.climaticbiome.util.SpatialHash.absModulus;
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
@@ -36,6 +36,8 @@ public class MapMaker {
     public static final int RADIUS = RSIZE / 2; // radius for basin effect range
     public static final int SQRADIUS = RADIUS * RADIUS;
     
+    public final int rend;
+    
     ClimaticWorldSettings settings;
 
     private final Cache<Region> regionCache = new Cache(32);
@@ -66,6 +68,7 @@ public class MapMaker {
         this.settings    = settings;
         scale = settings.regionSize;
         specifier = BiomeClimateTable.getClimateTable(settings);
+        rend = (RSIZE * settings.regionSize.whole) - 2;
     }
     
     /**
@@ -173,11 +176,9 @@ public class MapMaker {
         for(int i = start; i < end; i++) {
         	thinBeach(premap[i]);
         }
-        //if(settings.extraBeaches) {
-	        for(int i = start; i < end; i++) {
-	        	growBeach1(premap[i]);
-	        }
-        //}
+        for(int i = start; i < end; i++) {
+        	makeCoast(premap[i]);
+        }
         for(int i = 0; i < premap.length; i++) {
         	premap[i].rlBiome = (int)specifier.getBiome(premap[i]);
         	datamap.setBiomeExpress(premap[i].rlBiome, i);
@@ -427,27 +428,9 @@ public class MapMaker {
     }
     
     
-    void makeBeach(ChunkTile t) {
-        if(notLand(t) || (t.getX() < 1) || (t.getX() > 254)
-                      || (t.getZ() < 1) || (t.getZ() > 254)) return;
-        int oceans = 0;
-        for(int i = -1; i < 2; i++) 
-            for(int j = -1; j < 2; j++) {
-                ChunkTile x = premap[((t.getX() + i) * RSIZE * scale.whole) + t.getZ() + j];
-                if(notLand(x)) {
-                    oceans++;
-                }
-            }
-        if(oceans < 3) return;
-        t.beach = t.getNoise() < (oceans - (2 * Math.max(oceans - 5, 0)) + 5 
-                - ((t.getBiomeSeed() >> 16) & 1)
-                + ((t.getBiomeSeed() >> 15) & 1));
-    }
-    
-    
-    void growBeach1(ChunkTile t) {
-        if(!notLand(t) || (t.getX() < 1) || (t.getX() > 254)
-                       || (t.getZ() < 1) || (t.getZ() > 254)) return;
+    void makeCoast(ChunkTile t) {
+        if(!notLand(t) || (t.getX() < 1) || (t.getX() > rend)
+                       || (t.getZ() < 1) || (t.getZ() > rend)) return;
         int beaches = 0;
         for(int i = -2; i < 3; i++) 
             for(int j = -2; j < 3; j++) {

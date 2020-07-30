@@ -2,7 +2,7 @@ package jaredbgreat.climaticbiome.gui;
 
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-import jaredbgreat.climaticbiome.generation.biomeprovider.SizeScale;
+import jaredbgreat.climaticbiome.generation.mapgenerator.SizeScale;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.resources.I18n;

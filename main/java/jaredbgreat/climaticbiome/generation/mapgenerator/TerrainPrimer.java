@@ -1,7 +1,7 @@
-package jaredbgreat.climaticbiome.generation.biomeprovider;
+package jaredbgreat.climaticbiome.generation.mapgenerator;
 
-import static jaredbgreat.climaticbiome.generation.biomeprovider.MapMaker.RSIZE;
 import static jaredbgreat.climaticbiome.generation.chunk.HeightMapArea.statArray;
+import static jaredbgreat.climaticbiome.generation.mapgenerator.MapMaker.RSIZE;
 import jaredbgreat.climaticbiome.generation.map.IRegionMap;
 import jaredbgreat.climaticbiome.util.NoiseMap;
 import net.minecraft.init.Biomes;

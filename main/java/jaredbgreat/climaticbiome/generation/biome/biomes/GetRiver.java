@@ -5,7 +5,7 @@ import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.biomes.pseudo.PseudoBiomes;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
-import jaredbgreat.climaticbiome.generation.biomeprovider.ChunkTile;
+import jaredbgreat.climaticbiome.generation.mapgenerator.ChunkTile;
 
 public class GetRiver implements IBiomeSpecifier {
 	private static GetRiver river;
