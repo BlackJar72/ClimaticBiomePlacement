@@ -22,7 +22,7 @@ fun.  Besides that, it was an interesting project to work out.
 The software used to work this out can be found here:
 https://github.com/BlackJar72/ProcGenLab
 
-Copyright (C) Jared Blackburn, 2017, 2018, 2020 
+Copyright (C) Jared Blackburn, 2017-2020 
 
 MIT License
 
