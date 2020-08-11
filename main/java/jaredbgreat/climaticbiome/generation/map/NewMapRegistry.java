@@ -161,8 +161,8 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 			try {				
 				FileInputStream fs = new FileInputStream(file);
 				for(int i = 0; i < dataSize; i++) {
-						data[i] |= ((long)(fs.read()) << 40);
-						data[i] |= ((long)(fs.read()) << 48);
+						data[i] |= ((long)(fs.read())) << 40;
+						data[i] |= ((long)(fs.read())) << 48;
 					}
 				fs.close();
 			} catch (FileNotFoundException e) {
@@ -226,10 +226,10 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 				FileOutputStream fs = new FileOutputStream(file);
 				for(int i = 0; i < dataSize; i++) {
 						fs.write((int)(data[i]  & 0xffL));
-						fs.write((int)((data[i] & 0xff00L) >> 8));
-						fs.write((int)((data[i] & 0xff0000L) >> 16));
-						fs.write((int)((data[i] & 0xff000000L) >> 24));
-						fs.write((int)((data[i] & 0xff00000000L) >> 32));
+						fs.write((int)((data[i] >>  8) & 0xff));
+						fs.write((int)((data[i] >> 16) & 0xff));
+						fs.write((int)((data[i] >> 24) & 0xff));
+						fs.write((int)((data[i] >> 32) & 0xff));
 					}
 				fs.close();
 				if(altChunks) {
@@ -250,8 +250,8 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
 			try {
 				FileOutputStream fs = new FileOutputStream(file);
 				for(int i = 0; i < dataSize; i++) {
-						fs.write((int)(data[i] & 0xff0000000000l) >> 40);
-						fs.write((int)(data[i] & 0xff000000000000l) >>> 48);
+						fs.write((int)(data[i] >>  40) & 0xff);
+						fs.write((int)(data[i] >>> 48) & 0xff);
 					}
 				fs.close();
 			} catch (FileNotFoundException e) {

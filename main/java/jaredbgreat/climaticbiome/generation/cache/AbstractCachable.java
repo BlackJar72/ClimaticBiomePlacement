@@ -28,7 +28,7 @@ public abstract class AbstractCachable implements ICachable {
     @Override
     public boolean isOldData() {
     	long t = MinecraftServer.getCurrentTimeMillis() - timestamp;
-    	return ((t > 120000) || (t < 0)); // 10 minutes	
+    	return ((t > 60000000) || (t < 0)); // 10 minutes	
     }
     
     
