@@ -185,7 +185,7 @@ public class MapMaker {
         }
         if(altChunks) {
 	        TerrainPrimer terrainPrimer = new TerrainPrimer();
-	        terrainPrimer.processTerrain(premap, datamap, climateMaker, scale);
+	        terrainPrimer.processTerrain(premap, datamap, climateMaker, scale, settings);
         }
     }
     
@@ -325,7 +325,7 @@ public class MapMaker {
                                     1.0 + random.nextDouble());
             }
         for (ChunkTile tile : premap) {
-            tile.biomeSeed = BiomeBasin.summateEffect(subbiomes, tile) & 0x7fffffff;
+            BiomeBasin.summateEffect(subbiomes, tile);
         }
     }
     

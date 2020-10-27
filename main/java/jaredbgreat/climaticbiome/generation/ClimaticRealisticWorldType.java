@@ -2,6 +2,7 @@ package jaredbgreat.climaticbiome.generation;
 
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.generation.chunk.ChunkGenClimaticRealistic;
+import jaredbgreat.climaticbiome.gui.GuiConfigureRealisticWorld;
 import jaredbgreat.climaticbiome.gui.GuiConfigureWorld;
 import jaredbgreat.climaticbiome.util.Debug;
 
@@ -68,7 +69,7 @@ public class ClimaticRealisticWorldType extends WorldType {
     @Override
     @SideOnly(Side.CLIENT)
     public void onCustomizeButton(Minecraft mc, GuiCreateWorld guiCreateWorld) {
-        mc.displayGuiScreen(new GuiConfigureWorld(guiCreateWorld, 
+        mc.displayGuiScreen(new GuiConfigureRealisticWorld(guiCreateWorld, 
         		ClimaticWorldSettings.getQueued().toJsonString()));
     }
 

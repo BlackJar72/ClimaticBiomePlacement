@@ -62,6 +62,8 @@ public class ConfigHandler {
 	static boolean rockyScrub = true;
 	static boolean hasRivers = true;
 	
+	static boolean bigMountains;
+	
 	//public static boolean allPolesCold = true;
 	
 	static int        biomeSize  = 16;
@@ -188,6 +190,10 @@ public class ConfigHandler {
 		
 		biomeWater = config.getBoolean("BiomeWaterColors", "General", false, 
 						"If true some biomes (mostly wetlands) will have special colors for their water.");
+		
+		bigMountains = config.getBoolean("BiggerMountains", "ClimaticRealistic", true, 
+						"If true mountains will tend to be bigger and more epic in the Climatic \n"
+						+ "Realistic world type, especially toward the middle of ranges (biomes).");
 		
 		addIslands = config.getBoolean("AddIslands", "General", true, 
 						"If true extra islands will be generated in the ocean \n "

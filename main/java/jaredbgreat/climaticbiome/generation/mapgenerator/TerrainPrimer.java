@@ -1,7 +1,8 @@
 package jaredbgreat.climaticbiome.generation.mapgenerator;
 
-import static jaredbgreat.climaticbiome.generation.chunk.HeightMapArea.statArray;
 import static jaredbgreat.climaticbiome.generation.mapgenerator.MapMaker.RSIZE;
+
+import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.generation.map.IRegionMap;
 import jaredbgreat.climaticbiome.util.NoiseMap;
 import net.minecraft.init.Biomes;
@@ -10,7 +11,8 @@ import net.minecraft.world.biome.Biome;
 
 public class TerrainPrimer {
 	
-	public void processTerrain(ChunkTile[] tiles, IRegionMap datamap, NoiseMap noise, SizeScale scale) {
+	public void processTerrain(ChunkTile[] tiles, IRegionMap datamap, NoiseMap noise, 
+				SizeScale scale, ClimaticWorldSettings settings) {
 		int[] out = new int[tiles.length];
 		double[][] scaleNoise  = noise.process(1001);
 		double[][] heightNoise = noise.process(8675);
@@ -22,8 +24,8 @@ public class TerrainPrimer {
 			tiles[i].scale = (float)Math.min(((Math.max((scaleNoise[x][z] * 2
 					+ 0.4d + (tiles[i].height) / 2d) / 5d, 0d))), tiles[i].height);
 			lowerRiver(tiles, x, z, scale.whole);
-			tiles[i].terrainType.heightAdjuster.processTile(tiles[i]);
-			if(tiles[i].height > 2) tiles[i].height = 3 - (1 / (tiles[i].height - 1));
+			tiles[i].terrainType.heightAdjuster.processTile(tiles[i], settings);
+			if(tiles[i].height > 3) tiles[i].height = 4 - (1 / (tiles[i].height - 1));
 			datamap.setTerrainExpress(Math.max(Math.min((int)((averageHeight(tiles, x, z, scale.whole) 
 							 * 32d) + 128d), 255), 0) +
 					 (Math.max(Math.min((int)((averageScale(tiles, x, z, scale.whole)  

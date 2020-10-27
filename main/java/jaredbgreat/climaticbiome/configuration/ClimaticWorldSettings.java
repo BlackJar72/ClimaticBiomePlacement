@@ -29,6 +29,8 @@ public class ClimaticWorldSettings {
 	public boolean volcanicIslands;
 	public boolean hasRivers;
 	
+	public boolean bigMountains;
+	
 	public int biomeSize;
 	public SizeScale regionSize;
 	public int mode;
@@ -59,6 +61,7 @@ public class ClimaticWorldSettings {
 		this.regionSize = ConfigHandler.regionSize;		
 		this.mode = ConfigHandler.mode;	
 		this.sisize = ConfigHandler.sisize;
+		this.bigMountains = ConfigHandler.bigMountains;
 	}
 	
 	
@@ -111,6 +114,9 @@ public class ClimaticWorldSettings {
 			
 			if(JsonUtils.hasField(jsonObj, "SurvivalIslandSize")) 		
 				sisize = JsonUtils.getFloat(jsonObj, "SurvivalIslandSize");
+			
+			if(JsonUtils.hasField(jsonObj, "BigMountains")) 		
+				bigMountains = JsonUtils.getBoolean(jsonObj, "BigMountains");
 		}		
 		return this;
 	}
@@ -147,7 +153,8 @@ public class ClimaticWorldSettings {
 		jsonObj.addProperty("biomeSize", biomeSize);
 		jsonObj.addProperty("regionSize", regionSize.ordinal() + 1);
 		jsonObj.addProperty("mapType", mode);
-		jsonObj.addProperty("SurvivalIslandSize", sisize);		
+		jsonObj.addProperty("SurvivalIslandSize", sisize);
+		jsonObj.addProperty("BigMountains", bigMountains);		
 		return jsonObj;
 	}
 	
@@ -415,6 +422,21 @@ public class ClimaticWorldSettings {
 		@Override
 		public void set(int input) {
 			target.hasRivers = input != 0;			
+		}		
+	}
+	
+	
+	public static class HasBigMountains extends BooleanSetter {
+		public HasBigMountains(ClimaticWorldSettings target) {
+			super(target);
+		}		
+		@Override
+		public void set(GuiCBToggleButton input) {
+			target.bigMountains = input.getState();
+		}
+		@Override
+		public void set(int input) {
+			target.bigMountains = input != 0;			
 		}		
 	}
 	

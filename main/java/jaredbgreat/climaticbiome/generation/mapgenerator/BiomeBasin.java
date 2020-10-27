@@ -39,8 +39,23 @@ public class BiomeBasin {
     }
     
     
-    public static int summateEffect(BiomeBasin[][] n, ChunkTile t) {
-    	return summateEffect(n, t.x, t.z);
+    public static void summateEffect(BiomeBasin[][] n, ChunkTile t) {
+        double effect = 0.0;
+        int indexx = 0;
+        int indexy = 0;
+        double power;
+        for(int i = 0; i < n.length; i++) 
+            for(int j = 0; j < n[i].length; j++) {
+                power = n[i][j].strength / n[i][j].getWeaknessAt(t.x, t.z);
+                if(effect < power) {
+                    effect = power;
+                    indexx = i;
+                    indexy = j;
+            }
+        }
+        t.centrality = Math.max(1 - (Math.sqrt(n[indexx][indexy].getWeaknessAt(t.x, t.z)) 
+        		/ n[indexx][indexy].strength) / 8.0, 0);
+        t.biomeSeed = n[indexx][indexy].value & 0x7fffffff;
     }
     
     

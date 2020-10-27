@@ -53,8 +53,8 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
 //		buttonList.add(new GuiButton(302, 20, 5, 80, 20, I18n.format("createWorld.customize.custom.prev")));
 //		buttonList.add(new GuiButton(303, this.width - 100, 5, 80, 20, 
 //				I18n.format("createWorld.customize.custom.next")));
-        buttonList.add(doneButton = new GuiButton(304, this.width / 2 - 187, this.height - 27, 90, 20, 
-        		I18n.format("createWorld.customize.custom.defaults")));
+//      buttonList.add(doneButton = new GuiButton(304, this.width / 2 - 187, this.height - 27, 90, 20, 
+//        		I18n.format("createWorld.customize.custom.defaults")));
         buttonList.add(resetButton = new GuiButton(300, this.width / 2 + 98, this.height - 27, 90, 20, 
         		I18n.format("gui.done")));
 //        buttonList.add(resetButton = new GuiButton(305, this.width / 2 - 44, this.height - 27, 90, 20, 
@@ -95,10 +95,10 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
         buttonList.add(deepSandButton = new GuiCBToggleButton(72, width - 190, 140,  
         		"createWorld." + Info.ID + ".deepsand", settings.deepSand, 
         		new ClimaticWorldSettings.DeepSandSetter(settings)));  
-        buttonList.add(volcanicIslandsButton = new GuiCBToggleButton(72, 40, 165,  
+        buttonList.add(volcanicIslandsButton = new GuiCBToggleButton(73, 40, 165,  
         		"createWorld." + Info.ID + ".volcanicislses", settings.volcanicIslands, 
         		new ClimaticWorldSettings.VolcanicIslandsSetter(settings)));   
-        buttonList.add(hasRiversButton = new GuiCBToggleButton(72, width - 190, 165,  
+        buttonList.add(hasRiversButton = new GuiCBToggleButton(74, width - 190, 165,  
         		"createWorld." + Info.ID + ".hasrivers", settings.hasRivers, 
         		new ClimaticWorldSettings.HasRiversSetter(settings)));      
 		

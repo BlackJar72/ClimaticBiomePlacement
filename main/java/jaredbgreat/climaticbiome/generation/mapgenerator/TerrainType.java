@@ -2,6 +2,7 @@ package jaredbgreat.climaticbiome.generation.mapgenerator;
 
 import java.util.Set;
 
+import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
@@ -73,13 +74,13 @@ public enum TerrainType {
 	
 	
 	public interface BiomeHeightAdjuster {
-		public void processTile(ChunkTile tile);
+		public void processTile(ChunkTile tile, ClimaticWorldSettings settings);
 	}
 	
 	
 	public static final class VariableHeightAdjuster implements BiomeHeightAdjuster {
 		@Override
-		public void processTile(ChunkTile tile) {
+		public void processTile(ChunkTile tile, ClimaticWorldSettings settings) {
 			Biome biome = Biome.getBiome(tile.rlBiome, Biomes.DEFAULT);
 			Set types = BiomeDictionary.getTypes(biome);
 			if(types.contains(Type.MESA)) {
@@ -100,7 +101,7 @@ public enum TerrainType {
 	
 	public static final class VanillaHeightAdjuster implements BiomeHeightAdjuster {
 		@Override
-		public void processTile(ChunkTile tile) {
+		public void processTile(ChunkTile tile, ClimaticWorldSettings settings) {
 			Biome biome = Biome.getBiome(tile.rlBiome, Biomes.DEFAULT);
 			tile.height = biome.getBaseHeight();
 			tile.scale = biome.getHeightVariation();
@@ -110,7 +111,7 @@ public enum TerrainType {
 	
 	public static final class MountainousHeightAdjuster implements BiomeHeightAdjuster {
 		@Override
-		public void processTile(ChunkTile tile) {
+		public void processTile(ChunkTile tile, ClimaticWorldSettings settings) {
 			Biome biome = Biome.getBiome(tile.rlBiome, Biomes.DEFAULT);
 			int seed = tile.nextBiomeSeed().getBiomeSeed();
 			if((seed & 0x1) == 0x1) {
@@ -122,13 +123,17 @@ public enum TerrainType {
 			} else {
 				tile.scale = Math.max(tile.scale, biome.getHeightVariation());
 			}
+			if(settings.bigMountains) {
+				tile.height += tile.centrality;
+				tile.scale += tile.centrality / 4.0;
+			}
 		}
 	}
 	
 	
 	public static final class AveragedHeightAdjuster implements BiomeHeightAdjuster {
 		@Override
-		public void processTile(ChunkTile tile) {
+		public void processTile(ChunkTile tile, ClimaticWorldSettings settings) {
 			Biome biome = Biome.getBiome(tile.rlBiome, Biomes.DEFAULT);
 			tile.height = (tile.height + biome.getBaseHeight()) * 0.5f ;
 			tile.scale  = (tile.scale + biome.getHeightVariation()) * 0.5f;
@@ -138,7 +143,7 @@ public enum TerrainType {
 	
 	public static final class PlateauHeightAdjuster implements BiomeHeightAdjuster {
 		@Override
-		public void processTile(ChunkTile tile) {
+		public void processTile(ChunkTile tile, ClimaticWorldSettings settings) {
 			Biome biome = Biome.getBiome(tile.rlBiome, Biomes.DEFAULT);
 			tile.height = (biome.getBaseHeight()) + (tile.height * 0.1f);
 			tile.scale = biome.getHeightVariation() + 0.05f + (tile.scale * 0.1f);
@@ -149,7 +154,7 @@ public enum TerrainType {
 	
 	public static final class SwampHeightAdjuster implements BiomeHeightAdjuster {
 		@Override
-		public void processTile(ChunkTile tile) {
+		public void processTile(ChunkTile tile, ClimaticWorldSettings settings) {
 			Biome biome = Biome.getBiome(tile.rlBiome, Biomes.DEFAULT);
 			tile.height = Math.max((biome.getBaseHeight()) + 0.2f, 0f);
 			tile.scale = biome.getHeightVariation();

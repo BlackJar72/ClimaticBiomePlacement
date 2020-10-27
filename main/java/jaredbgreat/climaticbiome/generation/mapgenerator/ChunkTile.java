@@ -21,6 +21,7 @@ public class ChunkTile extends AbstractCachable {
     int noiseVal = 0;
     int river;
     double height;
+    double centrality;
     float scale;
     boolean beach;
     TerrainType terrainType = TerrainType.VARIABLE;
