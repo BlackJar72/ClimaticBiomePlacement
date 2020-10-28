@@ -61,7 +61,7 @@ public class WeakCache <T extends IHaveCoords> {
                     grow();
                 }
                 return;
-            } else if(data[slot].equals(item)) {
+            } else if(data[slot].get().equals(item)) {
                 return;
             }else {
                 offset++;
@@ -283,7 +283,7 @@ public class WeakCache <T extends IHaveCoords> {
         while(offset <= data.length) {
             int slot = (bucket + offset) % data.length;
             if((data[slot] == null) || 
-            		(data[slot].get() != null && (data[slot].equals(item)))) {
+            		(data[slot].get() != null && (data[slot].get().equals(item)))) {
                 data[slot] = new CacheReference(item, this);
                 return;
             }else {

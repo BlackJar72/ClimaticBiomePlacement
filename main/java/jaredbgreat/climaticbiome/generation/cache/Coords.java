@@ -18,6 +18,9 @@ public final class Coords {
             if(other instanceof Coords) {
                     Coords o = (Coords)other;
                     return ((o.x == x) && (o.z == z));
+            } else if(other instanceof MutableCoords) {
+                    MutableCoords o = (MutableCoords)other;
+                    return ((o.getX() == x) && (o.getZ() == z));
             }
             return false;
 	}

@@ -91,9 +91,38 @@ public class SpatialHash {
      * @param t a fake iteration
      * @return 
      */
+    public float floatFor(int x, int y, int z, int t) {
+        return ((float)(longFor(x, y, z, t) & LONG_MASK)) 
+                / (MAX_LONG_F);
+    }
+    
+    
+    /**
+     * Generate a float from a given seed and coords.
+     * 
+     * @param x
+     * @param z
+     * @param t a fake iteration
+     * @return 
+     */
     public float floatFor(int x, int z, int t) {
         return ((float)(longFor(x, z, t) & LONG_MASK)) 
                 / (MAX_LONG_F);
+    }
+    
+    
+    /**
+     * Generate a double from a given seed and coords.
+     * 
+     * @param x
+     * @param z
+     * @param t a fake iteration
+     * @return 
+     */
+    public double doubleFor(int x, int y, int z, int t) {
+        return ((double)(longFor(x, y, z, t) 
+                & LONG_MASK)) 
+                / (MAX_LONG_D);
     }
     
     
@@ -127,6 +156,20 @@ public class SpatialHash {
     
     
     /**
+     * Should produce a random int from seed at coordinates x, y, t
+     * 
+     * @param seed
+     * @param x
+     * @param z
+     * @param t a fake iteration
+     * @return 
+     */
+    public int intFor(int x, int y, int z, int t) {
+        return (int)(longFor(x, y, z, t) & INT_MASK);
+    }
+    
+    
+    /**
      * Should produce a random long from seed at coordinates x, y, t
      * 
      * @param x
@@ -144,9 +187,38 @@ public class SpatialHash {
         alt ^= rotateLeft(alt, (x % 29) + 13);
         alt ^= rotateRight(alt, (z % 31) + 7);
         alt ^= rotateLeft(alt, (t % 23) + 19);
+        alt ^= rotateRight(alt, (z % 31) + 7);
         out ^= rotateLeft(out, ((x & INT_MASK) % 13) + 5);
         out ^= rotateRight(out, ((z & INT_MASK) % 11) + 28);  
-        out ^= rotateLeft(out, ((t & 0x7ffffff)% 17) + 45); 
+        out ^= rotateLeft(out, ((t & INT_MASK)% 17) + 45); 
+        return (out ^ alt);
+    }
+    
+    
+    /**
+     * Should produce a random long from seed at coordinates x, y, t
+     * 
+     * @param x
+     * @param z
+     * @param t a fake iteration
+     * @return 
+     */
+    public long longFor(int x, int y, int z, int t) {
+        long out = seed1 + (15485077L * (long)t)
+                         + (12338621L * (long)x) 
+                         + (15495631L * (long)y)
+                         + (14416417L * (long)z);
+        long alt = seed2 + (179424743L * (long)t)
+                         + (179426003L * (long)x)
+                         + (29556049L  * (long)y)
+                         + (179425819L * (long)z);
+        alt ^= rotateLeft(alt, (x % 29) + 13);
+        alt ^= rotateRight(alt, (z % 31) + 7);
+        alt ^= rotateLeft(alt, (t % 23) + 19);
+        alt ^= rotateRight(alt, (y % 7) + 7);
+        out ^= rotateLeft(out, ((x & INT_MASK) % 13) + 5);
+        out ^= rotateRight(out, ((z & INT_MASK) % 11) + 28);  
+        out ^= rotateLeft(out, ((y & INT_MASK)% 23) + 37); 
         return (out ^ alt);
     }
     
