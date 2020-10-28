@@ -2,7 +2,7 @@ package jaredbgreat.climaticbiome.generation.mapgenerator;
 
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-import jaredbgreat.climaticbiome.util.NoiseMap;
+import jaredbgreat.climaticbiome.util.NoiseMap2D;
 import jaredbgreat.climaticbiome.util.SpatialHash;
 
 public class LandmassMaker {
@@ -37,8 +37,8 @@ public class LandmassMaker {
                 out[(i * size) + j] 
                         = new ChunkTile(i, j, xoff, zoff);
         }        
-        NoiseMap heightmaker 
-                = new NoiseMap(random, size, 16 * scale.whole, 1.0, regx, regz);
+        NoiseMap2D heightmaker 
+                = new NoiseMap2D(random, size, 16 * scale.whole, 1.0, regx, regz);
         double[][] heights = heightmaker.process(0);
         for(int i = 0; i < size; i++)
             for(int j = 0; j < size; j++) {

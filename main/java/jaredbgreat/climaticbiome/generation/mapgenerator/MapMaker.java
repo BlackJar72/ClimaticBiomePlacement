@@ -13,7 +13,7 @@ import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.cache.MutableCoords;
 import jaredbgreat.climaticbiome.generation.map.IRegionMap;
-import jaredbgreat.climaticbiome.util.NoiseMap;
+import jaredbgreat.climaticbiome.util.NoiseMap2D;
 import jaredbgreat.climaticbiome.util.SpatialHash;
 import jaredbgreat.climaticbiome.util.SpatialHash.RandomAt;
 
@@ -130,8 +130,8 @@ public class MapMaker {
         SpatialHash random = chunkNoise;
         makeLandmass(basinAr, coords.getX(), coords.getZ(), random);
         
-        NoiseMap climateMaker 
-                = new NoiseMap(chunkNoise, RSIZE * scale.whole, 
+        NoiseMap2D climateMaker 
+                = new NoiseMap2D(chunkNoise, RSIZE * scale.whole, 
                         32 * scale.whole, 2.0, 
                         coords.getX(), coords.getZ());
         

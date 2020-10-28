@@ -4,14 +4,14 @@ import static jaredbgreat.climaticbiome.generation.mapgenerator.MapMaker.RSIZE;
 
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.generation.map.IRegionMap;
-import jaredbgreat.climaticbiome.util.NoiseMap;
+import jaredbgreat.climaticbiome.util.NoiseMap2D;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 
 
 public class TerrainPrimer {
 	
-	public void processTerrain(ChunkTile[] tiles, IRegionMap datamap, NoiseMap noise, 
+	public void processTerrain(ChunkTile[] tiles, IRegionMap datamap, NoiseMap2D noise, 
 				SizeScale scale, ClimaticWorldSettings settings) {
 		int[] out = new int[tiles.length];
 		double[][] scaleNoise  = noise.process(1001);

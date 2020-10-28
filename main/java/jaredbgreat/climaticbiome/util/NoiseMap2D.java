@@ -16,14 +16,14 @@ import java.util.Collections;
  * 
  * @author Jared Blackburn
  */
-public class NoiseMap {
+public class NoiseMap2D {
     int size, interval, currentInterval, regx, regy;
     double[][] field;
     double scale, divisor;
     SpatialHash random;
 
     
-    public NoiseMap(SpatialHash random, int size, int interval, 
+    public NoiseMap2D(SpatialHash random, int size, int interval, 
                 double scale, int regx, int regy) {
         this.size = size; 
         this.interval = interval; 
