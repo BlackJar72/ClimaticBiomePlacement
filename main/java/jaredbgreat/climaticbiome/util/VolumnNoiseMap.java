@@ -14,7 +14,7 @@ package jaredbgreat.climaticbiome.util;
  * @author jared
  */
 public class VolumnNoiseMap {
-    int xOff, yOff, zOff, sizex, sizey, sizez, interval, currentInterval;
+    int xOff, yOff, zOff, sizex, sizey, sizez, interval, cutoff, currentInterval;
     float[][][] field;
     float scale, divisor;
     
@@ -28,11 +28,22 @@ public class VolumnNoiseMap {
         }
     }
     
+    public VolumnNoiseMap(int sizex, int sizey, int sizez, int interval, 
+    			int cutoff, float scale) {
+        this.sizex = sizex; 
+        this.sizey = sizey; 
+        this.sizez = sizez; 
+        this.interval = interval;
+        this.cutoff = cutoff;
+        this.scale = scale;
+    }
+    
     public VolumnNoiseMap(int sizex, int sizey, int sizez, int interval, float scale) {
         this.sizex = sizex; 
         this.sizey = sizey; 
         this.sizez = sizez; 
-        this.interval = interval; 
+        this.interval = interval;
+        this.cutoff = 2;
         this.scale = scale;
     }
 
@@ -51,7 +62,7 @@ public class VolumnNoiseMap {
         field = new float[sizex][sizey][sizez];
         currentInterval = interval;
         divisor = 1.0f;
-        while(currentInterval > 2) {
+        while(currentInterval > cutoff) {
             processOne(rand);            
             divisor *=2;
             currentInterval /= 2;

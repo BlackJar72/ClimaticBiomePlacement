@@ -13,16 +13,30 @@ package jaredbgreat.climaticbiome.util;
  * @author Jared Blackburn
  */
 public class NoiseMap3D {
-    int size, interval, currentInterval, regx, regy, regz;
+    int size, interval, cutoff, currentInterval, regx, regy, regz;
     double[][][] field;
     double scale, divisor;
     SpatialHash random;
 
     
-    public NoiseMap3D(SpatialHash random, int size, int interval, 
+    public NoiseMap3D(SpatialHash random, int size, int interval, int cutoff,  
                 double scale, int regx, int regy, int regz) {
         this.size = size; 
         this.interval = interval; 
+        this.cutoff = cutoff;
+        this.scale = scale;
+        this.regx = regx;
+        this.regy = regy;
+        this.size = size;
+        this.random = random;
+    }
+
+    
+    public NoiseMap3D(SpatialHash random, int size, int interval,   
+                double scale, int regx, int regy, int regz) {
+        this.size = size; 
+        this.interval = interval; 
+        this.cutoff = 2;
         this.scale = scale;
         this.regx = regx;
         this.regy = regy;
@@ -45,7 +59,7 @@ public class NoiseMap3D {
         field = new double[size][size][size];
         currentInterval = interval;
         divisor = 1.0;
-        while(currentInterval > 2) {
+        while(currentInterval > cutoff) {
             processOne(startz);            
             divisor *= 2;
             currentInterval /= 2;
