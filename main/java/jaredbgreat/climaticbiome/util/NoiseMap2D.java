@@ -17,15 +17,29 @@ import java.util.Collections;
  * @author Jared Blackburn
  */
 public class NoiseMap2D {
-    int size, interval, currentInterval, regx, regy;
+    int size, interval, cutoff, currentInterval, regx, regy;
     double[][] field;
     double scale, divisor;
     SpatialHash random;
 
     
+    public NoiseMap2D(SpatialHash random, int size, int interval, int cutoff,  
+                double scale, int regx, int regy) {
+        this.size = size; 
+        this.cutoff = cutoff;
+        this.interval = interval; 
+        this.scale = scale;
+        this.regx = regx;
+        this.regy = regy;
+        this.size = size;
+        this.random = random;
+    }
+
+    
     public NoiseMap2D(SpatialHash random, int size, int interval, 
                 double scale, int regx, int regy) {
         this.size = size; 
+        this.cutoff = 2;
         this.interval = interval; 
         this.scale = scale;
         this.regx = regx;
@@ -49,7 +63,7 @@ public class NoiseMap2D {
         field = new double[size][size];
         currentInterval = interval;
         divisor = 1.0;
-        while(currentInterval > 2) {
+        while(currentInterval > cutoff) {
             processOne(startz);            
             divisor *= 2;
             currentInterval /= 2;

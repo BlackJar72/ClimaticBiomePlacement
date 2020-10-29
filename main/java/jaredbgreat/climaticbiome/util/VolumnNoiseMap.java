@@ -28,9 +28,10 @@ public class VolumnNoiseMap {
         }
     }
     
-    public VolumnNoiseMap(int sizex, int sizey, int interval, float scale) {
+    public VolumnNoiseMap(int sizex, int sizey, int sizez, int interval, float scale) {
         this.sizex = sizex; 
-        this.sizez = sizey; 
+        this.sizey = sizey; 
+        this.sizez = sizez; 
         this.interval = interval; 
         this.scale = scale;
     }

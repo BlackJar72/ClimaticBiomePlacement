@@ -1,43 +1,63 @@
 package jaredbgreat.climaticbiome.generation.chunk;
 
 import jaredbgreat.climaticbiome.generation.cache.AbstractWeaklyCacheable;
-import jaredbgreat.climaticbiome.generation.cache.WeakCache;
-import jaredbgreat.climaticbiome.util.HeightNoiseMap;
 import jaredbgreat.climaticbiome.util.ModMath;
 import jaredbgreat.climaticbiome.util.SpatialHash;
+import jaredbgreat.climaticbiome.util.VolumnNoiseMap;
 
-public class HeightMapArea extends AbstractWeaklyCacheable {
+public class VolumnMapArea extends AbstractWeaklyCacheable {
 	public static final int CSIZE = 8;          // Width and depth in chunks
 	public static final int BSIZE = CSIZE * 16; // Width and depth in blocks
 	public static final int SCALE = 192;         // Multiplier for height
 	
-	private final float[][] heightMap, other;
+	private final float[][][] noiseMap;
 	
 	
-	public HeightMapArea(int x, int z, SpatialHash rand, HeightMapManager manager) {
+	public VolumnMapArea(int x, int z, SpatialHash rand, VolumnMapManager manager) {
 		super(x, z, manager.getCache());
-    	HeightNoiseMap noise = new HeightNoiseMap(BSIZE, BSIZE, BSIZE, 8, SCALE);
-    	heightMap = noise.process(rand, x * BSIZE, z * BSIZE);
-    	other = noise.process(new SpatialHash(rand.longFor(6, 6, 6)), x * BSIZE, z * BSIZE);
+    	VolumnNoiseMap noise = new VolumnNoiseMap(BSIZE, 256, BSIZE, BSIZE, SCALE);
+    	noiseMap = noise.process(rand, x * BSIZE, z * BSIZE);
 	}
 	
 	
-	public int[][] getChunkHieghts(int x, int z, float[] biomeData) {
-    	int[][] out = new int[4][256];
+	public int[] getChunkHieghts(int x, int z, float[] biomeData) {
+    	int[] out = new int[65536];
     	int startx = ModMath.modRight(x, CSIZE) * 16;
     	int startz = ModMath.modRight(z, CSIZE) * 16;
     	int endx   = startx + 16;
     	int endz   = startz + 16;
     	int ix = 0, jz = 0;
-    	int index;
+    	int index1, index2;
     	for(int i = startx; i < endx; i++, ix++) {
     		jz = 0;
     		for(int j = startz; j < endz; j++, jz++) {
-    			index = (ix * 16) + jz;
-    			out[0][index] = (int)((heightMap[i][j] * biomeData[index + 256]) 
-    					+ (biomeData[index] * 20) + 64);
-    			out[1][index] = (int)((other[i][j] * biomeData[index + 256]) 
-    					+ (biomeData[index] * 20) + 64);
+    			index1 = (ix * 16) + jz;
+        		for(int k = 0; k < 256; k++) {
+        			index2 = (index1 * 256) + k;
+	    			out[index2] = (int)((noiseMap[i][k][j] * biomeData[index1 + 256]) 
+	    					+ (biomeData[index1] * 20) + 64);
+        		}
+    		}
+    	}
+    	return out;
+	}
+	
+	
+	public float[] getChunkNoise(int x, int z, float[] biomeData) {
+    	float[] out = new float[1024];
+    	int startx = ModMath.modRight(x, CSIZE) * 4;
+    	int startz = ModMath.modRight(z, CSIZE) * 4;
+    	int endx   = startx + 4;
+    	int endz   = startz + 4;
+    	int ix = 0, jz = 0;
+    	int index1, index2;
+    	for(int i = startx; i < endx; i++, ix++) {
+    		jz = 0;
+    		for(int j = startz; j < endz; j++, jz++) {
+        		for(int k = 0; k < 64; k++) {
+	    			index2 = (((ix * 4) + jz) * 64) + k;
+	    			out[index2] = (noiseMap[i][k][j] / SCALE) * 4;
+        		}
     		}
     	}
     	return out;

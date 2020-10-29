@@ -14,7 +14,7 @@ package jaredbgreat.climaticbiome.util;
  * @author jared
  */
 public class HeightNoiseMap {
-    int xOff, zOff, sizex, sizez, interval, currentInterval;
+    int xOff, zOff, sizex, sizez, interval, cutoff, currentInterval;
     float[][] field;
     float scale, divisor;
     
@@ -28,10 +28,19 @@ public class HeightNoiseMap {
         }
     }
     
+    public HeightNoiseMap(int sizex, int sizey, int interval, int cutoff, float scale) {
+        this.sizex = sizex; 
+        this.sizez = sizey; 
+        this.interval = interval; 
+        this.cutoff = cutoff;
+        this.scale = scale;
+    }
+    
     public HeightNoiseMap(int sizex, int sizey, int interval, float scale) {
         this.sizex = sizex; 
         this.sizez = sizey; 
         this.interval = interval; 
+        this.cutoff = 2;
         this.scale = scale;
     }
 
@@ -50,7 +59,7 @@ public class HeightNoiseMap {
         field = new float[sizex][sizez];
         currentInterval = interval;
         divisor = 1.0f;
-        while(currentInterval > 2) {
+        while(currentInterval > cutoff) {
             processOne(rand);            
             divisor *=2;
             currentInterval /= 2;
