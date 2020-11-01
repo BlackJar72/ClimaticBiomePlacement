@@ -32,7 +32,7 @@ public class ServerProxy implements IProxy {
 	public void preInit() {/*Do Nothing*/}
 
 	@Override
-	public void init() {/*Do Nothing*/}
+	public void init() {}
 	
 	
 	@Override

@@ -18,15 +18,6 @@ public class HeightNoiseMap {
     float[][] field;
     float scale, divisor;
     
-    private static final class PDat {
-        public final float val;
-        public final float weight;
-        public static final PDat Z0 = new PDat(0.0f, 0.0f);
-        public PDat(float v, float w) {
-            val = v;
-            weight = w;
-        }
-    }
     
     public HeightNoiseMap(int sizex, int sizey, int interval, int cutoff, float scale) {
         this.sizex = sizex; 

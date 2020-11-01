@@ -1,5 +1,8 @@
 package jaredbgreat.climaticbiome;
 
+import java.io.File;
+import java.util.logging.Logger;
+
 import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.biomes.basic.ActiveVolcano;
 import jaredbgreat.climaticbiome.biomes.feature.GenPine;
@@ -8,14 +11,11 @@ import jaredbgreat.climaticbiome.compat.userdef.VariantParser;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.ClimaticRealisticWorldType;
 import jaredbgreat.climaticbiome.generation.ClimaticWorldType;
+import jaredbgreat.climaticbiome.generation.decorxtra.SpecialGenHandler;
 import jaredbgreat.climaticbiome.proxy.IProxy;
 import jaredbgreat.climaticbiome.util.BlockRegistrar;
 import jaredbgreat.climaticbiome.util.Externalizer;
 import jaredbgreat.climaticbiome.util.ItemRegistrar;
-
-import java.io.File;
-import java.util.logging.Logger;
-
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.WoodlandMansion;
@@ -34,6 +34,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 @Mod(modid=Info.ID, name=Info.NAME, version=Info.VERSION,
 acceptableRemoteVersions=Info.VERSION, dependencies=Info.DEPSTR)
 public class ClimaticBiomes {
+	private static SpecialGenHandler specialGen;
 	
 	@Instance
 	public static ClimaticBiomes instance;
@@ -70,10 +71,11 @@ public class ClimaticBiomes {
 
 
     @EventHandler
-    public void init(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event) {    	
     	proxy.init();
+    	specialGen = new SpecialGenHandler();
     	ItemRegistrar.addRecipes();
-    	makeFiles();
+    	makeFiles();    	
     }
 
 

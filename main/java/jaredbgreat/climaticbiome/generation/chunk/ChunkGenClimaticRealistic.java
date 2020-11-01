@@ -42,7 +42,17 @@ public class ChunkGenClimaticRealistic extends ChunkGeneratorOverworld {
 					}
     			}
 			}
+    	
+    	//altTest(x, z, primer);
     }
+    
+    
+    /*
+     * A method to stash experimental world gen so I can edit 
+     * it without altering the real method.  Instead the real 
+     * world gen can be commented out and a call the this used.
+     */
+    private void altTest(int x, int z, ChunkPrimer primer) {}
     
     
     // FIXME? Should this return and int[] or should I use a byte[]?

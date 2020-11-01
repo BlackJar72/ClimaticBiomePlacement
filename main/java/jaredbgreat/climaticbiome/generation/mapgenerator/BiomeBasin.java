@@ -78,7 +78,22 @@ public class BiomeBasin {
     
     
     public static ChunkTile summateForCenter(BiomeBasin[][] n, ChunkTile t) {
-    	return summateForCenter(n, t.x, t.z);
+        double effect = 0.0;
+        int indexx = 0;
+        int indexy = 0;
+        double power;
+        for(int i = 0; i < n.length; i++) 
+            for(int j = 0; j < n[i].length; j++) {
+                power = n[i][j].strength / n[i][j].getWeaknessAt(t.x, t.z);
+                if(effect < power) {
+                    effect = power;
+                    indexx = i;
+                    indexy = j;
+            }
+        }
+        t.centrality = Math.max(1 - (Math.sqrt(n[indexx][indexy].getWeaknessAt(t.x, t.z)) 
+        		/ n[indexx][indexy].strength) / 8.0, 0);
+        return n[indexx][indexy].center;
     }
     
     

@@ -18,15 +18,6 @@ public class VolumnNoiseMap {
     float[][][] field;
     float scale, divisor;
     
-    private static final class PDat {
-        public final float val;
-        public final float weight;
-        public static final PDat Z0 = new PDat(0.0f, 0.0f);
-        public PDat(float v, float w) {
-            val = v;
-            weight = w;
-        }
-    }
     
     public VolumnNoiseMap(int sizex, int sizey, int sizez, int interval, 
     			int cutoff, float scale) {
@@ -102,9 +93,11 @@ public class VolumnNoiseMap {
         for(int i = 0; i < nodesX; i++)
             for(int j = 0; j < nodesY; j++)
                 for(int k = 0; k < nodesZ; k++) {
-	                nodes[i][j][k] = new Vec3D(rand, i + xOff / currentInterval, 
-	                                              j + yOff / currentInterval, 
-	                                              k + zOff / currentInterval, (int)divisor);
+	                nodes[i][j][k] = new Vec3D(rand, 
+	                		                   i + xOff / currentInterval, 
+	                                           j + yOff / currentInterval, 
+	                                           k + zOff / currentInterval, 
+	                                           (int)divisor);
         }
         for(int i = 0; i < sizex; i++)
             for(int j = 0; j < sizey; j++)

@@ -25,6 +25,7 @@ public class TerrainPrimer {
 					+ 0.4d + (tiles[i].height) / 2d) / 5d, 0d))), tiles[i].height);
 			lowerRiver(tiles, x, z, scale.whole);
 			tiles[i].terrainType.heightAdjuster.processTile(tiles[i], settings);
+			
 			if(tiles[i].height > 3) tiles[i].height = 4 - (1 / (tiles[i].height - 1));
 			datamap.setTerrainExpress(Math.max(Math.min((int)((averageHeight(tiles, x, z, scale.whole) 
 							 * 32d) + 128d), 255), 0) +
