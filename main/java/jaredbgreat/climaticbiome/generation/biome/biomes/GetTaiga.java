@@ -16,7 +16,6 @@ public class GetTaiga implements IBiomeSpecifier {
 		init();
 	}
 	private BiomeList forest;
-	private IBiomeSpecifier alpine;
 	private static int tbound;
 	
 	
@@ -40,7 +39,6 @@ public class GetTaiga implements IBiomeSpecifier {
 			tbound = 7;
 		}
 		forest = new BiomeList();
-		alpine = GetAlpine.getAlpine();
 		DefReader.readBiomeData(forest, "Taiga.cfg");
 		if(forest.isEmpty()){
 			forest.addItem(new TempDoubleBiome(30,  tbound, 5),  4);
@@ -54,7 +52,6 @@ public class GetTaiga implements IBiomeSpecifier {
 
 	@Override
 	public long getBiome(ChunkTile tile) {
-		if((tile.getBiomeSeed() % 5) == 0) return alpine.getBiome(tile);
 		return forest.getBiome(tile);
 	}
 	

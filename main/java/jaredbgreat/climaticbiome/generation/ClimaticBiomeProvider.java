@@ -22,11 +22,19 @@ public class ClimaticBiomeProvider extends BiomeProvider {
         private IMapRegistry finder;
         private boolean vanillaCacheValid;
         private boolean altChunks;
+        public static int sporaticMountains;
+        public static boolean rangedMountains;
         
         
-        public ClimaticBiomeProvider(World world, boolean altChunks) {             
+        public ClimaticBiomeProvider(World world, boolean altChunks, boolean ranges) {             
                 super(/*world.getWorldInfo()*/);
+                rangedMountains = ranges;
                 vanillaCacheValid = true;
+                if(ranges) {
+                	sporaticMountains = 17;
+                } else {
+                	sporaticMountains = 5;
+                }
                 this.world = world;
                 {
 	                if(net.minecraftforge.fml.common.Loader.isModLoaded("jeid")) {

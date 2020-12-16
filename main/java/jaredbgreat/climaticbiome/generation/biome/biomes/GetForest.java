@@ -14,14 +14,12 @@ public class GetForest implements IBiomeSpecifier {
 		init();
 	}
 	private BiomeList forests;
-	private GetAlpine alpine;
 	private GetPlains plains;
 	private GetSwamp swamp;
 	
 	
 	public void init() {
 		forests = new BiomeList();
-		alpine  = GetAlpine.getAlpine();
 		plains  = GetPlains.getPlains();
 		swamp   = GetSwamp.getSwamp();
 		DefReader.readBiomeData(forests, "Forest.cfg");
@@ -37,13 +35,9 @@ public class GetForest implements IBiomeSpecifier {
 
 	@Override
 	public long getBiome(ChunkTile tile) {
-		int role1 = tile.getBiomeSeed() % 5;
 		int role2 = tile.getBiomeSeed() % 7;
 		int role3 = tile.getBiomeSeed() % 11;
 		tile.nextBiomeSeed();
-		if((role1) == 0) {
-			return alpine.getBiome(tile);
-		}
 		if((role2) == 0) {
 			return swamp.getBiome(tile);
 		}

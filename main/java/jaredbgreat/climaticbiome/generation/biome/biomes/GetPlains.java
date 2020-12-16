@@ -13,12 +13,10 @@ public class GetPlains implements IBiomeSpecifier {
 		init();
 	}
 	private BiomeList plains;
-	private GetAlpine alpine;
 	
 	
 	public void init() {
 		plains = new BiomeList();
-		alpine = GetAlpine.getAlpine();
 		DefReader.readBiomeData(plains, "Plains.cfg");
 		if(plains.isEmpty()) {
 			plains.addItem(new SeedDoubleBiome(129, 7, 1));
@@ -30,10 +28,6 @@ public class GetPlains implements IBiomeSpecifier {
 	@Override
 	public long getBiome(ChunkTile tile) {
 		int seed = tile.getBiomeSeed();
-		if((seed % 4) == 0) {
-			tile.nextBiomeSeed();
-			return alpine.getBiome(tile);
-		}
 		tile.nextBiomeSeed();
 		return plains.getBiome(tile);
 	}

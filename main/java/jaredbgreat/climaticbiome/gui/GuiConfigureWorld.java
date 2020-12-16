@@ -1,18 +1,16 @@
 package jaredbgreat.climaticbiome.gui;
 
+import java.io.IOException;
+
 import jaredbgreat.climaticbiome.Info;
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
-
-import java.io.IOException;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiCreateWorld;
 import net.minecraft.client.gui.GuiPageButtonList;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSlider;
 import net.minecraft.client.resources.I18n;
-import biomesoplenty.client.gui.GuiBOPConfigureWorld;
 
 public class GuiConfigureWorld extends GuiScreen 
 implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {

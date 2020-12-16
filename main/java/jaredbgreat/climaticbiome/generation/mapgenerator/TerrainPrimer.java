@@ -16,9 +16,10 @@ public class TerrainPrimer {
 		int[] out = new int[tiles.length];
 		double[][] scaleNoise  = noise.process(1001);
 		double[][] heightNoise = noise.process(8675);
+		int D = RSIZE * scale.whole;
 		for(int i = 0; i < tiles.length; i++) {
-			int x = i / (RSIZE * scale.whole);
-			int z = i % (RSIZE * scale.whole);
+			int x = i / D;
+			int z = i % D;
 			if(tiles[i].isRiver()) tiles[i].setSteep();
 			tiles[i].height = Math.max((heightNoise[x][z] + 1), 0) * (tiles[i].height - 0.6);
 			tiles[i].scale = (float)Math.min(((Math.max((scaleNoise[x][z] * 2
@@ -26,11 +27,53 @@ public class TerrainPrimer {
 			lowerRiver(tiles, x, z, scale.whole);
 			tiles[i].terrainType.heightAdjuster.processTile(tiles[i], settings);
 			
+			if((x > 1) && (x < (D - 2)) && (z > 1) && (z < (D - 2)) 
+					&& ((tiles[i].isMountain())) &&  !(scale == SizeScale.X1)) {
+				smooth(tiles, x, z, D, scale);
+			}
+			
 			if(tiles[i].height > 3) tiles[i].height = 4 - (1 / (tiles[i].height - 1));
 			datamap.setTerrainExpress(Math.max(Math.min((int)((averageHeight(tiles, x, z, scale.whole) 
 							 * 32d) + 128d), 255), 0) +
 					 (Math.max(Math.min((int)((averageScale(tiles, x, z, scale.whole)  
 							 * 32d) + 128d), 255), 0) << 8), i);
+		}
+	}
+	
+	
+	private void smooth(ChunkTile[] tiles, int x, int z, int D, SizeScale scale) {
+		if(scale == SizeScale.X2) { 
+			ChunkTile tile = tiles[(x * D) + z];
+			//System.out.print(tile.height + " -> ");
+			for(int i = x - 1; i < (x + 2); i++)
+				for(int j = z - 1; j < (z + 2); j++) {
+					tile.height += tiles[(i * D) + j].height;
+					tile.scale  += tiles[(i * D) + j].scale;
+				}
+			//System.out.print(tile.height + " -> ");
+			tile.height /= 10.0;
+			tile.scale  /= 10.0;
+			//System.out.println(tile.height);*/
+		} else {
+			ChunkTile tile = tiles[(x * D) + z];
+			double h1 = tile.height, s1 = tile.scale;
+			for(int i = x - 1; i < (x + 2); i++)
+				for(int j = z - 1; j < (z + 2); j++) {
+					h1 += tiles[(i * D) + j].height;
+					s1 += tiles[(i * D) + j].scale;
+				}
+			h1 /= 10.0;
+			s1 /= 10.0;
+			double h2 = 0, s2 = 0;
+			for(int i = x - 2; i < (x + 3); i++)
+				for(int j = z - 2; j < (z + 3); j++) {
+					h2 += tiles[(i * D) + j].height;
+					s2 += tiles[(i * D) + j].scale;
+				}
+			h2 /= 25.0;
+			s2 /= 25.0;
+			tile.height = (h1 + h2) / 2.0;
+			//tile.scale  = (float)s1;//(float)((s1 + s2) / 2.0);
 		}
 	}
 	

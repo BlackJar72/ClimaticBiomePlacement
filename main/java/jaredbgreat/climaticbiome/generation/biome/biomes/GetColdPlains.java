@@ -24,9 +24,6 @@ public class GetColdPlains implements IBiomeSpecifier {
 
 	@Override
 	public long getBiome(ChunkTile tile) {
-		if((tile.getBiomeSeed() % 3) == 0) {
-			return 13;  // TODO: Once GetAlpine is more generic use that
-		}
 		tile.nextBiomeSeed();
 		return coldPlains.getBiome(tile);
 	}

@@ -107,6 +107,10 @@ public class ChunkTile extends AbstractCachable {
     public boolean isAveragedTerrain() {
         return terrainType == TerrainType.AVERAGED;
     }
+
+    public boolean shouldSmooth() {
+        return terrainType.smooth;
+    }
     
     public TerrainType getTerrainType() {
     	return terrainType;

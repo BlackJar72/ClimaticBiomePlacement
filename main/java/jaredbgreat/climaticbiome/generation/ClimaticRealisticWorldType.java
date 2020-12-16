@@ -45,7 +45,7 @@ public class ClimaticRealisticWorldType extends WorldType {
     
     @Override @Nonnull
     public BiomeProvider getBiomeProvider(@Nonnull World world) { 
-        return new ClimaticBiomeProvider(world, true);
+        return new ClimaticBiomeProvider(world, true, true);
     }
     
     

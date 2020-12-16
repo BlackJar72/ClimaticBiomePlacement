@@ -22,14 +22,12 @@ public class GetCoolForest implements IBiomeSpecifier {
 		init();
 	}
 	private BiomeList forests;
-	private GetAlpine alpine;
 	private GetCoolPlains plains;
 	private GetSwamp swamp;
 	
 	
 	public void init() {
 		forests = new BiomeList();
-		alpine  = GetAlpine.getAlpine();
 		plains  = GetCoolPlains.getPlains();
 		swamp   = GetSwamp.getSwamp();		
 		DefReader.readBiomeData(forests, "ForestCool.cfg");
@@ -45,13 +43,9 @@ public class GetCoolForest implements IBiomeSpecifier {
 	
 	@Override
 	public long getBiome(ChunkTile tile) {
-		int role1 = tile.getBiomeSeed() % 5;
 		int role2 = tile.getBiomeSeed() % 7;
 		int role3 = tile.getBiomeSeed() % 12;
 		tile.nextBiomeSeed();
-		if((role1) == 0) {
-			return alpine.getBiome(tile);
-		}
 		if((role2) == 0) {
 			return swamp.getBiome(tile);
 		}

@@ -539,13 +539,13 @@ public class NewMapRegistry extends AbstractMapRegistry implements IMapRegistry 
     
     @Override
 	public float[] getTerrainBiomeGen(int x, int z, float[] in) {
-    	BasinNode[] heights = new BasinNode[49];
-    	BasinNode[] scales  = new BasinNode[49];
-    	for(int i = 0; i < 49; i++) {
-    		int x1 = (i / 7);
-    		int z1 = (i % 7);   
-    		int x2 = x + x1;
-    		int z2 = z + z1;
+    	BasinNode[] heights = new BasinNode[361];
+    	BasinNode[] scales  = new BasinNode[361];
+    	for(int i = 0; i < 225; i++) {
+    		int x1 = (i / 19);
+    		int z1 = (i % 19);   
+    		int x2 = x + x1 - 9;
+    		int z2 = z + z1 - 9;
     		heights[i] = new BasinNode(
     				(x1 * 16) + (chunkNoise.intFor(x2, z2, 10) % 16),
     				(z1 * 16) + (chunkNoise.intFor(x2, z2, 11) % 16),

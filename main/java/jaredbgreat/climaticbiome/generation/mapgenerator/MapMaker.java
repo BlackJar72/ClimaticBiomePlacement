@@ -7,6 +7,7 @@ package jaredbgreat.climaticbiome.generation.mapgenerator;
 
 import static jaredbgreat.climaticbiome.util.SpatialHash.absModulus;
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
+import jaredbgreat.climaticbiome.generation.ClimaticBiomeProvider;
 import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
@@ -58,6 +59,8 @@ public class MapMaker {
     private int zoff;    
 
     private ChunkTile[] premap;
+    
+    private double[][] faulty;
     
     
     public MapMaker(SpatialHash chunkNoise, SpatialHash regionNoise, 
@@ -178,6 +181,9 @@ public class MapMaker {
         }
         for(int i = start; i < end; i++) {
         	makeCoast(premap[i]);
+        }
+        if(ClimaticBiomeProvider.rangedMountains) {
+        	makeFaults(coords);
         }
         for(int i = 0; i < premap.length; i++) {
         	premap[i].rlBiome = (int)specifier.getBiome(premap[i]);
@@ -326,6 +332,11 @@ public class MapMaker {
             }
         for (ChunkTile tile : premap) {
             BiomeBasin.summateEffect(subbiomes, tile);
+            if(((tile.getBiomeSeed() % ClimaticBiomeProvider.sporaticMountains) == 0) 
+            			&& (tile.rlBiome != 0)) {
+            	tile.setMountainous();
+            }
+            tile.nextBiomeSeed();
         }
     }
     
@@ -348,6 +359,11 @@ public class MapMaker {
             tile.biomeSeed = basis.biomeSeed;
             tile.wet  = basis.wet;
             tile.temp = basis.temp;
+            if(((tile.getBiomeSeed() % ClimaticBiomeProvider.sporaticMountains) == 0) 
+        				&& (tile.rlBiome != 0)) { 
+            	tile.setMountainous();
+            }
+            tile.nextBiomeSeed();
         }
     }
     
@@ -443,6 +459,28 @@ public class MapMaker {
         t.beach = t.getNoise() < (beaches + 4 
                 - ((t.getBiomeSeed() >> 14) & 1)
                 + ((t.getBiomeSeed() >> 13) & 1));
+    }
+    
+    
+    public void makeFaults(Coords coords) {
+    	NoiseMap2D faultMaker 
+                = new NoiseMap2D(chunkNoise, RSIZE * scale.whole, 
+                        128 * scale.whole, 1.0, 
+                        coords.getX(), coords.getZ());
+        faulty = faultMaker.process(130);
+        for(int i = 0; i < faulty.length; i++)
+            for(int j = 0; j < faulty[i].length; j++) {
+                faulty[i][j] = faulty[i][j] * faulty[i][j];
+            if(faulty[i][j] < 0.001) {  
+            		ChunkTile t = premap[(j * RSIZE * scale.whole) + i]; 
+                    if(t.rlBiome != 0) {
+                        float hp = (float)(Math.max(0, (0.001 - faulty[i][j])) * 1000f);
+                        t.terrainType = TerrainType.MOUNTIANOUS;
+	                    t.height += hp; 
+	                    t.scale += (hp * 0.2f);
+                    }
+            }
+        }
     }
     
     

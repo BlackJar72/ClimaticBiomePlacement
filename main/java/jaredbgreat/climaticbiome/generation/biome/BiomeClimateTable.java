@@ -134,6 +134,9 @@ public class BiomeClimateTable implements IBiomeSpecifier {
             }
             tile.nextBiomeSeed();
         }
+        if(tile.nextBiomeSeed().isMountain()) {
+        	return ALPINE.getBiome(tile);
+        }
 		long out = table[(tile.getTemp() * 10) + tile.getWet()].getBiome(tile);
     	Biome outb = Biome.getBiome((int)out);
     	if(outb == null) {

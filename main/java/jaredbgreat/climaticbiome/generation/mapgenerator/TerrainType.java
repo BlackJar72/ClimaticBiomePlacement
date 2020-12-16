@@ -11,26 +11,28 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 
 public enum TerrainType {
     // This would be the norm if using non-biome height/scale data
-	VARIABLE (new VariableHeightAdjuster()),
+	VARIABLE (new VariableHeightAdjuster(), true),
 	// This would force the used of biome height/scale data
-	VANILLA (new VanillaHeightAdjuster()),     
+	VANILLA (new VanillaHeightAdjuster(), true),     
 	// For mountains, this adds variable and vanilla height, uses the higher scale
-	MOUNTIANOUS (new MountainousHeightAdjuster()),
+	MOUNTIANOUS (new MountainousHeightAdjuster(), true),
 	// Like vanilla but reduces some averaging; for plateaus and technical biomes
-	STEEP (new VanillaHeightAdjuster()),       
+	STEEP (new VanillaHeightAdjuster(), false),       
 	// Use the mean of biome and noise; might be used for hills?
-	AVERAGED (new AveragedHeightAdjuster()),
+	AVERAGED (new AveragedHeightAdjuster(), true),
 	// Used for plateaus, before setting them to STEEP
-	PLATEAU (new PlateauHeightAdjuster()),
+	PLATEAU (new PlateauHeightAdjuster(), false),
 	// Used for swamps, before setting them to STEEP
-	SWAMP (new SwampHeightAdjuster());    
+	SWAMP (new SwampHeightAdjuster(), true);    
 	
 	public static final TerrainType[] types = values(); // Just make it public, with no method call... 
 	
 	public final BiomeHeightAdjuster heightAdjuster;
+	public final boolean smooth;
 	
-	TerrainType(BiomeHeightAdjuster adjuster) {
+	TerrainType(BiomeHeightAdjuster adjuster, boolean smooth) {
 		heightAdjuster = adjuster;
+		this.smooth = smooth;
 	}
 	    
 	    

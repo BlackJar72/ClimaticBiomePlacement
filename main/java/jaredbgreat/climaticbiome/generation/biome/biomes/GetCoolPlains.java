@@ -20,12 +20,10 @@ public class GetCoolPlains implements IBiomeSpecifier  {
 		init();
 	}
 	private BiomeList plains;
-	private GetAlpine alpine;
 	
 	
 	public void init() {
 		plains = new BiomeList();
-		alpine = GetAlpine.getAlpine();
 		DefReader.readBiomeData(plains, "PlainsCool.cfg");
 		if(plains.isEmpty()) {
 			plains.addItem(new LeafBiome(1));
@@ -36,10 +34,6 @@ public class GetCoolPlains implements IBiomeSpecifier  {
 	@Override
 	public long getBiome(ChunkTile tile) {
 		int seed = tile.getBiomeSeed();
-		if((seed % 4) == 0) {
-			tile.nextBiomeSeed();
-			return alpine.getBiome(tile);
-		}
 		tile.nextBiomeSeed();
 		return plains.getBiome(tile);
 	}
