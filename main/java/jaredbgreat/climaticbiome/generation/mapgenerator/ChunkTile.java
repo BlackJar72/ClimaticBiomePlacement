@@ -84,6 +84,14 @@ public class ChunkTile extends AbstractCachable {
         return noiseVal;
     }
 
+    public double getCentrality() {
+        return centrality;
+    }
+
+    public int getCNoise() {
+        return noiseVal + (int)(centrality * 10.0);
+    }
+
     public boolean isBeach() {
         return beach;
     }

@@ -1,9 +1,20 @@
 package jaredbgreat.climaticbiome.compat.userdef;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+
+import org.apache.logging.log4j.Logger;
+import org.jline.utils.Log;
+
 import jaredbgreat.climaticbiome.ClimaticBiomes;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.exception.BiomeReadingException;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
+import jaredbgreat.climaticbiome.generation.biome.CentralDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.IslandBiome;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
@@ -15,19 +26,8 @@ import jaredbgreat.climaticbiome.generation.biome.TerrainBiome;
 import jaredbgreat.climaticbiome.generation.biome.WetDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetTaiga.TaigaDoubleBiome;
 import jaredbgreat.dldungeons.parser.Tokenizer;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
-
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.registries.IForgeRegistry;
-
-import org.apache.logging.log4j.Logger;
-import org.jline.utils.Log;
 
 public class BiomeParser {
 	private IForgeRegistry biomeReg;
@@ -51,6 +51,7 @@ public class BiomeParser {
 		commands = new HashMap<>();
 		commands.put("biome", new LeafParse());
 		commands.put("noise", new NoiseParse());
+		commands.put("central", new CentralParse());
 		commands.put("seed", new SeedParse());
 		commands.put("temp", new TempParse());
 		commands.put("taiga", new TaigaParse());
@@ -183,6 +184,16 @@ public class BiomeParser {
 		public IBiomeSpecifier parse(String in) {
 			Tokenizer tokens = new Tokenizer(in, ", \t");		
 			return new NoiseDoubleBiome(tokens.nextToken(), 
+					   Integer.parseInt(tokens.nextToken()), 
+					   tokens.nextToken(), biomeReg);
+		}
+	}
+	
+	
+	private final class CentralParse implements ICommand {
+		public IBiomeSpecifier parse(String in) {
+			Tokenizer tokens = new Tokenizer(in, ", \t");		
+			return new CentralDoubleBiome(tokens.nextToken(), 
 					   Integer.parseInt(tokens.nextToken()), 
 					   tokens.nextToken(), biomeReg);
 		}

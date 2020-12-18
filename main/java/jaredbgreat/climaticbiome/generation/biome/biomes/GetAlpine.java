@@ -1,6 +1,7 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
+import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.LeafBiome;
@@ -23,6 +24,7 @@ public class GetAlpine implements IBiomeSpecifier {
 	BiomeList warmdry;
 	BiomeList hotwet;
 	BiomeList hotdry;
+	BiomeList desert;
 
 	public void init() {
 		cold    = new BiomeList();
@@ -31,7 +33,8 @@ public class GetAlpine implements IBiomeSpecifier {
 		warmwet = new BiomeList();
 		warmdry = new BiomeList();
 		hotwet  = new BiomeList();
-		hotdry = new BiomeList();
+		hotdry  = new BiomeList();
+		desert  = new BiomeList();
 		DefReader.readBiomeData(cold, "AplineCold.cfg");
 		DefReader.readBiomeData(wet,  "AplineWet.cfg");
 		DefReader.readBiomeData(dry,  "AplineDry.cfg");
@@ -39,6 +42,7 @@ public class GetAlpine implements IBiomeSpecifier {
 		DefReader.readBiomeData(warmdry, "AplineDryWarm.cfg");
 		DefReader.readBiomeData(hotwet,  "AplineWetHot.cfg");
 		DefReader.readBiomeData(hotdry,  "AplineDryHot.cfg");
+		DefReader.readBiomeData(desert,  "AlpineDesert.cfg");
 		if(wet.isEmpty()) {
 			wet.addItem(new LeafBiome(34));
 			wet.addItem(new LeafBiome(162));
@@ -55,12 +59,16 @@ public class GetAlpine implements IBiomeSpecifier {
 		if(warmwet.isEmpty()) warmwet = wet;
 		if(warmdry.isEmpty()) warmdry = dry;
 		if(hotwet.isEmpty())  hotwet = warmwet;
-		if(hotdry.isEmpty())  hotdry = warmwet;
+		if(hotdry.isEmpty())  hotdry = hotwet;
+		if(desert.isEmpty())  desert = hotdry;
 	}
 
 	@Override
 	public long getBiome(ChunkTile tile) {
 		tile.setMountainous();
+		if(BiomeClimateTable.getLandTable().isDesertTile(tile)) {
+			return desert.getBiome(tile);
+		}
 		boolean plus = (tile.getBiomeSeed() % 7) < tile.getWet();
 		tile.nextBiomeSeed();
 		int t = tile.getTemp();

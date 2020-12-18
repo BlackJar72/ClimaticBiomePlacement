@@ -3,6 +3,7 @@ package jaredbgreat.climaticbiome.generation.biome.biomes;
 import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
+import jaredbgreat.climaticbiome.generation.biome.CentralSpecialBiome;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.biome.NoiseSpecialBiome;
 import jaredbgreat.climaticbiome.generation.mapgenerator.ChunkTile;
@@ -106,17 +107,17 @@ public class GetIslands implements IBiomeSpecifier {
 	
 	public static void addVolcanicIslands(BiomeList frozen, BiomeList cold, BiomeList cool, 
 								  BiomeList warm, BiomeList hot, BiomeList desert) {;
-		frozen.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+		frozen.addItem(new CentralSpecialBiome(BiomeClimateTable.getLandTable(), 10, 
 				GetVolcano.getVolcanoes()));
-		cold.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+		cold.addItem(new CentralSpecialBiome(BiomeClimateTable.getLandTable(), 10, 
 				GetVolcano.getVolcanoes()));
-		cool.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+		cool.addItem(new CentralSpecialBiome(BiomeClimateTable.getLandTable(), 10, 
 				GetVolcano.getVolcanoes()));
-		hot.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+		hot.addItem(new CentralSpecialBiome(BiomeClimateTable.getLandTable(), 10, 
 				GetVolcano.getVolcanoes()));
-		desert.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+		desert.addItem(new CentralSpecialBiome(BiomeClimateTable.getLandTable(), 10, 
 				GetVolcano.getVolcanoes()));
-		warm.addItem(new NoiseSpecialBiome(BiomeClimateTable.getLandTable(), 6, 
+		warm.addItem(new CentralSpecialBiome(BiomeClimateTable.getLandTable(), 10, 
 				GetVolcano.getVolcanoes()));
 	}
 	

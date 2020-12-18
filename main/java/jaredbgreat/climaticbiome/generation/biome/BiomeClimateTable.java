@@ -51,28 +51,34 @@ public class BiomeClimateTable implements IBiomeSpecifier {
 		public boolean isEmpty() {
 			return table == null;
 		}
+		public IBiomeSpecifier getBiomeType(ChunkTile tile) {
+			return table[(tile.getTemp() * 10) + tile.getWet()];
+		}
+		public boolean isDesertTile(ChunkTile tile) {
+			return table[(tile.getTemp() * 10) + tile.getWet()] == DESERT;
+		}
 	}
 	
-    IBiomeSpecifier OCEAN;
-    IBiomeSpecifier SWAMP;
-    IBiomeSpecifier TUNDRA;
-    IBiomeSpecifier CGRASS;
-    IBiomeSpecifier GRASS;
-    IBiomeSpecifier SGRASS;
-    IBiomeSpecifier SAVANNA;
-    IBiomeSpecifier TAIGA;
-    IBiomeSpecifier PARK;
-    IBiomeSpecifier FOREST;
-    IBiomeSpecifier SFOREST;
-    IBiomeSpecifier TFOREST;
-    IBiomeSpecifier JUNGLE;
-    IBiomeSpecifier DESERT;
-    IBiomeSpecifier SCRUB;
-    IBiomeSpecifier ALPINE;
-    IBiomeSpecifier FORESTb;
-    IBiomeSpecifier GRASSb;
-    IBiomeSpecifier PARKb;
-    IBiomeSpecifier RIVER;
+	static IBiomeSpecifier OCEAN;
+    static IBiomeSpecifier SWAMP;
+    static IBiomeSpecifier TUNDRA;
+    static IBiomeSpecifier CGRASS;
+    static IBiomeSpecifier GRASS;
+    static IBiomeSpecifier SGRASS;
+    static IBiomeSpecifier SAVANNA;
+    static IBiomeSpecifier TAIGA;
+    static IBiomeSpecifier PARK;
+    static IBiomeSpecifier FOREST;
+    static IBiomeSpecifier SFOREST;
+    static IBiomeSpecifier TFOREST;
+    static IBiomeSpecifier JUNGLE;
+    static IBiomeSpecifier DESERT;
+    static IBiomeSpecifier SCRUB;
+    static IBiomeSpecifier ALPINE;
+    static IBiomeSpecifier FORESTb;
+    static IBiomeSpecifier GRASSb;
+    static IBiomeSpecifier PARKb;
+    static IBiomeSpecifier RIVER;
     GetBeach        BEACH;
 	
 	/**
