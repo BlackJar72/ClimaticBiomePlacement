@@ -27,10 +27,10 @@ public class TerrainPrimer {
 			lowerRiver(tiles, x, z, scale.whole);
 			tiles[i].terrainType.heightAdjuster.processTile(tiles[i], settings);
 			
-			if((x > 1) && (x < (D - 2)) && (z > 1) && (z < (D - 2)) 
-					&& ((tiles[i].isMountain())) &&  !(scale == SizeScale.X1)) {
-				smooth(tiles, x, z, D, scale);
-			}
+			//if((x > 1) && (x < (D - 2)) && (z > 1) && (z < (D - 2)) 
+			//		&& ((tiles[i].isMountain())) &&  !(scale == SizeScale.X1)) {
+			//	smooth(tiles, x, z, D, scale);
+			//}
 			
 			if(tiles[i].height > 3) tiles[i].height = 4 - (1 / (tiles[i].height - 1));
 			datamap.setTerrainExpress(Math.max(Math.min((int)((averageHeight(tiles, x, z, scale.whole) 
@@ -40,7 +40,9 @@ public class TerrainPrimer {
 		}
 	}
 	
-	
+	/*
+	 * This is broken!
+	 */
 	private void smooth(ChunkTile[] tiles, int x, int z, int D, SizeScale scale) {
 		if(scale == SizeScale.X2) { 
 			ChunkTile tile = tiles[(x * D) + z];
