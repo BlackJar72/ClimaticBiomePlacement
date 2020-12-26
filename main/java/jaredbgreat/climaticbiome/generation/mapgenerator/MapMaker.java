@@ -6,21 +6,21 @@
 package jaredbgreat.climaticbiome.generation.mapgenerator;
 
 import static jaredbgreat.climaticbiome.util.SpatialHash.absModulus;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
-import jaredbgreat.climaticbiome.generation.ClimaticBiomeProvider;
 import jaredbgreat.climaticbiome.generation.biome.BiomeClimateTable;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
 import jaredbgreat.climaticbiome.generation.cache.Cache;
 import jaredbgreat.climaticbiome.generation.cache.Coords;
 import jaredbgreat.climaticbiome.generation.cache.MutableCoords;
 import jaredbgreat.climaticbiome.generation.map.IRegionMap;
+import jaredbgreat.climaticbiome.util.Debug;
 import jaredbgreat.climaticbiome.util.NoiseMap2D;
 import jaredbgreat.climaticbiome.util.SpatialHash;
 import jaredbgreat.climaticbiome.util.SpatialHash.RandomAt;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import net.minecraft.world.World;
 
 
@@ -40,6 +40,7 @@ public class MapMaker {
     public final int rend;
     
     ClimaticWorldSettings settings;
+    public static int sporaticMountains;
 
     private final Cache<Region> regionCache = new Cache(32);
     
@@ -169,6 +170,12 @@ public class MapMaker {
 	        rm.build();
         }
         
+        if(settings.bigMountains) {
+        	sporaticMountains = 17;
+        } else {
+        	sporaticMountains = 5;
+        }
+        
         if(settings.forceWhole) {
         	makeBiomesWhole(premap, random.getRandomAt(coords.getX(), coords.getZ(), 3));
         } else {
@@ -182,7 +189,7 @@ public class MapMaker {
         for(int i = start; i < end; i++) {
         	makeCoast(premap[i]);
         }
-        if(ClimaticBiomeProvider.rangedMountains) {
+        if(settings.bigMountains) {
         	makeFaults(coords);
         }
         for(int i = 0; i < premap.length; i++) {
@@ -332,7 +339,7 @@ public class MapMaker {
             }
         for (ChunkTile tile : premap) {
             BiomeBasin.summateEffect(subbiomes, tile);
-            if(((tile.getBiomeSeed() % ClimaticBiomeProvider.sporaticMountains) == 0) 
+            if(((tile.getBiomeSeed() % sporaticMountains) == 0) 
             			&& (tile.rlBiome != 0)) {
             	tile.setMountainous();
             }
@@ -359,7 +366,7 @@ public class MapMaker {
             tile.biomeSeed = basis.biomeSeed;
             tile.wet  = basis.wet;
             tile.temp = basis.temp;
-            if(((tile.getBiomeSeed() % ClimaticBiomeProvider.sporaticMountains) == 0) 
+            if(((tile.getBiomeSeed() % sporaticMountains) == 0) 
         				&& (tile.rlBiome != 0)) { 
             	tile.setMountainous();
             }

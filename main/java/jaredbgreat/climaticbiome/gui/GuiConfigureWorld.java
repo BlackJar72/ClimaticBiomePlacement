@@ -35,12 +35,16 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
     private GuiCBToggleButton deepSandButton;
     private GuiCBToggleButton volcanicIslandsButton;
     private GuiCBToggleButton hasRiversButton;
+    private GuiCBToggleButton bigMountainsButton;
+    
+    boolean vanilla;
     
 
 	public GuiConfigureWorld(GuiCreateWorld guiCreateWorld,
-			String chunkProviderSettingsJson) {
+			String chunkProviderSettingsJson, boolean vanilla) {
         parent = (GuiCreateWorld)guiCreateWorld;
         settings = ClimaticWorldSettings.getNew();
+        this.vanilla = vanilla;
 	}
 	
 	
@@ -98,7 +102,10 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
         		new ClimaticWorldSettings.VolcanicIslandsSetter(settings)));   
         buttonList.add(hasRiversButton = new GuiCBToggleButton(74, width - 190, 165,  
         		"createWorld." + Info.ID + ".hasrivers", settings.hasRivers, 
-        		new ClimaticWorldSettings.HasRiversSetter(settings)));      
+        		new ClimaticWorldSettings.HasRiversSetter(settings)));    		  
+        buttonList.add(bigMountainsButton = new GuiCBToggleButton(75, 40, 190,  
+        		"createWorld." + Info.ID + ".bigmountains", settings.bigMountains, 
+        		new ClimaticWorldSettings.HasBigMountains(settings)));    
 		
 	}
 	
@@ -149,6 +156,7 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
 	    deepSandButton.setValue(settings.deepSand, settings);
 	    volcanicIslandsButton.setValue(settings.volcanicIslands, settings);
 	    hasRiversButton.setValue(settings.hasRivers, settings);
+	    bigMountainsButton.setValue(settings.bigMountains, settings);
 	}
 	
 

@@ -9,7 +9,7 @@ import jaredbgreat.climaticbiome.util.SpatialHash;
 public class HeightMapArea extends AbstractWeaklyCacheable {
 	public static final int CSIZE = 8;          // Width and depth in chunks
 	public static final int BSIZE = CSIZE * 16; // Width and depth in blocks
-	public static final int SCALE = 192;         // Multiplier for height
+	public static final int SCALE = 192;        // Multiplier for height
 	
 	private final float[][] heightMap, other;
 	

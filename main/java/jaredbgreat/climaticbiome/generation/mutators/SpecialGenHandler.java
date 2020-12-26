@@ -1,4 +1,4 @@
-package jaredbgreat.climaticbiome.generation.decorxtra;
+package jaredbgreat.climaticbiome.generation.mutators;
 
 import java.util.Random;
 

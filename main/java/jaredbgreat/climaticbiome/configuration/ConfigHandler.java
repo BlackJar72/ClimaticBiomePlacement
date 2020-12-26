@@ -62,7 +62,7 @@ public class ConfigHandler {
 	static boolean rockyScrub = true;
 	static boolean hasRivers = true;
 	
-	static boolean bigMountains;
+	static boolean bigMountains = true;
 	
 	//public static boolean allPolesCold = true;
 	
@@ -192,8 +192,9 @@ public class ConfigHandler {
 						"If true some biomes (mostly wetlands) will have special colors for their water.");
 		
 		bigMountains = config.getBoolean("BiggerMountains", "ClimaticRealistic", true, 
-						"If true mountains will tend to be bigger and more epic in the Climatic \n"
-						+ "Realistic world type, especially toward the middle of ranges (biomes).");
+						"If true mountains be organized into ranges. They should be bigger in Climatic \n"
+						+ "Realistic world type, especially toward the middle of ranges (biomes).  \n"
+						+ "This often doesn't work as well with Climatic Vanilla types but can still be used.");
 		
 		addIslands = config.getBoolean("AddIslands", "General", true, 
 						"If true extra islands will be generated in the ocean \n "

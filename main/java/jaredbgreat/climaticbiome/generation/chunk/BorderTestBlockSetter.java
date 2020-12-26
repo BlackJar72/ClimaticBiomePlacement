@@ -11,7 +11,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 public class BorderTestBlockSetter implements IBlockSetter {
 	static final IBlockState STONE = Blocks.STONE.getDefaultState();
-	private final HeightMapManager heightMapManager;
+	private final VolumnMapManager volumnMapManager;
 	private final SpatialHash sprandom;
 	private final World world;	
 	
@@ -19,15 +19,15 @@ public class BorderTestBlockSetter implements IBlockSetter {
 	public BorderTestBlockSetter(World world, SpatialHash sprandom) {
 		this.world = world;
 		this.sprandom = sprandom;
-		heightMapManager = new HeightMapManager();
+		volumnMapManager = new VolumnMapManager();
 	}
 	
 	
     public void setBlocksInChunk(int x, int z, ChunkPrimer primer) {
-    	int[][] heightmap = getHeihtmapForChunk(x, z, sprandom);
+    	int[] volumnmap = getHeihtmapForChunk(x, z, sprandom);
     	for(int i = 0; i < 16; i++) 
 			for(int k = 0; k < 16; k++) {
-				int h = heightmap[0][(i * 16) + k];
+				int h = volumnmap[(i * 16) + k];
 				// I've put too much time, stress, and self-destruction 
 				// into trying to figure out cliffs/overhangs, and am 
 				// still stumped.  This should work for the "Minecraft 
@@ -44,9 +44,9 @@ public class BorderTestBlockSetter implements IBlockSetter {
     
     
     // FIXME? Should this return and int[] or should I use a byte[]?
-    private int[][] getHeihtmapForChunk(int x, int z, SpatialHash rand) {
+    private int[] getHeihtmapForChunk(int x, int z, SpatialHash rand) {
     	ClimaticBiomeProvider provider = (ClimaticBiomeProvider)world.getBiomeProvider();
-    	return heightMapManager.getChunkHieghts(x, z, rand, provider.getTerrainBiomeGen(x, z));
+    	return volumnMapManager.getChunkHieghts(x, z, rand, provider.getTerrainBiomeGen(x, z));
     }
 
 }

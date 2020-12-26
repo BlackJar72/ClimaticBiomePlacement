@@ -1,5 +1,9 @@
 package jaredbgreat.climaticbiome.configuration;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import jaredbgreat.climaticbiome.Info;
 import jaredbgreat.climaticbiome.biomes.basic.Scrub;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetIslands;
@@ -10,11 +14,6 @@ import jaredbgreat.climaticbiome.gui.GuiScaleSlider;
 import jaredbgreat.climaticbiome.gui.GuiWorldTypeButton;
 import jaredbgreat.climaticbiome.util.Debug;
 import net.minecraft.util.JsonUtils;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class ClimaticWorldSettings {
 	public static final String DATA_NAME = Info.ID + "GenSettings";
@@ -280,7 +279,6 @@ public class ClimaticWorldSettings {
 			this.target = target;
 		}
 	}
-	// TODO Auto-generated m
 	
 	
 	public static class SISizeSetter implements ISetter<GuiIntSlider> {
@@ -432,11 +430,11 @@ public class ClimaticWorldSettings {
 		}		
 		@Override
 		public void set(GuiCBToggleButton input) {
-			target.bigMountains = input.getState();
+			target.bigMountains = input.getState();	
 		}
 		@Override
 		public void set(int input) {
-			target.bigMountains = input != 0;			
+			target.bigMountains = input != 0;
 		}		
 	}
 	

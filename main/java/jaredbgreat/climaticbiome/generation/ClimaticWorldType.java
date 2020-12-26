@@ -44,7 +44,7 @@ public class ClimaticWorldType extends WorldType {
     
     @Override @Nonnull
     public BiomeProvider getBiomeProvider(@Nonnull World world) { 
-        return new ClimaticBiomeProvider(world, false, false);
+        return new ClimaticBiomeProvider(world, false);
     }
     
     
@@ -69,7 +69,7 @@ public class ClimaticWorldType extends WorldType {
     @SideOnly(Side.CLIENT)
     public void onCustomizeButton(Minecraft mc, GuiCreateWorld guiCreateWorld) {
         mc.displayGuiScreen(new GuiConfigureWorld(guiCreateWorld, 
-        		ClimaticWorldSettings.getQueued().toJsonString()));
+        		ClimaticWorldSettings.getQueued().toJsonString(), true));
     }
 
 
