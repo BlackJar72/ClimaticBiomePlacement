@@ -76,6 +76,8 @@ public class ConfigHandler {
 		
 	public static  int     modes     = 3;
 	public static  boolean includeSI = false;
+	
+	public static int peatSmelts = 16;
 
 	private static File dir;
 	private static File file;
@@ -228,6 +230,10 @@ public class ConfigHandler {
 		
 		ashBlock = config.getString("AshBlocks", "ModdedBlocks", ASH_BLOCK, 
 						"The resource location of the block to use for volcanic ash");
+		
+		peatSmelts = config.getInt("PeatSmelts", "ModdedBlocks", 16, 0, 256, 
+						"This is the number of smelts that can be done with a peat block; \n"
+						+ "Set this to 0 to prevent peat from being used as a fuel.");
 		
 		badBiomeSpam = config.getBoolean("ErrorsForBadBiomeID", "Debugging", false, 
 						"If true an error message will be printed to the console whenever a \n"
