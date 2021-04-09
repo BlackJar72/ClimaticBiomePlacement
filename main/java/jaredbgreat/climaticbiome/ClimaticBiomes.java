@@ -117,7 +117,11 @@ public class ClimaticBiomes {
     
     
     private void moveWorldTypes() {
-    	WorldType.WORLD_TYPES[0] = climaticWorldType;
+    	if(ConfigHandler.makeRealisticDefault) {
+    		WorldType.WORLD_TYPES[0] = realisticWorldType;
+    	} else {
+    		WorldType.WORLD_TYPES[0] = climaticWorldType;
+    	}
     }
     
 

@@ -38,6 +38,7 @@ public class ConfigHandler {
 	public static boolean addPines = true;
 	public static boolean badBiomeSpam = false;
 	public static boolean makeDefault = false;
+	public static boolean makeRealisticDefault = false;
 	public static boolean addToVanilla = false;
 	
 	public static boolean includeForests = true;
@@ -241,8 +242,13 @@ public class ConfigHandler {
 						+ "freeze the game).  Othewise they will silently become oceans.");
 		
 		makeDefault = config.getBoolean("MakeDefaut", "General", false, 
-						"If true the Climatic world type will be moved to the top of the list \n"
+						"If true the Climatic Vanilla world type will be moved to the top of the list \n"
 						+ "of world types and will be used by default on new worlds. \n"
+						+ "(Note that it will be impossible to create a default vanilla world.)");
+		
+		makeRealisticDefault = config.getBoolean("MakeDefautRealistic", "General", false, 
+						"If this an MakeDefault are both true the climatic realistic \n"
+						+ "world type will become the default. \n"
 						+ "(Note that it will be impossible to create a default vanilla world.)");
 		
 		addToVanilla = config.getBoolean("AddToVanilla", "General", false, 
