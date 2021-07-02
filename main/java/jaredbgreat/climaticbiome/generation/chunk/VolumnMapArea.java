@@ -7,15 +7,15 @@ import jaredbgreat.climaticbiome.util.VolumnNoiseMap;
 
 public class VolumnMapArea extends AbstractWeaklyCacheable {
 	public static final int CSIZE = 8;          // Width and depth in chunks
-	public static final int BSIZE = CSIZE * 2; // Width and depth in blocks
-	public static final int SCALE = 192;         // Multiplier for height
+	public static final int BSIZE = CSIZE * 2;  // Width and depth in blocks
+	public static final int SCALE = 192;        // Multiplier for height
 	
 	private final VolumnNoiseMap noiseMap;
 	
 	
 	public VolumnMapArea(int x, int z, SpatialHash rand, VolumnMapManager manager) {
 		super(x, z, manager.getCache());
-		noiseMap = new VolumnNoiseMap(BSIZE, BSIZE, BSIZE, 8, 32, 8, BSIZE, SCALE)
+		noiseMap = new VolumnNoiseMap(BSIZE, 8, 32, 8, CSIZE, SCALE)
     						 .process(rand, x * BSIZE, z * BSIZE);
 	}
 	
@@ -35,7 +35,7 @@ public class VolumnMapArea extends AbstractWeaklyCacheable {
         		for(int k = 0; k < 256; k++) {
         			index2 = (index1 * 256) + k;
 	    			out[index2] = (int)((noiseMap.get(i,  k,  j) * biomeData[index1 + 256]) 
-	    					+ (biomeData[index1] * 20) + 64);
+	    					+ (biomeData[index1] * 20) + 63);
         		}
     		}
     	}
@@ -44,19 +44,20 @@ public class VolumnMapArea extends AbstractWeaklyCacheable {
 	
 	
 	public float[] getChunkNoise(int x, int z, float[] biomeData) {
-    	float[] out = new float[1024];
-    	int startx = ModMath.modRight(x, CSIZE) * 4;
-    	int startz = ModMath.modRight(z, CSIZE) * 4;
-    	int endx   = startx + 4;
-    	int endz   = startz + 4;
+    	float[] out = new float[65536];
+    	int startx = ModMath.modRight(x, CSIZE) * 16;
+    	int startz = ModMath.modRight(z, CSIZE) * 16;
+    	int endx   = startx + 16;
+    	int endz   = startz + 16;
     	int ix = 0, jz = 0;
     	int index1, index2;
     	for(int i = startx; i < endx; i++, ix++) {
     		jz = 0;
     		for(int j = startz; j < endz; j++, jz++) {
-        		for(int k = 0; k < 64; k++) {
-	    			index2 = (((ix * 4) + jz) * 64) + k;
-	    			out[index2] = (noiseMap.get(i,  k,  j) / SCALE) * 4;
+    			index1 = (ix * 16) + jz;
+        		for(int k = 0; k < 256; k++) {
+        			index2 = (index1 * 256) + k;
+	    			out[index2] = noiseMap.get(i,  k,  j);
         		}
     		}
     	}

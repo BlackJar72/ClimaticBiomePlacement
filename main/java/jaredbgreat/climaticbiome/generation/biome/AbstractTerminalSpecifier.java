@@ -1,9 +1,6 @@
 package jaredbgreat.climaticbiome.generation.biome;
 
-import jaredbgreat.dldungeons.parser.Tokenizer;
-
-import java.util.StringTokenizer;
-
+import jaredbgreat.dldungeons.util.parser.Tokenizer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.IForgeRegistry;

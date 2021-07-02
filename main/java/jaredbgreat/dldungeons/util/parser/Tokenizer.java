@@ -1,12 +1,9 @@
-package jaredbgreat.dldungeons.parser;
+package jaredbgreat.dldungeons.util.parser;
 
 /* 
- * This mod is the creation and copyright (c) 2015 
- * of Jared Blackburn (JaredBGreat).
- * 
- * It is licensed under the creative commons 4.0 attribution license: * 
- * https://creativecommons.org/licenses/by/4.0/legalcode
-*/
+ * Doomlike Dungeons by is licensed the MIT License
+ * Copyright (c) 2014-2018 Jared Blackburn
+ */	
 
 import java.util.Arrays;
 
@@ -23,10 +20,7 @@ import java.util.Arrays;
  *
  */
 public class Tokenizer {
-	private static final CharSet hex = new CharSet(new 
-			char[]{'1', '2', '3', '4', '5', '6', '7', '8', '9', 
-			       'a', 'b', 'c', 'd', 'e', 'f',
-			       'A', 'B', 'C', 'D', 'E', 'F'});
+	private static final CharSet hex = new CharSet("1234567890abcdefABCDEF");
 	private final CharSet  delim;
 	private String[] tokens;
 	private int  token = 0;
@@ -195,15 +189,17 @@ public class Tokenizer {
 	
 	
 	private char parseUnicode() {
+		int l = 0;
 		nextChar();
 		StringBuilder nstring = new StringBuilder();
-		while((position < in.length()) && (hex.contains(in.charAt(position)))) {
+		while((l < 4) && (position < in.length())) {
 			nextChar();
 			nstring.append(next);
+			l++;
 		}
 		// Without this it will skip ahead.
 		position--;
-		return (char)Integer.parseUnsignedInt(nstring.toString().toLowerCase(), 16);	
+		return (char)Integer.parseUnsignedInt(nstring.toString(), 16);	
 	}
 	
 	
@@ -259,5 +255,13 @@ public class Tokenizer {
 		if(index >= 0 && index < tokens.length) {
 			return tokens[index];
 		} else return null;
+	}
+
+	/**
+	 * Gets the raw input string.
+	 * @return the input
+	 */
+	public String getString() {
+		return in;
 	}
 }

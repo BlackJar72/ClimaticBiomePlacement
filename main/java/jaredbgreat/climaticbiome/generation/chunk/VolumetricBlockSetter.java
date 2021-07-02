@@ -9,7 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class SimpleBlockSetter implements IBlockSetter {
+public class VolumetricBlockSetter implements IBlockSetter {
 	static final IBlockState STONE = Blocks.STONE.getDefaultState();
 	private final HeightMapManager heightMapManager;
 	private final VolumnMapManager volMapManager;
@@ -17,7 +17,7 @@ public class SimpleBlockSetter implements IBlockSetter {
 	private final World world;	
 	
 	
-	public SimpleBlockSetter(World world, SpatialHash sprandom) {
+	public VolumetricBlockSetter(World world, SpatialHash sprandom) {
 		this.world = world;
 		this.sprandom = sprandom;
 		heightMapManager = new HeightMapManager();
@@ -26,17 +26,17 @@ public class SimpleBlockSetter implements IBlockSetter {
 	
 	
     public void setBlocksInChunk(int x, int z, ChunkPrimer primer) {
-    	int[][] heightmap = getHeihtmapForChunk(x, z, sprandom);
-    	int[] volumns = getVolumnsForChunk(x, z, sprandom);
+    	//int[][] heightmap = getHeihtmapForChunk(x, z, sprandom);
+    	int[] heightmap = getVolumnsForChunk(x, z, sprandom);
     	for(int i = 0; i < 16; i++) 
 			for(int k = 0; k < 16; k++) {
+				//int h = heightmap[0][(i * 16) + k];
 				// I've put too much time, stress, and self-destruction 
 				// into trying to figure out cliffs/overhangs, and am 
 				// still stumped.  This should work for the "Minecraft 
 				// terrain is too unrealistic" crowd, and is fast.
 				for(int j = 0; j < 256; j++) {
-					int h = Math.max(heightmap[0][(i * 16) + k], volumns[(((i * 16) + k) * 256) + j]);
-					if((j < h)) {
+					if((j < heightmap[(((i * 16) + k) * 256) + j])) {
 				        primer.setBlockState(i, j, k, STONE);
 				    } else if (j < 63) {
 				        primer.setBlockState(i, j, k, WATER);

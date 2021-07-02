@@ -20,7 +20,7 @@ public class ChunkGenClimaticRealistic extends ChunkGeneratorOverworld {
 		super(worldIn, seed, mapFeaturesEnabledIn, generatorOptions);
 		sprandom = new SpatialHash(seed);
 		world = worldIn;
-		setter = new SimpleBlockSetter(world, sprandom);
+		setter = new ImprovedBlockSetter(world, sprandom);
 		//setter = new BorderTestBlockSetter(world, sprandom);
 	}
 	

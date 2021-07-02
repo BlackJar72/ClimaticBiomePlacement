@@ -24,37 +24,16 @@ public class VolumnNoiseMap {
     float scale, divisor;
     
     
-    public VolumnNoiseMap(int sizex, int sizey, int sizez,
-    					  int scalex, int scaley, int scalez,
-    					  int interval, int cutoff, float scale) {
-        this.sizex = sizex; 
-        this.sizey = sizey; 
-        this.sizez = sizez; 
-        this.fsizex = sizex + 1; 
-        this.fsizey = sizey + 1; 
-        this.fsizez = sizez + 1;
-        this.scalex = scalex;
-        this.scaley = scaley;
-        this.scalez = scalez;
-        this.interval = interval;
-        this.cutoff = cutoff;
-        this.scale = scale;
-    }
-    
-    public VolumnNoiseMap(int sizex, int sizey, int sizez, 
-			  			  int scalex, int scaley, int scalez,
+    public VolumnNoiseMap(int size, 
+			  	          int scalex, int scaley, int scalez,
     					  int interval, float scale) {
-        this.sizex = sizex; 
-        this.sizey = sizey; 
-        this.sizez = sizez; 
-        this.fsizex = sizex + 1; 
-        this.fsizey = sizey + 1; 
-        this.fsizez = sizez + 1;
+        sizex = sizey = sizez = size; 
+        fsizex = fsizey = fsizez = size + 1;
         this.scalex = scalex;
         this.scaley = scaley;
         this.scalez = scalez;
         this.interval = interval;
-        this.cutoff = 2;
+        this.cutoff = 4;
         this.scale = scale;
     }
 
@@ -75,18 +54,20 @@ public class VolumnNoiseMap {
         divisor = 1.0f;
         while(currentInterval1 > cutoff) {
             currentInterval2 = currentInterval1 + 1;
+            //Debug.bigSysout("Interval1 = " + currentInterval1 + System.lineSeparator() + "Interval2 = " + currentInterval2);
             processOne(rand);            
             divisor *=2;
             currentInterval1 /= 2;
+            
         }
         return this;
     }
     
     
     private void processOne(SpatialHash rand) {
-        int nodesX = fsizex / currentInterval2 + 1;
-        int nodesY = fsizey / currentInterval2 + 1;
-        int nodesZ = fsizez / currentInterval2 + 1;
+        int nodesX = (fsizex / currentInterval1) + 2;
+        int nodesY = (fsizey / currentInterval1) + 2;
+        int nodesZ = (fsizez / currentInterval1) + 2;
         Vec3D[][][] nodes = new Vec3D[nodesX][nodesY][nodesZ];
         for(int i = 0; i < nodesX; i++)
             for(int j = 0; j < nodesY; j++)
@@ -114,7 +95,7 @@ public class VolumnNoiseMap {
         float dz = fullFade(z % currentInterval1);
         int    px = (int)(x / currentInterval1);
         int    py = (int)(y / currentInterval1);
-        int    pz = (int)(z / currentInterval1);        
+        int    pz = (int)(z / currentInterval1);
         
         out += calcLoc(nodes[px][py][pz], 
                     new Vec3D(dx, dy, dz), ci);
@@ -137,10 +118,11 @@ public class VolumnNoiseMap {
         out /= interval;
         out /= 2.0;
         
-        if((out >= 0.99) || (out <= -0.99)) {
-            System.out.println(out);
-            out = 0.0f;
-        }
+        //if((out >= 0.99) || (out <= -0.99)) {
+        //    System.out.println(out);
+        //    out = 0.0f;
+        //}
+        
         return out;
     }
     
@@ -148,17 +130,22 @@ public class VolumnNoiseMap {
     public float get(int x, int y, int z) {
         float out = 0.0f;
         
+        //StringBuilder b = new StringBuilder();
+        //b.append("x =" + x + " y = " + y + " z = " + z + System.lineSeparator());
+        
         float cix = (float)scalex;
         float ciy = (float)scaley;
-        float ciz = (float)scalez;  
-        float dx = fullFade(x % scalex);
-        float dy = fullFade(y % scaley);
-        float dz = fullFade(z % scalez);
+        float ciz = (float)scalez;
         int    px = (int)(x / scalex);
         int    py = (int)(y / scaley);
         int    pz = (int)(z / scalez);
+        //b.append("px =" + px + " py = " + py + " pz = " + pz + System.lineSeparator());
+        float dx = (x - (px * scalex)) / cix;//fullFade(x % scalex, cix);
+        float dy = (y - (py * scaley)) / ciy;//fullFade(y % scaley, ciy);
+        float dz = (z - (pz * scalez)) / ciz;//fullFade(z % scalez, ciz);
+        //b.append("dx =" + dx + " dy = " + dy + " dz = " + dz + System.lineSeparator());
         
-        out += calcOut(field[px][py][pz], 
+        /*out += calcOut(field[px][py][pz], 
                     dx / cix, dy / ciy, dz / ciz);
         out += calcOut(field[px + 1][py][pz], 
                     (cix - dx) / cix, dy / ciy, dz / ciz);
@@ -167,22 +154,34 @@ public class VolumnNoiseMap {
         out += calcOut(field[px][py + 1][pz], 
                     dx / cix, (ciy - dy) / ciy, dz / ciz);
         
-        out += calcOut(field[px][py][pz], 
+        out += calcOut(field[px][py][pz + 1], 
                     dx / cix, dy / ciy, (ciz - dz) / ciz);
-        out += calcOut(field[px + 1][py][pz], 
+        out += calcOut(field[px + 1][py][pz +1], 
                     (cix - dx) / cix, dy / ciy, (ciz - dz) / ciz);
-        out += calcOut(field[px + 1][py + 1][pz], 
+        out += calcOut(field[px + 1][py + 1][pz + 1], 
                     (cix - dx) /  cix, (ciy - dy) / ciy, (ciz - dz) / ciz);
-        out += calcOut(field[px][py + 1][pz], 
+        out += calcOut(field[px][py + 1][pz + 1], 
                     dx / cix, (ciy - dy) / ciy, (ciz - dz) / ciz);        
         
-        out /= interval;
-        out /= 2.0;
+        out /= 2.0;*/
         
-        if((out >= 0.99) || (out <= -0.99)) {
-            System.out.println(out);
-            out = 0.0f;
-        }
+        float a1 = lerp(dx, field[px][py][pz], field[px+1][py][pz]);
+        float a2 = lerp(dx, field[px][py+1][pz], field[px+1][py+1][pz]);
+        float a3 = lerp(dx, field[px][py+1][pz+1], field[px+1][py+1][pz+1]);
+        float a4 = lerp(dx, field[px][py][pz+1], field[px+1][py][pz+1]);
+        
+        float b1 = lerp(dz, a1, a4);
+        float b2 = lerp(dz, a2, a3);
+        
+        out = lerp(dy, b1, b2) / 2.0f;
+        
+        //if((out >= 0.99) || (out <= -0.99)) {
+        //    System.out.println(out);
+        //    out = 0.0f;
+        //}        
+
+        //b.append("out = " + out);
+        //Debug.bigSysout(b.toString());
         return out;
     }
     
@@ -215,6 +214,16 @@ public class VolumnNoiseMap {
     
     private float fullFade(float in) {
         return fade(in / currentInterval1) * currentInterval1;
+    }
+    
+    
+    private float fullFade(float in, float scale) {
+        return fade(in / scale) * scale;
+    }
+    
+    
+    static float lerp(float t, float a, float b) {
+    	return a + t * (b - a); 
     }
     
     

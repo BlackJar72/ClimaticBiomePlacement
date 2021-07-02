@@ -9,7 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-public class SimpleBlockSetter implements IBlockSetter {
+public class ImprovedBlockSetter implements IBlockSetter {
 	static final IBlockState STONE = Blocks.STONE.getDefaultState();
 	private final HeightMapManager heightMapManager;
 	private final VolumnMapManager volMapManager;
@@ -17,7 +17,7 @@ public class SimpleBlockSetter implements IBlockSetter {
 	private final World world;	
 	
 	
-	public SimpleBlockSetter(World world, SpatialHash sprandom) {
+	public ImprovedBlockSetter(World world, SpatialHash sprandom) {
 		this.world = world;
 		this.sprandom = sprandom;
 		heightMapManager = new HeightMapManager();

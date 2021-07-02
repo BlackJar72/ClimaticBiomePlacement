@@ -7,8 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-import org.apache.commons.logging.Log;
-
 import jaredbgreat.climaticbiome.ClimaticBiomes;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.exception.BiomeReadingException;
@@ -25,7 +23,7 @@ import jaredbgreat.climaticbiome.generation.biome.TerrainBiome;
 import jaredbgreat.climaticbiome.generation.biome.WetDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetTaiga.TaigaDoubleBiome;
 import jaredbgreat.climaticbiome.util.Logging;
-import jaredbgreat.dldungeons.parser.Tokenizer;
+import jaredbgreat.dldungeons.util.parser.Tokenizer;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class BiomeParser {

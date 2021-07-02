@@ -1,12 +1,11 @@
 package jaredbgreat.climaticbiome.compat.userdef;
 
-import jaredbgreat.climaticbiome.biomes.pseudo.PseudoBiomes;
-import jaredbgreat.dldungeons.parser.Tokenizer;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+import jaredbgreat.climaticbiome.biomes.pseudo.PseudoBiomes;
+import jaredbgreat.dldungeons.util.parser.Tokenizer;
 import net.minecraft.util.ResourceLocation;
 
 public class VariantParser {	

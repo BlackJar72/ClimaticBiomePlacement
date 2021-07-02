@@ -1,4 +1,4 @@
-package jaredbgreat.dldungeons.parser;
+package jaredbgreat.dldungeons.util.parser;
 
 /* 
  * This mod is the creation and copyright (c) 2015 

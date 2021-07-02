@@ -24,5 +24,18 @@ public class HeightMapManager {
 		}
 		return area.getChunkHieghts(x, z, biomeData);		
 	}
+	
+	
+	public int[][] getChunkHieghts(int x, int z, SpatialHash rand, float[] biomeData, float[] vol) {
+    	x += 0x4fffffff; z += 0x4fffffff;
+		int ax = x / CSIZE;
+		int az = z / CSIZE;
+		HeightMapArea area = cache.get(ax, az);
+		if(area == null) {
+			area = new HeightMapArea(ax, az, rand, this);
+			cache.add(area);			
+		}
+		return area.getChunkHieghts(x, z, biomeData, vol);		
+	}
 
 }
