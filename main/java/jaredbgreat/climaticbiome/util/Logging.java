@@ -13,9 +13,10 @@ import org.apache.logging.log4j.Logger;
 
 public class Logging {
 	private static Logger logger;
+	private static Logger loggerr;
 	private static Logging log;
 	
-	private Logging() {		
+	private Logging() {
 		logger = LogManager.getLogger(Info.CHANNEL);
 	}
 	

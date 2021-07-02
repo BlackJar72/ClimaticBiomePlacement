@@ -20,9 +20,9 @@ public class ItemPeatBrick extends ModItemBase {
 	}
     
     
-    @Override
-	public int getItemBurnTime(ItemStack stack) {
-		return 1600;    	
-    }
+//    @Override
+//	public int getItemBurnTime(ItemStack stack) {
+//		return 1600;    	
+//    }
 
 }

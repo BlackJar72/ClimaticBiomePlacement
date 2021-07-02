@@ -27,9 +27,9 @@ public class ItemPineSappling extends ItemBlock {
 	}
     
     
-    @Override
-	public int getItemBurnTime(ItemStack stack) {
-		return 100;    	
-    }
+//    @Override
+//	public int getItemBurnTime(ItemStack stack) {
+//		return 100;    	
+//    }
 
 }

@@ -117,7 +117,7 @@ public class ChunkTile extends AbstractCachable {
     }
 
     public boolean shouldSmooth() {
-        return terrainType.smooth;
+        return terrainType.smooth && (river < 1);
     }
     
     public TerrainType getTerrainType() {

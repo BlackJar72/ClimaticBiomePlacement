@@ -27,10 +27,10 @@ public class ItemPineSlab extends ItemSlab {
 	}
     
     
-    @Override
-	public int getItemBurnTime(ItemStack stack) {
-		return 200;    	
-    }
+//    @Override
+//	public int getItemBurnTime(ItemStack stack) {
+//		return 200;    	
+//    }
 
 
 	private boolean func_180615_a(ItemStack p_180615_1_, World worldIn, BlockPos p_180615_3_) {

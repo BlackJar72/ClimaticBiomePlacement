@@ -21,8 +21,7 @@ public class ItemPeatBlock extends ItemBlock {
     }
     
     
-    @Override
-	public int getItemBurnTime(ItemStack stack) {
+    public int getItemBurnTime(ItemStack stack) {
     	// The value, on burning the whole block; still poor compared 
     	// to a full coal block, but better than coal or charcoal. 
     	// Makes sense to me!

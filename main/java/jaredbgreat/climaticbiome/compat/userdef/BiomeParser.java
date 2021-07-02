@@ -7,8 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-import org.apache.logging.log4j.Logger;
-import org.jline.utils.Log;
+import org.apache.commons.logging.Log;
 
 import jaredbgreat.climaticbiome.ClimaticBiomes;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
@@ -25,8 +24,8 @@ import jaredbgreat.climaticbiome.generation.biome.TempDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.TerrainBiome;
 import jaredbgreat.climaticbiome.generation.biome.WetDoubleBiome;
 import jaredbgreat.climaticbiome.generation.biome.biomes.GetTaiga.TaigaDoubleBiome;
+import jaredbgreat.climaticbiome.util.Logging;
 import jaredbgreat.dldungeons.parser.Tokenizer;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class BiomeParser {
@@ -168,14 +167,15 @@ public class BiomeParser {
 	
 	
 	private void reportError(RuntimeException ex, File file, String line) {
-		Logger logger = FMLLog.log;
-		Log.error("");
-		Log.error("*****************************");
-		Log.error("   Error in file: " + file);
-		Log.error("   " + line);
-		Log.error("   Caused excpetion: " + ex);		
-		Log.error("*****************************");
-		Log.error("");
+		StringBuilder b = new StringBuilder();
+		b.append(System.lineSeparator());
+		b.append("*****************************" + System.lineSeparator());
+		b.append("   Error in file: " + file + System.lineSeparator());
+		b.append("   " + line + System.lineSeparator());
+		b.append("   Caused excpetion: " + ex + System.lineSeparator());		
+		b.append("*****************************" + System.lineSeparator());
+		b.append(System.lineSeparator());
+		Logging.logError(b.toString());
 		throw ex;
 	}
 	

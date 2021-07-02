@@ -20,9 +20,9 @@ public class ItemPineNeedles extends ItemLeaves {
     }
     
     
-    @Override
-	public int getItemBurnTime(ItemStack stack) {
-		return 100;    	
-    }
+//    @Override
+//	public int getItemBurnTime(ItemStack stack) {
+//		return 100;    	
+//    }
 
 }

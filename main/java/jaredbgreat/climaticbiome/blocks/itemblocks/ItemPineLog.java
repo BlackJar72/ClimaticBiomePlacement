@@ -20,9 +20,9 @@ public class ItemPineLog extends ItemBlock {
     }
     
     
-    @Override
-	public int getItemBurnTime(ItemStack stack) {
-		return 300;    	
-    }
+//    @Override
+//	public int getItemBurnTime(ItemStack stack) {
+//		return 300;    	
+//    }
 
 }

@@ -14,6 +14,7 @@ public enum SizeScale {
     public final double inv;
     public final int log; // determines fractal iterations, mostly
     public final int sq;
+    public final int width;
     
     public static SizeScale setting = X1;
     
@@ -23,6 +24,7 @@ public enum SizeScale {
         inv = 1.0 / fract;
         log = l;
         sq = whole * whole;
+        width = 256 * s;
     }
     
     
