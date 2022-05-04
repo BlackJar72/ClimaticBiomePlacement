@@ -17,6 +17,7 @@ createWorld.climaticbiomesjbg.rockyscrub.on=Rocky Scrub: Yes
 createWorld.climaticbiomesjbg.deepsand.on=Deep Sand in Scrub: Yes
 createWorld.climaticbiomesjbg.volcanicislses.on=Volcanic Islands: Yes
 createWorld.climaticbiomesjbg.hasrivers.on=Make Rivers: Yes
+createWorld.climaticbiomesjbg.hascoasts.on=Coastal Waters: Yes
 createWorld.climaticbiomesjbg.bigmountains.on=Big Mountains: Yes
 
 createWorld.climaticbiomesjbg.forcewhole.off=Force Whole Biomes: No
@@ -26,6 +27,7 @@ createWorld.climaticbiomesjbg.rockyscrub.off=Rocky Scrub: No
 createWorld.climaticbiomesjbg.deepsand.off=Deep Sand in Scrub: No
 createWorld.climaticbiomesjbg.volcanicislses.off=Volcanic Islands: No
 createWorld.climaticbiomesjbg.hasrivers.off=Make Rivers: No
+createWorld.climaticbiomesjbg.hascoasts.off=Coastal Waters: No
 createWorld.climaticbiomesjbg.bigmountains.off=Big Mountains: No
 
 

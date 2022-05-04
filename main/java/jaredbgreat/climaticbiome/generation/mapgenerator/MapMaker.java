@@ -513,4 +513,9 @@ public class MapMaker {
     }
     
     
+    public ClimaticWorldSettings getSettings() {
+    	return settings;
+    }
+    
+    
 }

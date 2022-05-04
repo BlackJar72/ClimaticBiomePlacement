@@ -27,6 +27,7 @@ public class ClimaticWorldSettings {
 	public boolean deepSand;
 	public boolean volcanicIslands;
 	public boolean hasRivers;
+	public boolean hasCoasts;
 	
 	public boolean bigMountains;
 	
@@ -55,6 +56,7 @@ public class ClimaticWorldSettings {
 		this.deepSand = ConfigHandler.deepSand;
 		this.volcanicIslands = ConfigHandler.volcanicIslands;
 		this.hasRivers = ConfigHandler.hasRivers;
+		this.hasCoasts = ConfigHandler.hasCoasts;
 		this.forceWhole = ConfigHandler.forceWhole;	
 		this.biomeSize = ConfigHandler.biomeSize;
 		this.regionSize = ConfigHandler.regionSize;		
@@ -97,7 +99,10 @@ public class ClimaticWorldSettings {
 				volcanicIslands = JsonUtils.getBoolean(jsonObj, "volcanicIslands");		
 			
 			if(JsonUtils.hasField(jsonObj, "hasRivers")) 		
-				hasRivers = JsonUtils.getBoolean(jsonObj, "hasRivers");
+				hasRivers = JsonUtils.getBoolean(jsonObj, "hasRivers");	
+			
+			if(JsonUtils.hasField(jsonObj, "hasCoasts")) 		
+				hasCoasts = JsonUtils.getBoolean(jsonObj, "hasCoasts");
 			
 			if(JsonUtils.hasField(jsonObj, "forceWholeBiome")) 		
 				forceWhole = JsonUtils.getBoolean(jsonObj, "forceWholeBiome");
@@ -147,7 +152,8 @@ public class ClimaticWorldSettings {
 		jsonObj.addProperty("rockyScrub", rockyScrub);
 		jsonObj.addProperty("deepSand", deepSand);		
 		jsonObj.addProperty("volcanicIslands", volcanicIslands);	
-		jsonObj.addProperty("hasRivers", hasRivers);	
+		jsonObj.addProperty("hasRivers", hasRivers);		
+		jsonObj.addProperty("hasCoasts", hasCoasts);	
 		jsonObj.addProperty("forceWholeBiome", forceWhole);
 		jsonObj.addProperty("biomeSize", biomeSize);
 		jsonObj.addProperty("regionSize", regionSize.ordinal() + 1);
@@ -420,6 +426,21 @@ public class ClimaticWorldSettings {
 		@Override
 		public void set(int input) {
 			target.hasRivers = input != 0;			
+		}		
+	}
+	
+	
+	public static class HasCoastsSetter extends BooleanSetter {
+		public HasCoastsSetter(ClimaticWorldSettings target) {
+			super(target);
+		}		
+		@Override
+		public void set(GuiCBToggleButton input) {
+			target.hasCoasts = input.getState();
+		}
+		@Override
+		public void set(int input) {
+			target.hasCoasts = input != 0;			
 		}		
 	}
 	

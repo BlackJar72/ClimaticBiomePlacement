@@ -62,6 +62,7 @@ public class ConfigHandler {
 	static boolean deepSand = true;
 	static boolean rockyScrub = true;
 	static boolean hasRivers = true;
+	static boolean hasCoasts = true;
 	
 	static boolean bigMountains = true;
 	
@@ -256,6 +257,10 @@ public class ConfigHandler {
 		
 		hasRivers = config.getBoolean("MakeRivers", "General", true, 
 						"If true rivers will be generated.");
+		
+		hasCoasts = config.getBoolean("MakeCoastalWaters", "General", true, 
+						"If true there will be a band of shallow oceans between beaches and normal \n"
+						+ "oceans will be generated.");
 		
 		biomeSize = config.getInt("BiomeSize", "Size", 16, 4, 64, "The average width of a "
 						+ "biome area in chunks.");

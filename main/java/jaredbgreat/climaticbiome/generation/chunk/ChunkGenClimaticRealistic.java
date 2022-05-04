@@ -1,6 +1,5 @@
 package jaredbgreat.climaticbiome.generation.chunk;
 
-import jaredbgreat.climaticbiome.generation.ClimaticBiomeProvider;
 import jaredbgreat.climaticbiome.util.SpatialHash;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -20,7 +19,7 @@ public class ChunkGenClimaticRealistic extends ChunkGeneratorOverworld {
 		super(worldIn, seed, mapFeaturesEnabledIn, generatorOptions);
 		sprandom = new SpatialHash(seed);
 		world = worldIn;
-		setter = new ImprovedBlockSetter(world, sprandom);
+		setter = new SimpleBlockSetter(world, sprandom);
 		//setter = new BorderTestBlockSetter(world, sprandom);
 	}
 	

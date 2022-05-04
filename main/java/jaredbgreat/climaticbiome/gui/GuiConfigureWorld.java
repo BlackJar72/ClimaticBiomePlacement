@@ -105,7 +105,10 @@ implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder {
         		new ClimaticWorldSettings.HasRiversSetter(settings)));    		  
         buttonList.add(bigMountainsButton = new GuiCBToggleButton(75, 40, 190,  
         		"createWorld." + Info.ID + ".bigmountains", settings.bigMountains, 
-        		new ClimaticWorldSettings.HasBigMountains(settings)));    
+        		new ClimaticWorldSettings.HasBigMountains(settings)));     
+        buttonList.add(hasRiversButton = new GuiCBToggleButton(74, width - 190, 190,  
+        		"createWorld." + Info.ID + ".hascoasts", settings.hasRivers, 
+        		new ClimaticWorldSettings.HasCoastsSetter(settings)));    		
 		
 	}
 	

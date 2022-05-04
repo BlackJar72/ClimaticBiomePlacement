@@ -1,20 +1,19 @@
 package jaredbgreat.climaticbiome.generation;
 
-import jaredbgreat.climaticbiome.generation.map.IMapRegistry;
-import jaredbgreat.climaticbiome.generation.map.MapRegistry;
-import jaredbgreat.climaticbiome.generation.map.NewMapRegistry;
-import jaredbgreat.climaticbiome.util.Debug;
-
 import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import jaredbgreat.climaticbiome.generation.map.IMapRegistry;
+import jaredbgreat.climaticbiome.generation.map.MapRegistry;
+import jaredbgreat.climaticbiome.generation.map.NewMapRegistry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
-import net.minecraft.world.gen.structure.MapGenVillage;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 
 
 public class ClimaticBiomeProvider extends BiomeProvider {
@@ -133,15 +132,15 @@ public class ClimaticBiomeProvider extends BiomeProvider {
     
     @Override
     public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed) {
-        x = (x - 8) / 16;
-        z = (z - 8) / 16;
-        if(radius > 0) {
-	        int cr = radius >> 2;
+        x /= 16;
+        z /= 16;
+        int cr = radius >> 2;
+        if(cr > 0) {
             int i1 = x - cr;
             int j1 = x - cr;
-            int i2 = x + cr;
-            int j2 = x + cr;
-	        for(int i = i1 + 1; i < i2; i++)
+            int i2 = x + cr + 1;
+            int j2 = x + cr + 1;
+	        for(int i = i1; i < i2; i++)
 	                for(int j = j1; j < j2; j++) {
 	                        if(!allowed.contains(finder.getBiomeChunk(x + i, z + j))) {
 	                                return false;
@@ -149,6 +148,36 @@ public class ClimaticBiomeProvider extends BiomeProvider {
 	                }
         }
         return allowed.contains(finder.getBiomeChunk(x, z));
+    }
+
+    
+    public boolean areBiomesViable(int x, int z, int radius, Type allowed) {
+        x /= 16;
+        z /= 16;
+        int cr = radius >> 2;
+        if(cr > 0) {
+            int i1 = x - cr;
+            int j1 = x - cr;
+            int i2 = x + cr + 1;
+            int j2 = x + cr + 1;
+	        for(int i = i1; i < i2; i++)
+	                for(int j = j1; j < j2; j++) {
+	                        if(!BiomeDictionary.hasType(finder.getBiomeChunk(x + i, z + j), allowed)) {
+	                                return false;
+	                        }
+	                }
+        }
+        return BiomeDictionary.hasType(finder.getBiomeChunk(x, z), allowed);
+    }
+
+    
+    public boolean areChunkBiomesViable(int chunkX, int chunkZ, List<Biome> allowed) {
+        return allowed.contains(finder.getBiomeChunk(chunkX, chunkZ));
+    }
+
+    
+    public boolean areChunkBiomesViable(int chunkX, int chunkZ, Type allowed) {
+        return BiomeDictionary.hasType(finder.getBiomeChunk(chunkX, chunkZ), allowed);
     }
     
     

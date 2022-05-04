@@ -39,10 +39,12 @@ public class GetOcean implements IBiomeSpecifier {
 	long coasts;
 	long fcoasts;
 	
+	boolean makeCoasts;
 	
 	public void init() {
 		coasts  = ModBiomes.coast.getIdForBiome(ModBiomes.coast);
 		fcoasts = ModBiomes.frozenCoast.getIdForBiome(ModBiomes.frozenCoast);
+		makeCoasts = settings.hasCoasts;
 		// Shallows
 		frozen = new BiomeList();
 		cold   = new BiomeList();
@@ -106,7 +108,7 @@ public class GetOcean implements IBiomeSpecifier {
 		int temp = tile.getTemp();
 		int seed = tile.getBiomeSeed();
 		int iceNoise = tile.getNoise();
-		if(tile.isBeach() && !tile.isRiver() && !swampy(tile)) {
+		if(makeCoasts && tile.isBeach() && !tile.isRiver() && !swampy(tile)) {
 			tile.setSteep();
 	        if(((iceNoise / 2) - temp) > -1) {
 	        	return fcoasts;
