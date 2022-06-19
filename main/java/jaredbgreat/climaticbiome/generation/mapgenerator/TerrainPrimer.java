@@ -2,6 +2,7 @@ package jaredbgreat.climaticbiome.generation.mapgenerator;
 
 import static jaredbgreat.climaticbiome.generation.mapgenerator.MapMaker.RSIZE;
 
+import jaredbgreat.climaticbiome.biomes.ModBiomes;
 import jaredbgreat.climaticbiome.configuration.ClimaticWorldSettings;
 import jaredbgreat.climaticbiome.generation.map.IRegionMap;
 import jaredbgreat.climaticbiome.util.NoiseMap2D;
@@ -33,8 +34,7 @@ public class TerrainPrimer {
 			int x = i / D;
 			int z = i % D;
 			int max = scale.width - 2;
-			if((x > 1) && (x < max) && (z > 1) && (z < max) 
-					&& (tiles[i].shouldSmooth())) {
+			if((tiles[i].shouldSmooth())) {
 				smooth(tiles, x, z, scale, scratch);
 			} else {
 				scratch[i][0] = tiles[i].height;
@@ -66,85 +66,24 @@ public class TerrainPrimer {
 			scratch[loc][1] = tiles[loc].scale;	
 			return;
 		}
-		//Row 2 up
-		ch += tiles[x - 2 + ((z - 2) * size.width)].height;
-		cs += tiles[x - 2 + ((z - 2) * size.width)].scale;
-		ch += tiles[x - 1 + ((z - 2) * size.width)].height;
-		cs += tiles[x - 1 + ((z - 2) * size.width)].scale;
-		ch += tiles[x + ((z - 2) * size.width)].height;
-		cs += tiles[x + ((z - 2) * size.width)].scale;
-		ch += tiles[x + 1 + ((z - 2) * size.width)].height;
-		cs += tiles[x + 1 + ((z - 2) * size.width)].scale;
-		ch += tiles[x + 2 + ((z - 2) * size.width)].height;
-		cs += tiles[x + 2 + ((z - 2) * size.width)].scale;
-		//Row 1 up
-		ch += tiles[x - 2 + ((z - 1) * size.width)].height;
-		cs += tiles[x - 2 + ((z - 1) * size.width)].scale;
-		ch += tiles[x - 1 + ((z - 1) * size.width)].height;
-		cs += tiles[x - 1 + ((z - 1) * size.width)].scale;
-		bh += tiles[x - 1 + ((z - 1) * size.width)].height;
-		bs += tiles[x - 1 + ((z - 1) * size.width)].scale;
-		ch += tiles[x + ((z - 1) * size.width)].height;
-		cs += tiles[x + ((z - 1) * size.width)].scale;
-		bh += tiles[x + ((z - 1) * size.width)].height;
-		bs += tiles[x + ((z - 1) * size.width)].scale;
-		ch += tiles[x + 1 + ((z - 1) * size.width)].height;
-		cs += tiles[x + 1 + ((z - 1) * size.width)].scale;
-		bh += tiles[x + 1 + ((z - 1) * size.width)].height;
-		bs += tiles[x + 1 + ((z - 1) * size.width)].scale;
-		ch += tiles[x + 2 + ((z - 1) * size.width)].height;
-		cs += tiles[x + 2 + ((z - 1) * size.width)].scale;
-		//Center row
-		ch += tiles[x - 2 + ((z) * size.width)].height;
-		cs += tiles[x - 2 + ((z) * size.width)].scale;
-		ch += tiles[x - 1 + ((z) * size.width)].height;
-		cs += tiles[x - 1 + ((z) * size.width)].scale;
-		bh += tiles[x - 1 + ((z) * size.width)].height;
-		bs += tiles[x - 1 + ((z) * size.width)].scale;
-		ch += tiles[x + ((z) * size.width)].height;
-		cs += tiles[x + ((z) * size.width)].scale;
-		bh += tiles[x + ((z) * size.width)].height;
-		bs += tiles[x + ((z) * size.width)].scale;
-		ch += tiles[x + 1 + ((z) * size.width)].height;
-		cs += tiles[x + 1 + ((z) * size.width)].scale;
-		bh += tiles[x + 1 + ((z) * size.width)].height;
-		bs += tiles[x + 1 + ((z) * size.width)].scale;
-		ch += tiles[x + 2 + ((z) * size.width)].height;
-		cs += tiles[x + 2 + ((z) * size.width)].scale;
-		//Row 1 down
-		ch += tiles[x - 2 + ((z + 1) * size.width)].height;
-		cs += tiles[x - 2 + ((z + 1) * size.width)].scale;
-		ch += tiles[x - 1 + ((z + 1) * size.width)].height;
-		cs += tiles[x - 1 + ((z + 1) * size.width)].scale;
-		bh += tiles[x - 1 + ((z + 1) * size.width)].height;
-		bs += tiles[x - 1 + ((z + 1) * size.width)].scale;
-		ch += tiles[x + ((z + 1) * size.width)].height;
-		cs += tiles[x + ((z + 1) * size.width)].scale;
-		bh += tiles[x + ((z + 1) * size.width)].height;
-		bs += tiles[x + ((z + 1) * size.width)].scale;
-		ch += tiles[x + 1 + ((z + 1) * size.width)].height;
-		cs += tiles[x + 1 + ((z + 1) * size.width)].scale;
-		bh += tiles[x + 1 + ((z + 1) * size.width)].height;
-		bs += tiles[x + 1 + ((z + 1) * size.width)].scale;
-		ch += tiles[x + 2 + ((z + 1) * size.width)].height;
-		cs += tiles[x + 2 + ((z + 1) * size.width)].scale;
-		//Row 2 down
-		ch += tiles[x - 2 + ((z + 2) * size.width)].height;
-		cs += tiles[x - 2 + ((z + 2) * size.width)].scale;
-		ch += tiles[x - 1 + ((z + 2) * size.width)].height;
-		cs += tiles[x - 1 + ((z + 2) * size.width)].scale;
-		bh += tiles[x - 1 + ((z + 2) * size.width)].height;
-		bs += tiles[x - 1 + ((z + 2) * size.width)].scale;
-		ch += tiles[x + ((z + 2) * size.width)].height;
-		cs += tiles[x + ((z + 2) * size.width)].scale;
-		bh += tiles[x + ((z + 2) * size.width)].height;
-		bs += tiles[x + ((z + 2) * size.width)].scale;
-		ch += tiles[x + 1 + ((z + 2) * size.width)].height;
-		cs += tiles[x + 1 + ((z + 2) * size.width)].scale;
-		bh += tiles[x + 1 + ((z + 2) * size.width)].height;
-		bs += tiles[x + 1 + ((z + 2) * size.width)].scale;
-		ch += tiles[x + 2 + ((z + 2) * size.width)].height;
-		cs += tiles[x + 2 + ((z + 2) * size.width)].scale;
+		int i2, j2, index, max;
+		max = size.width - 1;
+		for(int i = -2; i < 3; i++)
+			for(int j = -2; j < 3; j++) {
+				 i2 = Math.max(Math.min(x + i, max), 0);
+				 j2 = Math.max(Math.min(z + j, max), 0);
+				 index = (j2 * size.width) + i2;
+				 ch += tiles[index].height;
+				 cs += tiles[index].scale;
+		}
+		for(int i = -1; i < 2; i++)
+			for(int j = -1; j < 2; j++) {
+				 i2 = Math.max(Math.min(x + i, max), 0);
+				 j2 = Math.max(Math.min(z + j, max), 0);
+				 index = (j2 * size.width) + i2;
+				 bh += tiles[index].height;
+				 bs += tiles[index].scale;
+		}
 		//Divisions and completion
 		bh /=9;
 		bs /=9;
@@ -153,10 +92,15 @@ public class TerrainPrimer {
 		//Apply
 		if(BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)) {
 			scratch[loc][0] = Math.min(((tiles[loc].height + bh + ch) / 3), Math.max(-0.2, biome.getBaseHeight()));
+			scratch[loc][1] = ((tiles[loc].scale + bs + cs) / 3);
+		} else if(biome == ModBiomes.activeVolcano) {
+			scratch[loc][0] = Math.max(tiles[loc].height,Math.max(((tiles[loc].height + bh + ch) / 3), 
+					Math.min(0, biome.getBaseHeight())));
+			scratch[loc][1] = ((tiles[loc].scale + bs + cs) / 3);
 		} else {
-			scratch[loc][0] = Math.max(((tiles[loc].height + bh + ch) / 3), Math.min(0, biome.getBaseHeight()));
+			scratch[loc][0] = ch;
+			scratch[loc][1] = cs;
 		}
-		scratch[loc][1] = ((tiles[loc].scale + bs + cs) / 3);
 	}
 	
 	

@@ -23,7 +23,7 @@ public enum TerrainType {
 	// Used for plateaus, before setting them to STEEP
 	PLATEAU (new PlateauHeightAdjuster(), false),
 	// Used for swamps, before setting them to STEEP
-	SWAMP (new SwampHeightAdjuster(), true);    
+	SWAMP (new SwampHeightAdjuster(), false);    
 	
 	public static final TerrainType[] types = values(); // Just make it public, with no method call... 
 	
