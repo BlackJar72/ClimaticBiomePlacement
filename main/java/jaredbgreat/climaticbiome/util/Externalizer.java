@@ -43,6 +43,12 @@ public class Externalizer {
 		"AplineWetWarm.cfg",
 		"AplineDryHot.cfg",
 		"AplineWetHot.cfg",
+		"BeachCold.cfg",
+		"BeachCool.cfg",
+		"BeachRocky.cfg",
+		"BeachTemporate.cfg",
+		"BeachWarm.cfg",
+		"BeachHot.cfg",
 		"ChaparralScrub.cfg",
 		"DeepOceanCold.cfg",
 		"DeepOceanCool.cfg",
@@ -97,6 +103,7 @@ public class Externalizer {
 		"DefiledLands",
 		"Redwoods",
 		"NovamTerram",
+		"Zoesteria",
 		"special"
 	};
 	
@@ -162,7 +169,7 @@ public class Externalizer {
 			while((line = instream.readLine()) != null) {
 				outstream.write(line + System.lineSeparator());
 			} else {
-				System.err.println("Error! Failed to write theme README file!");
+				System.err.println("Error! Failed to write theme " + outFile + " file!");
 			}
 		if(instream  != null) instream.close();
 		if(outstream != null) outstream.close();		
@@ -178,7 +185,7 @@ public class Externalizer {
 			while((line = instream.readLine()) != null) {
 				outstream.write(line + System.lineSeparator());
 			} else {
-				System.err.println("Error! Failed to write theme README file!");
+				System.err.println("Error! Failed to write theme " + name +" file!");
 			}
 		if(instream  != null) instream.close();
 		if(outstream != null) outstream.close();		

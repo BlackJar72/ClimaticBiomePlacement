@@ -1,5 +1,6 @@
 package jaredbgreat.climaticbiome.generation.biome.biomes;
 
+import jaredbgreat.climaticbiome.compat.userdef.DefReader;
 import jaredbgreat.climaticbiome.configuration.ConfigHandler;
 import jaredbgreat.climaticbiome.generation.biome.BiomeList;
 import jaredbgreat.climaticbiome.generation.biome.IBiomeSpecifier;
@@ -14,9 +15,12 @@ public class GetBeach implements IBiomeSpecifier {
 		init();
 	}
 	private BiomeList cold;
+	private BiomeList cool;
 	private BiomeList rock;
-	private BiomeList warm;
+	private BiomeList temp;
+	private BiomeList warm;	
 	private static int tbound;
+	private BiomeList hot;
 	
 	
 	public void init() {
@@ -26,12 +30,23 @@ public class GetBeach implements IBiomeSpecifier {
 			tbound = 7;
 		}
 		cold = new BiomeList();
+		cool = new BiomeList();
 		rock = new BiomeList();
+		temp = new BiomeList();
 		warm = new BiomeList();
-		// TODO: Make configurable
-		cold.addItem(new LeafBiome(Biome.getBiome(26)));
-		rock.addItem(new LeafBiome(Biome.getBiome(25)));
-		warm.addItem(new LeafBiome(Biome.getBiome(16)));
+		hot  = new BiomeList();
+		DefReader.readBiomeData(cold, "BeachCold.cfg");
+		DefReader.readBiomeData(rock, "BeachRocky.cfg");
+		DefReader.readBiomeData(cool, "BeachCool.cfg");
+		DefReader.readBiomeData(temp,  "BeachTemporate.cfg");
+		DefReader.readBiomeData(warm,  "BeachWarm.cfg");
+		DefReader.readBiomeData(hot,  "BeachHot.cfg");
+		if(cold.isEmpty()) cold.addItem(new LeafBiome(Biome.getBiome(26)));
+		if(rock.isEmpty()) rock.addItem(new LeafBiome(Biome.getBiome(25)));
+		if(warm.isEmpty()) warm.addItem(new LeafBiome(Biome.getBiome(16)));
+		if(temp.isEmpty()) temp = warm;
+		if(cool.isEmpty()) cool = temp;
+		if(hot.isEmpty())  hot  = warm;
 	}
 	
 	
@@ -41,7 +56,16 @@ public class GetBeach implements IBiomeSpecifier {
 		if(tile.getTemp() < tbound) {
 			return cold.getBiome(tile);
 		}
-		return warm.getBiome(tile);
+		int t = tile.getTemp();
+		if(t < 12) {
+			return cool.getBiome(tile);
+		} else if(t < 16) {
+			return temp.getBiome(tile);
+		} else if(t < 21) {
+			return warm.getBiome(tile);
+		} else {
+			return hot.getBiome(tile);
+		}
 	}
 	
 	
