@@ -35,7 +35,7 @@ public class ModMath {
      */
     public static float asymptote(float n, float start, float rate) {
     	if(n > start)
-    	return start + (rate / (n - start + 1));
+    	return start + (rate / (n - start + rate));
     	return n;
     }
     
@@ -57,7 +57,7 @@ public class ModMath {
      */
     public static double asymptote(double n, double start, double rate) {
     	if(n > start)
-    	return start + (rate / (n - start + 1));
+    	return start + (rate / (n - start + rate));
     	return n;
     }
 

@@ -46,7 +46,7 @@ public class TerrainPrimer {
 			int z = i % D;
 			tiles[i].height = scratch[i][0];
 			tiles[i].scale = (float) scratch[i][1];
-			if(tiles[i].height > 3) tiles[i].height = 4 - (1 / (tiles[i].height - 1));
+			if(tiles[i].height > 3) tiles[i].height = 4 - (1 / (tiles[i].height - 2));
 			datamap.setTerrainExpress(Math.max(Math.min((int)((averageHeight(tiles, x, z, scale.whole) 
 							 * 32d) + 128d), 255), 0) +
 					 (Math.max(Math.min((int)((averageScale(tiles, x, z, scale.whole)  
