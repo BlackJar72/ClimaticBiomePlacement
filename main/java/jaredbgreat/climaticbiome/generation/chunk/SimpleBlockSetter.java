@@ -27,7 +27,6 @@ public class SimpleBlockSetter implements IBlockSetter {
 	
     public void setBlocksInChunk(int x, int z, ChunkPrimer primer) {
     	int[][] heightmap = getHeihtmapForChunk(x, z, sprandom);
-    	int[] volumns = getVolumnsForChunk(x, z, sprandom);
     	for(int i = 0; i < 16; i++) 
 			for(int k = 0; k < 16; k++) {
 				// I've put too much time, stress, and self-destruction 
@@ -35,7 +34,7 @@ public class SimpleBlockSetter implements IBlockSetter {
 				// still stumped.  This should work for the "Minecraft 
 				// terrain is too unrealistic" crowd, and is fast.
 				for(int j = 0; j < 256; j++) {
-					int h = Math.max(heightmap[0][(i * 16) + k], volumns[(((i * 16) + k) * 256) + j]);
+					int h = heightmap[0][(i * 16) + k];
 					if((j < h)) {
 				        primer.setBlockState(i, j, k, STONE);
 				    } else if (j < 63) {
@@ -50,12 +49,6 @@ public class SimpleBlockSetter implements IBlockSetter {
     private int[][] getHeihtmapForChunk(int x, int z, SpatialHash rand) {
     	ClimaticBiomeProvider provider = (ClimaticBiomeProvider)world.getBiomeProvider();
     	return heightMapManager.getChunkHieghts(x, z, rand, provider.getTerrainBiomeGen(x, z));
-    }
-    
-    // FIXME? Should this return and int[] or should I use a byte[]?
-    private int[] getVolumnsForChunk(int x, int z, SpatialHash rand) {
-    	ClimaticBiomeProvider provider = (ClimaticBiomeProvider)world.getBiomeProvider();
-    	return volMapManager.getChunkHieghts(x, z, rand, provider.getTerrainBiomeGen(x, z));
     }
 
 }

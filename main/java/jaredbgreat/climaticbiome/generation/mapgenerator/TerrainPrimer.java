@@ -54,9 +54,7 @@ public class TerrainPrimer {
 		}
 	}
 	
-	/*
-	 * This is broken!
-	 */
+	
 	private void smooth(ChunkTile[] tiles, int x, int z, SizeScale size, double[][] scratch) {
 		int loc = x + (z * size.width);
 		double bh = 0, bs = 0, ch = 0, cs = 0;

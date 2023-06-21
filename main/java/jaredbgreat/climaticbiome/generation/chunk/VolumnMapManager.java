@@ -13,7 +13,7 @@ public class VolumnMapManager {
 	}
 	
 	
-	public int[] getChunkHieghts(int x, int z, SpatialHash rand, float[] biomeData) {
+	public VolumnMapArea getChunkNoise(int x, int z, SpatialHash rand) {
     	x += 0x4fffffff; z += 0x4fffffff;
 		int ax = x / CSIZE;
 		int az = z / CSIZE;
@@ -22,20 +22,7 @@ public class VolumnMapManager {
 			area = new VolumnMapArea(ax, az, rand, this);
 			cache.add(area);			
 		}
-		return area.getChunkHieghts(x, z, biomeData);		
-	}
-	
-	
-	public float[] getChunkNoise(int x, int z, SpatialHash rand, float[] biomeData) {
-    	x += 0x4fffffff; z += 0x4fffffff;
-		int ax = x / CSIZE;
-		int az = z / CSIZE;
-		VolumnMapArea area = cache.get(ax, az);
-		if(area == null) {
-			area = new VolumnMapArea(ax, az, rand, this);
-			cache.add(area);			
-		}
-		return area.getChunkNoise(x, z, biomeData);		
+		return area;		
 	}
 
 }

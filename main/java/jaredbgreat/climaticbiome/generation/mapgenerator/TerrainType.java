@@ -147,7 +147,7 @@ public enum TerrainType {
 		@Override
 		public void processTile(ChunkTile tile, ClimaticWorldSettings settings) {
 			Biome biome = Biome.getBiome(tile.rlBiome, Biomes.DEFAULT);
-			tile.height = (biome.getBaseHeight()) + (tile.height * 0.1f);
+			tile.height = Math.max((biome.getBaseHeight()) + (tile.height * 0.1f), tile.height);
 			tile.scale = biome.getHeightVariation() + 0.05f + (tile.scale * 0.1f);
 			tile.terrainType = STEEP;
 		}

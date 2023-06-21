@@ -120,7 +120,6 @@ public class HeightNoiseMap {
         out /= 2.0;
         
         if((out >= 0.99) || (out <= -0.99)) {
-            System.out.println(out);
             out = 0.0f;
         }
         return out;
