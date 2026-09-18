@@ -126,6 +126,8 @@ public class MapMaker {
             basins.addAll(Arrays.asList(region.basins));
             temp.addAll(Arrays.asList(region.temp));
             wet.addAll(Arrays.asList(region.wet));
+            // This is not doing what I wanted; simple makes everything wet, weighted makes everything desert
+            //wet = (ArrayList<ClimateNode>)ClimateNode.normalizeListWeighted(wet, 10);
         }
         BasinNode[] basinAr = basins.toArray(new BasinNode[basins.size()]);
         ClimateNode[] tempAr = temp.toArray(new ClimateNode[temp.size()]);

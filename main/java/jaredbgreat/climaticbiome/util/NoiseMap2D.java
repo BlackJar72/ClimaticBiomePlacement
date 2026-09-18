@@ -80,8 +80,8 @@ public class NoiseMap2D {
      * @param startz 
      */
     private void processOne(int startz) {
-        int nodesX = size / currentInterval + 1;
-        int nodesY = size / currentInterval + 1;
+        int nodesX = Math.max(size / currentInterval + 1, 2);
+        int nodesY = Math.max(size / currentInterval + 1, 2);
         Vec2D[][] nodes = new Vec2D[nodesX][nodesY];
         for(int i = 0; i < nodesX; i++)
             for(int j = 0; j < nodesY; j++) {

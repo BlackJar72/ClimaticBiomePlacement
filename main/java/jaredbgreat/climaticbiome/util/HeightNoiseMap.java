@@ -16,6 +16,7 @@ package jaredbgreat.climaticbiome.util;
 public class HeightNoiseMap {
     int xOff, zOff, sizex, sizez, interval, cutoff, currentInterval;
     float[][] field;
+    Vec2D[][] nodes;
     float scale, divisor;
     
     
@@ -48,6 +49,9 @@ public class HeightNoiseMap {
         xOff = x;
         zOff = z; 
         field = new float[sizex][sizez];
+        int nodesX = Math.max(sizex / cutoff + 1, 2);
+        int nodesY = Math.max(sizez / cutoff + 1, 2);
+        nodes = new Vec2D[nodesX][nodesY];
         currentInterval = interval;
         divisor = 1.0f;
         while(currentInterval > cutoff) {
@@ -71,6 +75,9 @@ public class HeightNoiseMap {
     public float[][] process(SpatialHash rand)  {
         int x = zOff = 0;
         field = new float[sizex][sizez];
+        int nodesX = Math.max(sizex / cutoff + 1, 2);
+        int nodesY = Math.max(sizez / cutoff + 1, 2);
+        nodes = new Vec2D[nodesX][nodesY];
         currentInterval = interval;
         divisor = 1.0f;
         while(currentInterval > 2) {
@@ -83,9 +90,8 @@ public class HeightNoiseMap {
     
     
     private void processOne(SpatialHash rand) {
-        int nodesX = sizex / currentInterval + 1;
-        int nodesY = sizez / currentInterval + 1;
-        Vec2D[][] nodes = new Vec2D[nodesX][nodesY];
+        int nodesX = Math.max(sizex / currentInterval + 1, 2);
+        int nodesY = Math.max(sizez / currentInterval + 1, 2);
         for(int i = 0; i < nodesX; i++)
             for(int j = 0; j < nodesY; j++) {
                 nodes[i][j] = new Vec2D(rand, i + xOff / currentInterval, 
@@ -93,12 +99,12 @@ public class HeightNoiseMap {
         }
         for(int i = 0; i < sizex; i++)
             for(int j = 0; j < sizez; j++) {
-                field[i][j] += processPoint(nodes, i, j) * scale;// / divisor;
+                field[i][j] += processPoint(i, j) * scale;// / divisor;
         }
     }
     
     
-    public float processPoint(Vec2D[][] nodes, int x, int y) {
+    public float processPoint(int x, int y) {
         float out = 0.0f;
         
         float ci = (float)currentInterval;        

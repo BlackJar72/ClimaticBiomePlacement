@@ -5,6 +5,9 @@
  */
 package jaredbgreat.climaticbiome.generation.mapgenerator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author jared
@@ -95,5 +98,9 @@ public class BasinNode {
     public String briefString() {
         return "    [x=" + x + ", z=" + z + "] ";
     }
+    
+    
+    
+    
     
 }

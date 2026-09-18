@@ -46,7 +46,7 @@ public class LandmassMaker {
                         = edgeFix(out[(i * size) + j], 
                                 BasinNode.summateEffect(basins, 
                                         out[(i * size) + j], 
-                                scale.inv));
+                                        scale.inv));
                 out[(i * size) + j].val = (int)out[(i * size) + j].height;
                 out[(i * size) + j].height /= 10.0;
                 out[(i * size) + j].height = ((out[(i * size) + j].height 

@@ -42,7 +42,7 @@ public class NewRegionMap extends AbstractCachable implements IRegionMap {
      * this should contain the real biome in the lower byte and the 
      * id of the variant in the second byte.
      * 
-     * The id will be returned as an int.
+     * The id will be returned as a long.
      * 
      * @param x relative chunk x within region
      * @param z relative chunk x within region

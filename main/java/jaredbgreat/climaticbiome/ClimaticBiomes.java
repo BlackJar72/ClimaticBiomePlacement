@@ -15,6 +15,7 @@ import jaredbgreat.climaticbiome.generation.mutators.SpecialGenHandler;
 import jaredbgreat.climaticbiome.proxy.IProxy;
 import jaredbgreat.climaticbiome.util.BlockRegistrar;
 import jaredbgreat.climaticbiome.util.Externalizer;
+import jaredbgreat.climaticbiome.util.ImageExporter;
 import jaredbgreat.climaticbiome.util.ItemRegistrar;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
@@ -28,6 +29,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 
@@ -123,6 +125,12 @@ public class ClimaticBiomes {
     		WorldType.WORLD_TYPES[0] = climaticWorldType;
     	}
     }
+    
+    /*@EventHandler
+    public void serverLoad(FMLServerStartingEvent event)
+    {
+    	event.registerServerCommand(new ImageExporter());
+    }*/
     
 
 }

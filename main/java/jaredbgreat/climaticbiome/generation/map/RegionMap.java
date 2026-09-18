@@ -13,7 +13,7 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
     
     final int[] data;
     
-    final int[] shit;
+    final int[] dat2;
     
     static int n = 0;
     
@@ -23,7 +23,7 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
         bWidth = width * 16;
         dataSize = width * width;
         data = new int[dataSize];
-        shit = new int[dataSize];
+        dat2 = new int[dataSize];
         n++;
     }
     
@@ -205,7 +205,7 @@ public class RegionMap extends AbstractCachable implements IRegionMap  {
 	public void setTerrainExpress(int terrain, int i) {
 		int fuck = data[i];
 		data[i] |= terrain << 16;
-		shit[i] |= terrain << 16;
+		dat2[i] |= terrain << 16;
 	}
     
     

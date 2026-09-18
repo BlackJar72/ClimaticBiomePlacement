@@ -15,6 +15,7 @@ package jaredbgreat.climaticbiome.util;
 public class NoiseMap3D {
     int size, interval, cutoff, currentInterval, regx, regy, regz;
     double[][][] field;
+    Vec3D[][][] nodes;
     double scale, divisor;
     SpatialHash random;
 
@@ -57,6 +58,10 @@ public class NoiseMap3D {
      */
     public double[][][] process(int startz)  {
         field = new double[size][size][size];
+        int nodesX = Math.max(size / cutoff + 1, 2);
+        int nodesY = Math.max(size / cutoff + 1, 2);
+        int nodesZ = Math.max(size / cutoff + 1, 2);
+        Vec3D[][][] nodes = new Vec3D[nodesX][nodesY][nodesZ];
         currentInterval = interval;
         divisor = 1.0;
         while(currentInterval > cutoff) {
@@ -76,10 +81,9 @@ public class NoiseMap3D {
      * @param startz 
      */
     private void processOne(int startz) {
-        int nodesX = size / currentInterval + 1;
-        int nodesY = size / currentInterval + 1;
-        int nodesZ = size / currentInterval + 1;
-        Vec3D[][][] nodes = new Vec3D[nodesX][nodesY][nodesZ];
+        int nodesX = Math.max(size / currentInterval + 1, 2);
+        int nodesY = Math.max(size / currentInterval + 1, 2);
+        int nodesZ = Math.max(size / currentInterval + 1, 2);
         for(int i = 0; i < nodesX; i++)
             for(int j = 0; j < nodesY; j++)
                 for(int k = 0; k < nodesZ; k++) {
@@ -91,7 +95,7 @@ public class NoiseMap3D {
         for(int i = 0; i < size; i++)
             for(int j = 0; j < size; j++) 
                 for(int k = 0; k < size; k++) {
-                	field[i][j][k] += processPoint(nodes, i, j, k) * scale;
+                	field[i][j][k] += processPoint(i, j, k) * scale;
         }
     }
     
@@ -107,7 +111,7 @@ public class NoiseMap3D {
      * @param y
      * @return 
      */
-    public double processPoint(Vec3D[][][] nodes, int x, int y, int z) {
+    public double processPoint(int x, int y, int z) {
         double out = 0.0;
         
         double ci = (double)currentInterval;        
