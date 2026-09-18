@@ -11,6 +11,11 @@ of interest to build multi-step procedural quests around, had I kept
 on that path with it).  Ultimately, however, it turned into a way to 
 simply put biomes into a Minecraft world in a way that made more sense.
 
+A deep dive into how the mod works, its background, and the rationales for 
+why it works the way it does can be found on Youtube here:
+
+[https://youtu.be/ixX3j-wXgFw](https://youtu.be/zllOCf4Pp7M)
+
 Basically, this is what I'd hoped the Minecraft 1.7 update would be
 like (and also more-or-less how I assumed biomes worked when I first 
 found my second biome in game, but in 1.4.7).  To me this brings back 
